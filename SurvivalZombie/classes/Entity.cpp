@@ -8,7 +8,7 @@ Entity::Entity()
 	this->active = 1;
 }
 
-void Entity::Update( sf::RenderWindow * window )
+void Entity::Update( sf::RenderWindow* window )
 {
 	
 }
@@ -25,7 +25,8 @@ int Entity::GroupID() const
 
 Entity::~Entity()
 {
-
+	delete fixture;
+	//delete body;
 }
 
 

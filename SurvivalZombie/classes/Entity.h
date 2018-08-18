@@ -12,7 +12,8 @@ class Entity
 {
 public:
 	Entity();
-	virtual void			Update( sf::RenderWindow * window ) = 0;
+	virtual void			Update(sf::RenderWindow * window) = 0;
+	virtual void			Render( sf::RenderWindow * window ) = 0;
 	virtual void			StartContact( Entity * entity ) = 0;
 	virtual void			EndContact( Entity * entity ) = 0;
 	int						Active() const;
@@ -23,7 +24,10 @@ protected:
 	int						groupID;
 	int						active;
 	b2Body *				body;
+	b2Fixture *				fixture;
 	std::string				name;
+	//static b2World&			world;
+	sf::RenderTexture*		texture;
 };
 
 

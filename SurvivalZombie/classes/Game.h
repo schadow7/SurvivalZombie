@@ -6,6 +6,7 @@
 //#include "Brick.h"
 #include <vector>
 #include <map>
+#include "Zombie.h"
 
 
 class Game
@@ -27,5 +28,8 @@ private:
 	EntityManager *							entity_manager;
 	std::map<std::string, sf::Texture *>	textures;
 	sf::Sprite								background;
+	std::vector<Zombie*>					zombieList;
+	b2World*								world;
+
 
 };
