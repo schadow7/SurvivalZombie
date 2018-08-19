@@ -9,7 +9,6 @@ public:
 	virtual				~DynamicBody();
 	void				SetVelocity(b2Vec2 velocity);
 	void				ApplyForce(b2Vec2 force);
-	virtual void		Action() = 0;
 
 protected:
 	b2Vec2				velocity;

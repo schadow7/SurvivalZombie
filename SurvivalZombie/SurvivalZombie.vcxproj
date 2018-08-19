@@ -133,6 +133,7 @@
     <ClCompile Include="classes\Game.cpp" />
     <ClCompile Include="classes\MainWindow.cpp" />
     <ClCompile Include="classes\Zombie.cpp" />
+    <ClCompile Include="classes\ZombieManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="classes\Game.h" />
     <ClInclude Include="classes\MainWindow.h" />
     <ClInclude Include="classes\Zombie.h" />
+    <ClInclude Include="classes\ZombieManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -4,6 +4,7 @@ Game::Game()
 {
 	world = new b2World( b2Vec2(0.f, 0.f ));
 	entity_manager = new EntityManager( world );
+	zombie_manager = new ZombieManager(zombieList);
 	sf::Texture * tmp = new sf::Texture;
 	tmp->loadFromFile( ".\\graphics\\background.png" );
 	textures.insert( std::pair<std::string, sf::Texture*> ("background", tmp) );
@@ -50,6 +51,7 @@ void Game::runGame(sf::RenderWindow * window)
 		//Wyœwietlenie obrazu
 		window->clear();
 		window->draw( background );
+		zombie_manager->AIStep();
 		entity_manager->Render(window);
 
 		//Wyœwietlenie obrazu

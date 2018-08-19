@@ -6,6 +6,6 @@ class AIType
 public:
 	AIType();
 	virtual ~AIType();
-	virtual b2Vec2 Move()=0;
+	virtual b2Vec2 Move(b2Vec2 position, b2Vec2 player_position)=0;
 };
 

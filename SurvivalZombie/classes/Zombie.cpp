@@ -1,22 +1,26 @@
 #include "Zombie.h"
 #include"Aggressive.h"
 #include <iostream>
+#include <math.h>
 Zombie::Zombie(b2World *world, b2Vec2 position) :
 	DynamicBody(world),
 	speed(1)
 {
+	//base stats 
+	hitpoints = 100;
 	AIType = new Aggressive();
 	body->SetTransform(position, body->GetAngle());
 	//fixture
 	b2CircleShape zombieShape;
-	zombieShape.m_radius = 1;
+	zombieShape.m_radius = 25/SCALE;
 	b2FixtureDef zombieFixtureDef;
 	zombieFixtureDef.shape = &zombieShape;
 	zombieFixtureDef.density = 1;
 	body->CreateFixture(&zombieFixtureDef);
-	//SFML
-	shape.setRadius(5);
-	shape.setFillColor(sf::Color(255, 0, 0));
+	////SFML
+		texture.loadFromFile(".\\graphics\\skeleton.png");
+		shape.setTexture(&texture);
+		shape.setRadius(25);
 }
 
 Zombie::~Zombie()
@@ -24,9 +28,12 @@ Zombie::~Zombie()
 	delete AIType;
 }
 
-void Zombie::Action()
+void Zombie::Action(b2Vec2 player_position)
 {
-	;
+	b2Vec2 dir = AIType->Move(body->GetPosition(),player_position);
+	float32 angle =atan2(dir.y , dir.x);
+	body->SetTransform(body->GetPosition(), angle);
+	body->SetLinearVelocity(b2Vec2(dir.x*speed,dir.y*speed));
 }
 void Zombie::StartContact(Entity*) 
 {

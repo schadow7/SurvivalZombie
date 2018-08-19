@@ -11,7 +11,10 @@ Aggressive::~Aggressive()
 {
 }
 
-b2Vec2 Aggressive::Move()
+b2Vec2 Aggressive::Move(b2Vec2 position, b2Vec2 player_position)
 {
-	return b2Vec2(0,0);
+	b2Vec2 temp = player_position - position;
+	temp.x = temp.x / temp.Length();
+	temp.y = temp.y / temp.Length();
+	return temp;
 }
