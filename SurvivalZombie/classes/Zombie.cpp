@@ -1,6 +1,7 @@
 #include "Zombie.h"
 #include"Aggressive.h"
-Zombie::Zombie(b2World world, b2Vec2 position) :
+#include <iostream>
+Zombie::Zombie(b2World *world, b2Vec2 position) :
 	DynamicBody(world),
 	speed(1)
 {
@@ -13,7 +14,9 @@ Zombie::Zombie(b2World world, b2Vec2 position) :
 	zombieFixtureDef.shape = &zombieShape;
 	zombieFixtureDef.density = 1;
 	body->CreateFixture(&zombieFixtureDef);
-
+	//SFML
+	shape.setRadius(5);
+	shape.setFillColor(sf::Color(255, 0, 0));
 }
 
 Zombie::~Zombie()
@@ -35,14 +38,14 @@ void Zombie::EndContact(Entity*)
 }
 void Zombie::Render(sf::RenderWindow* window)
 {
-	//TEMP
-	sf::Sprite sprite;
-	sf::CircleShape tempShape;
-	tempShape.setRadius(5);
-	tempShape.setFillColor(sf::Color(255, 0, 0));
-	window->draw(tempShape);
+	;
 }
 void Zombie::Update(sf::RenderWindow* window)
 {
-	;
+	//std::cout << "BoX: " << this->body->GetPosition().x << " " << this->body->GetPosition().x << " SFML: " << shape.getPosition().x << " " << shape.getPosition().y << std::endl;
+	shape.setPosition(SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y);
+	//shape.setPosition(SCALE * 2, SCALE * 2);
+	shape.setRotation(180 / b2_pi * this->body->GetAngle());
+	window->draw(shape);
+	
 }

@@ -2,6 +2,7 @@
 
 EntityManager::EntityManager(b2World * world)
 {
+	this->world = world;
 	listener = new ContactListener( world );
 }
 
@@ -24,10 +25,8 @@ void EntityManager::Render( sf::RenderWindow * window )
 	world->Step( 1 / 60.f, 8, 3 );
 
 	//Rysowanie obiektów symulowanych przez Box2D
-	for ( auto & it : entities )
-	{
-		it->Update( window );
-	}
-
-
+		for (auto & it : entities)
+		{
+			it->Update(window);
+		}
 }

@@ -30,6 +30,6 @@ private:
 	sf::Sprite								background;
 	std::vector<Zombie*>					zombieList;
 	b2World*								world;
-
+	Zombie* zombieTester;
 
 };

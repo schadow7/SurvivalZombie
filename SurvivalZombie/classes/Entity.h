@@ -11,6 +11,7 @@
 class Entity
 {
 public:
+	const float SCALE = 100.f;  //	MetersToPixelsFactor 
 	Entity();
 	virtual void			Update(sf::RenderWindow * window) = 0;
 	virtual void			Render( sf::RenderWindow * window ) = 0;

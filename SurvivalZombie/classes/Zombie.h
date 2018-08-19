@@ -5,7 +5,7 @@ class Zombie :
 	public DynamicBody
 {
 public:
-	Zombie(b2World world,b2Vec2 position);
+	Zombie(b2World* world,b2Vec2 position);
 	~Zombie();
 	void Action();
 	void StartContact(Entity*);
@@ -14,7 +14,8 @@ public:
 	void Update(sf::RenderWindow* window);
 private:
 AIType* AIType;
-double speed;
+	double speed;
+	sf::CircleShape shape;
 
 };
 

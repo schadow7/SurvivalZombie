@@ -14,7 +14,9 @@ Game::Game()
 	background.setTexture( *textures.at( "background" ) );
 	background.setTextureRect( sf::IntRect( 0, 0, 20000, 20000 ) );
 	//TEMP undead tester
-	zombieList.push_back(new Zombie(*world, b2Vec2(1, 1)));
+	//Zombie* zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
+	//zombieList.push_back(zombieTester);
+	//entity_manager->AddEntity(zombieTester);
 }
 
 Game::~Game()
@@ -36,11 +38,19 @@ void Game::runGame(sf::RenderWindow * window)
 			if ( event.type == sf::Event::Closed )
 				window->close();
 		}
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+				int mouseX = sf::Mouse::getPosition(*window).x;
+				int mouseY = sf::Mouse::getPosition(*window).y;
+				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
+				Zombie* zombieTester = new Zombie(world, b2Vec2(mouseX, mouseY));
+				zombieList.push_back(zombieTester);
+				entity_manager->AddEntity(zombieTester);
+		}
 		//Wyœwietlenie obrazu
 		window->clear();
 		window->draw( background );
-		zombieList[0]->SetVelocity(b2Vec2(10, 1));
-		zombieList[0]->Render(window);
+		entity_manager->Render(window);
 
 		//Wyœwietlenie obrazu
 		window->display();

@@ -8,10 +8,6 @@ Entity::Entity()
 	this->active = 1;
 }
 
-void Entity::Update( sf::RenderWindow* window )
-{
-	
-}
 
 int Entity::Active() const
 {
