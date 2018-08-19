@@ -1,1 +1,1 @@
-<center>![GitHub Logo](/docs/images/zombie_logo.png)</center>
+<div style="text-align:center"><img src ="/docs/images/zombie_logo.png" /></div>
