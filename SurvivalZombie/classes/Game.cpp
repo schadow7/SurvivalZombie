@@ -44,7 +44,7 @@ void Game::runGame(sf::RenderWindow * window)
 				int mouseX = sf::Mouse::getPosition(*window).x;
 				int mouseY = sf::Mouse::getPosition(*window).y;
 				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
-				Zombie* zombieTester = new Zombie(world, b2Vec2(mouseX, mouseY));
+				Zombie* zombieTester = new Zombie(world, b2Vec2(mouseX/100, mouseY/100));
 				zombieList.push_back(zombieTester);
 				entity_manager->AddEntity(zombieTester);
 		}

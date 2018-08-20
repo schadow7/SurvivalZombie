@@ -15,8 +15,7 @@ public:
 private:
 	AIType* AIType;
 	double speed;
-	sf::CircleShape shape; 
-	sf::Texture texture;
-
+	sf::Sprite sprite;
+	int size; //rozmair zombie w pikselach
 };
 

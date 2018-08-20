@@ -2,11 +2,11 @@
 
 
 
-DynamicBody::DynamicBody(b2World* world)
+DynamicBody::DynamicBody(b2World* world, b2Vec2 position)
 {
 	b2BodyDef myBodyDef;
 	myBodyDef.type = b2_dynamicBody;
-	myBodyDef.position.Set(0.f,0.f);
+	myBodyDef.position = position;
 	myBodyDef.angle = 0;
 	body = world->CreateBody(&myBodyDef);
 	body->SetLinearVelocity(b2Vec2_zero);
