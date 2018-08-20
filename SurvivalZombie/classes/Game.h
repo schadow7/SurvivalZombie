@@ -34,4 +34,5 @@ private:
 	b2World *								world;
 	Zombie *								zombieTester;
 	Player *								player;
+	sf::Clock								clock;
 };

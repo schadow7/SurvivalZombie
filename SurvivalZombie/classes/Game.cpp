@@ -42,6 +42,7 @@ void Game::loadTextures()
 void Game::runGame(sf::RenderWindow * window)
 {
 	initializeGame();
+	sf::Time time;
 	while ( window->isOpen() )
 	{
 		b2Vec2 velocity = b2Vec2_zero;
@@ -54,6 +55,14 @@ void Game::runGame(sf::RenderWindow * window)
 		}
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
+				time = clock.getElapsedTime();
+				if ( time > sf::milliseconds( 100 ) )
+				{
+					time = clock.restart();
+					sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
+					sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
+				}
+			
 				int mouseX = sf::Mouse::getPosition(*window).x;
 				int mouseY = sf::Mouse::getPosition(*window).y;
 				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
