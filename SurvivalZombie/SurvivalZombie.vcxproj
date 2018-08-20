@@ -76,11 +76,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../External_Libraries/Box2D/include;$(SolutionDir)/../External_Libraries/SFML/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External_Libraries/Box2D/include;$(SolutionDir)External_Libraries/SFML/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)/../External_Libraries/Box2D/lib;$(SolutionDir)/../External_Libraries/SFML/lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)External_Libraries/Box2D/lib;$(SolutionDir)External_Libraries/SFML/lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>Box2D-d.lib;sfml-graphics-s-d.lib	;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;winmm.lib;gdi32.lib;freetype.lib;sfml-audio-s-d.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -125,18 +125,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="classes\Aggressive.cpp" />
+    <ClCompile Include="classes\AIType.cpp" />
+    <ClCompile Include="classes\DynamicBody.cpp" />
     <ClCompile Include="classes\Entity.cpp" />
     <ClCompile Include="classes\EntityManager.cpp" />
     <ClCompile Include="classes\Game.cpp" />
     <ClCompile Include="classes\MainWindow.cpp" />
+    <ClCompile Include="classes\Zombie.cpp" />
+    <ClCompile Include="classes\ZombieManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="classes\Aggressive.h" />
+    <ClInclude Include="classes\AIType.h" />
     <ClInclude Include="classes\ContactListener.h" />
+    <ClInclude Include="classes\DynamicBody.h" />
     <ClInclude Include="classes\Entity.h" />
     <ClInclude Include="classes\EntityManager.h" />
     <ClInclude Include="classes\Game.h" />
     <ClInclude Include="classes\MainWindow.h" />
+    <ClInclude Include="classes\Zombie.h" />
+    <ClInclude Include="classes\ZombieManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

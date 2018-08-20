@@ -6,6 +6,8 @@
 //#include "Brick.h"
 #include <vector>
 #include <map>
+#include "Zombie.h"
+#include "ZombieManager.h"
 
 
 class Game
@@ -25,7 +27,11 @@ private:
 	const float								SCALE = 100.f;
 	sf::View								view;
 	EntityManager *							entity_manager;
+	ZombieManager *							zombie_manager;
 	std::map<std::string, sf::Texture *>	textures;
 	sf::Sprite								background;
+	std::vector<Zombie*>					zombieList;
+	b2World*								world;
+	Zombie* zombieTester;
 
 };
