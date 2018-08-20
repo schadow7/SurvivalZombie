@@ -43,6 +43,9 @@ void Game::runGame(sf::RenderWindow * window)
 {
 	initializeGame();
 	sf::Time time;
+	window->clear();
+	view->setCenter( player->GetPosition() );
+	window->setView( *view );
 	while ( window->isOpen() )
 	{
 		b2Vec2 velocity = b2Vec2_zero;
@@ -82,7 +85,6 @@ void Game::runGame(sf::RenderWindow * window)
 		player->SetVelocity( velocity );
 
 		//Wyœwietlenie obrazu
-		window->clear();
 		window->draw( background );
 		zombie_manager->AIStep();
 		entity_manager->Update();
