@@ -5,7 +5,7 @@ Game::Game()
 	world = new b2World( b2Vec2(0.f, 0.f ));
 	entity_manager = new EntityManager( world );
 	zombie_manager = new ZombieManager(zombieList);
-	
+	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 
 }
 
@@ -21,7 +21,7 @@ void Game::initializeGame()
 	entity_manager->AddEntity( zombieTester );
 
 	//Player
-	player = new Player( world, textures.at( "survivor" ), positionPixToWorld( 300, 300 ) );
+	player = new Player( world, textures.at( "survivor" ), positionPixToWorld( sf::Vector2f( 300, 300 ) ) );
 	entity_manager->AddEntity( player );
 }
 
@@ -43,11 +43,12 @@ void Game::runGame(sf::RenderWindow * window)
 {
 	initializeGame();
 	sf::Time time;
-	window->clear();
-	view->setCenter( player->GetPosition() );
-	window->setView( *view );
+
 	while ( window->isOpen() )
 	{
+		window->clear();
+		view->setCenter( player->GetPosition() );
+		window->setView( *view );
 		b2Vec2 velocity = b2Vec2_zero;
 		sf::Event event;
 		while ( window->pollEvent( event ) )
@@ -58,20 +59,14 @@ void Game::runGame(sf::RenderWindow * window)
 		}
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-				time = clock.getElapsedTime();
-				if ( time > sf::milliseconds( 100 ) )
-				{
-					time = clock.restart();
-					sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
-					sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
-				}
-			
-				int mouseX = sf::Mouse::getPosition(*window).x;
-				int mouseY = sf::Mouse::getPosition(*window).y;
-				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
-				Zombie* zombieTester = new Zombie(world, b2Vec2(mouseX, mouseY));
-				zombieList.push_back(zombieTester);
-				entity_manager->AddEntity(zombieTester);
+
+			sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
+			sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
+			//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
+			Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
+			zombieList.push_back( zombieTester );
+			entity_manager->AddEntity( zombieTester );
+
 		}
 
 		if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) )

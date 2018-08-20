@@ -32,9 +32,9 @@ protected:
 };
 
 
-inline b2Vec2 positionPixToWorld( float x, float y )
+inline b2Vec2 positionPixToWorld( sf::Vector2f vec )
 {
-	return b2Vec2( x / 100.f, y / 100.f );
+	return b2Vec2( vec.x / 100.f, vec.y / 100.f );
 }
 
 inline float sizesPixToWorld( float size )
