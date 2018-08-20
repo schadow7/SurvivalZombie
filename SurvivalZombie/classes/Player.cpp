@@ -4,7 +4,8 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 {
 	//base stats 
 	hitpoints = 100;
-	speed = 1;
+	speed = 5;
+	angle = 0;
 	body->SetTransform( position, body->GetAngle() );
 	//fixture
 	b2CircleShape Shape;
@@ -37,7 +38,6 @@ void Player::EndContact( Entity * )
 void Player::Render( sf::RenderWindow * window )
 {
 	shape.setPosition( this->GetPosition() );
-	shape.setRotation( this->GetAngle() );
 	window->draw( shape );
 }
 
@@ -45,3 +45,10 @@ void Player::Update()
 {
 	this->body->SetLinearVelocity( speed * velocity );
 }
+
+void Player::SetAngle( float32 angle )
+{
+	this->angle = angle;
+}
+
+

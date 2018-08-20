@@ -44,6 +44,7 @@ void Game::runGame(sf::RenderWindow * window)
 	initializeGame();
 	while ( window->isOpen() )
 	{
+		b2Vec2 velocity = b2Vec2_zero;
 		sf::Event event;
 		while ( window->pollEvent( event ) )
 		{
@@ -60,6 +61,17 @@ void Game::runGame(sf::RenderWindow * window)
 				zombieList.push_back(zombieTester);
 				entity_manager->AddEntity(zombieTester);
 		}
+
+		if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) )
+			velocity += b2Vec2( 0.f, -1.f );
+		if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) )
+			velocity += b2Vec2( 0.f, 1.f );
+		if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) )
+			velocity += b2Vec2( -1.f, 0.f );
+		if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) )
+			velocity += b2Vec2( 1.f, 0.f );
+		player->SetVelocity( velocity );
+
 		//Wyœwietlenie obrazu
 		window->clear();
 		window->draw( background );
