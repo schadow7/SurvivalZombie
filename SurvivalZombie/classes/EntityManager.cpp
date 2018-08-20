@@ -19,14 +19,23 @@ void EntityManager::RemoveEntity( Entity * entity )
 {
 }
 
-void EntityManager::Render( sf::RenderWindow * window )
+void EntityManager::Update()
 {
 	//Symulacja œwiata
 	world->Step( 1 / 60.f, 8, 3 );
 
+	//Aktualizacja statusu obiektu (tu siê wykonuje logika gry)
+	for ( auto & it : entities )
+	{
+		it->Update();
+	}
+}
+
+void EntityManager::Render( sf::RenderWindow * window )
+{
 	//Rysowanie obiektów symulowanych przez Box2D
 		for (auto & it : entities)
 		{
-			it->Update(window);
+			it->Render( window );
 		}
 }

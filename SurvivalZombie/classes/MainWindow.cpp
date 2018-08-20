@@ -24,6 +24,7 @@ void MainWindow::runGame(  )
 void MainWindow::newGame()
 {
 	game = new Game;
+	game->loadTextures();
 	runGame();
 }
 

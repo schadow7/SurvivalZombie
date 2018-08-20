@@ -18,6 +18,7 @@ public:
 
 	void									initializeGame();
 	void									runGame(sf::RenderWindow * window);
+	void									loadTextures();
 
 private:
 	void									Render( sf::RenderWindow * window );

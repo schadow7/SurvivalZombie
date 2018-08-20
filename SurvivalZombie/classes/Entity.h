@@ -13,7 +13,7 @@ class Entity
 public:
 	const float SCALE = 100.f;  //	MetersToPixelsFactor 
 	Entity();
-	virtual void			Update(sf::RenderWindow * window) = 0;
+	virtual void			Update() = 0;
 	virtual void			Render( sf::RenderWindow * window ) = 0;
 	virtual void			StartContact( Entity * entity ) = 0;
 	virtual void			EndContact( Entity * entity ) = 0;

@@ -15,13 +15,13 @@ public:
 
 	void						AddEntity( Entity * entity );
 	void						RemoveEntity( Entity * entity );
+	void						Update();
 	void						Render( sf::RenderWindow * window );
 
 
 private:
 	b2World *					world;
 	sf::Clock					clock;
-	const float					SCALE = 100.f;
 	std::vector <Entity*>		entities;
 	ContactListener *			listener;
 };

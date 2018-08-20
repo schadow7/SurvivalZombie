@@ -45,14 +45,14 @@ void Zombie::EndContact(Entity*)
 }
 void Zombie::Render(sf::RenderWindow* window)
 {
-	;
-}
-void Zombie::Update(sf::RenderWindow* window)
-{
 	//std::cout << "BoX: " << this->body->GetPosition().x << " " << this->body->GetPosition().x << " SFML: " << shape.getPosition().x << " " << shape.getPosition().y << std::endl;
-	shape.setPosition(SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y);
+	shape.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
 	//shape.setPosition(SCALE * 2, SCALE * 2);
-	shape.setRotation(180 / b2_pi * this->body->GetAngle());
-	window->draw(shape);
-	
+	shape.setRotation( 180 / b2_pi * this->body->GetAngle() );
+	window->draw( shape );
+}
+void Zombie::Update()
+{
+
+	;
 }

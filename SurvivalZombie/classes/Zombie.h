@@ -10,7 +10,7 @@ public:
 	void StartContact(Entity*);
 	void EndContact(Entity*);
 	void Render(sf::RenderWindow* window);
-	void Update(sf::RenderWindow* window);
+	void Update();
 	virtual void Action(b2Vec2 player_positon) ;
 private:
 	AIType* AIType;
