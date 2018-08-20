@@ -19,9 +19,19 @@ DynamicBody::~DynamicBody()
 
 void DynamicBody::SetVelocity(b2Vec2 velocity)
 {
-	body->SetLinearVelocity(velocity);
+	this->velocity = velocity;
 }
 void DynamicBody::ApplyForce(b2Vec2 force)
 {
 	body->ApplyForceToCenter(force,1);
+}
+
+sf::Vector2f DynamicBody::GetPosition()
+{
+	return sf::Vector2f( positionWorldToPix( body->GetPosition() ) );
+}
+
+float32 DynamicBody::GetAngle()
+{
+	return 180 / b2_pi * this->body->GetAngle();
 }

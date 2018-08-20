@@ -9,6 +9,8 @@ public:
 	virtual				~DynamicBody();
 	void				SetVelocity(b2Vec2 velocity);
 	void				ApplyForce(b2Vec2 force);
+	sf::Vector2f		GetPosition();
+	float32				GetAngle();
 
 protected:
 	b2Vec2				velocity;

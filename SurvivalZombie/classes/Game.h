@@ -3,12 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include "EntityManager.h"
-//#include "Brick.h"
 #include <vector>
 #include <map>
 #include "Zombie.h"
 #include "ZombieManager.h"
-
+#include "Player.h"
 
 class Game
 {
@@ -32,7 +31,7 @@ private:
 	std::map<std::string, sf::Texture *>	textures;
 	sf::Sprite								background;
 	std::vector<Zombie*>					zombieList;
-	b2World*								world;
-	Zombie* zombieTester;
-
+	b2World *								world;
+	Zombie *								zombieTester;
+	Player *								player;
 };

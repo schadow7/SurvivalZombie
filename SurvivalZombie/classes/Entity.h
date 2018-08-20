@@ -42,7 +42,7 @@ inline float sizesPixToWorld( float size )
 	return size / 200.f;
 }
 
-inline sf::Vector2f positionPixToWorld( b2Vec2 vec )
+inline sf::Vector2f positionWorldToPix( b2Vec2 vec )
 {
 	sf::Vector2f tmp = sf::Vector2f( vec.x * 100.f, vec.y * 100.f );
 	return tmp;

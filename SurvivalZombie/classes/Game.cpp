@@ -6,10 +6,7 @@ Game::Game()
 	entity_manager = new EntityManager( world );
 	zombie_manager = new ZombieManager(zombieList);
 	
-	//TEMP undead tester
-	Zombie* zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
-	zombieList.push_back(zombieTester);
-	entity_manager->AddEntity(zombieTester);
+
 }
 
 Game::~Game()
@@ -18,6 +15,14 @@ Game::~Game()
 
 void Game::initializeGame()
 {
+	//TEMP undead tester
+	Zombie * zombieTester = new Zombie( world, b2Vec2( 1.f, 1.f ) );
+	zombieList.push_back( zombieTester );
+	entity_manager->AddEntity( zombieTester );
+
+	//Player
+	player = new Player( world, textures.at( "survivor" ), positionPixToWorld( 300, 300 ) );
+	entity_manager->AddEntity( player );
 }
 
 void Game::loadTextures()
@@ -30,10 +35,13 @@ void Game::loadTextures()
 	tmp->loadFromFile( ".\\graphics\\grad1.png" );
 	textures.insert( std::pair<std::string, sf::Texture*>( "grad1", tmp ) );
 	background.setTexture( *textures.at( "background" ) );
-	background.setTextureRect( sf::IntRect( 0, 0, 20000, 20000 ) );
+	background.setTextureRect( sf::IntRect( 0, 0, 8000, 8000 ) );
+	tmp->loadFromFile( ".\\graphics\\survivor.png" );
+	textures.insert( std::pair<std::string, sf::Texture*>( "survivor", tmp ) );
 }
 void Game::runGame(sf::RenderWindow * window)
 {
+	initializeGame();
 	while ( window->isOpen() )
 	{
 		sf::Event event;
