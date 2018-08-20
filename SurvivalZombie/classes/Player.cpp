@@ -15,9 +15,10 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	body->CreateFixture( &FixtureDef );
 	////SFML
 	texture->loadFromFile( ".\\graphics\\survivor.png" );
+	shape.setOrigin( sf::Vector2f( 24.f, 24.f ) );
 	shape.setTexture( texture );
 	shape.setRadius( 25 );
-	shape.setOutlineThickness( -2 );
+	shape.setOutlineThickness( 1 );
 	shape.setOutlineColor( sf::Color::Black );
 }
 
