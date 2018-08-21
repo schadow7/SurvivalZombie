@@ -27,7 +27,7 @@ protected:
 	b2Body *				body;
 	b2Fixture *				fixture;
 	std::string				name;
-	sf:: Texture*		texture;
+	sf:: Texture*			texture;
 	long int				hitpoints;
 };
 
