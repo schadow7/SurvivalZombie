@@ -19,8 +19,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	zombieFixtureDef.restitution = (0.f); 
 	body->CreateFixture(&zombieFixtureDef);
 	////SFML
-	texture = new sf::Texture;
-	texture->loadFromFile(".\\graphics\\skeleton.png");
+	texture = AssetManager::GetTexture(".\\graphics\\skeleton.png");
 	sprite.setTexture(*texture);
 	float32 tmp= static_cast<float32>(size) / texture->getSize().x;
 	sprite.setScale(tmp, tmp);
@@ -30,7 +29,6 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 Zombie::~Zombie()
 {
 	delete AIType;
-	delete texture;
 }
 
 void Zombie::Action(b2Vec2 player_position)

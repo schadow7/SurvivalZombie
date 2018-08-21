@@ -8,6 +8,7 @@
 #include <map>
 #include "Zombie.h"
 #include "ZombieManager.h"
+#include "AssetManager.h"
 
 
 class Game
@@ -33,5 +34,4 @@ private:
 	std::vector<Zombie*>					zombieList;
 	b2World*								world;
 	Zombie* zombieTester;
-
 };

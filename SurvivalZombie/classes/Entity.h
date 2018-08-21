@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include <string>
-
+#include "AssetManager.h"
 
 
 
@@ -27,7 +27,7 @@ protected:
 	b2Body *				body;
 	b2Fixture *				fixture;
 	std::string				name;
-	sf:: Texture*			texture;
+	std::shared_ptr<sf:: Texture>	texture;
 	long int				hitpoints;
 };
 
