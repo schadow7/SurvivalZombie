@@ -22,7 +22,7 @@ public:
 	~Entity();
 
 protected:
-	int						groupID;
+	int						groupID; //0-enity, 1-zombie
 	int						active;
 	b2Body *				body;
 	b2Fixture *				fixture;

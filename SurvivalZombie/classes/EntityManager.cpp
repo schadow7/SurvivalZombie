@@ -1,4 +1,5 @@
 #include "EntityManager.h"
+#include "Zombie.h"
 
 EntityManager::EntityManager(b2World * world)
 {
@@ -28,5 +29,10 @@ void EntityManager::Render( sf::RenderWindow * window )
 		for (auto & it : entities)
 		{
 			it->Update(window);
+			//Przy okazji krok AI
+			if (it->GroupID() == 1)
+			{
+				static_cast<Zombie*>(it)->Action(b2Vec2(3.f, 3.f));
+			}
 		}
 }

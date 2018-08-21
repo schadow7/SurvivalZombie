@@ -6,7 +6,6 @@
 #include "ContactListener.h"
 #include <vector>
 
-
 class EntityManager
 {
 public:

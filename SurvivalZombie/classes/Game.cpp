@@ -4,7 +4,6 @@ Game::Game()
 {
 	world = new b2World( b2Vec2(0.f, 0.f ));
 	entity_manager = new EntityManager( world );
-	zombie_manager = new ZombieManager(zombieList);
 	sf::Texture * tmp = new sf::Texture;
 	tmp->loadFromFile( ".\\graphics\\background.png" );
 	textures.insert( std::pair<std::string, sf::Texture*> ("background", tmp) );
@@ -16,7 +15,6 @@ Game::Game()
 	background.setTextureRect( sf::IntRect( 0, 0, 20000, 20000 ) );
 	//TEMP undead tester
 	//Zombie* zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
-	//zombieList.push_back(zombieTester);
 	//entity_manager->AddEntity(zombieTester);
 }
 
@@ -43,15 +41,12 @@ void Game::runGame(sf::RenderWindow * window)
 		{
 				int mouseX = sf::Mouse::getPosition(*window).x;
 				int mouseY = sf::Mouse::getPosition(*window).y;
-				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
 				Zombie* zombieTester = new Zombie(world, b2Vec2(mouseX/100, mouseY/100));
-				zombieList.push_back(zombieTester);
 				entity_manager->AddEntity(zombieTester);
 		}
 		//Wyœwietlenie obrazu
 		window->clear();
 		window->draw( background );
-		zombie_manager->AIStep();
 		entity_manager->Render(window);
 
 		//Wyœwietlenie obrazu

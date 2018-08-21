@@ -8,6 +8,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	size(50)
 {
 	//base stats 
+	groupID = 1;
 	hitpoints = 100;
 	AIType = new Aggressive();
 	//fixture
