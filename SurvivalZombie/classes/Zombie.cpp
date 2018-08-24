@@ -22,9 +22,10 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	////SFML
 	texture = AssetManager::GetTexture(".\\graphics\\skeleton.png");
 	sprite.setTexture(*texture);
-	float32 tmp= static_cast<float32>(size) / texture->getSize().x;
-	sprite.setScale(tmp, tmp);
-
+	sprite.setOrigin(texture->getSize().x/2.f, texture->getSize().y / 2.f);
+	float scaleX= static_cast<float>(size) / texture->getSize().x;
+	float scaleY = static_cast<float>(size) / texture->getSize().y;
+	sprite.setScale(scaleX, scaleY);
 }
 
 Zombie::~Zombie()
