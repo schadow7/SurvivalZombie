@@ -19,6 +19,13 @@ int Entity::GroupID() const
 	return this->groupID;
 }
 
+void Entity::TakeDamage( int damage )
+{
+	hitpoints -= damage;
+	//if(hitpoints < 0 )
+
+}
+
 Entity::~Entity()
 {
 	delete fixture;

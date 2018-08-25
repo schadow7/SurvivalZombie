@@ -2,7 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
+#include "Effect.h"
 #include <string>
+#include <list>
 
 
 
@@ -19,6 +21,7 @@ public:
 	virtual void			EndContact( Entity * entity ) = 0;
 	int						Active() const;
 	int						GroupID() const;
+	void					TakeDamage( int damage );
 	~Entity();
 
 protected:
@@ -29,12 +32,13 @@ protected:
 	std::string				name;
 	sf::RenderTexture*		texture;
 	long int				hitpoints;
+	std::list<Effect *>		effects;
 };
 
 
-inline b2Vec2 positionPixToWorld( float x, float y )
+inline b2Vec2 positionPixToWorld( sf::Vector2f vec )
 {
-	return b2Vec2( x / 100.f, y / 100.f );
+	return b2Vec2( vec.x / 100.f, vec.y / 100.f );
 }
 
 inline float sizesPixToWorld( float size )

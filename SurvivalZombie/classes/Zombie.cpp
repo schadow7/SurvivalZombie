@@ -12,15 +12,20 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	body->SetTransform(position, body->GetAngle());
 	//fixture
 	b2CircleShape zombieShape;
-	zombieShape.m_radius = 25/SCALE;
+	zombieShape.m_radius = 24 / SCALE;
 	b2FixtureDef zombieFixtureDef;
 	zombieFixtureDef.shape = &zombieShape;
 	zombieFixtureDef.density = 1;
 	body->CreateFixture(&zombieFixtureDef);
 	////SFML
-		texture.loadFromFile(".\\graphics\\skeleton.png");
-		shape.setTexture(&texture);
-		shape.setRadius(25);
+	texture.loadFromFile(".\\graphics\\skeleton.png");
+	shape.setTexture(&texture);
+	shape.setRadius(25);
+
+	//Do zobaczenia czy wyœwietlanie jest prawid³owe
+	shape.setOrigin( sf::Vector2f( 24.f, 24.f ) );
+	shape.setOutlineThickness( 1 );
+	shape.setOutlineColor( sf::Color::Black );
 }
 
 Zombie::~Zombie()

@@ -10,9 +10,11 @@ public:
 	void EndContact( Entity* );
 	void Render( sf::RenderWindow* window );
 	void Update();
+	void SetAngle( float32 angle );
 	//virtual void Action( b2Vec2 player_positon );
 private:
 	double speed;
 	sf::CircleShape shape;
+	float32 angle;
 
 };
