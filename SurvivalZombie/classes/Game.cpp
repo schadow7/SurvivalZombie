@@ -5,8 +5,8 @@ Game::Game()
 	world = new b2World( b2Vec2(0.f, 0.f ));
 	entity_manager = new EntityManager( world );
 	zombie_manager = new ZombieManager(zombieList);
-	
-
+	menu = new Menu();
+	gameState = 0;
 }
 
 Game::~Game()
@@ -28,8 +28,8 @@ void Game::initializeGame()
 void Game::loadTextures()
 {
 	sf::Texture * tmp = new sf::Texture;
-	tmp->loadFromFile( ".\\graphics\\background.png" );
-	textures.insert( std::pair<std::string, sf::Texture*>( "background", tmp ) );
+	tmp->loadFromFile(".\\graphics\\background.png");
+	textures.insert(std::pair<std::string, sf::Texture*>("background", tmp));
 	tmp->setRepeated( true );
 	tmp = new sf::Texture;
 	tmp->loadFromFile( ".\\graphics\\grad1.png" );
@@ -51,21 +51,31 @@ void Game::runGame(sf::RenderWindow * window)
 			if ( event.type == sf::Event::Closed )
 				window->close();
 		}
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+
+
+		//Wyœwietlenie obrazu
+		window->clear();
+		if (gameState == 0)
 		{
+			gameState = menu->runMenu(window, event);
+		}
+
+		else if (gameState == 1)
+		{
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
 				int mouseX = sf::Mouse::getPosition(*window).x;
 				int mouseY = sf::Mouse::getPosition(*window).y;
 				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
 				Zombie* zombieTester = new Zombie(world, b2Vec2(mouseX, mouseY));
 				zombieList.push_back(zombieTester);
 				entity_manager->AddEntity(zombieTester);
+			}
+			window->draw(background);
+			zombie_manager->AIStep();
+			entity_manager->Update();
+			entity_manager->Render(window);
 		}
-		//Wyœwietlenie obrazu
-		window->clear();
-		window->draw( background );
-		zombie_manager->AIStep();
-		entity_manager->Update();
-		entity_manager->Render(window);
 
 		//Wyœwietlenie obrazu
 		window->display();

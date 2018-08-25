@@ -132,6 +132,7 @@
     <ClCompile Include="classes\EntityManager.cpp" />
     <ClCompile Include="classes\Game.cpp" />
     <ClCompile Include="classes\MainWindow.cpp" />
+    <ClCompile Include="classes\Menu.cpp" />
     <ClCompile Include="classes\Player.cpp" />
     <ClCompile Include="classes\Zombie.cpp" />
     <ClCompile Include="classes\ZombieManager.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="classes\EntityManager.h" />
     <ClInclude Include="classes\Game.h" />
     <ClInclude Include="classes\MainWindow.h" />
+    <ClInclude Include="classes\Menu.h" />
     <ClInclude Include="classes\Player.h" />
     <ClInclude Include="classes\Zombie.h" />
     <ClInclude Include="classes\ZombieManager.h" />

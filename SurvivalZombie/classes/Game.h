@@ -8,6 +8,7 @@
 #include "Zombie.h"
 #include "ZombieManager.h"
 #include "Player.h"
+#include "Menu.h"
 
 class Game
 {
@@ -29,9 +30,11 @@ private:
 	EntityManager *							entity_manager;
 	ZombieManager *							zombie_manager;
 	std::map<std::string, sf::Texture *>	textures;
-	sf::Sprite								background;
+	sf::Sprite								background, background2;
 	std::vector<Zombie*>					zombieList;
 	b2World *								world;
 	Zombie *								zombieTester;
 	Player *								player;
+	Menu *									menu;
+	int										gameState;
 };
