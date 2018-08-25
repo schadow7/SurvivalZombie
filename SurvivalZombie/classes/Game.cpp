@@ -5,6 +5,7 @@ Game::Game()
 	world = new b2World( b2Vec2(0.f, 0.f ));
 	entity_manager = new EntityManager( world );
 	zombie_manager = new ZombieManager(zombieList);
+	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 	menu = new Menu();
 	gameState = 0;
 }
@@ -54,7 +55,6 @@ void Game::runGame(sf::RenderWindow * window)
 
 
 		//Wyœwietlenie obrazu
-		window->clear();
 		if (gameState == 0)
 		{
 			gameState = menu->runMenu(window, event);
@@ -62,15 +62,32 @@ void Game::runGame(sf::RenderWindow * window)
 
 		else if (gameState == 1)
 		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			window->clear();
+			view->setCenter( player->GetPosition() );
+			window->setView( *view );
+			b2Vec2 velocity = b2Vec2_zero;
+			if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
 			{
-				int mouseX = sf::Mouse::getPosition(*window).x;
-				int mouseY = sf::Mouse::getPosition(*window).y;
+
+				sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
+				sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
 				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
-				Zombie* zombieTester = new Zombie(world, b2Vec2(mouseX, mouseY));
-				zombieList.push_back(zombieTester);
-				entity_manager->AddEntity(zombieTester);
+				Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
+				zombieList.push_back( zombieTester );
+				entity_manager->AddEntity( zombieTester );
+
 			}
+
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) )
+				velocity += b2Vec2( 0.f, -1.f );
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) )
+				velocity += b2Vec2( 0.f, 1.f );
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) )
+				velocity += b2Vec2( -1.f, 0.f );
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) )
+				velocity += b2Vec2( 1.f, 0.f );
+			player->SetVelocity( velocity );
+
 			window->draw(background);
 			zombie_manager->AIStep();
 			entity_manager->Update();

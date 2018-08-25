@@ -26,7 +26,7 @@ private:
 
 private:
 	const float								SCALE = 100.f;
-	sf::View								view;
+	sf::View *								view;
 	EntityManager *							entity_manager;
 	ZombieManager *							zombie_manager;
 	std::map<std::string, sf::Texture *>	textures;
