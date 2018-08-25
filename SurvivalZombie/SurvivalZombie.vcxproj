@@ -142,6 +142,7 @@
     <ClInclude Include="classes\AIType.h" />
     <ClInclude Include="classes\ContactListener.h" />
     <ClInclude Include="classes\DynamicBody.h" />
+    <ClInclude Include="classes\Effect.h" />
     <ClInclude Include="classes\Entity.h" />
     <ClInclude Include="classes\EntityManager.h" />
     <ClInclude Include="classes\Game.h" />
