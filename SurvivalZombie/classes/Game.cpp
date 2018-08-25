@@ -21,7 +21,7 @@ void Game::initializeGame()
 	entity_manager->AddEntity( zombieTester );
 
 	//Player
-	player = new Player( world, textures.at( "survivor" ), positionPixToWorld( 300, 300 ) );
+	player = new Player( world, textures.at( "survivor" ), positionPixToWorld( sf::Vector2f(300, 300) ) );
 	entity_manager->AddEntity( player );
 }
 
