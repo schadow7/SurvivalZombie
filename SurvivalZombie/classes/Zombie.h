@@ -14,9 +14,8 @@ public:
 	virtual void Action(b2Vec2 player_positon) ;
 private:
 	AIType* AIType;
-	double speed;
-	sf::CircleShape shape; 
-	sf::Texture texture;
-
+	float32 speed;
+	sf::Sprite sprite;
+	int size; //rozmair zombie w pikselach
 };
 

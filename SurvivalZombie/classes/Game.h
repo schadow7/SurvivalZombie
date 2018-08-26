@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include "Zombie.h"
+#include "AssetManager.h"
 #include "ZombieManager.h"
 #include "Player.h"
 #include "Menu.h"
@@ -28,7 +29,6 @@ private:
 	const float								SCALE = 100.f;
 	sf::View *								view;
 	EntityManager *							entity_manager;
-	ZombieManager *							zombie_manager;
 	std::map<std::string, sf::Texture *>	textures;
 	sf::Sprite								background, background2;
 	std::vector<Zombie*>					zombieList;

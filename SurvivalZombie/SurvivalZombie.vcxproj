@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="classes\Aggressive.cpp" />
     <ClCompile Include="classes\AIType.cpp" />
+    <ClCompile Include="classes\AssetManager.cpp" />
     <ClCompile Include="classes\DynamicBody.cpp" />
     <ClCompile Include="classes\Entity.cpp" />
     <ClCompile Include="classes\EntityManager.cpp" />
@@ -141,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="classes\Aggressive.h" />
     <ClInclude Include="classes\AIType.h" />
+    <ClInclude Include="classes\AssetManager.h" />
     <ClInclude Include="classes\ContactListener.h" />
     <ClInclude Include="classes\DynamicBody.h" />
     <ClInclude Include="classes\Entity.h" />

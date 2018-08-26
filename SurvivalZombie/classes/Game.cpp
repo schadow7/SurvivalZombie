@@ -4,6 +4,18 @@ Game::Game()
 {
 	world = new b2World( b2Vec2(0.f, 0.f ));
 	entity_manager = new EntityManager( world );
+	sf::Texture * tmp = new sf::Texture;
+	tmp->loadFromFile( ".\\graphics\\background.png" );
+	textures.insert( std::pair<std::string, sf::Texture*> ("background", tmp) );
+	tmp->setRepeated(true);
+	tmp = new sf::Texture;
+	tmp->loadFromFile( ".\\graphics\\grad1.png" );
+	textures.insert( std::pair<std::string, sf::Texture*>( "grad1", tmp ) );
+	background.setTexture( *textures.at( "background" ) );
+	background.setTextureRect( sf::IntRect( 0, 0, 20000, 20000 ) );
+	//TEMP undead tester
+	//Zombie* zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
+	//entity_manager->AddEntity(zombieTester);
 	zombie_manager = new ZombieManager(zombieList);
 	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 	menu = new Menu();
