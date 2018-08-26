@@ -1,12 +1,11 @@
 #include "Player.h"
 
-Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : DynamicBody(world)
+Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : DynamicBody(world, position)
 {
 	//base stats 
 	hitpoints = 100;
 	speed = 5;
 	angle = 0;
-	body->SetTransform( position, body->GetAngle() );
 	//fixture
 	b2CircleShape Shape;
 	Shape.m_radius = 24 / SCALE;

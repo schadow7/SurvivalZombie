@@ -4,6 +4,7 @@
 #include <Box2D/Box2D.h>
 #include <string>
 #include <list>
+#include "AssetManager.h"
 
 //Zdefiniowana poni¿ej
 class Effect;
@@ -30,7 +31,8 @@ protected:
 	b2Body *				body;
 	b2Fixture *				fixture;
 	std::string				name;
-	sf::RenderTexture*		texture;
+	//sf::RenderTexture*		texture;
+	std::shared_ptr<sf::Texture> texture;
 	long int				hitpoints;
 	std::list<Effect *>		effects;
 };

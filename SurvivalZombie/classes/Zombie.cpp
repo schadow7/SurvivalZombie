@@ -26,14 +26,12 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	float scaleX= static_cast<float>(size) / texture->getSize().x;
 	float scaleY = static_cast<float>(size) / texture->getSize().y;
 	sprite.setScale(scaleX, scaleY);
-	texture.loadFromFile(".\\graphics\\skeleton.png");
-	shape.setTexture(&texture);
-	shape.setRadius(25);
+	
 
 	//Do zobaczenia czy wyœwietlanie jest prawid³owe
-	shape.setOrigin( sf::Vector2f( 24.f, 24.f ) );
-	shape.setOutlineThickness( 1 );
-	shape.setOutlineColor( sf::Color::Black );
+	//shape.setOrigin( sf::Vector2f( 24.f, 24.f ) );
+	//shape.setOutlineThickness( 1 );
+	//shape.setOutlineColor( sf::Color::Black );
 }
 
 Zombie::~Zombie()
@@ -59,17 +57,12 @@ void Zombie::EndContact(Entity*)
 void Zombie::Render(sf::RenderWindow* window)
 {
 	//std::cout << "BoX: " << this->body->GetPosition().x << " " << this->body->GetPosition().x << " SFML: " << shape.getPosition().x << " " << shape.getPosition().y << std::endl;
-	shape.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
+	sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
 	//shape.setPosition(SCALE * 2, SCALE * 2);
-	shape.setRotation( 180 / b2_pi * this->body->GetAngle() );
-	window->draw( shape );
+	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
+	window->draw(sprite);
 }
 void Zombie::Update()
 {
-	//std::cout << "BoX: " << this->body->GetPosition().x << " " << this->body->GetPosition().x << " SFML: " << shape.getPosition().x << " " << shape.getPosition().y << std::endl;
-	shape.setPosition(SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y);
-	//shape.setPosition(SCALE * 2, SCALE * 2);
-	shape.setRotation(180 / b2_pi * this->body->GetAngle());
-	window->draw(shape);
-	
+	;
 }

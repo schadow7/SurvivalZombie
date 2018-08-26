@@ -16,7 +16,6 @@ Game::Game()
 	//TEMP undead tester
 	//Zombie* zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
 	//entity_manager->AddEntity(zombieTester);
-	zombie_manager = new ZombieManager(zombieList);
 	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 	menu = new Menu();
 	gameState = 0;
@@ -83,7 +82,6 @@ void Game::runGame(sf::RenderWindow * window)
 
 				sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
 				sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
-				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
 				Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
 				zombieList.push_back( zombieTester );
 				entity_manager->AddEntity( zombieTester );
@@ -101,7 +99,6 @@ void Game::runGame(sf::RenderWindow * window)
 			player->SetVelocity( velocity );
 
 			window->draw(background);
-			zombie_manager->AIStep();
 			entity_manager->Update();
 			entity_manager->Render(window);
 		}
