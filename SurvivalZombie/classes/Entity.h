@@ -31,10 +31,10 @@ protected:
 	b2Body *				body;
 	b2Fixture *				fixture;
 	std::string				name;
-	//sf::RenderTexture*		texture;
-	std::shared_ptr<sf::Texture> texture;
+	/*sf::RenderTexture*		texture;*/
 	long int				hitpoints;
 	std::list<Effect *>		effects;
+	std::shared_ptr<sf::Texture> texture;
 };
 
 

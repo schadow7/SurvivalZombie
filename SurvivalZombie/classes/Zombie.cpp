@@ -26,9 +26,9 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	float scaleX= static_cast<float>(size) / texture->getSize().x;
 	float scaleY = static_cast<float>(size) / texture->getSize().y;
 	sprite.setScale(scaleX, scaleY);
-	
 
-	//Do zobaczenia czy wyœwietlanie jest prawid³owe
+
+	////Do zobaczenia czy wyœwietlanie jest prawid³owe
 	//shape.setOrigin( sf::Vector2f( 24.f, 24.f ) );
 	//shape.setOutlineThickness( 1 );
 	//shape.setOutlineColor( sf::Color::Black );
@@ -60,7 +60,7 @@ void Zombie::Render(sf::RenderWindow* window)
 	sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
 	//shape.setPosition(SCALE * 2, SCALE * 2);
 	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
-	window->draw(sprite);
+	window->draw( sprite );
 }
 void Zombie::Update()
 {
