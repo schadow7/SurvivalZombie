@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include <string>
+//#include<memory>
 /*!
  * Klasa do wspó³dzielenia assetów (w tej chwili:tekstur)
  * 

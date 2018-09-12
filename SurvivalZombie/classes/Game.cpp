@@ -84,18 +84,18 @@ void Game::runGame(sf::RenderWindow * window)
 				sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
 				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
 				Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
-				zombieList.push_back( zombieTester );
+				zombieTester->SetTarget(player);
 				entity_manager->AddEntity( zombieTester );
 
 			}
 
-			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) )
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
 				velocity += b2Vec2( 0.f, -1.f );
-			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) )
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
 				velocity += b2Vec2( 0.f, 1.f );
-			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) )
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
 				velocity += b2Vec2( -1.f, 0.f );
-			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) )
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
 				velocity += b2Vec2( 1.f, 0.f );
 			player->SetVelocity( velocity );
 

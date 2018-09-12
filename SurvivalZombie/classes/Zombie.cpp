@@ -39,12 +39,17 @@ Zombie::~Zombie()
 	delete AIType;
 }
 
-void Zombie::Action(b2Vec2 player_position)
+void Zombie::Action(b2Vec2 player_position)  //deprecated
 {
+	if (target) b2Vec2 player_position = target->GetPosition();
 	b2Vec2 dir = AIType->Move(body->GetPosition(),player_position);
 	float32 angle =atan2(dir.y , dir.x);
 	body->SetTransform(body->GetPosition(), angle);
 	body->SetLinearVelocity(b2Vec2(dir.x*speed,dir.y*speed));
+}
+void Zombie::SetTarget(const Entity* new_terget)
+{
+	target = new_terget;
 }
 void Zombie::StartContact(Entity*) 
 {
@@ -64,5 +69,16 @@ void Zombie::Render(sf::RenderWindow* window)
 }
 void Zombie::Update()
 {
-	;
+	if (target)
+	{
+		b2Vec2 player_position = target->GetPosition();
+		b2Vec2 dir = AIType->Move(body->GetPosition(), player_position);
+		float32 angle = atan2(dir.y, dir.x);
+		body->SetTransform(body->GetPosition(), angle);
+		body->SetLinearVelocity(b2Vec2(dir.x*speed, dir.y*speed));
+	}
+	else {
+		//stoi w miejscu
+		body->SetLinearVelocity(b2Vec2(0,0));
+	}
 }

@@ -12,10 +12,12 @@ public:
 	void Render(sf::RenderWindow* window);
 	void Update();
 	virtual void Action(b2Vec2 player_positon) ;
+	void SetTarget(const Entity* new_target);
 private:
 	AIType* AIType;
 	float32 speed;
 	sf::Sprite sprite;
 	int size; //rozmair zombie w pikselach
+	const Entity* target;
 };
 

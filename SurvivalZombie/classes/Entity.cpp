@@ -26,6 +26,11 @@ void Entity::TakeDamage( int damage )
 
 }
 
+b2Vec2 Entity::GetPosition() const
+{
+	return body->GetPosition();
+}
+
 Entity::~Entity()
 {
 	delete fixture;
