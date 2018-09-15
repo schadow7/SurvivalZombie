@@ -13,9 +13,6 @@ Game::Game()
 	textures.insert( std::pair<std::string, sf::Texture*>( "grad1", tmp ) );
 	background.setTexture( *textures.at( "background" ) );
 	background.setTextureRect( sf::IntRect( 0, 0, 20000, 20000 ) );
-	//TEMP undead tester
-	//Zombie* zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
-	//entity_manager->AddEntity(zombieTester);
 	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 	menu = new Menu();
 	gameState = 0;
@@ -27,14 +24,14 @@ Game::~Game()
 
 void Game::initializeGame()
 {
-	//TEMP undead tester
-	Zombie * zombieTester = new Zombie( world, b2Vec2( 1.f, 1.f ) );
-	zombieList.push_back( zombieTester );
-	entity_manager->AddEntity( zombieTester );
-
 	//Player
 	player = new Player( world, textures.at( "survivor" ), positionPixToWorld( sf::Vector2f(300, 300) ) );
 	entity_manager->AddEntity( player );
+
+	//TEMP undead tester
+	Zombie * zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
+	entity_manager->AddEntity(zombieTester);
+	zombieTester->SetTarget(player);
 }
 
 void Game::loadTextures()
