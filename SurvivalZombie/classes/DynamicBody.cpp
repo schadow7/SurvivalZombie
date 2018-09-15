@@ -10,6 +10,7 @@ DynamicBody::DynamicBody(b2World* world, b2Vec2 position)
 	myBodyDef.angle = 0;
 	body = world->CreateBody(&myBodyDef);
 	body->SetLinearVelocity(b2Vec2_zero);
+	this->body->SetUserData(dynamic_cast<Entity *> (this));
 }
 
 

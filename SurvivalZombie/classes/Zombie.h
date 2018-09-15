@@ -19,5 +19,14 @@ private:
 	sf::Sprite sprite;
 	int size; //rozmair zombie w pikselach
 	const Entity* target;
+	b2World* world;  //do raycast. shared pointer?
+	//////
+	class RayCastCallback :public b2RayCastCallback
+	{
+	public:
+		std::vector<b2Vec2> obstacleList;
+		float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction) override;
+	};
+	void doRayCast(RayCastCallback& callback);
 };
 

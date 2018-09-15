@@ -12,9 +12,10 @@ public:
 	const float SCALE = 100.f;
 	static unsigned int			counter;
 								Brick( b2World * world, sf::Texture * texture, int x, int y );
-	virtual void				Update( sf::RenderWindow * window ) override;
+	virtual void				Update( ) override;
 	virtual void				StartContact( Entity * entity ) override;
 	virtual void				EndContact( Entity * entity ) override;
+	void						Render(sf::RenderWindow * window) override;
 								~Brick();
 private:
 	sf::RectangleShape			shape;

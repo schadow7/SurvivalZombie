@@ -5,12 +5,13 @@
 Zombie::Zombie(b2World *world, b2Vec2 position) :
 	DynamicBody(world, position),
 	speed(1),
-	size(50)
+	size(50),
+	world(world)
 {
 	//base stats 
-	groupID = 1;
+	groupID = 2;
 	hitpoints = 100;
-	AIType = new Aggressive();
+	AIType = new Aggressive(world);
 	//fixture
 	b2CircleShape zombieShape;
 	zombieShape.m_radius = size/2/SCALE;
@@ -18,7 +19,9 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	zombieFixtureDef.shape = &zombieShape;
 	zombieFixtureDef.density = 1;
 	zombieFixtureDef.restitution = (0.f); 
-	body->CreateFixture(&zombieFixtureDef);
+	b2Fixture* fixture=body->CreateFixture(&zombieFixtureDef);
+	//zapisanie wskaŸnika na Zombie w fixture dziêki czemu kiedy Box2D zwróci nam jakieœ fixture mo¿emy ustaliæ do jakiej klasy nale¿y.
+
 	////SFML
 	texture = AssetManager::GetTexture(".\\graphics\\skeleton.png");
 	sprite.setTexture(*texture);
@@ -26,7 +29,6 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	float scaleX= static_cast<float>(size) / texture->getSize().x;
 	float scaleY = static_cast<float>(size) / texture->getSize().y;
 	sprite.setScale(scaleX, scaleY);
-
 
 	////Do zobaczenia czy wyœwietlanie jest prawid³owe
 	//shape.setOrigin( sf::Vector2f( 24.f, 24.f ) );
@@ -71,7 +73,10 @@ void Zombie::Update()
 {
 	if (target)
 	{
+		//RayCastCallback callbackInfo;
+		//doRayCast(callbackInfo);
 		b2Vec2 player_position = target->GetPosition();
+		/*b2Vec2 dir = AIType->Move(body->GetPosition(), player_position, callbackInfo.obstacleList);*/
 		b2Vec2 dir = AIType->Move(body->GetPosition(), player_position);
 		float32 angle = atan2(dir.y, dir.x);
 		body->SetTransform(body->GetPosition(), angle);
@@ -81,4 +86,27 @@ void Zombie::Update()
 		//stoi w miejscu
 		body->SetLinearVelocity(b2Vec2(0,0));
 	}
+
+}
+void Zombie::doRayCast(RayCastCallback & callback)
+{
+	float currentRayAngle = 0;
+	float rayLength = .33f;
+	float DEGTORAD = 0.017453292519;
+	int RayNum = 8;
+	//in Step() function
+	for (int i=0;i< RayNum;i++)
+	{
+		currentRayAngle += 360 / RayNum * DEGTORAD;
+		//calculate points of ray
+		b2Vec2 p1=body->GetPosition();
+		b2Vec2 p2 = p1 + rayLength * b2Vec2(sinf(currentRayAngle), cosf(currentRayAngle));
+		world->RayCast(&callback, p1, p2);
+	}
+}
+
+float32 Zombie::RayCastCallback::ReportFixture(b2Fixture * fixture, const b2Vec2 & point, const b2Vec2 & normal, float32 fraction)
+{
+	obstacleList.push_back(point);
+	return float32(1);
 }

@@ -1,13 +1,14 @@
 #include "Brick.h"
 
-
+unsigned int Brick::counter = 0;
 Brick::Brick( b2World * world, sf::Texture * texture, int x, int y )
 {
 	
 	this->active = 2;
-	this->groupID = 2;
+	this->groupID = 3;
 	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
+	//bodyDef.type = b2_dynamicBody;
+	bodyDef.type = b2_staticBody;
 	bodyDef.position = b2Vec2( x / SCALE, y / SCALE );
 	this->body = world->CreateBody( &bodyDef );
 	this->body->SetUserData( dynamic_cast<Entity *> (this) );
@@ -31,7 +32,7 @@ Brick::Brick( b2World * world, sf::Texture * texture, int x, int y )
 	Brick::counter++;
 }
 
-void Brick::Update( sf::RenderWindow * window )
+void Brick::Update()
 {
 	this->shape.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
 	this->shape.setRotation( 180 / b2_pi * this->body->GetAngle() );
@@ -39,7 +40,6 @@ void Brick::Update( sf::RenderWindow * window )
 		this->shape.setFillColor( sf::Color::Red );
 	else
 		this->shape.setFillColor( sf::Color::Green );
-	window->draw( shape );
 }
 
 void Brick::StartContact( Entity * entity )
@@ -52,6 +52,11 @@ void Brick::EndContact( Entity * entity )
 {
 	if ( entity->GroupID() == 1 )
 		contacts--;
+}
+
+void Brick::Render(sf::RenderWindow * window)
+{
+	window->draw(shape);
 }
 
 Brick::~Brick()

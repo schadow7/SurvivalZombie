@@ -31,6 +31,11 @@ b2Vec2 Entity::GetPosition() const
 	return body->GetPosition();
 }
 
+int Entity::getID()
+{
+	return groupID;
+}
+
 Entity::~Entity()
 {
 	delete fixture;

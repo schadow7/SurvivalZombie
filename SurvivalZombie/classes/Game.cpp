@@ -88,7 +88,14 @@ void Game::runGame(sf::RenderWindow * window)
 				entity_manager->AddEntity( zombieTester );
 
 			}
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+			{
+				sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+				sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
+				Brick* obstacle = new Brick(world,textures.at("grad1"),cordPos.x,cordPos.y);
+				entity_manager->AddEntity(obstacle);
 
+			}
 			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
 				velocity += b2Vec2( 0.f, -1.f );
 			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )

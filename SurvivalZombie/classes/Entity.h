@@ -24,10 +24,11 @@ public:
 	int						GroupID() const;
 	void					TakeDamage( int damage );
 	b2Vec2					GetPosition()const;
+	int						getID();
 	~Entity();
 
 protected:
-	int						groupID;  //1-Zombie
+	int						groupID;  //1-PLayer 2-Zombie
 	int						active;
 	b2Body *				body;
 	b2Fixture *				fixture;

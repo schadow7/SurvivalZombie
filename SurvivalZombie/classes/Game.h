@@ -10,6 +10,7 @@
 #include "ZombieManager.h"
 #include "Player.h"
 #include "Menu.h"
+#include "Brick.h"
 
 class Game
 {

@@ -6,6 +6,7 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	hitpoints = 100;
 	speed = 5;
 	angle = 0;
+	groupID = 1;
 	//body->SetTransform( position, body->GetAngle() );
 	//fixture
 	b2CircleShape Shape;
