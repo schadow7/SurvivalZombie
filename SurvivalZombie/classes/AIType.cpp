@@ -11,8 +11,7 @@ AIType::~AIType()
 }
 void AIType::doRayCast(RayCastCallback & callback, b2Vec2 ray_orgin, float currentRayAngle)
 {
-	float rayLength = 0.33f;
-	float DEGTORAD = 0.017453292519f;
+	float rayLength = 0.66f;
 	int RayNum = 1;
 
 	for (int i = 0; i < RayNum; i++)
@@ -27,7 +26,6 @@ void AIType::doRayCast(RayCastCallback & callback, b2Vec2 ray_orgin, float curre
 float32 AIType::RayCastCallback::ReportFixture(b2Fixture * fixture, const b2Vec2 & point, const b2Vec2 & normal, float32 fraction)
 {
 	Entity* temp = static_cast<Entity*>(fixture->GetBody()->GetUserData());
-	b2Vec2 vek = temp->GetPosition();
 	int id = temp->getID();
 	if (id != 1 && id != 2)
 	{

@@ -79,10 +79,9 @@ void Game::runGame(sf::RenderWindow * window)
 
 				sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
 				sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
-				//zombieList[0]->ApplyForce(b2Vec2(mouseX, mouseY));
-				Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
-				zombieTester->SetTarget(player);
-				entity_manager->AddEntity( zombieTester );
+				//Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
+				//zombieTester->SetTarget(player);
+				//entity_manager->AddEntity( zombieTester );
 
 			}
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))

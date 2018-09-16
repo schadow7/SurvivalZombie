@@ -6,7 +6,7 @@ class Aggressive :
 public:
 	Aggressive(b2World* world);
 	~Aggressive();
-	b2Vec2 Move(b2Vec2 position, b2Vec2 player_position) override;
+	b2Vec2 Move(b2Vec2 position, b2Vec2 player_position, float32 current_angle) override;
 private:
 	b2Vec2 old_dir;
 	int obstructed=0;

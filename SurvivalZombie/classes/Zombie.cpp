@@ -20,8 +20,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	zombieFixtureDef.density = 1;
 	zombieFixtureDef.restitution = (0.f); 
 	b2Fixture* fixture=body->CreateFixture(&zombieFixtureDef);
-	//zapisanie wskaŸnika na Zombie w fixture dziêki czemu kiedy Box2D zwróci nam jakieœ fixture mo¿emy ustaliæ do jakiej klasy nale¿y.
-
+	
 	////SFML
 	texture = AssetManager::GetTexture(".\\graphics\\skeleton.png");
 	sprite.setTexture(*texture);
@@ -43,11 +42,7 @@ Zombie::~Zombie()
 
 void Zombie::Action(b2Vec2 player_position)  //deprecated
 {
-	if (target) b2Vec2 player_position = target->GetPosition();
-	b2Vec2 dir = AIType->Move(body->GetPosition(),player_position);
-	float32 angle =atan2(dir.y , dir.x);
-	body->SetTransform(body->GetPosition(), angle);
-	body->SetLinearVelocity(b2Vec2(dir.x*speed,dir.y*speed));
+	;
 }
 void Zombie::SetTarget(const Entity* new_terget)
 {
@@ -77,16 +72,15 @@ void Zombie::Update()
 		//doRayCast(callbackInfo);
 		b2Vec2 player_position = target->GetPosition();
 		/*b2Vec2 dir = AIType->Move(body->GetPosition(), player_position, callbackInfo.obstacleList);*/
-		b2Vec2 dir = AIType->Move(body->GetPosition(), player_position);
-		float32 angle = atan2(dir.y, dir.x);
-		body->SetTransform(body->GetPosition(), angle);
+		b2Vec2 dir = AIType->Move(body->GetPosition(), player_position,body->GetAngle());
+		float32 new_angle = atan2(dir.y, dir.x);
+		body->SetTransform(body->GetPosition(), new_angle);
 		body->SetLinearVelocity(b2Vec2(dir.x*speed, dir.y*speed));
 	}
 	else {
 		//stoi w miejscu
 		body->SetLinearVelocity(b2Vec2(0,0));
 	}
-
 }
 void Zombie::doRayCast(RayCastCallback & callback)
 {

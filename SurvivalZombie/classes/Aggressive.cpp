@@ -12,44 +12,33 @@ Aggressive::~Aggressive()
 {
 }
 
-b2Vec2 Aggressive::Move(b2Vec2 position, b2Vec2 player_position)
+b2Vec2 Aggressive::Move(b2Vec2 position, b2Vec2 player_position, float32 current_angle)
 {
 	RayCastCallback callbackInfo;
-	doRayCast(callbackInfo,position);
-
-	if (obstructed == 0)
+	doRayCast(callbackInfo, position, current_angle);
+	float32 angle = current_angle;
+	int obstructed = 0;
+	while (!callbackInfo.obstacleList.empty() || angle >= current_angle + 2 * b2_pi)
 	{
-		b2Vec2 direction = (player_position - position);
-		for (auto& v : callbackInfo.obstacleList)
-		{
-			obstructed = 1;
-			/*direction.x *= sin(50 * b2_pi / 180 + atan2(direction.x, direction.y));
-			direction.y *= cos(50 * b2_pi / 180 + atan2(direction.x, direction.y));*/
-			direction -= v - direction;
-		}
-		direction.Normalize();
-		old_dir = direction;
-		return direction;
+		obstructed++;
+		callbackInfo.obstacleList.clear();
+		angle += 15 * DEGTORAD;
+		doRayCast(callbackInfo, position, angle);
+	}
+
+	b2Vec2 direction = old_dir;
+	if (obstructed)
+	{
+		direction.x += .15f * cos(angle);
+		direction.y += .15f * sin(angle);
 	}
 	else
 	{
-		obstructed = ++obstructed % 100;
-		return old_dir;
+		direction += .11f*(player_position - position);
 	}
+	direction.Normalize();
+	old_dir = direction;
+	printf("ster:%f \n", atan2(direction.y, direction.x) * 180 / b2_pi);
+	return direction;
 }
 
-//RayCastCallback callbackInfo;
-//doRayCast(callbackInfo, position);
-////sztuczne pola potncja³u
-//b2Vec2 direction = .1f*(player_position - position);
-//for (auto& v : obstacles)
-//{
-//	auto temp = v - position;
-//	temp.x = temp.x / temp.Length() / temp.Length();
-//	temp.y = temp.y / temp.Length() / temp.Length();
-//	direction -= temp;
-//}
-////normalizacja
-//direction.x = direction.x / direction.Length();
-//direction.y = direction.y / direction.Length();
-//return direction;
