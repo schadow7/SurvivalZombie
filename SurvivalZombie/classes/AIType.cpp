@@ -28,7 +28,8 @@ float32 AIType::RayCastCallback::ReportFixture(b2Fixture * fixture, const b2Vec2
 {
 	Entity* temp = static_cast<Entity*>(fixture->GetBody()->GetUserData());
 	int id = temp->getID();
-	if (id != 1 && id != 2)
+	//if (id != 1 && id != 2)
+	if (id != 1)
 	{
 		obstacleList.push_back(point);
 	}
