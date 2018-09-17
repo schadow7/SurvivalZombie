@@ -16,3 +16,21 @@ void Zombie::doRayCast(RayCastCallback & callback)
 		world->RayCast(&callback, p1, p2);
 	}
 }
+
+//stary agressive
+
+RayCastCallback callbackInfo;
+doRayCast(callbackInfo, position);
+//sztuczne pola potncjału
+b2Vec2 direction = .1f*(player_position - position);
+for (auto& v : obstacles)
+{
+	auto temp = v - position;
+	temp.x = temp.x / temp.Length() / temp.Length();
+	temp.y = temp.y / temp.Length() / temp.Length();
+	direction -= temp;
+}
+//normalizacja
+direction.x = direction.x / direction.Length();
+direction.y = direction.y / direction.Length();
+return direction;

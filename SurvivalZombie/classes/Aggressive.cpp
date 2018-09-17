@@ -14,31 +14,53 @@ Aggressive::~Aggressive()
 
 b2Vec2 Aggressive::Move(b2Vec2 position, b2Vec2 player_position, float32 current_angle)
 {
-	RayCastCallback callbackInfo;
-	doRayCast(callbackInfo, position, current_angle);
-	float32 angle = current_angle;
-	int obstructed = 0;
-	while (!callbackInfo.obstacleList.empty() || angle >= current_angle + 2 * b2_pi)
-	{
-		obstructed++;
-		callbackInfo.obstacleList.clear();
-		angle += 15 * DEGTORAD;
-		doRayCast(callbackInfo, position, angle);
-	}
-
+	RayCastCallback callbackRight, callbackLeft;
+	doRayCast(callbackRight, position, current_angle);
+	volatile float32 angleRight = current_angle;
+	float32 angleLeft = current_angle;
+	float turn_gain = .20f;
 	b2Vec2 direction = old_dir;
-	if (obstructed)
+	if (callbackRight.obstacleList.empty())
 	{
-		direction.x += .15f * cos(angle);
-		direction.y += .15f * sin(angle);
+		if (obstructed == 0)
+			direction += .08f*(player_position - position);
+		else
+			obstructed--;
 	}
 	else
 	{
-		direction += .11f*(player_position - position);
+		while (angleRight <= current_angle + b2_pi)
+		{
+			callbackLeft.obstacleList.clear();
+			angleLeft -= 25 * DEGTORAD;
+			doRayCast(callbackLeft, position, angleLeft);
+			if (callbackLeft.obstacleList.empty())
+			{
+				direction.x += turn_gain * cos(angleLeft);
+				direction.y += turn_gain * sin(angleLeft);
+				//printf("L %f\n", angleLeft * 180 / b2_pi);
+				obstructed = 15;
+				break;
+			}
+
+			callbackRight.obstacleList.clear();
+			angleRight += 25 * DEGTORAD;
+			doRayCast(callbackRight, position, angleRight);
+			if (callbackRight.obstacleList.empty())
+			{
+				direction.x += turn_gain * cos(angleRight);
+				direction.y += turn_gain * sin(angleRight);
+				//printf("R %f\n", angleRight*180/b2_pi);
+				obstructed = 15;
+				break;
+			}
+		}
 	}
+	
 	direction.Normalize();
 	old_dir = direction;
-	printf("ster:%f \n", atan2(direction.y, direction.x) * 180 / b2_pi);
+	//printf("%d \n", obstructed);
+	//printf("ster:%f \n", atan2(direction.y, direction.x) * 180 / b2_pi);
 	return direction;
 }
 

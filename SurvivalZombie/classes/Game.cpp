@@ -74,14 +74,14 @@ void Game::runGame(sf::RenderWindow * window)
 			view->setCenter( player->GetPosition() );
 			window->setView( *view );
 			b2Vec2 velocity = b2Vec2_zero;
-			if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) )
 			{
 
 				sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
 				sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
-				//Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
-				//zombieTester->SetTarget(player);
-				//entity_manager->AddEntity( zombieTester );
+				Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
+				zombieTester->SetTarget(player);
+				entity_manager->AddEntity( zombieTester );
 
 			}
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
