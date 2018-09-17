@@ -1,18 +1,18 @@
-#include "Aggressive.h"
+#include "AIAggressive.h"
 
 
 
-Aggressive::Aggressive(b2World* world)
+AIAggressive::AIAggressive(b2World* world)
 {
 	this->world = world;
 }
 
 
-Aggressive::~Aggressive()
+AIAggressive::~AIAggressive()
 {
 }
 
-b2Vec2 Aggressive::Move(b2Vec2 position, b2Vec2 player_position, float32 current_angle)
+b2Vec2 AIAggressive::Move(b2Vec2 position, b2Vec2 player_position, float32 current_angle)
 {
 	RayCastCallback callbackRight, callbackLeft;
 	doRayCast(callbackRight, position, current_angle);

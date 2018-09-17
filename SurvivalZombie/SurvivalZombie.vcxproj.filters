@@ -39,9 +39,6 @@
     <ClCompile Include="classes\AIType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="classes\Aggressive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="classes\ZombieManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,6 +52,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="classes\Brick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\AIAggressive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\AIChaotic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\AIIdle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,9 +89,6 @@
     <ClInclude Include="classes\AIType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="classes\Aggressive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="classes\ZombieManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,6 +102,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="classes\Brick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\AIAggressive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\AIChaotic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\AIIdle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

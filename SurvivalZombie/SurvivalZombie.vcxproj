@@ -125,7 +125,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="classes\Aggressive.cpp" />
+    <ClCompile Include="classes\AIAggressive.cpp" />
+    <ClCompile Include="classes\AIChaotic.cpp" />
+    <ClCompile Include="classes\AIIdle.cpp" />
     <ClCompile Include="classes\AIType.cpp" />
     <ClCompile Include="classes\AssetManager.cpp" />
     <ClCompile Include="classes\Brick.cpp" />
@@ -141,7 +143,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="classes\Aggressive.h" />
+    <ClInclude Include="classes\AIAggressive.h" />
+    <ClInclude Include="classes\AIChaotic.h" />
+    <ClInclude Include="classes\AIIdle.h" />
     <ClInclude Include="classes\AIType.h" />
     <ClInclude Include="classes\AssetManager.h" />
     <ClInclude Include="classes\Brick.h" />

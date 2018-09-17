@@ -1,5 +1,4 @@
 #include "Game.h"
-
 Game::Game()
 {
 	world = new b2World( b2Vec2(0.f, 0.f ));
@@ -81,6 +80,7 @@ void Game::runGame(sf::RenderWindow * window)
 				sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
 				Zombie* zombieTester = new Zombie( world, positionPixToWorld( cordPos ) );
 				zombieTester->SetTarget(player);
+				zombieTester->SetAI(Zombie::Chaotic);
 				entity_manager->AddEntity( zombieTester );
 
 			}

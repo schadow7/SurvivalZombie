@@ -1,7 +1,10 @@
 #include "Zombie.h"
-#include"Aggressive.h"
+#include"AIType.h"
 #include <iostream>
 #include <math.h>
+#include "AIChaotic.h"
+#include "AIAggressive.h"
+#include "AIIdle.h"
 Zombie::Zombie(b2World *world, b2Vec2 position) :
 	DynamicBody(world, position),
 	speed(1),
@@ -11,7 +14,9 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	//base stats 
 	groupID = 2;
 	hitpoints = 100;
-	AIType = new Aggressive(world);
+	//AI = new AIAggressive(world);
+	//AIType = new AIChaotic(world);
+	AI = new AIIdle(world);
 	//fixture
 	b2CircleShape zombieShape;
 	zombieShape.m_radius = size/2/SCALE;
@@ -37,7 +42,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 
 Zombie::~Zombie()
 {
-	delete AIType;
+	delete AI;
 }
 
 void Zombie::Action(b2Vec2 player_position)  //deprecated
@@ -47,6 +52,28 @@ void Zombie::Action(b2Vec2 player_position)  //deprecated
 void Zombie::SetTarget(const Entity* new_terget)
 {
 	target = new_terget;
+}
+void Zombie::SetAI(AI_enum new_type)
+{
+	AIType* AI_old = AI;
+	switch (new_type) {
+	case Aggrssive: AI = new AIAggressive(world);
+				if(AI_old) delete AI_old;
+				break;
+	case Chaotic: AI = new AIChaotic(world);
+		if (AI_old) delete AI_old;
+				break;
+	case Idle: AI = new AIIdle(world);
+		if (AI_old) delete AI_old;
+			break;
+	default: 
+		break;
+	}
+}
+void Zombie::SetAI(AIType * new_type)
+{
+	if (AI) delete (AI);
+	AI = new_type;
 }
 void Zombie::StartContact(Entity*) 
 {
@@ -72,7 +99,7 @@ void Zombie::Update()
 		//doRayCast(callbackInfo);
 		b2Vec2 player_position = target->GetPosition();
 		/*b2Vec2 dir = AIType->Move(body->GetPosition(), player_position, callbackInfo.obstacleList);*/
-		b2Vec2 dir = AIType->Move(body->GetPosition(), player_position,body->GetAngle());
+		b2Vec2 dir = AI->Move(body->GetPosition(), player_position,body->GetAngle());
 		float32 new_angle = atan2(dir.y, dir.x);
 		body->SetTransform(body->GetPosition(), new_angle);
 		body->SetLinearVelocity(b2Vec2(dir.x*speed, dir.y*speed));

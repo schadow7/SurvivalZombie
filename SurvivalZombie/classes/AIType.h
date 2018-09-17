@@ -15,7 +15,7 @@ protected:
 		std::vector<b2Vec2> obstacleList;
 		float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction) override;
 	};
-	void doRayCast(RayCastCallback& callback, b2Vec2 ray_orgin, float currentRayAngle =0);
+	virtual void doRayCast(RayCastCallback& callback, b2Vec2 ray_orgin, float currentRayAngle = 0);
 	const float DEGTORAD = b2_pi/180;
 };
 

@@ -13,8 +13,11 @@ public:
 	void Update();
 	virtual void Action(b2Vec2 player_positon) ;
 	void SetTarget(const Entity* new_target);
+	enum AI_enum {Aggrssive, Chaotic, Idle};
+	void SetAI(AI_enum);
+	void SetAI(AIType*);
 private:
-	AIType* AIType;
+	AIType* AI;
 	float32 speed;
 	sf::Sprite sprite;
 	int size; //rozmair zombie w pikselach
