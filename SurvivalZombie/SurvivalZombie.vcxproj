@@ -140,6 +140,8 @@
     <ClCompile Include="classes\Player.cpp" />
     <ClCompile Include="classes\Zombie.cpp" />
     <ClCompile Include="classes\ZombieManager.cpp" />
+    <ClCompile Include="classes\ZombieSprinter.cpp" />
+    <ClCompile Include="classes\ZombieTank.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +161,8 @@
     <ClInclude Include="classes\Player.h" />
     <ClInclude Include="classes\Zombie.h" />
     <ClInclude Include="classes\ZombieManager.h" />
+    <ClInclude Include="classes\ZombieSprinter.h" />
+    <ClInclude Include="classes\ZombieTank.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

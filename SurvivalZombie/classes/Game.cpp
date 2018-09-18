@@ -73,7 +73,7 @@ void Game::runGame(sf::RenderWindow * window)
 			view->setCenter( player->GetPosition() );
 			window->setView( *view );
 			b2Vec2 velocity = b2Vec2_zero;
-			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) )
+			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Num1 ) )
 			{
 
 				sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
@@ -82,6 +82,28 @@ void Game::runGame(sf::RenderWindow * window)
 				zombieTester->SetTarget(player);
 				zombieTester->SetAI(Zombie::Chaotic);
 				entity_manager->AddEntity( zombieTester );
+
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+			{
+
+				sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+				sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
+				Zombie* zombieTester = new ZombieTank(world, positionPixToWorld(cordPos));
+				zombieTester->SetTarget(player);
+				zombieTester->SetAI(Zombie::Chaotic);
+				entity_manager->AddEntity(zombieTester);
+
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+			{
+
+				sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+				sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
+				Zombie* zombieTester = new ZombieSprinter(world, positionPixToWorld(cordPos));
+				zombieTester->SetTarget(player);
+				zombieTester->SetAI(Zombie::Chaotic);
+				entity_manager->AddEntity(zombieTester);
 
 			}
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))

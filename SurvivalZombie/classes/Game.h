@@ -7,7 +7,8 @@
 #include <map>
 #include "Zombie.h"
 #include "AssetManager.h"
-#include "ZombieManager.h"
+#include "ZombieTank.h"
+#include "ZombieSprinter.h"
 #include "Player.h"
 #include "Menu.h"
 #include "Brick.h"

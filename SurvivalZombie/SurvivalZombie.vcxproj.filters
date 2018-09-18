@@ -63,6 +63,12 @@
     <ClCompile Include="classes\AIIdle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="classes\ZombieTank.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\ZombieSprinter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="classes\MainWindow.h">
@@ -111,6 +117,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="classes\AIIdle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\ZombieTank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\ZombieSprinter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

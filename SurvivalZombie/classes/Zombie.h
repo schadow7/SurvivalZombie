@@ -16,11 +16,12 @@ public:
 	enum AI_enum {Aggrssive, Chaotic, Idle};
 	void SetAI(AI_enum);
 	void SetAI(AIType*);
+protected:
+	float32 speed;
+	int size; //rozmair zombie w pikselach
+	sf::Sprite sprite;
 private:
 	AIType* AI;
-	float32 speed;
-	sf::Sprite sprite;
-	int size; //rozmair zombie w pikselach
 	const Entity* target;
 	b2World* world;  //do raycast. shared pointer?
 	//////
