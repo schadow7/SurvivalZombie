@@ -21,6 +21,7 @@ public:
 	void									initializeGame();
 	void									runGame(sf::RenderWindow * window);
 	void									loadTextures();
+	void									Controls(sf::RenderWindow * window);
 
 private:
 	void									Render( sf::RenderWindow * window );
@@ -38,4 +39,5 @@ private:
 	Player *								player;
 	Menu *									menu;
 	int										gameState;
+	sf::Cursor *							cursor;
 };

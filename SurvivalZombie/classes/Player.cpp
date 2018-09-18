@@ -39,6 +39,7 @@ void Player::EndContact( Entity * )
 void Player::Render( sf::RenderWindow * window )
 {
 	shape.setPosition( this->GetPosition() );
+	shape.setRotation( this->GetAngle() );
 	window->draw( shape );
 }
 
@@ -49,7 +50,7 @@ void Player::Update()
 
 void Player::SetAngle( float32 angle )
 {
-	this->angle = angle;
+	this->body->SetTransform( this->body->GetPosition(), angle );
 }
 
 
