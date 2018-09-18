@@ -16,6 +16,7 @@ Game::Game()
 	menu = new Menu();
 	gameState = 0;
 	undeadCount = 0;
+	currentLevel = 0;
 }
 
 Game::~Game()
@@ -78,7 +79,6 @@ void Game::runGame(sf::RenderWindow * window)
 
 		else if (gameState == 1)
 		{
-			printf("undeadCount:%d\n", undeadCount);
 			window->clear();
 			view->setCenter( player->GetPosition() );
 			window->setView( *view );
@@ -138,6 +138,14 @@ void Game::runGame(sf::RenderWindow * window)
 				sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 				Brick* obstacle = new Brick(world,textures.at("grad1"),cordPos.x,cordPos.y);
 				entity_manager->AddEntity(obstacle);
+
+			}
+			if (undeadCount==0)
+			{
+				currentLevel++;
+				Level Next(currentLevel);
+				spawnHorde(Next);
+				printf("level:%d undeadCount:%d\n", currentLevel,undeadCount);
 
 			}
 			if ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )

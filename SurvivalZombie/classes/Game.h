@@ -44,4 +44,5 @@ private:
 	int										gameState;
 	int										undeadCount;
 	void									spawnHorde(Level & next_level);
+	int										currentLevel;
 };
