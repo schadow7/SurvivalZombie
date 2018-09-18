@@ -93,7 +93,7 @@ void Zombie::Render(sf::RenderWindow* window)
 }
 void Zombie::Update()
 {
-	if (target)
+	if (target && active)
 	{
 		//RayCastCallback callbackInfo;
 		//doRayCast(callbackInfo);
@@ -107,6 +107,7 @@ void Zombie::Update()
 	else {
 		//stoi w miejscu
 		body->SetLinearVelocity(b2Vec2(0,0));
+		body->SetAngularVelocity(0.f);
 	}
 }
 void Zombie::doRayCast(RayCastCallback & callback)

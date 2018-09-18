@@ -15,6 +15,7 @@ Game::Game()
 	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 	menu = new Menu();
 	gameState = 0;
+	undeadCount = 0;
 }
 
 Game::~Game()
@@ -28,9 +29,12 @@ void Game::initializeGame()
 	entity_manager->AddEntity( player );
 
 	//TEMP undead tester
-	Zombie * zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
-	entity_manager->AddEntity(zombieTester);
-	zombieTester->SetTarget(player);
+	//Zombie * zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
+	//entity_manager->AddEntity(zombieTester);
+	//zombieTester->SetTarget(player);
+	std::vector<int> quan = { 3,3,3 };
+	Level TestLevel(1, quan, b2Vec2(1.f, 1.f));
+	spawnHorde(TestLevel);
 }
 
 void Game::loadTextures()
@@ -46,6 +50,11 @@ void Game::loadTextures()
 	background.setTextureRect( sf::IntRect( 0, 0, 8000, 8000 ) );
 	tmp->loadFromFile( ".\\graphics\\survivor.png" );
 	textures.insert( std::pair<std::string, sf::Texture*>( "survivor", tmp ) );
+}
+void Game::update(Entity * ptr)
+{
+	if (ptr->GetID() == 2)
+		undeadCount--;
 }
 void Game::runGame(sf::RenderWindow * window)
 {
@@ -69,6 +78,7 @@ void Game::runGame(sf::RenderWindow * window)
 
 		else if (gameState == 1)
 		{
+			printf("undeadCount:%d\n", undeadCount);
 			window->clear();
 			view->setCenter( player->GetPosition() );
 			window->setView( *view );
@@ -106,6 +116,22 @@ void Game::runGame(sf::RenderWindow * window)
 				entity_manager->AddEntity(zombieTester);
 
 			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+			{
+
+				sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+				sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
+				std::vector<int> quan = { 3,3,3 };
+				Level TestLevel(1, quan, positionPixToWorld(cordPos));
+				spawnHorde(TestLevel);
+
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+			{
+
+				entity_manager->KillEverybody();
+
+			}
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 			{
 				sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
@@ -136,4 +162,50 @@ void Game::runGame(sf::RenderWindow * window)
 
 void Game::Render( sf::RenderWindow * window )
 {
+}
+
+void Game::spawnHorde(Level & next_level)
+{
+	int type = 0;
+	for (auto & it : next_level.zombieQuantity)
+	{
+		type++;
+		if (type == 1)
+		{
+			for (int i = 0; i < it; i++)
+			{
+				Zombie* zombieTester = new Zombie(world, next_level.spawnPosition);
+				zombieTester->SetTarget(player);
+				zombieTester->SetAI(Zombie::Chaotic);
+				entity_manager->AddEntity(zombieTester);
+				zombieTester->registerObserver(this);
+				undeadCount++;
+			}
+		}
+		if (type == 2)
+		{
+			for (int i = 0; i < it; i++)
+			{
+				Zombie* zombieTester = new ZombieTank(world, next_level.spawnPosition);
+				zombieTester->SetTarget(player);
+				zombieTester->SetAI(Zombie::Chaotic);
+				entity_manager->AddEntity(zombieTester);
+				zombieTester->registerObserver(this);
+				undeadCount++;
+			}
+		}
+		if (type == 3)
+		{
+			for (int i = 0; i < it; i++)
+			{
+				Zombie* zombieTester = new ZombieSprinter(world, next_level.spawnPosition);
+				zombieTester->SetTarget(player);
+				zombieTester->SetAI(Zombie::Chaotic);
+				entity_manager->AddEntity(zombieTester);
+				zombieTester->registerObserver(this);
+				undeadCount++;
+			}
+		}
+
+	}
 }

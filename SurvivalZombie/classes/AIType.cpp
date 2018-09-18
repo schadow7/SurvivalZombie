@@ -27,7 +27,7 @@ void AIType::doRayCast(RayCastCallback & callback, b2Vec2 ray_orgin, float curre
 float32 AIType::RayCastCallback::ReportFixture(b2Fixture * fixture, const b2Vec2 & point, const b2Vec2 & normal, float32 fraction)
 {
 	Entity* temp = static_cast<Entity*>(fixture->GetBody()->GetUserData());
-	int id = temp->getID();
+	int id = temp->GetID();
 	//if (id != 1 && id != 2)
 	if (id != 1)
 	{

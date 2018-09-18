@@ -16,6 +16,7 @@ public:
 	void						RemoveEntity( Entity * entity );
 	void						Update();
 	void						Render( sf::RenderWindow * window );
+	void						KillEverybody();
 
 
 private:

@@ -39,3 +39,11 @@ void EntityManager::Render( sf::RenderWindow * window )
 			it->Render( window );
 		}
 }
+
+void EntityManager::KillEverybody()
+{
+	for (auto & it : entities)
+	{
+		it->TakeDamage(1000);
+	}
+}

@@ -5,13 +5,13 @@
 #include <string>
 #include <list>
 #include "AssetManager.h"
-
+#include "subject.h"
 //Zdefiniowana poni¿ej
 class Effect;
 
 
-
-class Entity
+class Entity:
+	public Subject
 {
 public:
 	const float SCALE = 100.f;  //	MetersToPixelsFactor 
@@ -24,7 +24,7 @@ public:
 	int						GroupID() const;
 	void					TakeDamage( int damage );
 	b2Vec2					GetPosition()const;
-	int						getID();
+	int						GetID();
 	~Entity();
 
 protected:

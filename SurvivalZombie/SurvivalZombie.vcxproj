@@ -135,9 +135,12 @@
     <ClCompile Include="classes\Entity.cpp" />
     <ClCompile Include="classes\EntityManager.cpp" />
     <ClCompile Include="classes\Game.cpp" />
+    <ClCompile Include="classes\Level.cpp" />
     <ClCompile Include="classes\MainWindow.cpp" />
     <ClCompile Include="classes\Menu.cpp" />
+    <ClCompile Include="classes\observer.cpp" />
     <ClCompile Include="classes\Player.cpp" />
+    <ClCompile Include="classes\subject.cpp" />
     <ClCompile Include="classes\Zombie.cpp" />
     <ClCompile Include="classes\ZombieManager.cpp" />
     <ClCompile Include="classes\ZombieSprinter.cpp" />
@@ -156,9 +159,12 @@
     <ClInclude Include="classes\Entity.h" />
     <ClInclude Include="classes\EntityManager.h" />
     <ClInclude Include="classes\Game.h" />
+    <ClInclude Include="classes\Level.h" />
     <ClInclude Include="classes\MainWindow.h" />
     <ClInclude Include="classes\Menu.h" />
+    <ClInclude Include="classes\observer.h" />
     <ClInclude Include="classes\Player.h" />
+    <ClInclude Include="classes\subject.h" />
     <ClInclude Include="classes\Zombie.h" />
     <ClInclude Include="classes\ZombieManager.h" />
     <ClInclude Include="classes\ZombieSprinter.h" />

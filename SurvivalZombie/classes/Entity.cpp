@@ -22,8 +22,11 @@ int Entity::GroupID() const
 void Entity::TakeDamage( int damage )
 {
 	hitpoints -= damage;
-	//if(hitpoints < 0 )
-
+	if (hitpoints < 0 && active == 1)
+	{
+		active = 0;
+		notify(this);
+	}
 }
 
 b2Vec2 Entity::GetPosition() const
@@ -31,7 +34,7 @@ b2Vec2 Entity::GetPosition() const
 	return body->GetPosition();
 }
 
-int Entity::getID()
+int Entity::GetID()
 {
 	return groupID;
 }
