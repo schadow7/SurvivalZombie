@@ -15,6 +15,7 @@ Game::Game()
 	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 	menu = new Menu();
 	cursor = new sf::Cursor;
+	hud = new Hud;
 	gameState = 0;
 	undeadCount = 0;
 	currentLevel = 0;
@@ -187,6 +188,7 @@ void Game::runGame(sf::RenderWindow * window)
 			window->draw(background);
 			entity_manager->Update();
 			entity_manager->Render(window);
+			hud->Render(window, view, player);
 			/*
 			sf::Vertex line[] =
 			{

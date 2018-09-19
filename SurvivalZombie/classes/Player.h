@@ -16,6 +16,7 @@ public:
 	sf::Vector2f			GetWeaponPosition();
 	void					AddWeapon( Weapon * weapon );
 	void					Shoot( b2Vec2 direction );
+	std::vector<long int>	GetHitpoints();
 	//virtual void Action( b2Vec2 player_positon );
 private:
 	double					speed;
