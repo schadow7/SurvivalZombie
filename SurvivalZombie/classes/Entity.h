@@ -36,6 +36,7 @@ protected:
 	std::string				name;
 	/*sf::RenderTexture*		texture;*/
 	long int				hitpoints;
+	long int				maxhitpoints;
 	std::list<Effect *>		effects;
 	std::shared_ptr<sf::Texture> texture;
 };
@@ -57,15 +58,7 @@ inline sf::Vector2f positionWorldToPix( b2Vec2 vec )
 	return tmp;
 }
 
-inline sf::Vector2f rotateVector( sf::Vector2f vector, float32 angle )
-{
-	return sf::Vector2f( ( vector.x*cosf( angle ) - vector.y*sinf( angle ) ), ( vector.x*sinf( angle ) + vector.y*cosf( angle ) ) );
-}
 
-inline b2Vec2 rotateVector( b2Vec2 vector, float32 angle )
-{
-	return b2Vec2( ( vector.x*cosf( angle ) - vector.y*sinf( angle ) ), ( vector.x*sinf( angle ) + vector.y*cosf( angle ) ) );
-}
 
 class Effect
 {

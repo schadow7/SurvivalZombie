@@ -21,6 +21,8 @@ protected:
 	float32 speed;
 	int size; //rozmair zombie w pikselach
 	sf::Sprite sprite;
+	sf::RectangleShape hitpointsBarRed;
+	sf::RectangleShape hitpointsBarBlack;
 private:
 	AIType* AI;
 	const Entity* target;

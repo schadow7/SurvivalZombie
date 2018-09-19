@@ -7,6 +7,7 @@ ZombieSprinter::ZombieSprinter(b2World* world, b2Vec2 position) :
 {
 	float spec_factor = .4f;
 	hitpoints -= spec_factor * hitpoints;
+	maxhitpoints = hitpoints;
 	speed += spec_factor * speed;
 	size = 40;
 	body->GetFixtureList()->GetShape()->m_radius = size / 2 / SCALE;
