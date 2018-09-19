@@ -86,7 +86,7 @@ public:
 	void CreateBullet( b2Vec2 playerPositon, float32 playerAngle, b2Vec2 direction )
 	{
 		//Wyznaczenie pozycji w œwiecie, w której ma siê pojawiæ pocisk
-		b2Vec2 rotatedPosition = b2Vec2( ( position.x*cosf( playerAngle ) - position.y*sinf( playerAngle ) ), ( position.x*sinf( playerAngle ) + position.y*cosf( playerAngle ) ) );
+		b2Vec2 rotatedPosition = rotateVector( position, playerAngle );
 		b2Vec2 positionProjectile = playerPositon + rotatedPosition;
 		//Wype³nienie struktury z w³aœciwoœciami obiektu (tj. szybkoœæ, zadawane obra¿enia, czas po którym pocisk znika
 		projectile_features projFeat = { 10, 20, sf::seconds( 2 ), direction };
