@@ -25,9 +25,10 @@ void EntityManager::Update()
 	//Symulacja œwiata
 	world->Step( 1 / 60.f, 8, 3 );
 	//Aktualizacja statusu obiektu (tu siê wykonuje logika gry)
+	sf::Time difference_time = clock.restart();
 	for ( auto & it : entities )
 	{
-		it->Update();
+		it->Update(difference_time);
 	}
 }
 

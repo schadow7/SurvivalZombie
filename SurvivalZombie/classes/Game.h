@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "Menu.h"
 #include "Brick.h"
+#include "Weapon.h"
 
 class Game
 {

@@ -29,7 +29,8 @@ void Game::initializeGame()
 	//Player
 	player = new Player( world, textures.at( "survivor" ), positionPixToWorld( sf::Vector2f(300, 300) ) );
 	entity_manager->AddEntity( player );
-
+	Weapon * pistol = new Pistol( entity_manager, textures.at( "survivor" ), textures.at( "grad1" ) );
+	player->AddWeapon( pistol );
 	//TEMP undead tester
 	Zombie * zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
 	entity_manager->AddEntity(zombieTester);
@@ -59,7 +60,7 @@ void Game::Controls( sf::RenderWindow * window )
 	sf::Vector2i mousePos = sf::Mouse::getPosition( *window );
 	sf::Vector2f cordPos = window->mapPixelToCoords( mousePos );
 	//Wyznaczenie znormalizowanego wektora wyznaczaj¹cego kierunek od gracza do pozycycji myszki
-	normalize_direction = positionPixToWorld( cordPos ) - positionPixToWorld( player->GetPosition() );
+	normalize_direction = positionPixToWorld( cordPos ) - positionPixToWorld( player->GetWeaponPosition() );
 	normalize_direction.Normalize();
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) )
 	{
@@ -75,6 +76,9 @@ void Game::Controls( sf::RenderWindow * window )
 		entity_manager->AddEntity( obstacle );
 
 	}
+	if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+		player->Shoot( normalize_direction );
+
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
 		velocity += b2Vec2( normalize_direction );
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
@@ -123,12 +127,14 @@ void Game::runGame(sf::RenderWindow * window)
 			window->draw(background);
 			entity_manager->Update();
 			entity_manager->Render(window);
+			/*
 			sf::Vertex line[] =
 			{
-				sf::Vertex( player->GetPosition() ),
+				sf::Vertex( player->GetWeaponPosition() ),
 				sf::Vertex( window->mapPixelToCoords( sf::Mouse::getPosition( *window ) ) )
 			};
 			window->draw( line, 2, sf::Lines );
+			*/
 		}
 
 		//Wyœwietlenie obrazu

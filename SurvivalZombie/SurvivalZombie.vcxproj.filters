@@ -57,6 +57,9 @@
     <ClCompile Include="classes\Brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="classes\Weapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="classes\MainWindow.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="classes\Brick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
