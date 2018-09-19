@@ -9,5 +9,4 @@ int main()
 
 	return 0;
 }
-
-//tescik
+//a zrobmy tak
