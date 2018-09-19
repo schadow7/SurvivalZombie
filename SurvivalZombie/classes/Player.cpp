@@ -4,6 +4,7 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 {
 	//base stats 
 	hitpoints = 100;
+	maxhitpoints = hitpoints;
 	speed = 5;
 	groupID = 1;
 	//fixture
@@ -41,7 +42,8 @@ void Player::Render( sf::RenderWindow * window )
 {
 	shape.setPosition( this->GetPosition() );
 	shape.setRotation( this->GetAngle() );
-	window->draw( shape );
+
+	window->draw(shape);
 }
 
 void Player::Update(sf::Time)
@@ -85,3 +87,11 @@ void Player::Shoot( b2Vec2 direction )
 }
 
 
+std::vector<long int> Player::GetHitpoints()
+{
+	std::vector<long int> hp (2);
+	hp[0] = hitpoints;
+	hp[1] = maxhitpoints;
+
+	return hp;
+}

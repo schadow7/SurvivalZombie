@@ -15,6 +15,8 @@
 #include "observer.h"
 #include "Level.h"
 #include "Weapon.h"
+#include "Hud.h"
+
 class Game:
 	public Observer
 {
@@ -43,6 +45,7 @@ private:
 	Zombie *								zombieTester;
 	Player *								player;
 	Menu *									menu;
+	Hud *									hud;
 	int										gameState;
 	sf::Cursor *							cursor;
 	int										undeadCount;

@@ -14,6 +14,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	//base stats 
 	groupID = 2;
 	hitpoints = 100;
+	maxhitpoints = 100;
 	//AI = new AIAggressive(world);
 	//AIType = new AIChaotic(world);
 	AI = new AIIdle(world);
@@ -33,6 +34,9 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	float scaleX= static_cast<float>(size) / texture->getSize().x;
 	float scaleY = static_cast<float>(size) / texture->getSize().y;
 	sprite.setScale(scaleX, scaleY);
+
+	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
+	hitpointsBarBlack.setFillColor(sf::Color(0, 0, 0));
 
 	////Do zobaczenia czy wyœwietlanie jest prawid³owe
 	//shape.setOrigin( sf::Vector2f( 24.f, 24.f ) );
@@ -92,7 +96,19 @@ void Zombie::Render(sf::RenderWindow* window)
 	sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
 	//shape.setPosition(SCALE * 2, SCALE * 2);
 	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
-	window->draw( sprite );
+
+
+
+	hitpointsBarRed.setSize(sf::Vector2f(int(70 * hitpoints / maxhitpoints), 5));
+	hitpointsBarBlack.setSize(sf::Vector2f(int(72 * hitpoints / maxhitpoints), 7));
+	hitpointsBarRed.setPosition(SCALE * this->body->GetPosition().x - int(35*hitpoints/maxhitpoints), SCALE * this->body->GetPosition().y - 25);
+	hitpointsBarBlack.setPosition(SCALE * this->body->GetPosition().x - int(36*hitpoints/maxhitpoints), SCALE * this->body->GetPosition().y - 26);
+
+
+
+	window->draw(sprite);
+	window->draw(hitpointsBarBlack);
+	window->draw(hitpointsBarRed);
 }
 void Zombie::Update(sf::Time)
 {
