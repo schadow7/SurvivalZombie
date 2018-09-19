@@ -145,6 +145,11 @@ void Game::Controls( sf::RenderWindow * window )
 	player->SetVelocity( velocity );
 	player->SetAngle( atan2f( normalize_direction.y, normalize_direction.x ) );
 }
+void Game::update( Entity * ptr )
+{
+	if ( ptr->GetID() == 2 )
+		undeadCount--;
+}
 void Game::runGame(sf::RenderWindow * window)
 {
 	initializeGame();
