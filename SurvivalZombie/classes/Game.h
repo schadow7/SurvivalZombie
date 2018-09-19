@@ -14,6 +14,7 @@
 #include "Brick.h"
 #include "observer.h"
 #include "Level.h"
+#include "Weapon.h"
 class Game:
 	public Observer
 {
@@ -24,6 +25,7 @@ public:
 	void									initializeGame();
 	void									runGame(sf::RenderWindow * window);
 	void									loadTextures();
+	void									Controls(sf::RenderWindow * window);
 	void									update(Entity*) override;
 
 private:
@@ -42,6 +44,7 @@ private:
 	Player *								player;
 	Menu *									menu;
 	int										gameState;
+	sf::Cursor *							cursor;
 	int										undeadCount;
 	void									spawnHorde(Level & next_level);
 	int										currentLevel;

@@ -140,6 +140,7 @@
     <ClCompile Include="classes\Menu.cpp" />
     <ClCompile Include="classes\observer.cpp" />
     <ClCompile Include="classes\Player.cpp" />
+    <ClCompile Include="classes\Weapon.cpp" />
     <ClCompile Include="classes\subject.cpp" />
     <ClCompile Include="classes\Zombie.cpp" />
     <ClCompile Include="classes\ZombieManager.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="classes\Menu.h" />
     <ClInclude Include="classes\observer.h" />
     <ClInclude Include="classes\Player.h" />
+    <ClInclude Include="classes\Weapon.h" />
     <ClInclude Include="classes\subject.h" />
     <ClInclude Include="classes\Zombie.h" />
     <ClInclude Include="classes\ZombieManager.h" />

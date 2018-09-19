@@ -83,6 +83,9 @@ void Zombie::EndContact(Entity*)
 {
 	;
 }
+void Zombie::Presolve( Entity * )
+{
+}
 void Zombie::Render(sf::RenderWindow* window)
 {
 	//std::cout << "BoX: " << this->body->GetPosition().x << " " << this->body->GetPosition().x << " SFML: " << shape.getPosition().x << " " << shape.getPosition().y << std::endl;
@@ -91,7 +94,7 @@ void Zombie::Render(sf::RenderWindow* window)
 	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
 	window->draw( sprite );
 }
-void Zombie::Update()
+void Zombie::Update(sf::Time)
 {
 	if (target && active)
 	{

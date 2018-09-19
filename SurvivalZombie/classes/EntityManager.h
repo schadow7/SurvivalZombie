@@ -16,6 +16,7 @@ public:
 	void						RemoveEntity( Entity * entity );
 	void						Update();
 	void						Render( sf::RenderWindow * window );
+	b2World *					World() { return world; }
 	void						KillEverybody();
 
 

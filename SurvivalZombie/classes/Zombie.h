@@ -9,8 +9,9 @@ public:
 	~Zombie();
 	void StartContact(Entity*);
 	void EndContact(Entity*);
+	void Presolve( Entity* );
 	void Render(sf::RenderWindow* window);
-	void Update();
+	void Update(sf::Time);
 	virtual void Action(b2Vec2 player_positon) ;
 	void SetTarget(const Entity* new_target);
 	enum AI_enum {Aggrssive, Chaotic, Idle};

@@ -4,8 +4,8 @@ class DynamicBody :
 	public Entity
 {
 public:
-						DynamicBody(b2World* world, b2Vec2 position);
-						DynamicBody(b2World, sf::Texture, b2BodyDef, b2FixtureDef);
+						DynamicBody(b2World * world, b2Vec2 position);
+						DynamicBody(b2World * world, b2BodyDef bodyDef, b2FixtureDef fixtureDef);
 	virtual				~DynamicBody();
 	void				SetVelocity(b2Vec2 velocity);
 	void				ApplyForce(b2Vec2 force);

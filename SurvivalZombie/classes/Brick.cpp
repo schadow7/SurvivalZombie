@@ -32,7 +32,7 @@ Brick::Brick( b2World * world, sf::Texture * texture, int x, int y )
 	Brick::counter++;
 }
 
-void Brick::Update()
+void Brick::Update(sf::Time)
 {
 	this->shape.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
 	this->shape.setRotation( 180 / b2_pi * this->body->GetAngle() );
@@ -52,6 +52,10 @@ void Brick::EndContact( Entity * entity )
 {
 	if ( entity->GroupID() == 1 )
 		contacts--;
+}
+
+void Brick::Presolve( Entity * )
+{
 }
 
 void Brick::Render(sf::RenderWindow * window)

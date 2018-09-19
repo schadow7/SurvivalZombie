@@ -16,10 +16,11 @@ class Entity:
 public:
 	const float SCALE = 100.f;  //	MetersToPixelsFactor 
 	Entity();
-	virtual void			Update() = 0;
+	virtual void			Update(sf::Time ) = 0;
 	virtual void			Render( sf::RenderWindow * window ) = 0;
 	virtual void			StartContact( Entity * entity ) = 0;
 	virtual void			EndContact( Entity * entity ) = 0;
+	virtual void			Presolve( Entity * entitity ) = 0;
 	int						Active() const;
 	int						GroupID() const;
 	void					TakeDamage( int damage );
@@ -28,7 +29,7 @@ public:
 	~Entity();
 
 protected:
-	int						groupID;  //1-PLayer 2-Zombie
+	int						groupID;  //1-PLayer 2-Zombie 3-Projectile
 	int						active;
 	b2Body *				body;
 	b2Fixture *				fixture;
