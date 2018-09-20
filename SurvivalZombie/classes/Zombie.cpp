@@ -162,6 +162,9 @@ void Zombie::RenderInactive( sf::RenderWindow * window )
 	sprite.setTexture( textureDead );
 	sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
 	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
+	float scaleX = static_cast<float>(sizey) / textureDead.getSize().x;
+	float scaleY = static_cast<float>(sizey) / textureDead.getSize().y;
+	sprite.setScale(scaleX, scaleY);
 	window->draw( sprite );
 }
 
