@@ -18,6 +18,7 @@ Game::Game()
 	currentLevel = 0;
 	noKeyWasPressed = true;
 	mapCenter= b2Vec2(4000 / SCALE, 4000 / SCALE);
+	previous_angle = 0.f;
 }
 
 Game::~Game()
@@ -188,8 +189,10 @@ void Game::Controls(sf::RenderWindow * window)
 		player->StopAnimation();
 	}
 	noKeyWasPressed = true;
-	player->SetVelocity(velocity);
-	player->SetAngle(atan2f(normalize_direction.y, normalize_direction.x));
+	player->SetVelocity( velocity );
+	if ( 100.f * b2Distance( positionPixToWorld( cordPos ), positionPixToWorld( player->GetPosition() ) ) > 50.f )
+		previous_angle = atan2f( normalize_direction.y, normalize_direction.x );
+	player->SetAngle( previous_angle );
 }
 
 void Game::update(Entity * ptr)

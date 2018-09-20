@@ -71,7 +71,7 @@ public:
 	Pistol( EntityManager * EntMng, sf::Texture * TxtrPlayer, sf::Texture * TxtrProjectile ) : Weapon( EntMng, TxtrPlayer, TxtrProjectile ) 
 	{ 
 		position = positionPixToWorld( sf::Vector2f( 30, 14 ) );
-		cooldown = sf::milliseconds( 600 );		reload_cooldown = sf::milliseconds( 2000 );
+		cooldown = sf::milliseconds( 200 );		reload_cooldown = sf::milliseconds( 1000 );
 		timer = sf::milliseconds( 0 );
 		damage = 20;
 		maxMagazineAmmo = 8;
@@ -108,15 +108,15 @@ public:
 		myBodyDef.bullet = 1;
 		//Stworzenie definicj fikstury
 		b2PolygonShape polyShape;
-		polyShape.SetAsBox( 10 / SCALE, 4 / SCALE );
+		polyShape.SetAsBox( 7 / SCALE, 3 / SCALE );
 		b2FixtureDef FixtureDef;
 		FixtureDef.shape = &polyShape;
 		FixtureDef.density = 1;
 		//Stworzenie kszta³tu do renderowania (SFML)
 		sf::RectangleShape * shape = new sf::RectangleShape;
-		shape->setSize( sf::Vector2f( 10, 4 ) );
+		shape->setSize( sf::Vector2f( 7, 3 ) );
 		shape->setTexture( textureProjectile );
-		shape->setOrigin( 5.f, 2.f );
+		shape->setOrigin( 3.5f, 1.5f );
 		shape->setFillColor( sf::Color( 0, 0, 0 ) );
 		//Stworzenie pocisku i dodanie go do menad¿era obiektów
 		Projectile * bullet = new Projectile( entityManager->World(), shape, myBodyDef, FixtureDef, projFeat );
