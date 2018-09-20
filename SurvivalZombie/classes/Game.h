@@ -29,6 +29,7 @@ public:
 	void									loadTextures();
 	void									Controls(sf::RenderWindow * window);
 	void									update(Entity*) override;
+	void									RestartClock() { clock.restart(); }
 
 private:
 	void									Render( sf::RenderWindow * window );
@@ -49,4 +50,5 @@ private:
 	void									spawnHorde(Level & next_level);
 	int										currentLevel;
 	bool									noKeyWasPressed;
+	sf::Clock								clock;
 };

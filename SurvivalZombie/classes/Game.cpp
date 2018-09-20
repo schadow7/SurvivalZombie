@@ -34,7 +34,7 @@ void Game::runGame( sf::RenderWindow * window )
 	Controls( window );
 
 	window->draw( background );
-	entity_manager->Update();
+	entity_manager->Update( clock.restart() );
 	entity_manager->Render( window );
 	hud->Render( window, view, player );
 	/*
@@ -157,8 +157,11 @@ void Game::Controls( sf::RenderWindow * window )
 
 	}
 	if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
-		player->Shoot( normalize_direction );
-
+		player->Shoot( normalize_direction, clock.getElapsedTime() );
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
+	{
+		player->Reload();
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		//velocity += b2Vec2(normalize_direction);

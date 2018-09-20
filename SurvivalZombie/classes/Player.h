@@ -17,7 +17,8 @@ public:
 	void					SetAngle( float32 angle );
 	sf::Vector2f			GetWeaponPosition();
 	void					AddWeapon( Weapon * weapon );
-	void					Shoot( b2Vec2 direction );
+	void					Reload();
+	void					Shoot( b2Vec2 direction, sf::Time difference_time );
 	void					StopAnimation();
 	std::vector<long int>	GetHitpoints();
 	//virtual void Action( b2Vec2 player_positon );
