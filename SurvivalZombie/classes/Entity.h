@@ -23,16 +23,15 @@ public:
 	virtual void			Presolve( Entity * entitity ) = 0;
 	int						Active() const;
 	int						GroupID() const;
-	void					TakeDamage( int damage );
+	virtual void			TakeDamage( float32 damage );
 	b2Vec2					GetPosition()const;
 	int						GetID();
 	~Entity();
 
 protected:
 	int						groupID;  //1-PLayer 2-Zombie 3-Projectile
-	int						active;
+	int						active;	  //-1 - do usunięcia; 0 - nieaktywny, ale wyświetlany; 1 - aktywny (brany pod uwagę przy symulacji, kolizjach...)	
 	b2Body *				body;
-	b2Fixture *				fixture;
 	std::string				name;
 	/*sf::RenderTexture*		texture;*/
 	long int				hitpoints;
@@ -90,7 +89,7 @@ public:
 	~EffectDamage() {};
 	bool						ApplyEffect( Entity * entity, sf::Time time_difference )
 	{
-		if ( ( duration = duration - time_difference ) <= sf::seconds( 0 ) )
+		if ( ( duration -= time_difference ) <= sf::seconds( 0 ) )
 			return false;
 		if ( ( counter = counter + time_difference ) > cooldown )
 		{

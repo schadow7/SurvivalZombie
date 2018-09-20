@@ -22,6 +22,6 @@ public:
 
 private:
 	b2World *					world;
-	std::vector <Entity*>		entities;
+	std::list <Entity*>		entities;
 	ContactListener *			listener;
 };

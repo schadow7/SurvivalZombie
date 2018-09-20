@@ -47,9 +47,25 @@ public:
 		this->shape = shape;
 	}
 	~Projectile() { delete shape; }
-	void StartContact( Entity * ) { ; }
+	void StartContact( Entity * entity ) 
+	{ 
+		if ( entity->GroupID() == 2 )
+		{
+			entity->TakeDamage( damage );
+			this->active = -1;
+			//this->body->SetActive( false );
+		}
+		else
+		{
+			this->active = -1;
+			//this->body->SetActive( false );
+		}
+	}
 	void EndContact( Entity * ) { ; }
-	void Presolve( Entity* ) { ; }
+	void Presolve( Entity* entity ) 
+	{
+		;
+	}
 	void Update(sf::Time difference_time) {  this->body->SetLinearVelocity( speed * velocity ); }
 	void Render( sf::RenderWindow * window ) 
 	{
@@ -79,7 +95,7 @@ public:
 		magazineAmmo = maxMagazineAmmo;
 	}
 
-	void			Reload() { magazineAmmo = maxMagazineAmmo; reload_timer = reload_cooldown; }
+	void	Reload() { magazineAmmo = maxMagazineAmmo; reload_timer = reload_cooldown; }
 
 	void	Shoot( b2Vec2 playerPositon, float32 playerAngle, b2Vec2 direction, sf::Time difference_time )
 	{

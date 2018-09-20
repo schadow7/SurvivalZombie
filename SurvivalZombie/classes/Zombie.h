@@ -14,6 +14,7 @@ public:
 	void Render(sf::RenderWindow* window);
 	void Update(sf::Time);
 	virtual void Action(b2Vec2 player_positon) ;
+	void TakeDamage( float32 damage ) override;
 	void SetTarget(const Entity* new_target);
 	enum AI_enum {Aggrssive, Chaotic, Idle};
 	void SetAI(AI_enum);

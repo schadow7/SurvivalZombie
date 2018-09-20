@@ -27,8 +27,18 @@ void EntityManager::Update(sf::Time difference_time)
 	//Aktualizacja statusu obiektu (tu siê wykonuje logika gry)
 	for ( auto & it : entities )
 	{
-		it->Update(difference_time);
+		it->Update( difference_time );
+
 	}
+	for ( auto & it : entities )
+	{
+		if ( it->Active() == -1 )
+		{
+			entities.remove( it );
+			delete it;
+		}
+	}
+
 }
 
 void EntityManager::Render( sf::RenderWindow * window )

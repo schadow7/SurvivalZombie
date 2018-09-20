@@ -36,4 +36,16 @@ public:
 		}
 
 	}
+
+	void PreSolve( b2Contact* contact, const b2Manifold* oldManifold ) {
+
+		void * entityA = contact->GetFixtureA()->GetBody()->GetUserData();
+		void * entityB = contact->GetFixtureB()->GetBody()->GetUserData();
+		if ( entityA && entityB )
+		{
+			static_cast< Entity* >( entityA )->Presolve( static_cast< Entity* > ( entityB ) );
+			static_cast< Entity* >( entityB )->Presolve( static_cast< Entity* > ( entityA ) );
+		}
+
+	}
 };

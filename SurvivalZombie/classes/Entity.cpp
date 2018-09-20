@@ -19,13 +19,12 @@ int Entity::GroupID() const
 	return this->groupID;
 }
 
-void Entity::TakeDamage( int damage )
+void Entity::TakeDamage( float32 damage )
 {
 	hitpoints -= damage;
 	if (hitpoints < 0 && active == 1)
 	{
 		active = 0;
-		notify(this);
 	}
 }
 
@@ -41,8 +40,12 @@ int Entity::GetID()
 
 Entity::~Entity()
 {
-	delete fixture;
-	//delete body;
+	this->body->SetUserData( nullptr );
+	this->body->GetWorld()->DestroyBody( body );
+	for ( auto & it : effects )
+	{
+		delete it;
+	}
 }
 
 

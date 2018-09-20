@@ -69,6 +69,16 @@ void Zombie::Action(b2Vec2 player_position)  //deprecated
 {
 	;
 }
+void Zombie::TakeDamage( float32 damage )
+{
+	hitpoints -= damage;
+	if ( hitpoints < 0 )
+	{
+		body->SetActive( false );
+		active = 0;
+		notify( this );
+	}
+}
 void Zombie::SetTarget(const Entity* new_target)
 {
 	target = new_target;
@@ -143,6 +153,10 @@ void Zombie::Update(sf::Time)
 		float32 new_angle = atan2(dir.y, dir.x);
 		body->SetTransform(body->GetPosition(), new_angle);
 		body->SetLinearVelocity(b2Vec2(dir.x*speed, dir.y*speed));
+	}
+	else if ( active == 0 )
+	{
+
 	}
 	else {
 		//stoi w miejscu
