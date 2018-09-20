@@ -6,5 +6,10 @@ class ZombieSprinter :
 public:
 	ZombieSprinter(b2World* world, b2Vec2 position);
 	~ZombieSprinter();
+
+private:
+	Animation				walkingAnimation;
+	Animation				attackingAnimation;
+	Animation				idleAnimation;
 };
 

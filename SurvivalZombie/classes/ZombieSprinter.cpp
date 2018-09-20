@@ -9,14 +9,35 @@ ZombieSprinter::ZombieSprinter(b2World* world, b2Vec2 position) :
 	hitpoints -= spec_factor * hitpoints;
 	maxhitpoints = hitpoints;
 	speed += spec_factor * speed;
-	size = 40;
-	body->GetFixtureList()->GetShape()->m_radius = size / 2 / SCALE;
-	// + inny rozmiar i tekstury
-	//temp
-	sprite.setColor(sf::Color::Yellow);
-	float scaleX = static_cast<float>(size) / texture->getSize().x;
-	float scaleY = static_cast<float>(size) / texture->getSize().y;
-	sprite.setScale(scaleX, scaleY);
+	sizey = 40;
+	sizex1 = 37;
+	sizex2 = 43;
+	body->GetFixtureList()->GetShape()->m_radius = sizey / 2 / SCALE;
+
+	textureWalkingAnimation.loadFromFile(".\\graphics\\zombie40WalkingAnimation.png");
+	textureAttackingAnimation.loadFromFile(".\\graphics\\zombie40AttackingAnimation.png");
+	textureIdleAnimation.loadFromFile(".\\graphics\\zombie40IdleAnimation.png");
+
+	walkingAnimation.setSpriteSheet(textureWalkingAnimation);
+	attackingAnimation.setSpriteSheet(textureAttackingAnimation);
+	idleAnimation.setSpriteSheet(textureIdleAnimation);
+	for (int i = 0; i <= 16; i++)
+	{
+		walkingAnimation.addFrame(sf::IntRect(i * sizex1, 0, sizex1, sizey));
+	}
+	for (int i = 0; i <= 8; i++)
+	{
+		attackingAnimation.addFrame(sf::IntRect(i * sizex2, 0, sizex2, sizey));
+	}
+	for (int i = 0; i <= 16; i++)
+	{
+		idleAnimation.addFrame(sf::IntRect(i * sizex2, 0, sizex2, sizey));
+	}
+
+	currentAnimation = &walkingAnimation;
+	animatedSprite = AnimatedSprite(sf::seconds(animSpeed*spec_factor), true, false);
+	animatedSprite.setOrigin(sizex1/2, sizey/2);
+	animatedSprite.setColor(sf::Color::Yellow);
 }
 
 
