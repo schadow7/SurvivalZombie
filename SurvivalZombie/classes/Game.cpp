@@ -17,6 +17,7 @@ Game::Game()
 	undeadCount = 0;
 	currentLevel = 0;
 	noKeyWasPressed = true;
+	previous_angle = 0.f;
 }
 
 Game::~Game()
@@ -192,7 +193,9 @@ void Game::Controls( sf::RenderWindow * window )
 	}
 	noKeyWasPressed = true;
 	player->SetVelocity( velocity );
-	player->SetAngle( atan2f( normalize_direction.y, normalize_direction.x ) );
+	if ( 100.f * b2Distance( positionPixToWorld( cordPos ), positionPixToWorld( player->GetPosition() ) ) > 50.f )
+		previous_angle = atan2f( normalize_direction.y, normalize_direction.x );
+	player->SetAngle( previous_angle );
 }
 
 void Game::update( Entity * ptr )

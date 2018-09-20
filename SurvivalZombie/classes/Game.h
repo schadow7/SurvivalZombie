@@ -51,4 +51,5 @@ private:
 	int										currentLevel;
 	bool									noKeyWasPressed;
 	sf::Clock								clock;
+	float32									previous_angle;
 };
