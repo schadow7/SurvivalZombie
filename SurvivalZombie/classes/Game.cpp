@@ -146,7 +146,7 @@ void Game::Controls(sf::RenderWindow * window)
 		entity_manager->AddEntity(obstacle);
 
 	}
-	if (undeadCount == 0)
+	if (undeadCount <= 0)
 	{
 		currentLevel++;
 		spawnHorde(currentLevel);
