@@ -25,10 +25,15 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	int sizey = 100;
 
 	textureFeetWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\feet\\walking\\playerFeetWalkingAnimation.png");
+	textureFeetWalkingAnimation.setSmooth(1);
 	textureFeetIdleAnimation.loadFromFile(".\\graphics\\animations\\player\\feet\\idle\\playerFeetIdleAnimation.png");
+	textureFeetIdleAnimation.setSmooth(1);
 	textureHandgunWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\walking\\playerHandgunWalkingAnimation.png");
+	textureHandgunWalkingAnimation.setSmooth(1);
 	textureHandgunIdleAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\walking\\playerHandgunWalkingAnimation.png");
+	textureHandgunIdleAnimation.setSmooth(1);
 	textureHandgunAttackingAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\attacking\\playerHandgunAttackingAnimation.png");
+	textureHandgunAttackingAnimation.setSmooth(1);
 	//textureRifleWalkingAnimation.loadFromFile(".\\graphics\\animations\\playerHandgunWalkingAnimation00.png");
 	//textureShotgunWalkingAnimation.loadFromFile(".\\graphics\\animations\\playerHandgunWalkingAnimation00.png");
 	//textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie50AttackingAnimation.png");
