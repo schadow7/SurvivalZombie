@@ -78,7 +78,6 @@ void Zombie::TakeDamage( float32 damage )
 	hitpoints -= damage;
 	if ( hitpoints <= 0 )
 	{
-		body->SetActive( false );
 		active = 0;
 		notify( this );
 	}

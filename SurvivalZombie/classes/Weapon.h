@@ -73,7 +73,7 @@ public:
 		if ( ( lifetime -= difference_time ) < sf::milliseconds( 0 ) )
 		{
 			this->active = -1;
-			this->body->SetActive( false );
+			//this->body->SetActive( false );
 		}
 		else
 			this->body->SetLinearVelocity( speed * velocity ); 

@@ -27,6 +27,7 @@ public:
 	virtual void			TakeDamage( float32 damage );
 	b2Vec2					GetPosition()const;
 	int						GetID();
+	void					SetBodyInactive() { body->SetActive( false ); }
 	~Entity();
 
 protected:

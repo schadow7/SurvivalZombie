@@ -31,20 +31,25 @@ void EntityManager::Update(sf::Time difference_time)
 
 	}
 	//Czyszczenie i przerzucanie obiektów do listy nieaktywnych obiektów
-	for ( auto & it : entities )
+	for ( std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); )
 	{
-		if ( it->Active() == -1 )
+		if ( ( *it )->Active() == -1 )
 		{
-			entities.remove( it );
-			delete it;
+			delete ( *it );
+			it = entities.erase( it );
+
 		}
-		else if ( it->Active() == 0 )
+		else if ( ( *it )->Active() == 0 )
 		{
-			inactive_entities.push_back( it );
-			entities.remove( it );
+			( *it )->SetBodyInactive();
+			inactive_entities.push_back( ( *it ) );
+			it = entities.erase( it );
+		}
+		else
+		{
+			it++;
 		}
 	}
-
 }
 
 void EntityManager::Render( sf::RenderWindow * window )
