@@ -13,10 +13,7 @@ Game::Game()
 	background.setTexture( *textures.at( "background" ) );
 	background.setTextureRect( sf::IntRect( 0, 0, 20000, 20000 ) );
 	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
-	menu = new Menu();
-	cursor = new sf::Cursor;
 	hud = new Hud;
-	gameState = 0;
 	undeadCount = 0;
 	currentLevel = 0;
 	noKeyWasPressed = true;
@@ -174,31 +171,6 @@ void Game::update( Entity * ptr )
 
 void Game::runGame(sf::RenderWindow * window)
 {
-	initializeGame();
-	while ( window->isOpen() )
-	{
-		sf::Event event;
-		while ( window->pollEvent( event ) )
-		{
-			// Close window: exit
-			if ( event.type == sf::Event::Closed )
-				window->close();
-		}
-
-
-		//Wyœwietlenie obrazu
-		if (gameState == 0)
-		{
-			cursor->loadFromSystem( sf::Cursor::Arrow );
-			window->setMouseCursor( *cursor );
-			gameState = menu->runMenu(window, event);
-			
-		}
-
-		else if (gameState == 1)
-		{
-			cursor->loadFromSystem( sf::Cursor::Cross );
-			window->setMouseCursor( *cursor );
 			window->clear();
 			view->setCenter( player->GetPosition() );
 			window->setView( *view );
@@ -218,11 +190,7 @@ void Game::runGame(sf::RenderWindow * window)
 			};
 			window->draw( line, 2, sf::Lines );
 			*/
-		}
 
-		//Wyœwietlenie obrazu
-		window->display();
-	}
 }
 
 void Game::Render( sf::RenderWindow * window )

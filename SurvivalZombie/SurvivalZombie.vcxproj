@@ -140,7 +140,6 @@
     <ClCompile Include="classes\Hud.cpp" />
     <ClCompile Include="classes\Level.cpp" />
     <ClCompile Include="classes\MainWindow.cpp" />
-    <ClCompile Include="classes\Menu.cpp" />
     <ClCompile Include="classes\observer.cpp" />
     <ClCompile Include="classes\Player.cpp" />
     <ClCompile Include="classes\Weapon.cpp" />
@@ -168,7 +167,6 @@
     <ClInclude Include="classes\Hud.h" />
     <ClInclude Include="classes\Level.h" />
     <ClInclude Include="classes\MainWindow.h" />
-    <ClInclude Include="classes\Menu.h" />
     <ClInclude Include="classes\observer.h" />
     <ClInclude Include="classes\Player.h" />
     <ClInclude Include="classes\Weapon.h" />

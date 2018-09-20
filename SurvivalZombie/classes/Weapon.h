@@ -5,7 +5,7 @@
 #include "DynamicBody.h"
 
 struct projectile_features {
-	int speed;
+	float32 speed;
 	int damage;
 	sf::Time lifetime;
 	b2Vec2 direction;
@@ -59,7 +59,7 @@ public:
 	}
 
 private: 
-	int speed;
+	float32 speed;
 	int damage;
 	sf::Time lifetime;
 	sf::Shape * shape;

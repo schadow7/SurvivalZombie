@@ -5,7 +5,7 @@ int main()
 {
 	MainWindow main_window;
 
-	main_window.newGame();
+	main_window.run();
 
 	return 0;
 }

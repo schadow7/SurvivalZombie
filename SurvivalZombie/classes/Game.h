@@ -44,10 +44,7 @@ private:
 	b2World *								world;
 	Zombie *								zombieTester;
 	Player *								player;
-	Menu *									menu;
 	Hud *									hud;
-	int										gameState;
-	sf::Cursor *							cursor;
 	int										undeadCount;
 	void									spawnHorde(Level & next_level);
 	int										currentLevel;

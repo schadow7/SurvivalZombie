@@ -4,6 +4,7 @@
 #include "Game.h"
 #include <string>
 
+#define MAX_NUMBER_OF_ITEMS 3
 
 class MainWindow
 {
@@ -11,13 +12,22 @@ public:
 	MainWindow();
 	~MainWindow();
 
-	void				runGame();
-	void				newGame();
-	void				loadGame(std::string filename);
-	void				saveGame( std::string filename );
+	void									run();
+	void									newGame();
+	void									loadGame(std::string filename);
+	void									saveGame( std::string filename );
+	void									loadTextures();
+	int										runMenu( sf::Event event );
+	void									draw( );
 
 private:
-	sf::RenderWindow *	window;
-	Game *				game;
+	sf::RenderWindow *						window;
+	Game *									game;
+	sf::Sprite								backgroundMenu, button[MAX_NUMBER_OF_ITEMS * 2];
+	std::map<std::string, sf::Texture *>	textures;
+	int										posX, posY, spacing, width, height, selectedButton;
+	bool									clicked;
+	int										gameState;
+	sf::Cursor *							cursor;
 	
 };
