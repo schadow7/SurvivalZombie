@@ -1,6 +1,7 @@
 #pragma once
 #include "DynamicBody.h"
 #include "AIType.h"
+#include "AnimatedSprite.h"
 class Zombie :
 	public DynamicBody
 {
@@ -19,11 +20,24 @@ public:
 	void SetAI(AIType*);
 protected:
 	float32 speed;
-	int size; //rozmair zombie w pikselach
+	double animSpeed;
+	int sizey; //rozmiar zombie w pikselach
+	int sizex1;
+	int sizex2;
 	sf::Sprite sprite;
 	sf::RectangleShape hitpointsBarRed;
 	sf::RectangleShape hitpointsBarBlack;
+	AnimatedSprite			animatedSprite;
+	Animation*				currentAnimation;
+	sf::Texture				textureWalkingAnimation;
+	sf::Texture				textureAttackingAnimation;
+	sf::Texture				textureIdleAnimation;
+	sf::Clock				frameClock;
+	sf::Time				frameTime;
 private:
+	Animation				walkingAnimation;
+	Animation				attackingAnimation;
+	Animation				idleAnimation;
 	AIType* AI;
 	const Entity* target;
 	b2World* world;  //do raycast. shared pointer?

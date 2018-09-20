@@ -19,6 +19,7 @@ Game::Game()
 	gameState = 0;
 	undeadCount = 0;
 	currentLevel = 0;
+	noKeyWasPressed = true;
 }
 
 Game::~Game()
@@ -56,6 +57,7 @@ void Game::loadTextures()
 	tmp->loadFromFile( ".\\graphics\\survivor.png" );
 	textures.insert( std::pair<std::string, sf::Texture*>( "survivor", tmp ) );
 }
+
 void Game::Controls( sf::RenderWindow * window )
 {
 	//Przygotowanie wektorów
@@ -135,22 +137,41 @@ void Game::Controls( sf::RenderWindow * window )
 	if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
 		player->Shoot( normalize_direction );
 
-	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
-		velocity += b2Vec2( normalize_direction );
-	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
-		velocity += b2Vec2( -normalize_direction );
-	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
-		velocity += b2Vec2( normalize_direction.y, -normalize_direction.x );
-	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
-		velocity += b2Vec2( -normalize_direction.y, normalize_direction.x );
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		velocity += b2Vec2(normalize_direction);
+		noKeyWasPressed = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		velocity += b2Vec2(-normalize_direction);
+		noKeyWasPressed = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		velocity += b2Vec2(normalize_direction.y, -normalize_direction.x);
+		noKeyWasPressed = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		velocity += b2Vec2(-normalize_direction.y, normalize_direction.x);
+		noKeyWasPressed = false;
+	}
+	if (noKeyWasPressed)
+	{
+		player->StopAnimation();
+	}
+	noKeyWasPressed = true;
 	player->SetVelocity( velocity );
 	player->SetAngle( atan2f( normalize_direction.y, normalize_direction.x ) );
 }
+
 void Game::update( Entity * ptr )
 {
 	if ( ptr->GetID() == 2 )
 		undeadCount--;
 }
+
 void Game::runGame(sf::RenderWindow * window)
 {
 	initializeGame();

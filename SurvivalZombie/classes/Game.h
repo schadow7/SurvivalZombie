@@ -51,4 +51,5 @@ private:
 	int										undeadCount;
 	void									spawnHorde(Level & next_level);
 	int										currentLevel;
+	bool									noKeyWasPressed;
 };

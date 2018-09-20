@@ -129,6 +129,8 @@
     <ClCompile Include="classes\AIChaotic.cpp" />
     <ClCompile Include="classes\AIIdle.cpp" />
     <ClCompile Include="classes\AIType.cpp" />
+    <ClCompile Include="classes\AnimatedSprite.cpp" />
+    <ClCompile Include="classes\Animation.cpp" />
     <ClCompile Include="classes\AssetManager.cpp" />
     <ClCompile Include="classes\Brick.cpp" />
     <ClCompile Include="classes\DynamicBody.cpp" />
@@ -154,6 +156,8 @@
     <ClInclude Include="classes\AIChaotic.h" />
     <ClInclude Include="classes\AIIdle.h" />
     <ClInclude Include="classes\AIType.h" />
+    <ClInclude Include="classes\AnimatedSprite.h" />
+    <ClInclude Include="classes\Animation.h" />
     <ClInclude Include="classes\AssetManager.h" />
     <ClInclude Include="classes\Brick.h" />
     <ClInclude Include="classes\ContactListener.h" />
