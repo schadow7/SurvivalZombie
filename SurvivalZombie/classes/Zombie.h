@@ -20,6 +20,7 @@ public:
 	enum AI_enum {Aggrssive, Chaotic, Idle};
 	void SetAI(AI_enum);
 	void SetAI(AIType*);
+	virtual void Attack( Entity * entity );
 protected:
 	float32 speed;
 	double animSpeed;
@@ -37,6 +38,9 @@ protected:
 	sf::Texture				textureDead;
 	sf::Clock				frameClock;
 	sf::Time				frameTime;
+	sf::Time				attack_timer;
+	sf::Time				attack_cooldown;
+	float32					damage;
 private:
 	Animation				walkingAnimation;
 	Animation				attackingAnimation;

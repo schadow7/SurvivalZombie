@@ -16,6 +16,9 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	groupID = 2;
 	hitpoints = 100;
 	maxhitpoints = 100;
+	damage = 5;
+	attack_cooldown = sf::milliseconds( 500 );
+	attack_timer = sf::milliseconds( 520 );
 	//AI = new AIAggressive(world);
 	//AIType = new AIChaotic(world);
 	AI = new AIIdle(world);
@@ -106,16 +109,27 @@ void Zombie::SetAI(AIType * new_type)
 	if (AI) delete (AI);
 	AI = new_type;
 }
-void Zombie::StartContact(Entity*) 
+void Zombie::Attack( Entity * entity )
 {
-	;
+	if ( attack_cooldown < attack_timer )
+	{
+		entity->TakeDamage( damage );
+		attack_timer = sf::milliseconds( 0 );
+	}
+}
+void Zombie::StartContact(Entity* entity) 
+{
+	if ( entity->GroupID() == 1 )
+		attack_timer = sf::microseconds( 0 );
 }
 void Zombie::EndContact(Entity*)
 {
 	;
 }
-void Zombie::Presolve( Entity * )
+void Zombie::Presolve( Entity * entity )
 {
+	if ( entity->GroupID() == 1 )
+		Attack( entity );
 }
 void Zombie::Render(sf::RenderWindow* window)
 {
@@ -151,10 +165,11 @@ void Zombie::RenderInactive( sf::RenderWindow * window )
 	window->draw( sprite );
 }
 
-void Zombie::Update(sf::Time)
+void Zombie::Update(sf::Time difference_time)
 {
 	if (target && active)
 	{
+		attack_timer += difference_time;
 		//RayCastCallback callbackInfo;
 		//doRayCast(callbackInfo);
 		b2Vec2 player_position = target->GetPosition();

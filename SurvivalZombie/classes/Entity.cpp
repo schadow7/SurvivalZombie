@@ -22,7 +22,7 @@ int Entity::GroupID() const
 void Entity::TakeDamage( float32 damage )
 {
 	hitpoints -= damage;
-	if (hitpoints < 0 && active == 1)
+	if (hitpoints <= 0 && active == 1)
 	{
 		active = 0;
 	}
