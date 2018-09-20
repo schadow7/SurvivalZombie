@@ -24,6 +24,31 @@ Game::~Game()
 	
 }
 
+void Game::runGame( sf::RenderWindow * window )
+{
+	window->clear();
+	view->setCenter( player->GetPosition() );
+	window->setView( *view );
+
+	//Sterowanie graczem i nie tylko
+	Controls( window );
+
+	window->draw( background );
+	entity_manager->Update();
+	entity_manager->Render( window );
+	hud->Render( window, view, player );
+	/*
+	sf::Vertex line[] =
+	{
+	sf::Vertex( player->GetWeaponPosition() ),
+	sf::Vertex( window->mapPixelToCoords( sf::Mouse::getPosition( *window ) ) )
+	};
+	window->draw( line, 2, sf::Lines );
+	*/
+
+}
+
+
 void Game::initializeGame()
 {
 	//Player
@@ -136,22 +161,26 @@ void Game::Controls( sf::RenderWindow * window )
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		velocity += b2Vec2(normalize_direction);
+		//velocity += b2Vec2(normalize_direction);
+		velocity += b2Vec2( 0, -1 );
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		velocity += b2Vec2(-normalize_direction);
+		//velocity += b2Vec2(-normalize_direction);
+		velocity += b2Vec2( 0, 1 );
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		velocity += b2Vec2(normalize_direction.y, -normalize_direction.x);
+		//velocity += b2Vec2(normalize_direction.y, -normalize_direction.x);
+		velocity += b2Vec2( -1, 0 );
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		velocity += b2Vec2(-normalize_direction.y, normalize_direction.x);
+		//velocity += b2Vec2(-normalize_direction.y, normalize_direction.x);
+		velocity += b2Vec2( 1, 0 );
 		noKeyWasPressed = false;
 	}
 	if (noKeyWasPressed)
@@ -169,29 +198,6 @@ void Game::update( Entity * ptr )
 		undeadCount--;
 }
 
-void Game::runGame(sf::RenderWindow * window)
-{
-			window->clear();
-			view->setCenter( player->GetPosition() );
-			window->setView( *view );
-			
-			//Sterowanie graczem i nie tylko
-			Controls( window );
-
-			window->draw(background);
-			entity_manager->Update();
-			entity_manager->Render(window);
-			hud->Render(window, view, player);
-			/*
-			sf::Vertex line[] =
-			{
-				sf::Vertex( player->GetWeaponPosition() ),
-				sf::Vertex( window->mapPixelToCoords( sf::Mouse::getPosition( *window ) ) )
-			};
-			window->draw( line, 2, sf::Lines );
-			*/
-
-}
 
 void Game::Render( sf::RenderWindow * window )
 {
