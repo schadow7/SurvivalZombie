@@ -34,6 +34,7 @@ protected:
 	const float				SCALE = 100.f;
 	sf::Time				timer, cooldown, reload_cooldown, reload_timer;
 	float32					damage;
+	float32					bullet_speed;
 
 };
 
@@ -53,12 +54,10 @@ public:
 		{
 			entity->TakeDamage( damage );
 			this->active = -1;
-			//this->body->SetActive( false );
 		}
 		else
 		{
 			this->active = -1;
-			//this->body->SetActive( false );
 		}
 	}
 	void EndContact( Entity * ) { ; }
@@ -66,7 +65,16 @@ public:
 	{
 		;
 	}
-	void Update(sf::Time difference_time) {  this->body->SetLinearVelocity( speed * velocity ); }
+	void Update(sf::Time difference_time) 
+	{  
+		if ( ( lifetime -= difference_time ) < sf::milliseconds( 0 ) )
+		{
+			this->active = -1;
+			this->body->SetActive( false );
+		}
+		else
+			this->body->SetLinearVelocity( speed * velocity ); 
+	}
 	void Render( sf::RenderWindow * window ) 
 	{
 		shape->setPosition( this->GetPosition() );
@@ -89,7 +97,7 @@ public:
 		position = positionPixToWorld( sf::Vector2f( 30, 14 ) );
 		cooldown = sf::milliseconds( 200 );		reload_cooldown = sf::milliseconds( 1000 );
 		timer = sf::milliseconds( 0 );
-		damage = 20;
+		damage = 20;	bullet_speed = 10;
 		maxMagazineAmmo = 8;
 		carriedAmmo = 100;
 		magazineAmmo = maxMagazineAmmo;
@@ -115,7 +123,7 @@ public:
 		b2Vec2 rotatedPosition = rotateVector( position, playerAngle );
 		b2Vec2 positionProjectile = playerPositon + rotatedPosition;
 		//Wype³nienie struktury z w³aœciwoœciami obiektu (tj. szybkoœæ, zadawane obra¿enia, czas po którym pocisk znika
-		projectile_features projFeat = { 5, damage, sf::seconds( 2 ), direction };
+		projectile_features projFeat = { bullet_speed, damage, sf::seconds( 2 ), direction };
 		//Stworzenie definicji cia³a
 		b2BodyDef myBodyDef;
 		myBodyDef.type = b2_dynamicBody;
