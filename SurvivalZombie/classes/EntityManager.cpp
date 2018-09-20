@@ -30,6 +30,7 @@ void EntityManager::Update(sf::Time difference_time)
 		it->Update( difference_time );
 
 	}
+	//Czyszczenie i przerzucanie obiektów do listy nieaktywnych obiektów
 	for ( auto & it : entities )
 	{
 		if ( it->Active() == -1 )
@@ -37,17 +38,28 @@ void EntityManager::Update(sf::Time difference_time)
 			entities.remove( it );
 			delete it;
 		}
+		else if ( it->Active() == 0 )
+		{
+			inactive_entities.push_back( it );
+			entities.remove( it );
+		}
 	}
 
 }
 
 void EntityManager::Render( sf::RenderWindow * window )
 {
+	//Rysowanie obiektów nieaktywnych
+	for ( auto & it : inactive_entities )
+	{
+		it->RenderInactive( window );
+	}
+	
 	//Rysowanie obiektów symulowanych przez Box2D
-		for (auto & it : entities)
-		{
-			it->Render( window );
-		}
+	for (auto & it : entities)
+	{
+		it->Render( window );
+	}
 }
 
 void EntityManager::KillEverybody()

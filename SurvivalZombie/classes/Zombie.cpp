@@ -38,6 +38,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	textureWalkingAnimation.loadFromFile(".\\graphics\\zombie50WalkingAnimation.png");
 	textureAttackingAnimation.loadFromFile(".\\graphics\\zombie50AttackingAnimation.png");
 	textureIdleAnimation.loadFromFile(".\\graphics\\zombie50IdleAnimation.png");
+	textureDead.loadFromFile( ".\\graphics\\dead.png" );
 
 	walkingAnimation.setSpriteSheet(textureWalkingAnimation);
 	attackingAnimation.setSpriteSheet(textureAttackingAnimation);
@@ -141,6 +142,15 @@ void Zombie::Render(sf::RenderWindow* window)
 	window->draw(hitpointsBarBlack);
 	window->draw(hitpointsBarRed);
 }
+
+void Zombie::RenderInactive( sf::RenderWindow * window )
+{
+	sprite.setTexture( textureDead );
+	sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
+	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
+	window->draw( sprite );
+}
+
 void Zombie::Update(sf::Time)
 {
 	if (target && active)
@@ -153,10 +163,6 @@ void Zombie::Update(sf::Time)
 		float32 new_angle = atan2(dir.y, dir.x);
 		body->SetTransform(body->GetPosition(), new_angle);
 		body->SetLinearVelocity(b2Vec2(dir.x*speed, dir.y*speed));
-	}
-	else if ( active == 0 )
-	{
-
 	}
 	else {
 		//stoi w miejscu

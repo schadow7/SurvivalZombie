@@ -17,7 +17,7 @@ Game::Game()
 	undeadCount = 0;
 	currentLevel = 0;
 	noKeyWasPressed = true;
-	mapCenter= b2Vec2(4000 / SCALE, 4000 / SCALE);
+	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
 	previous_angle = 0.f;
 }
 
@@ -139,14 +139,6 @@ void Game::Controls(sf::RenderWindow * window)
 		entity_manager->KillEverybody();
 
 	}
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
-		Brick* obstacle = new Brick(world, textures.at("grad1"), cordPos.x, cordPos.y);
-		entity_manager->AddEntity(obstacle);
-
-	}
 	if (undeadCount <= 0)
 	{
 		currentLevel++;
@@ -154,8 +146,10 @@ void Game::Controls(sf::RenderWindow * window)
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
 
 	}
+
 	if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
 		player->Shoot( normalize_direction, clock.getElapsedTime() );
+
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
 	{
 		player->Reload();

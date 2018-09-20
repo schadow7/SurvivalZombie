@@ -11,7 +11,6 @@
 #include "ZombieSprinter.h"
 #include "Player.h"
 #include "Menu.h"
-#include "Brick.h"
 #include "observer.h"
 #include "Weapon.h"
 #include "Hud.h"

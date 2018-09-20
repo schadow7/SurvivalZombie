@@ -132,7 +132,6 @@
     <ClCompile Include="classes\AnimatedSprite.cpp" />
     <ClCompile Include="classes\Animation.cpp" />
     <ClCompile Include="classes\AssetManager.cpp" />
-    <ClCompile Include="classes\Brick.cpp" />
     <ClCompile Include="classes\DynamicBody.cpp" />
     <ClCompile Include="classes\Entity.cpp" />
     <ClCompile Include="classes\EntityManager.cpp" />
@@ -158,7 +157,6 @@
     <ClInclude Include="classes\AnimatedSprite.h" />
     <ClInclude Include="classes\Animation.h" />
     <ClInclude Include="classes\AssetManager.h" />
-    <ClInclude Include="classes\Brick.h" />
     <ClInclude Include="classes\ContactListener.h" />
     <ClInclude Include="classes\DynamicBody.h" />
     <ClInclude Include="classes\Entity.h" />

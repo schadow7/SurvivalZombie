@@ -22,6 +22,7 @@ public:
 
 private:
 	b2World *					world;
-	std::list <Entity*>		entities;
+	std::list <Entity*>			entities;
+	std::list <Entity*>			inactive_entities;
 	ContactListener *			listener;
 };

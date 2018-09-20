@@ -12,6 +12,7 @@ public:
 	void EndContact(Entity*);
 	void Presolve( Entity* );
 	void Render(sf::RenderWindow* window);
+	void RenderInactive( sf::RenderWindow* window );
 	void Update(sf::Time);
 	virtual void Action(b2Vec2 player_positon) ;
 	void TakeDamage( float32 damage ) override;
@@ -33,6 +34,7 @@ protected:
 	sf::Texture				textureWalkingAnimation;
 	sf::Texture				textureAttackingAnimation;
 	sf::Texture				textureIdleAnimation;
+	sf::Texture				textureDead;
 	sf::Clock				frameClock;
 	sf::Time				frameTime;
 private:

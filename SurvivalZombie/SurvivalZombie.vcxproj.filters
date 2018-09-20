@@ -48,9 +48,6 @@
     <ClCompile Include="classes\AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="classes\Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="classes\AIAggressive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -120,9 +117,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="classes\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="classes\Brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="classes\AIAggressive.h">

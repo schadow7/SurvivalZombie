@@ -18,6 +18,7 @@ public:
 	Entity();
 	virtual void			Update(sf::Time ) = 0;
 	virtual void			Render( sf::RenderWindow * window ) = 0;
+	virtual void			RenderInactive( sf::RenderWindow * window ) { ; }
 	virtual void			StartContact( Entity * entity ) = 0;
 	virtual void			EndContact( Entity * entity ) = 0;
 	virtual void			Presolve( Entity * entitity ) = 0;
