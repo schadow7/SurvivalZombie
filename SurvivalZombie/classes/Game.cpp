@@ -16,9 +16,10 @@ Game::Game()
 	hud = new Hud;
 	undeadCount = 0;
 	currentLevel = 0;
-	noKeyWasPressed = true;
+//	noKeyWasPressed = true;
 	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
 	previous_angle = 0.f;
+	shoot_timer = sf::seconds( 1 );
 }
 
 Game::~Game()
@@ -146,10 +147,12 @@ void Game::Controls(sf::RenderWindow * window)
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
 
 	}
-
+	shoot_timer += clock.getElapsedTime();
 	if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
-		player->Shoot( normalize_direction, clock.getElapsedTime() );
-
+	{
+		player->Shoot( normalize_direction, shoot_timer );
+		shoot_timer = sf::seconds( 0 );
+	}
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
 	{
 		player->Reload();

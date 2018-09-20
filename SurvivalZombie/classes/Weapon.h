@@ -55,6 +55,10 @@ public:
 			entity->TakeDamage( damage );
 			this->active = -1;
 		}
+		else if ( entity->GroupID() == 1 )
+		{
+
+		}
 		else
 		{
 			this->active = -1;
@@ -63,7 +67,6 @@ public:
 	void EndContact( Entity * ) { ; }
 	void Presolve( Entity* entity ) 
 	{
-		;
 	}
 	void Update(sf::Time difference_time) 
 	{  
@@ -95,11 +98,12 @@ public:
 	Pistol( EntityManager * EntMng, sf::Texture * TxtrPlayer, sf::Texture * TxtrProjectile ) : Weapon( EntMng, TxtrPlayer, TxtrProjectile ) 
 	{ 
 		position = positionPixToWorld( sf::Vector2f( 30, 14 ) );
-		cooldown = sf::milliseconds( 200 );		reload_cooldown = sf::milliseconds( 1000 );
+		cooldown = sf::milliseconds( 300 );		reload_cooldown = sf::milliseconds( 1000 );
 		timer = sf::milliseconds( 0 );
 		damage = 20;	bullet_speed = 10;
 		maxMagazineAmmo = 8;
 		carriedAmmo = 100;
+		reload_timer = sf::microseconds(0);
 		magazineAmmo = maxMagazineAmmo;
 	}
 

@@ -45,6 +45,10 @@ public:
 		{
 			static_cast< Entity* >( entityA )->Presolve( static_cast< Entity* > ( entityB ) );
 			static_cast< Entity* >( entityB )->Presolve( static_cast< Entity* > ( entityA ) );
+			if ( ( static_cast< Entity* >( entityA )->GroupID() == 1 && static_cast< Entity* >( entityB )->GroupID() == 3 ) || ( static_cast< Entity* >( entityA )->GroupID() == 3 && static_cast< Entity* >( entityB )->GroupID() == 1 ) )
+			{
+				contact->SetEnabled( false ); 
+			}
 		}
 
 	}

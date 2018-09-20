@@ -57,4 +57,5 @@ private:
 	b2Vec2									mapCenter;
 	std::vector<int>						newLevel(int levelNr, std::vector<int>& zombieQuantity);
 	std::uniform_int_distribution<int>		zombieDistribution{ -1, 1 };
+	sf::Time								shoot_timer;
 };

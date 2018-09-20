@@ -35,9 +35,9 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	int sizex2 = 54;
 	int sizey = 50;
 
-	textureWalkingAnimation.loadFromFile(".\\graphics\\zombie50WalkingAnimation.png");
-	textureAttackingAnimation.loadFromFile(".\\graphics\\zombie50AttackingAnimation.png");
-	textureIdleAnimation.loadFromFile(".\\graphics\\zombie50IdleAnimation.png");
+	textureWalkingAnimation.loadFromFile(".\\graphics\\animations\\zombie50WalkingAnimation.png");
+	textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie50AttackingAnimation.png");
+	textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie50IdleAnimation.png");
 	textureDead.loadFromFile( ".\\graphics\\dead.png" );
 
 	walkingAnimation.setSpriteSheet(textureWalkingAnimation);
@@ -73,7 +73,7 @@ void Zombie::Action(b2Vec2 player_position)  //deprecated
 void Zombie::TakeDamage( float32 damage )
 {
 	hitpoints -= damage;
-	if ( hitpoints < 0 )
+	if ( hitpoints <= 0 )
 	{
 		body->SetActive( false );
 		active = 0;
