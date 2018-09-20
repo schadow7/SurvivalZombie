@@ -16,7 +16,6 @@ Game::Game()
 	hud = new Hud;
 	undeadCount = 0;
 	currentLevel = 0;
-	noKeyWasPressed = true;
 	mapCenter= b2Vec2(4000 / SCALE, 4000 / SCALE);
 }
 
@@ -163,31 +162,22 @@ void Game::Controls(sf::RenderWindow * window)
 	{
 		//velocity += b2Vec2(normalize_direction);
 		velocity += b2Vec2(0, -1);
-		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		//velocity += b2Vec2(-normalize_direction);
 		velocity += b2Vec2(0, 1);
-		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		//velocity += b2Vec2(normalize_direction.y, -normalize_direction.x);
 		velocity += b2Vec2(-1, 0);
-		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		//velocity += b2Vec2(-normalize_direction.y, normalize_direction.x);
 		velocity += b2Vec2(1, 0);
-		noKeyWasPressed = false;
 	}
-	if (noKeyWasPressed)
-	{
-		player->StopAnimation();
-	}
-	noKeyWasPressed = true;
 	player->SetVelocity(velocity);
 	player->SetAngle(atan2f(normalize_direction.y, normalize_direction.x));
 }

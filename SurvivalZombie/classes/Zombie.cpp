@@ -35,9 +35,9 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	int sizex2 = 54;
 	int sizey = 50;
 
-	textureWalkingAnimation.loadFromFile(".\\graphics\\zombie50WalkingAnimation.png");
-	textureAttackingAnimation.loadFromFile(".\\graphics\\zombie50AttackingAnimation.png");
-	textureIdleAnimation.loadFromFile(".\\graphics\\zombie50IdleAnimation.png");
+	textureWalkingAnimation.loadFromFile(".\\graphics\\animations\\zombie50WalkingAnimation.png");
+	textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie50AttackingAnimation.png");
+	textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie50IdleAnimation.png");
 
 	walkingAnimation.setSpriteSheet(textureWalkingAnimation);
 	attackingAnimation.setSpriteSheet(textureAttackingAnimation);

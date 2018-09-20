@@ -50,7 +50,6 @@ private:
 	int										undeadCount;
 	void									spawnHorde(int next_level);
 	int										currentLevel;
-	bool									noKeyWasPressed;
 	sf::Clock								clock;
 	std::default_random_engine				engine;
 	std::uniform_int_distribution<int>		angleDistribution{ 1, 360 };

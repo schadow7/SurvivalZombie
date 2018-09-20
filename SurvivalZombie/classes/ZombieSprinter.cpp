@@ -14,9 +14,9 @@ ZombieSprinter::ZombieSprinter(b2World* world, b2Vec2 position) :
 	sizex2 = 43;
 	body->GetFixtureList()->GetShape()->m_radius = sizey / 2 / SCALE;
 
-	textureWalkingAnimation.loadFromFile(".\\graphics\\zombie40WalkingAnimation.png");
-	textureAttackingAnimation.loadFromFile(".\\graphics\\zombie40AttackingAnimation.png");
-	textureIdleAnimation.loadFromFile(".\\graphics\\zombie40IdleAnimation.png");
+	textureWalkingAnimation.loadFromFile(".\\graphics\\animations\\zombie40WalkingAnimation.png");
+	textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie40AttackingAnimation.png");
+	textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie40IdleAnimation.png");
 
 	walkingAnimation.setSpriteSheet(textureWalkingAnimation);
 	attackingAnimation.setSpriteSheet(textureAttackingAnimation);
