@@ -30,6 +30,7 @@ public:
 	void									loadTextures();
 	void									Controls(sf::RenderWindow * window);
 	void									update(Entity*) override;
+	void									RestartClock() { clock.restart(); }
 
 private:
 	void									Render( sf::RenderWindow * window );
@@ -50,6 +51,7 @@ private:
 	void									spawnHorde(int next_level);
 	int										currentLevel;
 	bool									noKeyWasPressed;
+	sf::Clock								clock;
 	std::default_random_engine				engine;
 	std::uniform_int_distribution<int>		angleDistribution{ 1, 360 };
 	const float								DEGTORAD = b2_pi / 180;

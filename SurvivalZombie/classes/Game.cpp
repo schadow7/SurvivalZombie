@@ -34,10 +34,10 @@ void Game::runGame(sf::RenderWindow * window)
 	//Sterowanie graczem i nie tylko
 	Controls(window);
 
-	window->draw(background);
-	entity_manager->Update();
-	entity_manager->Render(window);
-	hud->Render(window, view, player);
+	window->draw( background );
+	entity_manager->Update( clock.restart() );
+	entity_manager->Render( window );
+	hud->Render( window, view, player );
 	/*
 	sf::Vertex line[] =
 	{
@@ -153,9 +153,12 @@ void Game::Controls(sf::RenderWindow * window)
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
 
 	}
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		player->Shoot(normalize_direction);
-
+	if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+		player->Shoot( normalize_direction, clock.getElapsedTime() );
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
+	{
+		player->Reload();
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		//velocity += b2Vec2(normalize_direction);

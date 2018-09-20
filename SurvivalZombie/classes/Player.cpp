@@ -117,11 +117,19 @@ void Player::AddWeapon(Weapon * weapon)
 	weapons.push_back( weapon );
 }
 
-void Player::Shoot( b2Vec2 direction )
+void Player::Reload()
+{
+	if ( current_weapon )
+	{
+		current_weapon->Reload();
+	}
+}
+
+void Player::Shoot( b2Vec2 direction, sf::Time difference_time )
 {
 	if (current_weapon)
 	{
-		current_weapon->Shoot(body->GetPosition(), body->GetAngle(), direction);
+		current_weapon->Shoot(body->GetPosition(), body->GetAngle(), direction, difference_time);
 		currentAnimation = &attackingAnimation;
 	}
 }

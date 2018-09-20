@@ -14,7 +14,7 @@ public:
 
 	void						AddEntity( Entity * entity );
 	void						RemoveEntity( Entity * entity );
-	void						Update();
+	void						Update(sf::Time difference_time);
 	void						Render( sf::RenderWindow * window );
 	b2World *					World() { return world; }
 	void						KillEverybody();
@@ -22,7 +22,6 @@ public:
 
 private:
 	b2World *					world;
-	sf::Clock					clock;
 	std::vector <Entity*>		entities;
 	ContactListener *			listener;
 };
