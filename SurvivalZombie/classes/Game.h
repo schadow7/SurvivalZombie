@@ -51,6 +51,7 @@ private:
 	void									spawnHorde(int next_level);
 	int										currentLevel;
 	sf::Clock								clock;
+	float32									previous_angle;
 	std::default_random_engine				engine;
 	std::uniform_int_distribution<int>		angleDistribution{ 1, 360 };
 	const float								DEGTORAD = b2_pi / 180;
