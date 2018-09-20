@@ -13,9 +13,10 @@
 #include "Menu.h"
 #include "Brick.h"
 #include "observer.h"
-#include "Level.h"
 #include "Weapon.h"
 #include "Hud.h"
+#include <random>
+
 
 class Game:
 	public Observer
@@ -46,7 +47,13 @@ private:
 	Player *								player;
 	Hud *									hud;
 	int										undeadCount;
-	void									spawnHorde(Level & next_level);
+	void									spawnHorde(int next_level);
 	int										currentLevel;
 	bool									noKeyWasPressed;
+	std::default_random_engine				engine;
+	std::uniform_int_distribution<int>		angleDistribution{ 1, 360 };
+	const float								DEGTORAD = b2_pi / 180;
+	b2Vec2									mapCenter;
+	std::vector<int>						newLevel(int levelNr, std::vector<int>& zombieQuantity);
+	std::uniform_int_distribution<int>		zombieDistribution{ -1, 1 };
 };
