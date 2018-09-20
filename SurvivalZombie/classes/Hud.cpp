@@ -14,6 +14,56 @@ Hud::Hud()
 	hitpointsText.setOutlineColor(sf::Color::Black);
 	hitpointsText.setOutlineThickness(2);
 	hitpointsBarBlack.setSize(sf::Vector2f(322, 42));
+
+	handgunTex.loadFromFile(".\\graphics\\handgun.png");
+	handgunTex.setSmooth(1);
+	handgun.setTexture(handgunTex);
+	rifleTex.loadFromFile(".\\graphics\\rifle.png");
+	rifleTex.setSmooth(1);
+	rifle.setTexture(rifleTex);
+	shotgunTex.loadFromFile(".\\graphics\\shotgun.png");
+	shotgunTex.setSmooth(1);
+	shotgun.setTexture(shotgunTex);
+
+
+	handgunAmmoTex.loadFromFile(".\\graphics\\9mm.png");
+	handgunAmmoTex.setSmooth(1);
+	handgunAmmo.setTexture(handgunAmmoTex);
+	rifleAmmoTex.loadFromFile(".\\graphics\\7.62mm.png");
+	rifleAmmoTex.setSmooth(1);
+	rifleAmmo.setTexture(rifleAmmoTex);
+	shotgunAmmoTex.loadFromFile(".\\graphics\\12gauge.png");
+	shotgunAmmoTex.setSmooth(1);
+	shotgunAmmo.setTexture(shotgunAmmoTex);
+
+	currentAmmoText.setFont(hitpointsFont);
+	currentAmmoText.setCharacterSize(30);
+	currentAmmoText.setFillColor(sf::Color::Black);
+	currentAmmoText.setStyle(sf::Text::Bold);
+	currentAmmoText.setOutlineColor(sf::Color::Black);
+	currentAmmoText.setOutlineThickness(1);
+
+	handgunAmmoText.setFont(hitpointsFont);
+	handgunAmmoText.setCharacterSize(30);
+	handgunAmmoText.setFillColor(sf::Color::Black);
+	handgunAmmoText.setStyle(sf::Text::Bold);
+	handgunAmmoText.setOutlineColor(sf::Color::Black);
+	handgunAmmoText.setOutlineThickness(1);
+
+	rifleAmmoText.setFont(hitpointsFont);
+	rifleAmmoText.setCharacterSize(30);
+	rifleAmmoText.setFillColor(sf::Color::Black);
+	rifleAmmoText.setStyle(sf::Text::Bold);
+	rifleAmmoText.setOutlineColor(sf::Color::Black);
+	rifleAmmoText.setOutlineThickness(1);
+
+	shotgunAmmoText.setFont(hitpointsFont);
+	shotgunAmmoText.setCharacterSize(30);
+	shotgunAmmoText.setFillColor(sf::Color::Black);
+	shotgunAmmoText.setStyle(sf::Text::Bold);
+	shotgunAmmoText.setOutlineColor(sf::Color::Black);
+	shotgunAmmoText.setOutlineThickness(1);
+	
 }
 
 
@@ -34,6 +84,53 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	hitpointsText.setString("Health: " + std::to_string(hitpoints));
 	hitpointsText.setPosition(view->getCenter().x - 540, view->getCenter().y + 302);
 
+	handgun.setPosition(view->getCenter().x + 500, view->getCenter().y + 200);
+	rifle.setPosition(view->getCenter().x + 420, view->getCenter().y + 150);
+	shotgun.setPosition(view->getCenter().x + 420, view->getCenter().y + 150);
+
+	handgunAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 100);
+	rifleAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 50);
+	shotgunAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 0);
+	handgunAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y + 98);
+	rifleAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y + 48);
+	shotgunAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y - 2);
+
+
+
+	//tutaj powinnismy sprawdzac jaka bron jest w danej chwili uzywana
+	currentWeapon = 3;
+
+	if (currentWeapon == 1)
+	{
+		window->draw(handgun);
+		currentAmmo.setTexture(handgunAmmoTex);
+	}
+	else if (currentWeapon == 2)
+	{
+		window->draw(rifle);
+		currentAmmo.setTexture(rifleAmmoTex);
+	}
+	else if (currentWeapon == 3)
+	{
+		window->draw(shotgun);
+		currentAmmo.setTexture(shotgunAmmoTex);
+	}
+	currentAmmo.setPosition(view->getCenter().x + 570, view->getCenter().y + 290);
+	currentAmmoText.setPosition(view->getCenter().x + 450, view->getCenter().y + 288);
+	currentAmmoText.setString("20 / 30");
+
+	handgunAmmoText.setString("132");
+	rifleAmmoText.setString("257");
+	shotgunAmmoText.setString("45");
+
+	window->draw(currentAmmo);
+	window->draw(currentAmmoText);
+	window->draw(handgunAmmo);
+	window->draw(handgunAmmoText);
+	window->draw(rifleAmmo);
+	window->draw(rifleAmmoText);
+	window->draw(shotgunAmmo);
+	window->draw(shotgunAmmoText);
 	window->draw(hitpointsBarBlack);
 	window->draw(hitpointsBarRed);
 	window->draw(hitpointsText);
