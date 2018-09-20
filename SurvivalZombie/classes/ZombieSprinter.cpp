@@ -15,8 +15,11 @@ ZombieSprinter::ZombieSprinter(b2World* world, b2Vec2 position) :
 	body->GetFixtureList()->GetShape()->m_radius = sizey / 2 / SCALE;
 
 	textureWalkingAnimation.loadFromFile(".\\graphics\\animations\\zombie40WalkingAnimation.png");
+	textureWalkingAnimation.setSmooth(1);
 	textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie40AttackingAnimation.png");
+	textureAttackingAnimation.setSmooth(1);
 	textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie40IdleAnimation.png");
+	textureIdleAnimation.setSmooth(1);
 
 	walkingAnimation.setSpriteSheet(textureWalkingAnimation);
 	attackingAnimation.setSpriteSheet(textureAttackingAnimation);
@@ -38,6 +41,7 @@ ZombieSprinter::ZombieSprinter(b2World* world, b2Vec2 position) :
 	animatedSprite = AnimatedSprite(sf::seconds(animSpeed*spec_factor), true, false);
 	animatedSprite.setOrigin(sizex1/2, sizey/2);
 	animatedSprite.setColor(sf::Color::Yellow);
+	sprite.setColor(sf::Color::Yellow);
 }
 
 
