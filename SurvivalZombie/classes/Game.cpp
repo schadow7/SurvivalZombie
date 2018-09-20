@@ -158,31 +158,22 @@ void Game::Controls(sf::RenderWindow * window)
 	{
 		//velocity += b2Vec2(normalize_direction);
 		velocity += b2Vec2(0, -1);
-		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		//velocity += b2Vec2(-normalize_direction);
 		velocity += b2Vec2(0, 1);
-		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		//velocity += b2Vec2(normalize_direction.y, -normalize_direction.x);
 		velocity += b2Vec2(-1, 0);
-		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		//velocity += b2Vec2(-normalize_direction.y, normalize_direction.x);
 		velocity += b2Vec2(1, 0);
-		noKeyWasPressed = false;
 	}
-	if (noKeyWasPressed)
-	{
-		player->StopAnimation();
-	}
-	noKeyWasPressed = true;
 	player->SetVelocity( velocity );
 	if ( 100.f * b2Distance( positionPixToWorld( cordPos ), positionPixToWorld( player->GetPosition() ) ) > 50.f )
 		previous_angle = atan2f( normalize_direction.y, normalize_direction.x );
