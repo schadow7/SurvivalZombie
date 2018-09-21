@@ -1,6 +1,6 @@
 #include "Trap.h"
 
-BasicEntanglements::BasicEntanglements(b2World* world, b2Vec2 position, std::shared_ptr<sf::Texture> ntexture) :
+BasicEntanglements::BasicEntanglements(b2World* world, b2Vec2 position, sf::Texture* ntexture) :
 	StaticBody(world, position),
 	sizey(50)
 {
@@ -33,7 +33,7 @@ BasicEntanglements::BasicEntanglements(b2World* world, b2Vec2 position, std::sha
 	sprite.setScale(scaleX, scaleY);
 	sprite.setColor(sf::Color::Red);
 
-	textureDead = AssetManager::GetTexture(".\\graphics\\grad2.png");
+	textureDead = AssetManager::GetTexture("grad2");
 	textureDead->setSmooth(1);
 
 	sprite.setPosition(SCALE * position.x, SCALE * position.y);

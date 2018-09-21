@@ -4,7 +4,7 @@ class Obstacle :
 	public StaticBody
 {
 public:
-	Obstacle(b2World* world, b2Vec2 position, std::shared_ptr<sf::Texture> ntexture = AssetManager::GetTexture(".\\graphics\\grad2.png"));
+	Obstacle(b2World* world, b2Vec2 position, sf::Texture * ntexture = AssetManager::GetTexture("grad2"));
 	~Obstacle();
 	void StartContact(Entity*);
 	void EndContact(Entity*);

@@ -3,14 +3,17 @@ Game::Game()
 {
 	world = new b2World(b2Vec2(0.f, 0.f));
 	entity_manager = new EntityManager(world);
+	/*
 	sf::Texture * tmp = new sf::Texture;
 	tmp->loadFromFile(".\\graphics\\background.png");
 	textures.insert(std::pair<std::string, sf::Texture*>("background", tmp));
 	tmp->setRepeated(true);
+	*/
+	sf::Texture * tmp;
 	tmp = new sf::Texture;
 	tmp->loadFromFile(".\\graphics\\bullet9mm.png");
 	textures.insert(std::pair<std::string, sf::Texture*>("bullet9mm", tmp));
-	background.setTexture(*textures.at("background"));
+	background.setTexture( *AssetManager::GetTexture( "background" ) );
 	background.setTextureRect(sf::IntRect(0, 0, 20000, 20000));
 	view = new sf::View(sf::FloatRect(0, 0, 1280, 720));
 	hud = new Hud;
@@ -65,14 +68,11 @@ void Game::initializeGame()
 
 void Game::loadTextures()
 {
-	sf::Texture * tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\background.png");
-	textures.insert(std::pair<std::string, sf::Texture*>("background", tmp));
-	tmp->setRepeated(true);
+	sf::Texture * tmp;
 	tmp = new sf::Texture;
 	tmp->loadFromFile(".\\graphics\\bullet9mm.png");
 	textures.insert(std::pair<std::string, sf::Texture*>("bullet9mm", tmp));
-	background.setTexture(*textures.at("background"));
+	//background.setTexture(*textures.at("background"));
 	background.setTextureRect(sf::IntRect(0, 0, 8000, 8000));
 	tmp->loadFromFile(".\\graphics\\survivor.png");
 	textures.insert(std::pair<std::string, sf::Texture*>("survivor", tmp));

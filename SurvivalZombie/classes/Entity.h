@@ -39,7 +39,7 @@ protected:
 	long int				hitpoints;
 	long int				maxhitpoints;
 	std::list<Effect *>		effects;
-	std::shared_ptr<sf::Texture> texture;
+	sf::Texture* texture;
 };
 
 

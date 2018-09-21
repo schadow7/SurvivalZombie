@@ -1,6 +1,6 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(b2World* world, b2Vec2 position, std::shared_ptr<sf::Texture> ntexture) :
+Obstacle::Obstacle(b2World* world, b2Vec2 position, sf::Texture* ntexture) :
 	StaticBody(world, position),
 	sizey(50)
 {
