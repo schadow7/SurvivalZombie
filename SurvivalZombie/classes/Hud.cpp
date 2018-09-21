@@ -1,5 +1,7 @@
 #include "Hud.h"
 
+
+
 Hud::Hud()
 {
 	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
@@ -48,7 +50,7 @@ Hud::Hud()
 	shotgunAmmoText.setStyle(sf::Text::Bold);
 	shotgunAmmoText.setOutlineColor(sf::Color::Black);
 	shotgunAmmoText.setOutlineThickness(1);
-	ammoHudText = "";
+	
 }
 
 
@@ -58,29 +60,66 @@ Hud::~Hud()
 
 void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 {
-	//sprawdzamy jaka bron jest obecnie uzywana
+	hitpoints = player->GetHitpoints()[0];
+	maxhitpoints = player->GetHitpoints()[1];
+
+	hitpointsBarBlack.setPosition(view->getCenter().x - 620, view->getCenter().y + 300);
+
+	hitpointsBarRed.setSize(sf::Vector2f(int(320.f * hitpoints / maxhitpoints), 40.f));
+	hitpointsBarRed.setPosition(view->getCenter().x - 619, view->getCenter().y + 301);
+
+	hitpointsText.setString("Health: " + std::to_string(hitpoints));
+	hitpointsText.setPosition(view->getCenter().x - 540, view->getCenter().y + 302);
+
+	handgun.setPosition(view->getCenter().x + 500, view->getCenter().y + 200);
+	rifle.setPosition(view->getCenter().x + 420, view->getCenter().y + 150);
+	shotgun.setPosition(view->getCenter().x + 420, view->getCenter().y + 150);
+
+	handgunAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 100);
+	rifleAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 50);
+	shotgunAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 0);
+	handgunAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y + 98);
+	rifleAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y + 48);
+	shotgunAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y - 2);
+
+	std::string tmp;
+	//tutaj powinnismy sprawdzac jaka bron jest w danej chwili uzywana
 	weapon_features current_weapon = player->GetCurrentWeapon();
+	currentWeaponType = current_weapon.type;
+	if (currentWeaponType == WeaponType::PISTOL)
+	{
+		window->draw(handgun);
+		currentAmmo.setTexture( *AssetManager::GetTexture( "9mm" ) );
+	}
+	else if ( currentWeaponType == WeaponType::RIFLE )
+	{
+		window->draw(rifle);
+		currentAmmo.setTexture( *AssetManager::GetTexture( "7.62mm" ) );
+	}
+	else if ( currentWeaponType == WeaponType::SHOTGUN )
+	{
+		window->draw(shotgun);
+		currentAmmo.setTexture( *AssetManager::GetTexture( "12gauge" ) );
+	}
+	tmp = std::to_string( current_weapon.magazineAmmo ) + " / " + std::to_string( current_weapon.maxMagazineAmmo );
+	currentAmmo.setPosition(view->getCenter().x + 570, view->getCenter().y + 290);
+	currentAmmoText.setPosition(view->getCenter().x + 450, view->getCenter().y + 288);
+	currentAmmoText.setString(tmp);
 
-	//okreslamy pozycje elementow Hud'u
-	positioningHudElements(view, player, current_weapon);
-
-	//rysujemy odpowiednia ikone broni
-	specifyAndRenderWeapon(window, current_weapon);
-
-	//TODO
 	std::vector<weapon_features> weapon_list = player->GetWeaponList();
 	handgunAmmoText.setString( "   -" );
 	rifleAmmoText.setString( "   -" );
 	shotgunAmmoText.setString( "   -" );
 	for ( auto & it : weapon_list )
 	{
-		if ( it.type == WeaponType::PISTOL )
+		if( it.type == WeaponType::PISTOL )
 			handgunAmmoText.setString( std::to_string(it.carriedAmmo) );
 		if ( it.type == WeaponType::RIFLE )
 			rifleAmmoText.setString( std::to_string( it.carriedAmmo ) );
 		if ( it.type == WeaponType::SHOTGUN )
 			shotgunAmmoText.setString( std::to_string( it.carriedAmmo ) );
 	}
+
 
 	window->draw(currentAmmo);
 	window->draw(currentAmmoText);
@@ -93,56 +132,4 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	window->draw(hitpointsBarBlack);
 	window->draw(hitpointsBarRed);
 	window->draw(hitpointsText);
-}
-
-void Hud::positioningHudElements(sf::View* view, Player* player, weapon_features current_weapon)
-{
-	hitpoints = player->GetHitpoints()[0];
-	maxhitpoints = player->GetHitpoints()[1];
-
-	//ustalanie miejsca healthbara
-	hitpointsBarBlack.setPosition(view->getCenter().x - 620, view->getCenter().y + 300);
-	hitpointsBarRed.setSize(sf::Vector2f(static_cast<int>(320.f * hitpoints / maxhitpoints), 40.f));
-	hitpointsBarRed.setPosition(view->getCenter().x - 619, view->getCenter().y + 301);
-	//ustalanie miejsca tekstu na healthbarze
-	hitpointsText.setString("Health: " + std::to_string(hitpoints));
-	hitpointsText.setPosition(view->getCenter().x - 540, view->getCenter().y + 302);
-	//ustalanie miejsca ikon broni
-	handgun.setPosition(view->getCenter().x + 500, view->getCenter().y + 200);
-	rifle.setPosition(view->getCenter().x + 420, view->getCenter().y + 150);
-	shotgun.setPosition(view->getCenter().x + 420, view->getCenter().y + 150);
-	//ustalanie miejsca ikon amunicji
-	handgunAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 100);
-	rifleAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 50);
-	shotgunAmmo.setPosition(view->getCenter().x + 580, view->getCenter().y + 0);
-	//ustalanie miejsca tekstu mowiacego o ilosci niesionej amunicji
-	handgunAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y + 98);
-	rifleAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y + 48);
-	shotgunAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y - 2);
-	//ustalanie miejsca tekstu mowiacego o ilosci zaladowanej amunicji
-	currentAmmo.setPosition(view->getCenter().x + 570, view->getCenter().y + 290);
-	currentAmmoText.setPosition(view->getCenter().x + 450, view->getCenter().y + 288);
-	ammoHudText = std::to_string(current_weapon.magazineAmmo) + " / " + std::to_string(current_weapon.maxMagazineAmmo);
-	currentAmmoText.setString(ammoHudText);
-}
-
-void Hud::specifyAndRenderWeapon(sf::RenderWindow* window, weapon_features current_weapon)
-{
-	currentWeaponType = current_weapon.type;
-	//wyswietlanie ikony broni
-	if (currentWeaponType == WeaponType::PISTOL)
-	{
-		window->draw(handgun);
-		currentAmmo.setTexture(*AssetManager::GetTexture("9mm"));
-	}
-	else if (currentWeaponType == WeaponType::RIFLE)
-	{
-		window->draw(rifle);
-		currentAmmo.setTexture(*AssetManager::GetTexture("7.62mm"));
-	}
-	else if (currentWeaponType == WeaponType::SHOTGUN)
-	{
-		window->draw(shotgun);
-		currentAmmo.setTexture(*AssetManager::GetTexture("12gauge"));
-	}
 }

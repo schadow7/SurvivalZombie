@@ -82,32 +82,55 @@ void MainWindow::loadTextures()
 	height = 79;
 
 
-	//////MENU
+	sf::Texture * tmp = new sf::Texture;
+	//tmp = new sf::Texture;
+	//tmp->loadFromFile( ".\\graphics\\backgroundMenu.png" );
+	//textures.insert( std::pair<std::string, sf::Texture*>( "backgroundMenu", tmp ) );
+
 	AssetManager::AddTexture( "backgroundMenu", ".\\graphics\\menu\\backgroundMenu.png" );
 	backgroundMenu.setTexture( *AssetManager::GetTexture( "backgroundMenu" ) );
+
+
+	//tmp = new sf::Texture;
+	//tmp->loadFromFile( ".\\graphics\\buttonPlayOff.png" );
+	//textures.insert( std::pair<std::string, sf::Texture*>( "button[0]", tmp ) );
 
 	AssetManager::AddTexture( "button[0]", ".\\graphics\\menu\\buttonPlayOff.png" );
 	button[0].setTexture( *AssetManager::GetTexture( "button[0]" ) );
 	button[0].setPosition( sf::Vector2f( posX, posY ) );
 
+	//tmp = new sf::Texture;
+	//tmp->loadFromFile( ".\\graphics\\buttonPlayOn.png" );
+	//textures.insert( std::pair<std::string, sf::Texture*>( "button[1]", tmp ) );
+
 	AssetManager::AddTexture( "button[1]", ".\\graphics\\menu\\buttonPlayOn.png" );
 	button[1].setTexture( *AssetManager::GetTexture( "button[1]" ) );
 	button[1].setPosition( sf::Vector2f( posX, posY ) );
 
-	AssetManager::AddTexture("button[2]", ".\\graphics\\menu\\buttonOptionsOff.png");
-	button[2].setTexture( *AssetManager::GetTexture( "button[2]") );
+
+	tmp = new sf::Texture;
+	tmp->loadFromFile( ".\\graphics\\menu\\buttonOptionsOff.png" );
+	textures.insert( std::pair<std::string, sf::Texture*>( "button[2]", tmp ) );
+	button[2].setTexture( *textures.at( "button[2]" ) );
 	button[2].setPosition( sf::Vector2f( posX, posY + spacing ) );
 
-	AssetManager::AddTexture("button[3]", ".\\graphics\\menu\\buttonOptionsOn.png");
-	button[3].setTexture( *AssetManager::GetTexture( "button[3]" ) );
+	tmp = new sf::Texture;
+	tmp->loadFromFile( ".\\graphics\\menu\\buttonOptionsOn.png" );
+	textures.insert( std::pair<std::string, sf::Texture*>( "button[3]", tmp ) );
+	button[3].setTexture( *textures.at( "button[3]" ) );
 	button[3].setPosition( sf::Vector2f( posX, posY + spacing ) );
-	
-	AssetManager::AddTexture("button[4]", ".\\graphics\\menu\\buttonExitOff.png");
-	button[4].setTexture( *AssetManager::GetTexture( "button[4]" ) );
+
+
+	tmp = new sf::Texture;
+	tmp->loadFromFile( ".\\graphics\\menu\\buttonExitOff.png" );
+	textures.insert( std::pair<std::string, sf::Texture*>( "button[4]", tmp ) );
+	button[4].setTexture( *textures.at( "button[4]" ) );
 	button[4].setPosition( sf::Vector2f( posX, posY + spacing * 2 ) );
-	
-	AssetManager::AddTexture("button[5]", ".\\graphics\\menu\\buttonExitOn.png");
-	button[5].setTexture( *AssetManager::GetTexture( "button[5]" ) );
+
+	tmp = new sf::Texture;
+	tmp->loadFromFile( ".\\graphics\\menu\\buttonExitOn.png" );
+	textures.insert( std::pair<std::string, sf::Texture*>( "button[5]", tmp ) );
+	button[5].setTexture( *textures.at( "button[5]" ) );
 	button[5].setPosition( sf::Vector2f( posX, posY + spacing * 2 ) );
 }
 
@@ -165,7 +188,7 @@ int MainWindow::runMenu( sf::Event event )
 		}
 	}
 
-	this->draw();
+	this->draw( );
 
 	return 0;
 }
@@ -173,7 +196,7 @@ int MainWindow::runMenu( sf::Event event )
 
 
 
-void MainWindow::draw()
+void MainWindow::draw( )
 {
 	window->draw( backgroundMenu );
 	for ( int i = 0; i < MAX_NUMBER_OF_ITEMS; i++ )

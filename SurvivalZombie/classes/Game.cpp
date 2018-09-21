@@ -9,6 +9,7 @@ Game::Game()
 	hud = new Hud;
 	undeadCount = 0;
 	currentLevel = 0;
+//	noKeyWasPressed = true;
 	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -16,6 +17,7 @@ Game::Game()
 
 Game::~Game()
 {
+
 }
 
 void Game::runGame(sf::RenderWindow * window)
@@ -31,7 +33,10 @@ void Game::runGame(sf::RenderWindow * window)
 	entity_manager->Update( clock.restart() );
 	entity_manager->Render( window );
 	hud->Render( window, view, player );
+
+
 }
+
 
 void Game::initializeGame()
 {
@@ -56,10 +61,9 @@ void Game::loadTextures()
 	sf::Texture * tmp = new sf::Texture;
 	tmp->loadFromFile( ".\\graphics\\background.png" );
 	tmp->setRepeated( true );
-	tmp->setSmooth( true );
 	AssetManager::AddTexture( "background", tmp );
 	AssetManager::AddTexture( "grad2", ".\\graphics\\grad2.png" );
-
+	AssetManager::AddTexture( "survivor", ".\\graphics\\survivor.png" );
 	//Animacje
 	AssetManager::AddTexture( "bullet9mm", ".\\graphics\\animations\\bullet9mm.png" );
 	
@@ -70,6 +74,7 @@ void Game::loadTextures()
 	AssetManager::AddTexture( "9mm", ".\\graphics\\hud\\9mm.png" );
 	AssetManager::AddTexture( "7.62mm", ".\\graphics\\hud\\7.62mm.png" );
 	AssetManager::AddTexture( "12gauge", ".\\graphics\\hud\\12gauge.png"  );
+
 }
 
 void Game::Controls(sf::RenderWindow * window)
@@ -83,79 +88,111 @@ void Game::Controls(sf::RenderWindow * window)
 	//Wyznaczenie znormalizowanego wektora wyznaczaj¹cego kierunek od gracza do pozycycji myszki
 	normalize_direction = positionPixToWorld(cordPos) - positionPixToWorld(player->GetWeaponPosition());
 	normalize_direction.Normalize();
-
-	//konkretne klawisze
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	{
+
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Zombie* zombieTester = new Zombie(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
 		entity_manager->AddEntity(zombieTester);
+
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
+
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Zombie* zombieTester = new ZombieTank(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
 		entity_manager->AddEntity(zombieTester);
+
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 	{
+
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Zombie* zombieTester = new ZombieSprinter(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
 		entity_manager->AddEntity(zombieTester);
+
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 	{
+
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		spawnHorde(0);
+
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+
+		entity_manager->KillEverybody();
+
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
+
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Entity* ob = new BasicEntanglements(world, positionPixToWorld(cordPos));
 		entity_manager->AddEntity(ob);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) entity_manager->KillEverybody();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) player->Reload();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) velocity += b2Vec2(0, -1);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) velocity += b2Vec2(0, 1);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocity += b2Vec2(-1, 0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocity += b2Vec2(1, 0);
 
+	}
 	if (undeadCount <= 0)
 	{
 		currentLevel++;
 		spawnHorde(currentLevel);
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
-	}
 
+	}
 	shoot_timer += clock.getElapsedTime();
 	if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
 	{
 		player->Shoot( normalize_direction, shoot_timer );
 		shoot_timer = sf::seconds( 0 );
 	}
-
-
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
+	{
+		player->Reload();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		//velocity += b2Vec2(normalize_direction);
+		velocity += b2Vec2(0, -1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		//velocity += b2Vec2(-normalize_direction);
+		velocity += b2Vec2(0, 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		//velocity += b2Vec2(normalize_direction.y, -normalize_direction.x);
+		velocity += b2Vec2(-1, 0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		//velocity += b2Vec2(-normalize_direction.y, normalize_direction.x);
+		velocity += b2Vec2(1, 0);
+	}
 	player->SetVelocity( velocity );
 	if ( 100.f * b2Distance( positionPixToWorld( cordPos ), positionPixToWorld( player->GetPosition() ) ) > 50.f )
-		previous_angle = atan2f( normalize_direction.y, normalize_direction.x ); player->SetAngle( previous_angle );
+		previous_angle = atan2f( normalize_direction.y, normalize_direction.x );
+	player->SetAngle( previous_angle );
 }
 
 void Game::update(Entity * ptr)
 {
-	if (ptr->GetID() == 2) undeadCount--;
+	if (ptr->GetID() == 2)
+		undeadCount--;
 }
+
 
 void Game::Render(sf::RenderWindow * window)
 {
@@ -202,6 +239,7 @@ std::vector<int> Game::newLevel(int levelNr, std::vector<int>& zombieQuantity)
 			zombieQuantity.push_back(levelNr*(number_of_zombie_types - i) + random_part);
 		}
 	}
+
 	return zombieQuantity;
 }
 
@@ -225,3 +263,4 @@ void Game::arrangeObstacles(int quantity)
 		}
 	}
 }
+

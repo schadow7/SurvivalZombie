@@ -9,9 +9,7 @@ public:
 	~Hud();
 
 	void					Render(sf::RenderWindow* window, sf::View* view, Player* player);
-	void					positioningHudElements(sf::View* view, Player* player, weapon_features current_weapon);
-	void					specifyAndRenderWeapon(sf::RenderWindow* window, weapon_features current_weapon);
-	
+
 private:
 	sf::RectangleShape		hitpointsBarRed;
 	sf::RectangleShape		hitpointsBarBlack;
@@ -31,7 +29,7 @@ private:
 	sf::Text				rifleAmmoText;
 	sf::Sprite				shotgunAmmo;
 	sf::Text				shotgunAmmoText;
+
 	sf::Sprite				currentAmmo;
 	sf::Text				currentAmmoText;
-	std::string             ammoHudText;
 };

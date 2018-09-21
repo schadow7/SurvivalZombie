@@ -10,6 +10,7 @@
 #include "ZombieTank.h"
 #include "ZombieSprinter.h"
 #include "Player.h"
+#include "Menu.h"
 #include "observer.h"
 #include "Weapon.h"
 #include "Hud.h"
@@ -35,10 +36,13 @@ public:
 private:
 	void									Render( sf::RenderWindow * window );
 
+
+private:
 	const float								SCALE = 100.f;
-	EntityManager *							entity_manager;
 	sf::View *								view;
-	sf::Sprite								background;
+	EntityManager *							entity_manager;
+	std::map<std::string, sf::Texture *>	textures;
+	sf::Sprite								background, background2;
 	std::vector<Zombie*>					zombieList;
 	b2World *								world;
 	Zombie *								zombieTester;
