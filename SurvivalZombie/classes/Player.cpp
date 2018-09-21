@@ -93,8 +93,8 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	
 	currentAnimationFeet = &idleAnimationFeet;
 	currentAnimation = &idleAnimationHandgun;
-	animatedSprite = AnimatedSprite(sf::seconds(animSpeed * 2.f), true, false);
-	animatedSpriteFeet = AnimatedSprite(sf::seconds(animSpeed * 2.f), true, false);
+	animatedSprite = AnimatedSprite(sf::milliseconds(animSpeed * 2000.f), true, false);
+	animatedSpriteFeet = AnimatedSprite(sf::milliseconds(animSpeed * 2000.f), true, false);
 	animatedSprite.setOrigin(sizex / 2.f, sizey / 2.f);
 	animatedSpriteFeet.setOrigin(sizex / 2.f, sizey / 2.f);
 	animatedSprite.play(*currentAnimation);
@@ -227,6 +227,25 @@ std::vector<long int> Player::GetHitpoints()
 	return hp;
 }
 
+std::vector<weapon_features> Player::GetWeaponList()
+{
+	std::vector<weapon_features> weapon_list;
+
+	for ( auto & it : weapons )
+	{
+		weapon_list.push_back( it->GetWeaponFeatures() );
+	}
+	return weapon_list;
+}
+
+weapon_features Player::GetCurrentWeapon()
+{
+	if ( current_weapon )
+		return current_weapon->GetWeaponFeatures();
+	else
+		return weapon_features();
+}
+
 bool Player::canShoot()
 {
 	if (currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun) return true;
@@ -236,8 +255,8 @@ bool Player::canShoot()
 
 bool Player::canReload()
 {
-	if (currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun) return true;
-	else if (!this->isShooting() && !this->isReloading()) return true;
+	if ( ( currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun ) && current_weapon->CanReload() ) return true;
+	else if ( !this->isShooting() && !this->isReloading() && current_weapon->CanReload() ) return true;
 	else return false;
 }
 

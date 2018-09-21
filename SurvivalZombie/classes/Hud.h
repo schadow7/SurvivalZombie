@@ -17,7 +17,7 @@ private:
 	sf::Text				hitpointsText;
 	long int				hitpoints;
 	long int				maxhitpoints;
-	int						currentWeapon;
+	WeaponType				currentWeaponType;
 
 	sf::Sprite				handgun;
 	sf::Texture				handgunTex;

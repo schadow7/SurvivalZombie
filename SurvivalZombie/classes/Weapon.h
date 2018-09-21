@@ -10,10 +10,10 @@ struct projectile_features {
 	sf::Time lifetime;
 	b2Vec2 direction;
 };
-enum class WeaponType { PISTOL, SHOTGUN, RIFLE };
+enum class WeaponType { NOGUN, PISTOL, SHOTGUN, RIFLE };
 
 struct weapon_features {
-	WeaponType type;
+	WeaponType type = WeaponType::NOGUN;
 	int maxMagazineAmmo, magazineAmmo, carriedAmmo;
 	sf::Time cooldown, reload_cooldown;
 	float32 damage, bullet_speed;
@@ -32,6 +32,9 @@ public:
 	virtual void			Reload() { magazineAmmo = ( carriedAmmo > maxMagazineAmmo ) ? maxMagazineAmmo : carriedAmmo; carriedAmmo -= magazineAmmo; reload_timer = reload_cooldown; }
 	virtual void			Shoot( b2Vec2 playerPosition, float32 playerAngle, b2Vec2 direction, sf::Time difference_time ) = 0;
 	weapon_features			GetWeaponFeatures() { weapon_features feat = { type, maxMagazineAmmo, magazineAmmo, carriedAmmo, cooldown, reload_cooldown, damage, bullet_speed }; return feat; }
+	bool					CanReload() { if ( magazineAmmo < maxMagazineAmmo && carriedAmmo > 0 ) { return true; } else { return false; } }
+	sf::Time				ReloadTime() const { return reload_cooldown; }
+	sf::Time				RecoilTime() const { return cooldown;  }
 
 protected:
 	EntityManager *			entityManager;

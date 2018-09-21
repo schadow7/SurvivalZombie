@@ -95,33 +95,44 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	rifleAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y + 48);
 	shotgunAmmoText.setPosition(view->getCenter().x + 515, view->getCenter().y - 2);
 
-
-
+	std::string tmp;
 	//tutaj powinnismy sprawdzac jaka bron jest w danej chwili uzywana
-	currentWeapon = 3;
-
-	if (currentWeapon == 1)
+	weapon_features current_weapon = player->GetCurrentWeapon();
+	currentWeaponType = current_weapon.type;
+	if (currentWeaponType == WeaponType::PISTOL)
 	{
 		window->draw(handgun);
 		currentAmmo.setTexture(handgunAmmoTex);
 	}
-	else if (currentWeapon == 2)
+	else if ( currentWeaponType == WeaponType::RIFLE )
 	{
 		window->draw(rifle);
 		currentAmmo.setTexture(rifleAmmoTex);
 	}
-	else if (currentWeapon == 3)
+	else if ( currentWeaponType == WeaponType::SHOTGUN )
 	{
 		window->draw(shotgun);
 		currentAmmo.setTexture(shotgunAmmoTex);
 	}
+	tmp = std::to_string( current_weapon.magazineAmmo ) + " / " + std::to_string( current_weapon.maxMagazineAmmo );
 	currentAmmo.setPosition(view->getCenter().x + 570, view->getCenter().y + 290);
 	currentAmmoText.setPosition(view->getCenter().x + 450, view->getCenter().y + 288);
-	currentAmmoText.setString("20 / 30");
+	currentAmmoText.setString(tmp);
 
-	handgunAmmoText.setString("132");
-	rifleAmmoText.setString("257");
-	shotgunAmmoText.setString("45");
+	std::vector<weapon_features> weapon_list = player->GetWeaponList();
+	handgunAmmoText.setString( "   -" );
+	rifleAmmoText.setString( "   -" );
+	shotgunAmmoText.setString( "   -" );
+	for ( auto & it : weapon_list )
+	{
+		if( it.type == WeaponType::PISTOL )
+			handgunAmmoText.setString( std::to_string(it.carriedAmmo) );
+		if ( it.type == WeaponType::RIFLE )
+			rifleAmmoText.setString( std::to_string( it.carriedAmmo ) );
+		if ( it.type == WeaponType::SHOTGUN )
+			shotgunAmmoText.setString( std::to_string( it.carriedAmmo ) );
+	}
+
 
 	window->draw(currentAmmo);
 	window->draw(currentAmmoText);
