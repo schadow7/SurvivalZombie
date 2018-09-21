@@ -15,32 +15,15 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 	FixtureDef.shape = &Shape;
 	FixtureDef.density = 1;
 	body->CreateFixture( &FixtureDef );
-	////SFML
-	/*shape.setOrigin( sf::Vector2f( 24.f, 24.f ) );
-	shape.setTexture( texture );
-	shape.setRadius( 25 );
-	shape.setOutlineThickness( 1 );
-	shape.setOutlineColor( sf::Color::Black );*/
-	int sizex = 100;
-	int sizey = 100;
 
+	size = 100;
 
 	textureFeetWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\playerFeetWalkingAnimation.png");
-	textureFeetWalkingAnimation.setSmooth(1);
 	textureFeetIdleAnimation.loadFromFile(".\\graphics\\animations\\player\\playerFeetIdleAnimation.png");
-	textureFeetIdleAnimation.setSmooth(1);
 	textureHandgunWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\playerHandgunWalkingAnimation.png");
-	textureHandgunWalkingAnimation.setSmooth(1);
 	textureHandgunIdleAnimation.loadFromFile(".\\graphics\\animations\\player\\playerHandgunWalkingAnimation.png");
-	textureHandgunIdleAnimation.setSmooth(1);
 	textureHandgunAttackingAnimation.loadFromFile(".\\graphics\\animations\\player\\playerHandgunAttackingAnimation.png");
-	textureHandgunAttackingAnimation.setSmooth(1);
 	textureHandgunReloadingAnimation.loadFromFile(".\\graphics\\animations\\player\\playerHandgunReloadingAnimation.png");
-	textureHandgunReloadingAnimation.setSmooth(1);
-	//textureRifleWalkingAnimation.loadFromFile(".\\graphics\\animations\\playerHandgunWalkingAnimation00.png");
-	//textureShotgunWalkingAnimation.loadFromFile(".\\graphics\\animations\\playerHandgunWalkingAnimation00.png");
-	//textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie50AttackingAnimation.png");
-	//textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie50IdleAnimation.png");
 
 
 	walkingAnimationFeet.setSpriteSheet(textureFeetWalkingAnimation);
@@ -55,39 +38,39 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 
 	for (int i = 0; i <= 19; i++)
 	{
-		walkingAnimationFeet.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
+		walkingAnimationFeet.addFrame(sf::IntRect(i * size, 0, size, size));
 	}
 	//
-	idleAnimationFeet.addFrame(sf::IntRect(sizex, 0, sizex, sizey));
+	idleAnimationFeet.addFrame(sf::IntRect(size, 0, size, size));
 	//
 	for (int i = 0; i <= 19; i++)
 	{
-		walkingAnimationHandgun.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
+		walkingAnimationHandgun.addFrame(sf::IntRect(i * size, 0, size, size));
 	}
 	//
 	for (int i = 0; i <= 19; i++)
 	{
-		idleAnimationHandgun.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
+		idleAnimationHandgun.addFrame(sf::IntRect(i * size, 0, size, size));
 	}
 	//
 	for (int i = 0; i <= 3; i++)
 	{
-		attackingAnimationHandgun.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
+		attackingAnimationHandgun.addFrame(sf::IntRect(i * size, 0, size, size));
 	}
 	//
 	for (int i = 0; i <= 15; i++)
 	{
-		reloadingAnimationHandgun.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
+		reloadingAnimationHandgun.addFrame(sf::IntRect(i * size, 0, size, size));
 	}
 	//
 	for (int i = 0; i <= 8; i++)
 	{
-		attackingAnimation.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
+		attackingAnimation.addFrame(sf::IntRect(i * size, 0, size, size));
 	}
 	//
 	for (int i = 0; i <= 16; i++)
 	{
-		idleAnimation.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
+		idleAnimation.addFrame(sf::IntRect(i * size, 0, size, size));
 	}
 
 	
@@ -95,8 +78,8 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 	currentAnimation = &idleAnimationHandgun;
 	animatedSprite = AnimatedSprite(sf::milliseconds(animSpeed * 2000.f), true, false);
 	animatedSpriteFeet = AnimatedSprite(sf::milliseconds(animSpeed * 1000.f), true, false);
-	animatedSprite.setOrigin(sizex / 2.f, sizey / 2.f);
-	animatedSpriteFeet.setOrigin(sizex / 2.f, sizey / 2.f);
+	animatedSprite.setOrigin(size / 2.f, size / 2.f);
+	animatedSpriteFeet.setOrigin(size / 2.f, size / 2.f);
 	animatedSprite.play(*currentAnimation);
 }
 
