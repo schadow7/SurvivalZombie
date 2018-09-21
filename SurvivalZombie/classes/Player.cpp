@@ -94,7 +94,7 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	currentAnimationFeet = &idleAnimationFeet;
 	currentAnimation = &idleAnimationHandgun;
 	animatedSprite = AnimatedSprite(sf::milliseconds(animSpeed * 2000.f), true, false);
-	animatedSpriteFeet = AnimatedSprite(sf::milliseconds(animSpeed * 2000.f), true, false);
+	animatedSpriteFeet = AnimatedSprite(sf::milliseconds(animSpeed * 1000.f), true, false);
 	animatedSprite.setOrigin(sizex / 2.f, sizey / 2.f);
 	animatedSpriteFeet.setOrigin(sizex / 2.f, sizey / 2.f);
 	animatedSprite.play(*currentAnimation);
@@ -123,13 +123,13 @@ void Player::Render( sf::RenderWindow * window )
 	b2Vec2 direction;
 	direction = body->GetLinearVelocity();
 
-	if (sqrt(direction.x*direction.x + direction.y*direction.y) > 3 && !this->isShooting() && !this->isReloading())
+	if (sqrt(direction.x*direction.x + direction.y*direction.y) > speed/10.0f && !this->isShooting() && !this->isReloading())
 	{
 		currentAnimationFeet = &walkingAnimationFeet;
 		currentAnimation = &walkingAnimationHandgun;
 		animatedSprite.play(*currentAnimation);
 	}
-	else if (sqrt(direction.x*direction.x + direction.y*direction.y) > 3)
+	else if (sqrt(direction.x*direction.x + direction.y*direction.y) > speed/10.0f)
 	{
 		currentAnimationFeet = &walkingAnimationFeet;
 	}
@@ -248,8 +248,11 @@ weapon_features Player::GetCurrentWeapon()
 
 bool Player::canShoot()
 {
-	if (currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun) return true;
-	else if (!this->isShooting() && !this->isReloading()) return true;
+	if (current_weapon->MagazineAmmo() > 0)
+	{
+		if (currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun) return true;
+		else if (!this->isShooting() && !this->isReloading()) return true;
+	}
 	else return false;
 }
 
