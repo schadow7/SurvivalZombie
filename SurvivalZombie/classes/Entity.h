@@ -87,7 +87,7 @@ protected:
 class EffectDamage : public Effect
 {
 public:
-	EffectDamage( Entity * Origin, sf::Time Cooldown, sf::Time Duration, int Damage ) : Effect( Origin, Cooldown, Duration ), damage( Damage ) {};
+	EffectDamage( Entity * Origin, sf::Time Cooldown, sf::Time Duration, float32 Damage ) : Effect( Origin, Cooldown, Duration ), damage( Damage ) {};
 	~EffectDamage() {};
 	bool						ApplyEffect( Entity * entity, sf::Time time_difference )
 	{
@@ -101,5 +101,5 @@ public:
 		return true;
 	};
 private:
-	unsigned int				damage;
+	float32				damage;
 };
