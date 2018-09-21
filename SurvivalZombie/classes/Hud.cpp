@@ -7,11 +7,8 @@ Hud::Hud()
 	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
 	hitpointsBarBlack.setFillColor(sf::Color(0, 0, 0));
 	hitpointsFont.loadFromFile("arial.ttf");
-	hitpointsText.setFont(hitpointsFont);
-	hitpointsText.setCharacterSize(30);
+	FormatText( hitpointsText );
 	hitpointsText.setFillColor(sf::Color::White);
-	hitpointsText.setStyle(sf::Text::Bold);
-	hitpointsText.setOutlineColor(sf::Color::Black);
 	hitpointsText.setOutlineThickness(2);
 	hitpointsBarBlack.setSize(sf::Vector2f(322, 42));
 
@@ -23,33 +20,12 @@ Hud::Hud()
 	rifleAmmo.setTexture( *AssetManager::GetTexture( "7.62mm" ) );
 	shotgunAmmo.setTexture( *AssetManager::GetTexture( "12gauge" ) );
 
-	currentAmmoText.setFont(hitpointsFont);
-	currentAmmoText.setCharacterSize(30);
-	currentAmmoText.setFillColor(sf::Color::Black);
-	currentAmmoText.setStyle(sf::Text::Bold);
-	currentAmmoText.setOutlineColor(sf::Color::Black);
-	currentAmmoText.setOutlineThickness(1);
+	//Formatowanie tekstu
+	FormatText( currentAmmoText );
+	FormatText( handgunAmmoText );
+	FormatText( rifleAmmoText );
+	FormatText( shotgunAmmoText );
 
-	handgunAmmoText.setFont(hitpointsFont);
-	handgunAmmoText.setCharacterSize(30);
-	handgunAmmoText.setFillColor(sf::Color::Black);
-	handgunAmmoText.setStyle(sf::Text::Bold);
-	handgunAmmoText.setOutlineColor(sf::Color::Black);
-	handgunAmmoText.setOutlineThickness(1);
-
-	rifleAmmoText.setFont(hitpointsFont);
-	rifleAmmoText.setCharacterSize(30);
-	rifleAmmoText.setFillColor(sf::Color::Black);
-	rifleAmmoText.setStyle(sf::Text::Bold);
-	rifleAmmoText.setOutlineColor(sf::Color::Black);
-	rifleAmmoText.setOutlineThickness(1);
-
-	shotgunAmmoText.setFont(hitpointsFont);
-	shotgunAmmoText.setCharacterSize(30);
-	shotgunAmmoText.setFillColor(sf::Color::Black);
-	shotgunAmmoText.setStyle(sf::Text::Bold);
-	shotgunAmmoText.setOutlineColor(sf::Color::Black);
-	shotgunAmmoText.setOutlineThickness(1);
 	
 }
 
@@ -132,4 +108,15 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	window->draw(hitpointsBarBlack);
 	window->draw(hitpointsBarRed);
 	window->draw(hitpointsText);
+}
+
+void Hud::FormatText( sf::Text & text )
+{
+	text.setFont( hitpointsFont );
+	text.setCharacterSize( 30 );
+	text.setFillColor( sf::Color::Black );
+	text.setStyle( sf::Text::Bold );
+	text.setOutlineColor( sf::Color::Black );
+	text.setOutlineThickness( 1 );
+
 }

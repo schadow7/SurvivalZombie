@@ -11,6 +11,7 @@ public:
 	void					Render(sf::RenderWindow* window, sf::View* view, Player* player);
 
 private:
+	void					FormatText( sf::Text & text );
 	sf::RectangleShape		hitpointsBarRed;
 	sf::RectangleShape		hitpointsBarBlack;
 	sf::Font				hitpointsFont;
