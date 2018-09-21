@@ -10,6 +10,15 @@ struct projectile_features {
 	sf::Time lifetime;
 	b2Vec2 direction;
 };
+enum class WeaponType { PISTOL, SHOTGUN, RIFLE };
+
+struct weapon_features {
+	WeaponType type;
+	int maxMagazineAmmo, magazineAmmo, carriedAmmo;
+	sf::Time cooldown, reload_cooldown;
+	float32 damage, bullet_speed;
+
+};
 
 class Weapon
 {
@@ -22,6 +31,7 @@ public:
 	int						MagazineAmmo() const { return magazineAmmo; }
 	virtual void			Reload() { magazineAmmo = ( carriedAmmo > maxMagazineAmmo ) ? maxMagazineAmmo : carriedAmmo; carriedAmmo -= magazineAmmo; reload_timer = reload_cooldown; }
 	virtual void			Shoot( b2Vec2 playerPosition, float32 playerAngle, b2Vec2 direction, sf::Time difference_time ) = 0;
+	weapon_features			GetWeaponFeatures() { weapon_features feat = { type, maxMagazineAmmo, magazineAmmo, carriedAmmo, cooldown, reload_cooldown, damage, bullet_speed }; return feat; }
 
 protected:
 	EntityManager *			entityManager;
@@ -35,6 +45,7 @@ protected:
 	sf::Time				timer, cooldown, reload_cooldown, reload_timer;
 	float32					damage;
 	float32					bullet_speed;
+	WeaponType				type;
 
 };
 
@@ -105,8 +116,21 @@ public:
 		carriedAmmo = 100;
 		reload_timer = sf::microseconds(0);
 		magazineAmmo = maxMagazineAmmo;
+		type = WeaponType::PISTOL;
 	}
 
+	Pistol( EntityManager * EntMng, sf::Texture * TxtrPlayer, sf::Texture * TxtrProjectile, weapon_features wpnFeat ) : Weapon( EntMng, TxtrPlayer, TxtrProjectile )
+	{
+		position = positionPixToWorld( sf::Vector2f( 30, 14 ) );
+		cooldown = wpnFeat.cooldown;		reload_cooldown = wpnFeat.reload_cooldown;
+		timer = sf::milliseconds( 0 );
+		damage = wpnFeat.damage;	bullet_speed = wpnFeat.bullet_speed;
+		maxMagazineAmmo = wpnFeat.maxMagazineAmmo;
+		carriedAmmo = wpnFeat.carriedAmmo;
+		reload_timer = sf::microseconds( 0 );
+		magazineAmmo = wpnFeat.magazineAmmo;
+		type = wpnFeat.type;
+	}
 	void	Reload() { magazineAmmo = maxMagazineAmmo; reload_timer = reload_cooldown; }
 
 	void	Shoot( b2Vec2 playerPositon, float32 playerAngle, b2Vec2 direction, sf::Time difference_time )
