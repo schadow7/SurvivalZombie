@@ -15,26 +15,13 @@ Hud::Hud()
 	hitpointsText.setOutlineThickness(2);
 	hitpointsBarBlack.setSize(sf::Vector2f(322, 42));
 
-	handgunTex.loadFromFile(".\\graphics\\hud\\handgun.png");
-	handgunTex.setSmooth(1);
-	handgun.setTexture(handgunTex);
-	rifleTex.loadFromFile(".\\graphics\\hud\\rifle.png");
-	rifleTex.setSmooth(1);
-	rifle.setTexture(rifleTex);
-	shotgunTex.loadFromFile(".\\graphics\\hud\\shotgun.png");
-	shotgunTex.setSmooth(1);
-	shotgun.setTexture(shotgunTex);
-
-
-	handgunAmmoTex.loadFromFile(".\\graphics\\hud\\9mm.png");
-	handgunAmmoTex.setSmooth(1);
-	handgunAmmo.setTexture(handgunAmmoTex);
-	rifleAmmoTex.loadFromFile(".\\graphics\\hud\\7.62mm.png");
-	rifleAmmoTex.setSmooth(1);
-	rifleAmmo.setTexture(rifleAmmoTex);
-	shotgunAmmoTex.loadFromFile(".\\graphics\\hud\\12gauge.png");
-	shotgunAmmoTex.setSmooth(1);
-	shotgunAmmo.setTexture(shotgunAmmoTex);
+	//Wczytywanie tekstur
+	handgun.setTexture( *AssetManager::GetTexture( "handgun" ) );
+	rifle.setTexture( *AssetManager::GetTexture( "rifle" ) );
+	shotgun.setTexture( *AssetManager::GetTexture( "shotgun" ) );
+	handgunAmmo.setTexture( *AssetManager::GetTexture( "9mm" ) );
+	rifleAmmo.setTexture( *AssetManager::GetTexture( "7.62mm" ) );
+	shotgunAmmo.setTexture( *AssetManager::GetTexture( "12gauge" ) );
 
 	currentAmmoText.setFont(hitpointsFont);
 	currentAmmoText.setCharacterSize(30);
@@ -102,17 +89,17 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	if (currentWeaponType == WeaponType::PISTOL)
 	{
 		window->draw(handgun);
-		currentAmmo.setTexture(handgunAmmoTex);
+		currentAmmo.setTexture( *AssetManager::GetTexture( "9mm" ) );
 	}
 	else if ( currentWeaponType == WeaponType::RIFLE )
 	{
 		window->draw(rifle);
-		currentAmmo.setTexture(rifleAmmoTex);
+		currentAmmo.setTexture( *AssetManager::GetTexture( "7.62mm" ) );
 	}
 	else if ( currentWeaponType == WeaponType::SHOTGUN )
 	{
 		window->draw(shotgun);
-		currentAmmo.setTexture(shotgunAmmoTex);
+		currentAmmo.setTexture( *AssetManager::GetTexture( "12gauge" ) );
 	}
 	tmp = std::to_string( current_weapon.magazineAmmo ) + " / " + std::to_string( current_weapon.maxMagazineAmmo );
 	currentAmmo.setPosition(view->getCenter().x + 570, view->getCenter().y + 290);

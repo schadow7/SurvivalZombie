@@ -1,6 +1,7 @@
 #include "Game.h"
 Game::Game()
 {
+	loadTextures();
 	world = new b2World(b2Vec2(0.f, 0.f));
 	entity_manager = new EntityManager(world);
 
@@ -56,14 +57,24 @@ void Game::initializeGame()
 void Game::loadTextures()
 {
 	//£adowanie tekstur Asset Managerem
+	//Podstawowe
 	sf::Texture * tmp = new sf::Texture;
 	tmp->loadFromFile( ".\\graphics\\background.png" );
 	tmp->setRepeated( true );
 	AssetManager::AddTexture( "background", tmp );
 	AssetManager::AddTexture( "grad2", ".\\graphics\\grad2.png" );
-	AssetManager::AddTexture( "bullet9mm", ".\\graphics\\animations\\bullet9mm.png" );
 	AssetManager::AddTexture( "survivor", ".\\graphics\\survivor.png" );
+	//Animacje
+	AssetManager::AddTexture( "bullet9mm", ".\\graphics\\animations\\bullet9mm.png" );
 	
+	//Hud
+	AssetManager::AddTexture( "handgun", ".\\graphics\\hud\\handgun.png" );
+	AssetManager::AddTexture( "rifle", ".\\graphics\\hud\\rifle.png" );
+	AssetManager::AddTexture( "shotgun", ".\\graphics\\hud\\shotgun.png" );
+	AssetManager::AddTexture( "9mm", ".\\graphics\\hud\\9mm.png" );
+	AssetManager::AddTexture( "7.62mm", ".\\graphics\\hud\\7.62mm.png" );
+	AssetManager::AddTexture( "12gauge", ".\\graphics\\hud\\12gauge.png"  );
+
 }
 
 void Game::Controls(sf::RenderWindow * window)

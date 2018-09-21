@@ -18,10 +18,6 @@ MainWindow::MainWindow()
 
 	//Stworzenie gry
 	game = new Game;
-
-
-
-	game->loadTextures();
 	game->initializeGame();
 }
 
