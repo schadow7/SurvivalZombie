@@ -61,7 +61,7 @@ void Game::loadTextures()
 	tmp->setRepeated( true );
 	AssetManager::AddTexture( "background", tmp );
 	AssetManager::AddTexture( "grad2", ".\\graphics\\grad2.png" );
-	AssetManager::AddTexture( "bullet9mm", ".\\graphics\\bullet9mm.png" );
+	AssetManager::AddTexture( "bullet9mm", ".\\graphics\\animations\\bullet9mm.png" );
 	AssetManager::AddTexture( "survivor", ".\\graphics\\survivor.png" );
 	
 }
