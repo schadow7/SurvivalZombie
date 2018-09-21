@@ -84,10 +84,10 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	
 	currentAnimationFeet = &idleAnimationFeet;
 	currentAnimation = &idleAnimationHandgun;
-	animatedSprite = AnimatedSprite(sf::seconds(animSpeed * 2), true, false);
-	animatedSpriteFeet = AnimatedSprite(sf::seconds(animSpeed * 2), true, false);
-	animatedSprite.setOrigin(sizex / 2, sizey / 2);
-	animatedSpriteFeet.setOrigin(sizex / 2, sizey / 2);
+	animatedSprite = AnimatedSprite(sf::seconds(animSpeed * 2.f), true, false);
+	animatedSpriteFeet = AnimatedSprite(sf::seconds(animSpeed * 2.f), true, false);
+	animatedSprite.setOrigin(sizex / 2.f, sizey / 2.f);
+	animatedSpriteFeet.setOrigin(sizex / 2.f, sizey / 2.f);
 
 }
 
@@ -157,7 +157,7 @@ void Player::Render( sf::RenderWindow * window )
 
 void Player::Update(sf::Time)
 {
-	this->body->SetLinearVelocity( speed * velocity );
+	this->body->SetLinearVelocity( static_cast<float32>(speed) * velocity );
 }
 
 void Player::SetAngle( float32 angle )

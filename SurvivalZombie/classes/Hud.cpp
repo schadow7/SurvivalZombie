@@ -78,7 +78,7 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 
 	hitpointsBarBlack.setPosition(view->getCenter().x - 620, view->getCenter().y + 300);
 
-	hitpointsBarRed.setSize(sf::Vector2f(int(320 * hitpoints / maxhitpoints), 40));
+	hitpointsBarRed.setSize(sf::Vector2f(int(320.f * hitpoints / maxhitpoints), 40.f));
 	hitpointsBarRed.setPosition(view->getCenter().x - 619, view->getCenter().y + 301);
 
 	hitpointsText.setString("Health: " + std::to_string(hitpoints));

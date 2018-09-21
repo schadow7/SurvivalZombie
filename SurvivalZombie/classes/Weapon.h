@@ -87,7 +87,7 @@ public:
 
 private: 
 	float32 speed;
-	int damage;
+	float32 damage;
 	sf::Time lifetime;
 	sf::Shape * shape;
 };
