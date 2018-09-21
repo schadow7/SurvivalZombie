@@ -23,8 +23,7 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	shape.setOutlineColor( sf::Color::Black );*/
 	int sizex = 100;
 	int sizey = 100;
-	shootingFrame = 100;
-	reloadingFrame = 100;
+
 
 	textureFeetWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\feet\\walking\\playerFeetWalkingAnimation.png");
 	textureFeetWalkingAnimation.setSmooth(1);
@@ -124,13 +123,13 @@ void Player::Render( sf::RenderWindow * window )
 	b2Vec2 direction;
 	direction = body->GetLinearVelocity();
 
-	if (sqrt(direction.x*direction.x + direction.y*direction.y) > 5 && !this->isShooting() && !this->isReloading())
+	if (sqrt(direction.x*direction.x + direction.y*direction.y) > 3 && !this->isShooting() && !this->isReloading())
 	{
 		currentAnimationFeet = &walkingAnimationFeet;
 		currentAnimation = &walkingAnimationHandgun;
 		animatedSprite.play(*currentAnimation);
 	}
-	else if (sqrt(direction.x*direction.x + direction.y*direction.y) > 5)
+	else if (sqrt(direction.x*direction.x + direction.y*direction.y) > 3)
 	{
 		currentAnimationFeet = &walkingAnimationFeet;
 	}
