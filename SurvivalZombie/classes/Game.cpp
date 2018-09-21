@@ -54,17 +54,13 @@ void Game::runGame(sf::RenderWindow * window)
 
 void Game::initializeGame()
 {
+	engine.seed(time(0));
+	arrangeObstacles(100);
 	//Player
 	player = new Player(world, textures.at("survivor"), positionPixToWorld(sf::Vector2f(4000, 4000)));
 	entity_manager->AddEntity(player);
 	Weapon * pistol = new Pistol(entity_manager, textures.at("survivor"), textures.at("bullet9mm"));
 	player->AddWeapon(pistol);
-	//TEMP undead tester
-	//Zombie * zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
-	//entity_manager->AddEntity(zombieTester);
-	//zombieTester->SetTarget(player);
-	engine.seed(time(0));
-
 }
 
 void Game::loadTextures()
@@ -138,6 +134,15 @@ void Game::Controls(sf::RenderWindow * window)
 	{
 
 		entity_manager->KillEverybody();
+
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+
+		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
+		Entity* ob = new Obstacle(world, positionPixToWorld(cordPos));
+		entity_manager->AddEntity(ob);
 
 	}
 	if (undeadCount <= 0)
@@ -237,5 +242,26 @@ std::vector<int> Game::newLevel(int levelNr, std::vector<int>& zombieQuantity)
 	}
 
 	return zombieQuantity;
+}
+
+void Game::arrangeObstacles(int quantity)
+{
+	if (quantity)
+	{
+		float angle = 0;
+		b2Vec2 spawnPoint = b2Vec2_zero;
+		int spawnRadius;
+		Obstacle* temp;
+		std::uniform_int_distribution<int>	obstacleRadiusDistribution{ 500, 4000 };
+		for (int i = 0; i < quantity; i++)
+		{
+			angle = angleDistribution(engine)*DEGTORAD;
+			spawnRadius = obstacleRadiusDistribution(engine) / SCALE;
+			spawnPoint.x = mapCenter.x + spawnRadius * cos(angle);
+			spawnPoint.y = mapCenter.y + spawnRadius * sin(angle);
+			temp = new Obstacle(world, spawnPoint);
+			entity_manager->AddEntity(temp);
+		}
+	}
 }
 

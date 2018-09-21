@@ -15,6 +15,7 @@
 #include "Weapon.h"
 #include "Hud.h"
 #include <random>
+#include "Obstacle.h"
 
 
 class Game:
@@ -58,4 +59,5 @@ private:
 	std::vector<int>						newLevel(int levelNr, std::vector<int>& zombieQuantity);
 	std::uniform_int_distribution<int>		zombieDistribution{ -1, 1 };
 	sf::Time								shoot_timer;
+	void									arrangeObstacles(int quantity);
 };

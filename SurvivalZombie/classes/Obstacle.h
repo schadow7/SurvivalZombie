@@ -5,6 +5,7 @@ class Obstacle :
 {
 public:
 	Obstacle(b2World* world, b2Vec2 position);
+	Obstacle(b2World* world, sf::Texture * texture, b2Vec2 position);
 	~Obstacle();
 	void StartContact(Entity*);
 	void EndContact(Entity*);
