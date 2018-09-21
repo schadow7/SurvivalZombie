@@ -1,12 +1,12 @@
 #include "Player.h"
 
-Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : DynamicBody(world, position)
+Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position)
 {
 	//base stats
 	animSpeed = 0.05;
 	hitpoints = 100;
 	maxhitpoints = hitpoints;
-	speed = 5;
+	speed = 3.f;
 	groupID = 1;
 	//fixture
 	b2CircleShape Shape;

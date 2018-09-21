@@ -23,7 +23,7 @@ struct weapon_features {
 class Weapon
 {
 public:
-	Weapon( EntityManager * EntMng, sf::Texture * TxtrPlayer, sf::Texture * TxtrProjectile ) : entityManager( EntMng ), texturePlayer( TxtrPlayer ), textureProjectile( TxtrProjectile ) { ; }
+	Weapon( EntityManager * EntMng,  sf::Texture * TxtrProjectile ) : entityManager( EntMng ),  textureProjectile( TxtrProjectile ) { ; }
 	~Weapon() { }
 	b2Vec2					GetPosition() const { return position; }
 	int						MaxAmmo() const { return maxMagazineAmmo; }
@@ -38,7 +38,6 @@ public:
 
 protected:
 	EntityManager *			entityManager;
-	sf::Texture *			texturePlayer;
 	sf::Texture *			textureProjectile;
 	b2Vec2					position;						//Pozycja broni(Ÿród³o wystrza³u) wzglêdem œrodka cia³a 
 	int						maxMagazineAmmo;
@@ -109,7 +108,7 @@ private:
 class Pistol : public Weapon
 {
 public:
-	Pistol( EntityManager * EntMng, sf::Texture * TxtrPlayer, sf::Texture * TxtrProjectile ) : Weapon( EntMng, TxtrPlayer, TxtrProjectile ) 
+	Pistol( EntityManager * EntMng, sf::Texture * TxtrProjectile ) : Weapon( EntMng, TxtrProjectile ) 
 	{ 
 		position = positionPixToWorld( sf::Vector2f( 30, 14 ) );
 		cooldown = sf::milliseconds( 300 );		reload_cooldown = sf::milliseconds( 1000 );
@@ -122,7 +121,7 @@ public:
 		type = WeaponType::PISTOL;
 	}
 
-	Pistol( EntityManager * EntMng, sf::Texture * TxtrPlayer, sf::Texture * TxtrProjectile, weapon_features wpnFeat ) : Weapon( EntMng, TxtrPlayer, TxtrProjectile )
+	Pistol( EntityManager * EntMng,  sf::Texture * TxtrProjectile, weapon_features wpnFeat ) : Weapon( EntMng, TxtrProjectile )
 	{
 		position = positionPixToWorld( sf::Vector2f( 30, 14 ) );
 		cooldown = wpnFeat.cooldown;		reload_cooldown = wpnFeat.reload_cooldown;

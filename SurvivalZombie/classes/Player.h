@@ -7,7 +7,7 @@ class Player :
 	public DynamicBody
 {
 public:
-	Player( b2World* world, sf::Texture * texture, b2Vec2 position );
+	Player( b2World* world, b2Vec2 position );
 	~Player();
 	void								StartContact( Entity* );
 	void								EndContact( Entity* );

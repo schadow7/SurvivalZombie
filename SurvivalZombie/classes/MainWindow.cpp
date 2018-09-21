@@ -16,16 +16,6 @@ MainWindow::MainWindow()
 	clicked = false;
 	loadTextures();
 
-	//Test ³adowania tekstur asset managerem
-	sf::Texture * tmp = new sf::Texture;
-	tmp->loadFromFile( ".\\graphics\\background.png" );
-	//textures.insert(std::pair<std::string, sf::Texture*>("background", tmp));
-	tmp->setRepeated( true );
-	AssetManager::AddTexture( "background", tmp );
-
-	AssetManager::AddTexture( "grad2", ".\\graphics\\grad2.png" );
-
-
 	//Stworzenie gry
 	game = new Game;
 

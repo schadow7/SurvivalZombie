@@ -3,18 +3,7 @@ Game::Game()
 {
 	world = new b2World(b2Vec2(0.f, 0.f));
 	entity_manager = new EntityManager(world);
-	/*
-	sf::Texture * tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\background.png");
-	textures.insert(std::pair<std::string, sf::Texture*>("background", tmp));
-	tmp->setRepeated(true);
-	*/
-	sf::Texture * tmp;
-	tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\bullet9mm.png");
-	textures.insert(std::pair<std::string, sf::Texture*>("bullet9mm", tmp));
-	background.setTexture( *AssetManager::GetTexture( "background" ) );
-	background.setTextureRect(sf::IntRect(0, 0, 20000, 20000));
+
 	view = new sf::View(sf::FloatRect(0, 0, 1280, 720));
 	hud = new Hud;
 	undeadCount = 0;
@@ -43,39 +32,38 @@ void Game::runGame(sf::RenderWindow * window)
 	entity_manager->Update( clock.restart() );
 	entity_manager->Render( window );
 	hud->Render( window, view, player );
-	/*
-	sf::Vertex line[] =
-	{
-	sf::Vertex( player->GetWeaponPosition() ),
-	sf::Vertex( window->mapPixelToCoords( sf::Mouse::getPosition( *window ) ) )
-	};
-	window->draw( line, 2, sf::Lines );
-	*/
+
 
 }
 
 
 void Game::initializeGame()
 {
+	//T³o
+	background.setTexture( *AssetManager::GetTexture( "background" ) );
+	background.setTextureRect( sf::IntRect( 0, 0, 8000, 8000 ) );
+
 	engine.seed(time(0));
 	arrangeObstacles(100);
 	//Player
-	player = new Player(world, textures.at("survivor"), positionPixToWorld(sf::Vector2f(4000, 4000)));
+	player = new Player(world, positionPixToWorld(sf::Vector2f(4000, 4000)));
 	entity_manager->AddEntity(player);
-	Weapon * pistol = new Pistol(entity_manager, textures.at("survivor"), textures.at("bullet9mm"));
+	//Bazowa broñ
+	Weapon * pistol = new Pistol( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
 	player->AddWeapon(pistol);
 }
 
 void Game::loadTextures()
 {
-	sf::Texture * tmp;
-	tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\bullet9mm.png");
-	textures.insert(std::pair<std::string, sf::Texture*>("bullet9mm", tmp));
-	//background.setTexture(*textures.at("background"));
-	background.setTextureRect(sf::IntRect(0, 0, 8000, 8000));
-	tmp->loadFromFile(".\\graphics\\survivor.png");
-	textures.insert(std::pair<std::string, sf::Texture*>("survivor", tmp));
+	//£adowanie tekstur Asset Managerem
+	sf::Texture * tmp = new sf::Texture;
+	tmp->loadFromFile( ".\\graphics\\background.png" );
+	tmp->setRepeated( true );
+	AssetManager::AddTexture( "background", tmp );
+	AssetManager::AddTexture( "grad2", ".\\graphics\\grad2.png" );
+	AssetManager::AddTexture( "bullet9mm", ".\\graphics\\bullet9mm.png" );
+	AssetManager::AddTexture( "survivor", ".\\graphics\\survivor.png" );
+	
 }
 
 void Game::Controls(sf::RenderWindow * window)
