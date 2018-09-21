@@ -248,11 +248,9 @@ weapon_features Player::GetCurrentWeapon()
 
 bool Player::canShoot()
 {
-	if (current_weapon->MagazineAmmo() > 0)
-	{
-		if (currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun) return true;
-		else if (!this->isShooting() && !this->isReloading()) return true;
-	}
+	if (current_weapon->MagazineAmmo() <= 0) return false;
+	if (currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun) return true;
+	else if (!this->isShooting() && !this->isReloading()) return true;
 	else return false;
 }
 
