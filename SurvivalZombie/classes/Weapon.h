@@ -136,8 +136,8 @@ public:
 	void	Shoot( b2Vec2 playerPositon, float32 playerAngle, b2Vec2 direction, sf::Time difference_time )
 	{
 		timer += difference_time;
-		reload_timer -= difference_time;
-		if ( cooldown < timer && reload_timer < sf::milliseconds(0) && magazineAmmo > 0 )
+		reload_timer -= difference_time; //cooldown < timer &&  reload_timer < sf::milliseconds(0) &&
+		if (  magazineAmmo > 0 )
 		{
 			timer = sf::milliseconds(0);
 			--magazineAmmo;
