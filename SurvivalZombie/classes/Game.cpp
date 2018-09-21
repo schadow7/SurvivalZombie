@@ -11,7 +11,7 @@ Game::Game()
 	*/
 	sf::Texture * tmp;
 	tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\bullet9mm.png");
+	tmp->loadFromFile(".\\graphics\\animations\\bullet9mm.png");
 	textures.insert(std::pair<std::string, sf::Texture*>("bullet9mm", tmp));
 	background.setTexture( *AssetManager::GetTexture( "background" ) );
 	background.setTextureRect(sf::IntRect(0, 0, 20000, 20000));
@@ -70,7 +70,7 @@ void Game::loadTextures()
 {
 	sf::Texture * tmp;
 	tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\bullet9mm.png");
+	tmp->loadFromFile(".\\graphics\\animations\\bullet9mm.png");
 	textures.insert(std::pair<std::string, sf::Texture*>("bullet9mm", tmp));
 	//background.setTexture(*textures.at("background"));
 	background.setTextureRect(sf::IntRect(0, 0, 8000, 8000));

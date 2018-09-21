@@ -15,24 +15,24 @@ Hud::Hud()
 	hitpointsText.setOutlineThickness(2);
 	hitpointsBarBlack.setSize(sf::Vector2f(322, 42));
 
-	handgunTex.loadFromFile(".\\graphics\\handgun.png");
+	handgunTex.loadFromFile(".\\graphics\\hud\\handgun.png");
 	handgunTex.setSmooth(1);
 	handgun.setTexture(handgunTex);
-	rifleTex.loadFromFile(".\\graphics\\rifle.png");
+	rifleTex.loadFromFile(".\\graphics\\hud\\rifle.png");
 	rifleTex.setSmooth(1);
 	rifle.setTexture(rifleTex);
-	shotgunTex.loadFromFile(".\\graphics\\shotgun.png");
+	shotgunTex.loadFromFile(".\\graphics\\hud\\shotgun.png");
 	shotgunTex.setSmooth(1);
 	shotgun.setTexture(shotgunTex);
 
 
-	handgunAmmoTex.loadFromFile(".\\graphics\\9mm.png");
+	handgunAmmoTex.loadFromFile(".\\graphics\\hud\\9mm.png");
 	handgunAmmoTex.setSmooth(1);
 	handgunAmmo.setTexture(handgunAmmoTex);
-	rifleAmmoTex.loadFromFile(".\\graphics\\7.62mm.png");
+	rifleAmmoTex.loadFromFile(".\\graphics\\hud\\7.62mm.png");
 	rifleAmmoTex.setSmooth(1);
 	rifleAmmo.setTexture(rifleAmmoTex);
-	shotgunAmmoTex.loadFromFile(".\\graphics\\12gauge.png");
+	shotgunAmmoTex.loadFromFile(".\\graphics\\hud\\12gauge.png");
 	shotgunAmmoTex.setSmooth(1);
 	shotgunAmmo.setTexture(shotgunAmmoTex);
 
