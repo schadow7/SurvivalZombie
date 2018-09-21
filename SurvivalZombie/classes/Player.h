@@ -19,12 +19,17 @@ public:
 	void					AddWeapon( Weapon * weapon );
 	void					Reload();
 	void					Shoot( b2Vec2 direction, sf::Time difference_time );
+	bool					canShoot();
+	bool					canReload();
+	bool					isShooting();
+	bool					isReloading();
 	std::vector<long int>	GetHitpoints();
 	//virtual void Action( b2Vec2 player_positon );
 private:
 	double					speed;
 	double					animSpeed;
 	int						shootingFrame;
+	int						reloadingFrame;
 	sf::CircleShape			shape;
 	std::list<Weapon *>		weapons;
 	Weapon *				current_weapon = nullptr;
@@ -37,6 +42,7 @@ private:
 	sf::Texture				textureHandgunWalkingAnimation;
 	sf::Texture				textureHandgunIdleAnimation;
 	sf::Texture				textureHandgunAttackingAnimation;
+	sf::Texture				textureHandgunReloadingAnimation;
 	sf::Texture				textureRifleWalkingAnimation;
 	sf::Texture				textureShotgunWalkingAnimation;
 	sf::Texture				textureAttackingAnimation;
@@ -48,6 +54,7 @@ private:
 	Animation				walkingAnimationHandgun;
 	Animation				idleAnimationHandgun;
 	Animation				attackingAnimationHandgun;
+	Animation				reloadingAnimationHandgun;
 	Animation				walkingAnimationRifle;
 	Animation				walkingAnimationShotgun;
 	Animation				attackingAnimation;

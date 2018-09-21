@@ -23,6 +23,8 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	shape.setOutlineColor( sf::Color::Black );*/
 	int sizex = 100;
 	int sizey = 100;
+	shootingFrame = 100;
+	reloadingFrame = 100;
 
 	textureFeetWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\feet\\walking\\playerFeetWalkingAnimation.png");
 	textureFeetWalkingAnimation.setSmooth(1);
@@ -34,6 +36,8 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	textureHandgunIdleAnimation.setSmooth(1);
 	textureHandgunAttackingAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\attacking\\playerHandgunAttackingAnimation.png");
 	textureHandgunAttackingAnimation.setSmooth(1);
+	textureHandgunReloadingAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\reloading\\playerHandgunReloadingAnimation.png");
+	textureHandgunReloadingAnimation.setSmooth(1);
 	//textureRifleWalkingAnimation.loadFromFile(".\\graphics\\animations\\playerHandgunWalkingAnimation00.png");
 	//textureShotgunWalkingAnimation.loadFromFile(".\\graphics\\animations\\playerHandgunWalkingAnimation00.png");
 	//textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie50AttackingAnimation.png");
@@ -45,6 +49,7 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	walkingAnimationHandgun.setSpriteSheet(textureHandgunWalkingAnimation);
 	idleAnimationHandgun.setSpriteSheet(textureHandgunIdleAnimation);
 	attackingAnimationHandgun.setSpriteSheet(textureHandgunAttackingAnimation);
+	reloadingAnimationHandgun.setSpriteSheet(textureHandgunReloadingAnimation);
 	//attackingAnimation.setSpriteSheet(textureAttackingAnimation);
 	//idleAnimation.setSpriteSheet(textureIdleAnimation);
 
@@ -71,6 +76,11 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 		attackingAnimationHandgun.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
 	}
 	//
+	for (int i = 0; i <= 15; i++)
+	{
+		reloadingAnimationHandgun.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
+	}
+	//
 	for (int i = 0; i <= 8; i++)
 	{
 		attackingAnimation.addFrame(sf::IntRect(i * sizex, 0, sizex, sizey));
@@ -88,7 +98,7 @@ Player::Player( b2World * world, sf::Texture * texture, b2Vec2 position ) : Dyna
 	animatedSpriteFeet = AnimatedSprite(sf::seconds(animSpeed * 2.f), true, false);
 	animatedSprite.setOrigin(sizex / 2.f, sizey / 2.f);
 	animatedSpriteFeet.setOrigin(sizex / 2.f, sizey / 2.f);
-
+	animatedSprite.play(*currentAnimation);
 }
 
 Player::~Player()
@@ -114,29 +124,28 @@ void Player::Render( sf::RenderWindow * window )
 	b2Vec2 direction;
 	direction = body->GetLinearVelocity();
 
-	if (shootingFrame < 4)
-	{
-		currentAnimation = &attackingAnimationHandgun;
-		if (sqrt(direction.x*direction.x + direction.y*direction.y) > 5)
-		{
-			currentAnimationFeet = &walkingAnimationFeet;
-		}
-		shootingFrame++;
-	}
-	else if (sqrt(direction.x*direction.x + direction.y*direction.y) < 5)
-	{
-		currentAnimationFeet = &idleAnimationFeet;
-		currentAnimation = &idleAnimationHandgun;
-	}
-	else
+	if (sqrt(direction.x*direction.x + direction.y*direction.y) > 5 && !this->isShooting() && !this->isReloading())
 	{
 		currentAnimationFeet = &walkingAnimationFeet;
 		currentAnimation = &walkingAnimationHandgun;
+		animatedSprite.play(*currentAnimation);
 	}
+	else if (sqrt(direction.x*direction.x + direction.y*direction.y) > 5)
+	{
+		currentAnimationFeet = &walkingAnimationFeet;
+	}
+	else
+	{
+		currentAnimationFeet = &idleAnimationFeet;
+	}
+
+	
+
+
 	direction.Normalize();
-	animatedSprite.play(*currentAnimation);
 	animatedSprite.update(frameTime);
 	animatedSprite.setPosition(this->GetPosition());
+
 	animatedSpriteFeet.play(*currentAnimationFeet);
 	animatedSpriteFeet.update(frameTime);
 	animatedSpriteFeet.setPosition(this->GetPosition());
@@ -191,19 +200,21 @@ void Player::AddWeapon(Weapon * weapon)
 
 void Player::Reload()
 {
-	if ( current_weapon )
+	if ( current_weapon && this->canReload() )
 	{
 		current_weapon->Reload();
+		currentAnimation = &reloadingAnimationHandgun;
+		animatedSprite.play(*currentAnimation);
 	}
 }
 
 void Player::Shoot( b2Vec2 direction, sf::Time difference_time )
 {
-	if (current_weapon)
+	if (current_weapon && this->canShoot())
 	{
 		current_weapon->Shoot(body->GetPosition(), body->GetAngle(), direction, difference_time);
-		currentAnimation = &attackingAnimation;
-		shootingFrame = 0;
+		currentAnimation = &attackingAnimationHandgun;
+		animatedSprite.play(*currentAnimation);
 	}
 }
 
@@ -215,4 +226,30 @@ std::vector<long int> Player::GetHitpoints()
 	hp[1] = maxhitpoints;
 
 	return hp;
+}
+
+bool Player::canShoot()
+{
+	if (currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun) return true;
+	else if (!this->isShooting() && !this->isReloading()) return true;
+	else return false;
+}
+
+bool Player::canReload()
+{
+	if (currentAnimation == &walkingAnimationHandgun || currentAnimation == &idleAnimationHandgun) return true;
+	else if (!this->isShooting() && !this->isReloading()) return true;
+	else return false;
+}
+
+bool Player::isShooting()
+{
+	if (currentAnimation == &attackingAnimationHandgun && animatedSprite.isPlaying()) return true;
+	else return false;
+}
+
+bool Player::isReloading()
+{
+	if (currentAnimation == &reloadingAnimationHandgun && animatedSprite.isPlaying()) return true;
+	else return false;
 }
