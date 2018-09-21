@@ -97,22 +97,28 @@ void MainWindow::loadTextures()
 
 
 	sf::Texture * tmp = new sf::Texture;
-	tmp = new sf::Texture;
-	tmp->loadFromFile( ".\\graphics\\backgroundMenu.png" );
-	textures.insert( std::pair<std::string, sf::Texture*>( "backgroundMenu", tmp ) );
-	backgroundMenu.setTexture( *textures.at( "backgroundMenu" ) );
+	//tmp = new sf::Texture;
+	//tmp->loadFromFile( ".\\graphics\\backgroundMenu.png" );
+	//textures.insert( std::pair<std::string, sf::Texture*>( "backgroundMenu", tmp ) );
+
+	AssetManager::AddTexture( "backgroundMenu", ".\\graphics\\backgroundMenu.png" );
+	backgroundMenu.setTexture( *AssetManager::GetTexture( "backgroundMenu" ) );
 
 
-	tmp = new sf::Texture;
-	tmp->loadFromFile( ".\\graphics\\buttonPlayOff.png" );
-	textures.insert( std::pair<std::string, sf::Texture*>( "button[0]", tmp ) );
-	button[0].setTexture( *textures.at( "button[0]" ) );
+	//tmp = new sf::Texture;
+	//tmp->loadFromFile( ".\\graphics\\buttonPlayOff.png" );
+	//textures.insert( std::pair<std::string, sf::Texture*>( "button[0]", tmp ) );
+
+	AssetManager::AddTexture( "button[0]", ".\\graphics\\buttonPlayOff.png" );
+	button[0].setTexture( *AssetManager::GetTexture( "button[0]" ) );
 	button[0].setPosition( sf::Vector2f( posX, posY ) );
 
-	tmp = new sf::Texture;
-	tmp->loadFromFile( ".\\graphics\\buttonPlayOn.png" );
-	textures.insert( std::pair<std::string, sf::Texture*>( "button[1]", tmp ) );
-	button[1].setTexture( *textures.at( "button[1]" ) );
+	//tmp = new sf::Texture;
+	//tmp->loadFromFile( ".\\graphics\\buttonPlayOn.png" );
+	//textures.insert( std::pair<std::string, sf::Texture*>( "button[1]", tmp ) );
+
+	AssetManager::AddTexture( "button[1]", ".\\graphics\\buttonPlayOn.png" );
+	button[1].setTexture( *AssetManager::GetTexture( "button[1]" ) );
 	button[1].setPosition( sf::Vector2f( posX, posY ) );
 
 
