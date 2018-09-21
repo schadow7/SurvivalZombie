@@ -166,10 +166,10 @@ public:
 		FixtureDef.density = 1;
 		//Stworzenie kszta³tu do renderowania (SFML)
 		sf::RectangleShape * shape = new sf::RectangleShape;
-		shape->setSize( sf::Vector2f( 7, 3 ) );
+		shape->setSize( sf::Vector2f( 8, 4 ) );
+		textureProjectile->setSmooth(1);
 		shape->setTexture( textureProjectile );
-		shape->setOrigin( 3.5f, 1.5f );
-		shape->setFillColor( sf::Color( 0, 0, 0 ) );
+		shape->setOrigin( -5.0f, 4.0f );
 		//Stworzenie pocisku i dodanie go do menad¿era obiektów
 		Projectile * bullet = new Projectile( entityManager->World(), shape, myBodyDef, FixtureDef, projFeat );
 		entityManager->AddEntity( bullet );

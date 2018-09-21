@@ -8,8 +8,8 @@ Game::Game()
 	textures.insert(std::pair<std::string, sf::Texture*>("background", tmp));
 	tmp->setRepeated(true);
 	tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\grad1.png");
-	textures.insert(std::pair<std::string, sf::Texture*>("grad1", tmp));
+	tmp->loadFromFile(".\\graphics\\bullet9mm.png");
+	textures.insert(std::pair<std::string, sf::Texture*>("bullet9mm", tmp));
 	background.setTexture(*textures.at("background"));
 	background.setTextureRect(sf::IntRect(0, 0, 20000, 20000));
 	view = new sf::View(sf::FloatRect(0, 0, 1280, 720));
@@ -57,7 +57,7 @@ void Game::initializeGame()
 	//Player
 	player = new Player(world, textures.at("survivor"), positionPixToWorld(sf::Vector2f(4000, 4000)));
 	entity_manager->AddEntity(player);
-	Weapon * pistol = new Pistol(entity_manager, textures.at("survivor"), textures.at("grad1"));
+	Weapon * pistol = new Pistol(entity_manager, textures.at("survivor"), textures.at("bullet9mm"));
 	player->AddWeapon(pistol);
 	//TEMP undead tester
 	//Zombie * zombieTester = new Zombie(world, b2Vec2(1.f, 1.f));
@@ -74,8 +74,8 @@ void Game::loadTextures()
 	textures.insert(std::pair<std::string, sf::Texture*>("background", tmp));
 	tmp->setRepeated(true);
 	tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\grad1.png");
-	textures.insert(std::pair<std::string, sf::Texture*>("grad1", tmp));
+	tmp->loadFromFile(".\\graphics\\bullet9mm.png");
+	textures.insert(std::pair<std::string, sf::Texture*>("bullet9mm", tmp));
 	background.setTexture(*textures.at("background"));
 	background.setTextureRect(sf::IntRect(0, 0, 8000, 8000));
 	tmp->loadFromFile(".\\graphics\\survivor.png");
