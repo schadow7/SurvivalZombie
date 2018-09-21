@@ -19,37 +19,40 @@ public:
 	void								AddWeapon( Weapon * weapon );
 	void								Reload();
 	void								Shoot( b2Vec2 direction, sf::Time difference_time );
-	bool								canShoot();
-	bool								canReload();
-	bool								isShooting();
-	bool								isReloading();
+
 	std::vector<long int>				GetHitpoints();
 	std::vector<weapon_features>		GetWeaponList();
 	weapon_features						GetCurrentWeapon();
-	//virtual void Action( b2Vec2 player_positon );
+
 private:
-	int									size;
+	void								setSpriteSheets();
+	void								addFramesToAnimations();
+	bool								isMoving();
+	bool								isIdle();
+	bool								isShooting();
+	bool								isReloading();
+	bool								canShoot();
+	bool								canReload();
+	void								setAnimationsForCurrentWeapontype();
+
+	int									size1;
+	int									size2;
 	double								speed;
 	double								animSpeed;
 	sf::CircleShape						shape;
 	std::list<Weapon *>					weapons;
 	Weapon *							current_weapon = nullptr;
+
+	b2Vec2								direction1;
+	b2Vec2								direction2;
+	sf::Vector2i						mousePos;
+	sf::Vector2f						cordPos;
+	sf::Clock							frameClock;
+	sf::Time							frameTime;
 	AnimatedSprite						animatedSprite;
 	AnimatedSprite						animatedSpriteFeet;
 	Animation*							currentAnimation;
 	Animation*							currentAnimationFeet;
-	sf::Texture							textureFeetWalkingAnimation;
-	sf::Texture							textureFeetIdleAnimation;
-	sf::Texture							textureHandgunWalkingAnimation;
-	sf::Texture							textureHandgunIdleAnimation;
-	sf::Texture							textureHandgunAttackingAnimation;
-	sf::Texture							textureHandgunReloadingAnimation;
-	sf::Texture							textureRifleWalkingAnimation;
-	sf::Texture							textureShotgunWalkingAnimation;
-	sf::Texture							textureAttackingAnimation;
-	sf::Texture							textureIdleAnimation;
-	sf::Clock							frameClock;
-	sf::Time							frameTime;
 	Animation							walkingAnimationFeet;
 	Animation							idleAnimationFeet;
 	Animation							walkingAnimationHandgun;
@@ -57,7 +60,15 @@ private:
 	Animation							attackingAnimationHandgun;
 	Animation							reloadingAnimationHandgun;
 	Animation							walkingAnimationRifle;
+	Animation							idleAnimationRifle;
+	Animation							attackingAnimationRifle;
+	Animation							reloadingAnimationRifle;
 	Animation							walkingAnimationShotgun;
-	Animation							attackingAnimation;
-	Animation							idleAnimation;
+	Animation							idleAnimationShotgun;
+	Animation							attackingAnimationShotgun;
+	Animation							reloadingAnimationShotgun;
+	Animation*							walkingAnimation;
+	Animation*							idleAnimation;
+	Animation*							attackingAnimation;
+	Animation*							reloadingAnimation;
 };

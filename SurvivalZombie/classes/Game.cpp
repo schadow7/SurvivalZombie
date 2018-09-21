@@ -59,9 +59,6 @@ void Game::loadTextures()
 	tmp->setSmooth( true );
 	AssetManager::AddTexture( "background", tmp );
 	AssetManager::AddTexture( "grad2", ".\\graphics\\grad2.png" );
-
-	//Animacje
-	AssetManager::AddTexture( "bullet9mm", ".\\graphics\\animations\\bullet9mm.png" );
 	
 	//Hud
 	AssetManager::AddTexture( "handgun", ".\\graphics\\hud\\handgun.png" );
@@ -70,6 +67,23 @@ void Game::loadTextures()
 	AssetManager::AddTexture( "9mm", ".\\graphics\\hud\\9mm.png" );
 	AssetManager::AddTexture( "7.62mm", ".\\graphics\\hud\\7.62mm.png" );
 	AssetManager::AddTexture( "12gauge", ".\\graphics\\hud\\12gauge.png"  );
+
+	//Animacje
+	AssetManager::AddTexture("bullet9mm", ".\\graphics\\animations\\bullet9mm.png");
+	AssetManager::AddTexture("playerFeetWalkingAnimation", ".\\graphics\\animations\\player\\playerFeetWalkingAnimation.png");
+	AssetManager::AddTexture("playerFeetIdleAnimation", ".\\graphics\\animations\\player\\playerFeetIdleAnimation.png");
+	AssetManager::AddTexture("playerHandgunWalkingAnimation", ".\\graphics\\animations\\player\\playerHandgunWalkingAnimation.png");
+	AssetManager::AddTexture("playerHandgunIdleAnimation", ".\\graphics\\animations\\player\\playerHandgunIdleAnimation.png");
+	AssetManager::AddTexture("playerHandgunAttackingAnimation", ".\\graphics\\animations\\player\\playerHandgunAttackingAnimation.png");
+	AssetManager::AddTexture("playerHandgunReloadingAnimation", ".\\graphics\\animations\\player\\playerHandgunReloadingAnimation.png");
+	AssetManager::AddTexture("playerRifleWalkingAnimation", ".\\graphics\\animations\\player\\playerRifleWalkingAnimation.png");
+	AssetManager::AddTexture("playerRifleIdleAnimation", ".\\graphics\\animations\\player\\playerRifleIdleAnimation.png");
+	AssetManager::AddTexture("playerRifleAttackingAnimation", ".\\graphics\\animations\\player\\playerRifleAttackingAnimation.png");
+	AssetManager::AddTexture("playerRifleReloadingAnimation", ".\\graphics\\animations\\player\\playerRifleReloadingAnimation.png");
+	AssetManager::AddTexture("playerShotgunWalkingAnimation", ".\\graphics\\animations\\player\\playerShotgunWalkingAnimation.png");
+	AssetManager::AddTexture("playerShotgunIdleAnimation", ".\\graphics\\animations\\player\\playerShotgunIdleAnimation.png");
+	AssetManager::AddTexture("playerShotgunAttackingAnimation", ".\\graphics\\animations\\player\\playerShotgunAttackingAnimation.png");
+	AssetManager::AddTexture("playerShotgunReloadingAnimation", ".\\graphics\\animations\\player\\playerShotgunReloadingAnimation.png");
 }
 
 void Game::Controls(sf::RenderWindow * window)
