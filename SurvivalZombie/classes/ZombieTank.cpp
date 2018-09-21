@@ -14,11 +14,11 @@ ZombieTank::ZombieTank(b2World* world, b2Vec2 position):
 	sizex2 = 65;
 	body->GetFixtureList()->GetShape()->m_radius = sizey / 2 / SCALE;
 
-	textureWalkingAnimation.loadFromFile(".\\graphics\\animations\\zombie60WalkingAnimation.png");
+	textureWalkingAnimation.loadFromFile(".\\graphics\\animations\\zombie60\\zombie60WalkingAnimation.png");
 	textureWalkingAnimation.setSmooth(1);
-	textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie60AttackingAnimation.png");
+	textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie60\\zombie60AttackingAnimation.png");
 	textureAttackingAnimation.setSmooth(1);
-	textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie60IdleAnimation.png");
+	textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie60\\zombie60IdleAnimation.png");
 	textureIdleAnimation.setSmooth(1);
 
 	walkingAnimation.setSpriteSheet(textureWalkingAnimation);

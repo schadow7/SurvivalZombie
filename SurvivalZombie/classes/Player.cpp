@@ -25,17 +25,17 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 	int sizey = 100;
 
 
-	textureFeetWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\feet\\walking\\playerFeetWalkingAnimation.png");
+	textureFeetWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\playerFeetWalkingAnimation.png");
 	textureFeetWalkingAnimation.setSmooth(1);
-	textureFeetIdleAnimation.loadFromFile(".\\graphics\\animations\\player\\feet\\idle\\playerFeetIdleAnimation.png");
+	textureFeetIdleAnimation.loadFromFile(".\\graphics\\animations\\player\\playerFeetIdleAnimation.png");
 	textureFeetIdleAnimation.setSmooth(1);
-	textureHandgunWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\walking\\playerHandgunWalkingAnimation.png");
+	textureHandgunWalkingAnimation.loadFromFile(".\\graphics\\animations\\player\\playerHandgunWalkingAnimation.png");
 	textureHandgunWalkingAnimation.setSmooth(1);
-	textureHandgunIdleAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\walking\\playerHandgunWalkingAnimation.png");
+	textureHandgunIdleAnimation.loadFromFile(".\\graphics\\animations\\player\\playerHandgunWalkingAnimation.png");
 	textureHandgunIdleAnimation.setSmooth(1);
-	textureHandgunAttackingAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\attacking\\playerHandgunAttackingAnimation.png");
+	textureHandgunAttackingAnimation.loadFromFile(".\\graphics\\animations\\player\\playerHandgunAttackingAnimation.png");
 	textureHandgunAttackingAnimation.setSmooth(1);
-	textureHandgunReloadingAnimation.loadFromFile(".\\graphics\\animations\\player\\handgun\\reloading\\playerHandgunReloadingAnimation.png");
+	textureHandgunReloadingAnimation.loadFromFile(".\\graphics\\animations\\player\\playerHandgunReloadingAnimation.png");
 	textureHandgunReloadingAnimation.setSmooth(1);
 	//textureRifleWalkingAnimation.loadFromFile(".\\graphics\\animations\\playerHandgunWalkingAnimation00.png");
 	//textureShotgunWalkingAnimation.loadFromFile(".\\graphics\\animations\\playerHandgunWalkingAnimation00.png");
