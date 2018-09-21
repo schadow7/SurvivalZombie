@@ -28,8 +28,6 @@ public:
 private:
 	double					speed;
 	double					animSpeed;
-	int						shootingFrame;
-	int						reloadingFrame;
 	sf::CircleShape			shape;
 	std::list<Weapon *>		weapons;
 	Weapon *				current_weapon = nullptr;
