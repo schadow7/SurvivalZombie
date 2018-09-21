@@ -143,6 +143,7 @@
     <ClCompile Include="classes\Obstacle.cpp" />
     <ClCompile Include="classes\Player.cpp" />
     <ClCompile Include="classes\StaticBody.cpp" />
+    <ClCompile Include="classes\Trap.cpp" />
     <ClCompile Include="classes\Weapon.cpp" />
     <ClCompile Include="classes\subject.cpp" />
     <ClCompile Include="classes\Zombie.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="classes\Obstacle.h" />
     <ClInclude Include="classes\Player.h" />
     <ClInclude Include="classes\StaticBody.h" />
+    <ClInclude Include="classes\Trap.h" />
     <ClInclude Include="classes\Weapon.h" />
     <ClInclude Include="classes\subject.h" />
     <ClInclude Include="classes\Zombie.h" />

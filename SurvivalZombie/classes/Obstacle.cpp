@@ -1,6 +1,6 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(b2World *world, b2Vec2 position) :
+Obstacle::Obstacle(b2World* world, b2Vec2 position, std::shared_ptr<sf::Texture> ntexture) :
 	StaticBody(world, position),
 	sizey(50)
 {
@@ -16,33 +16,7 @@ Obstacle::Obstacle(b2World *world, b2Vec2 position) :
 	obstacleFixtureDef.restitution = (0.f);
 	b2Fixture* fixture = body->CreateFixture(&obstacleFixtureDef);
 
-	texture = AssetManager::GetTexture(".\\graphics\\grad2.png");
-	sprite.setTexture(*texture);
-	sprite.setOrigin(texture->getSize().x / 2.f, texture->getSize().y / 2.f);
-	float scaleX = static_cast<float>(sizey) / texture->getSize().x;
-	float scaleY = static_cast<float>(sizey) / texture->getSize().y;
-	sprite.setScale(scaleX, scaleY);
-
-	sprite.setPosition(SCALE * position.x, SCALE * position.y);
-	sprite.setRotation(180 / b2_pi * this->body->GetAngle());
-}
-
-Obstacle::Obstacle(b2World * world, sf::Texture * texture, b2Vec2 position):
-	StaticBody(world, position),
-	sizey(50)
-{
-	//base stats 
-	groupID = 5;
-
-	//fixture
-	b2CircleShape obstacleShape;
-	obstacleShape.m_radius = sizey / 2 / SCALE;
-	b2FixtureDef obstacleFixtureDef;
-	obstacleFixtureDef.shape = &obstacleShape;
-	obstacleFixtureDef.density = 1;
-	obstacleFixtureDef.restitution = (0.f);
-	b2Fixture* fixture = body->CreateFixture(&obstacleFixtureDef);
-
+	texture = ntexture;
 	sprite.setTexture(*texture);
 	sprite.setOrigin(texture->getSize().x / 2.f, texture->getSize().y / 2.f);
 	float scaleX = static_cast<float>(sizey) / texture->getSize().x;

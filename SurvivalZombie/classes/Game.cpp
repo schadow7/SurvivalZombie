@@ -141,7 +141,7 @@ void Game::Controls(sf::RenderWindow * window)
 
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
-		Entity* ob = new Obstacle(world, positionPixToWorld(cordPos));
+		Entity* ob = new BasicEntanglements(world, positionPixToWorld(cordPos));
 		entity_manager->AddEntity(ob);
 
 	}

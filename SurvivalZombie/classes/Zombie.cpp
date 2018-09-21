@@ -131,7 +131,7 @@ void Zombie::EndContact(Entity*)
 }
 void Zombie::Presolve( Entity * entity )
 {
-	if ( entity->GroupID() == 1 )
+	if ( entity->GroupID() == 1 || entity->GroupID() == 6)
 		Attack( entity );
 }
 void Zombie::Render(sf::RenderWindow* window)
