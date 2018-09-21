@@ -28,6 +28,7 @@ public:
 	weapon_features						GetCurrentWeapon();
 	//virtual void Action( b2Vec2 player_positon );
 private:
+	int									size;
 	double								speed;
 	double								animSpeed;
 	sf::CircleShape						shape;
