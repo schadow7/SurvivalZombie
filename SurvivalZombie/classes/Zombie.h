@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "DynamicBody.h"
 #include "AIType.h"
 #include "AnimatedSprite.h"
@@ -6,21 +7,21 @@ class Zombie :
 	public DynamicBody
 {
 public:
-	Zombie(b2World* world,b2Vec2 position);
+	Zombie(b2World* world, b2Vec2 position);
 	~Zombie();
 	void StartContact(Entity*);
 	void EndContact(Entity*);
-	void Presolve( Entity* );
+	void Presolve(Entity*);
 	void Render(sf::RenderWindow* window);
-	void RenderInactive( sf::RenderWindow* window );
+	void RenderInactive(sf::RenderWindow* window);
 	void Update(sf::Time);
-	virtual void Action(b2Vec2 player_positon) ;
-	void TakeDamage( float32 damage ) override;
+	virtual void Action(b2Vec2 player_positon);
+	void TakeDamage(float32 damage) override;
 	void SetTarget(const Entity* new_target);
-	enum AI_enum {Aggrssive, Chaotic, Idle};
+	enum AI_enum { Aggrssive, Chaotic, Idle };
 	void SetAI(AI_enum);
 	void SetAI(AIType*);
-	virtual void Attack( Entity * entity );
+	virtual void Attack(Entity * entity);
 protected:
 	float32 speed;
 	double animSpeed;
