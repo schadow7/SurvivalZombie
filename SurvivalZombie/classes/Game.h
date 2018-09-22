@@ -59,5 +59,6 @@ private:
 	void									arrangeObstacles(int quantity);
 	void									makeBase();
 	std::vector<BasicEntanglements*>		base;
+	BasicEntanglements*						spawnWall(int i, int boxSize, sf::Vector2f& position);
 };
 

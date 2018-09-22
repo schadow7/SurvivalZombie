@@ -36,10 +36,8 @@ public:
 	}
 	bool ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) override
 	{
-		Entity* temp = static_cast<Entity*>(fixtureA->GetBody()->GetUserData());
-		int id1 = temp->GetID();
-		temp = static_cast<Entity*>(fixtureB->GetBody()->GetUserData());
-		int id2 = temp->GetID();
+		int id1 = static_cast<Entity*>(fixtureA->GetBody()->GetUserData())->GetID();
+		int id2 = static_cast<Entity*>(fixtureB->GetBody()->GetUserData())->GetID();
 		if (id1 == 9 && id2 == 1)
 			return false;
 		else

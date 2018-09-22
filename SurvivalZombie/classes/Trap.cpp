@@ -124,7 +124,7 @@ Door::Door(b2World * world, b2Vec2 position, sf::Texture * ntexture):
 	BasicEntanglements(world,position,ntexture)
 {
 	sprite.setColor(sf::Color::Yellow);
-	damage = 0;
+	damage = 1;
 	groupID = 9;
 }
 

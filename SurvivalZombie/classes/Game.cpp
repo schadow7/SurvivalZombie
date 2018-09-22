@@ -252,16 +252,14 @@ void Game::arrangeObstacles(int quantity)
 
 void Game::makeBase()
 {
+
 	int sizex = 50;
 	int boxSize = 10;
 	sf::Vector2f position(4000 - 5 * sizex, 4000 - 5 * sizex);
 	BasicEntanglements* ob;
 	for (int i = 0; i < boxSize; i++)
 	{
-		if (i != floor(boxSize/2))
-			ob = new BasicEntanglements(world, positionPixToWorld(position));
-		else
-			ob = new Door(world, positionPixToWorld(position));
+		ob=spawnWall(i, boxSize, position);
 		entity_manager->AddEntity(ob);
 		ob->SetAngle(90);
 		position.x += sizex;
@@ -270,10 +268,7 @@ void Game::makeBase()
 	position.y += sizex / 4;
 	for (int i = 0; i < boxSize; i++)
 	{
-		if (i != floor(boxSize / 2))
-			ob = new BasicEntanglements(world, positionPixToWorld(position));
-		else
-			ob = new Door(world, positionPixToWorld(position));
+		ob=spawnWall(i, boxSize, position);
 		entity_manager->AddEntity(ob);
 		position.y += sizex;
 	}
@@ -281,10 +276,7 @@ void Game::makeBase()
 	position.x -= sizex / 4;
 	for (int i = 0; i < boxSize; i++)
 	{
-		if (i != floor(boxSize / 2))
-			ob = new BasicEntanglements(world, positionPixToWorld(position));
-		else
-			ob = new Door(world, positionPixToWorld(position));
+		ob=spawnWall(i, boxSize, position);
 		entity_manager->AddEntity(ob);
 		ob->SetAngle(90);
 		position.x -= sizex;
@@ -293,11 +285,16 @@ void Game::makeBase()
 	position.y -= sizex / 4;
 	for (int i = 0; i < boxSize; i++)
 	{
-		if (i != floor(boxSize / 2))
-			ob = new BasicEntanglements(world, positionPixToWorld(position));
-		else
-			ob = new Door(world, positionPixToWorld(position));
+		ob=spawnWall(i, boxSize, position);
 		entity_manager->AddEntity(ob);
 		position.y -= sizex;
 	}
+}
+
+BasicEntanglements* Game::spawnWall(int i, int boxSize, sf::Vector2f& position)
+{
+	if (i != floor(boxSize / 2))
+		return new Door(world, positionPixToWorld(position));
+	else
+		return new Door(world, positionPixToWorld(position));
 }

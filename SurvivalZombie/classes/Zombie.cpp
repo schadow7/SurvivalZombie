@@ -17,19 +17,19 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	hitpoints = 100;
 	maxhitpoints = 100;
 	damage = 5;
-	attack_cooldown = sf::milliseconds( 500 );
-	attack_timer = sf::milliseconds( 520 );
+	attack_cooldown = sf::milliseconds(500);
+	attack_timer = sf::milliseconds(520);
 	//AI = new AIAggressive(world);
 	//AIType = new AIChaotic(world);
 	AI = new AIIdle(world);
 	//fixture
 	b2CircleShape zombieShape;
-	zombieShape.m_radius = sizey/2/SCALE;
+	zombieShape.m_radius = sizey / 2 / SCALE;
 	b2FixtureDef zombieFixtureDef;
 	zombieFixtureDef.shape = &zombieShape;
 	zombieFixtureDef.density = 1;
-	zombieFixtureDef.restitution = (0.f); 
-	b2Fixture* fixture=body->CreateFixture(&zombieFixtureDef);
+	zombieFixtureDef.restitution = (0.f);
+	b2Fixture* fixture = body->CreateFixture(&zombieFixtureDef);
 
 	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
 	hitpointsBarBlack.setFillColor(sf::Color(0, 0, 0));
@@ -44,7 +44,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	textureAttackingAnimation.setSmooth(1);
 	textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie50\\zombie50IdleAnimation.png");
 	textureIdleAnimation.setSmooth(1);
-	textureDead.loadFromFile( ".\\graphics\\dead.png" );
+	textureDead.loadFromFile(".\\graphics\\dead.png");
 	textureDead.setSmooth(1);
 
 	walkingAnimation.setSpriteSheet(textureWalkingAnimation);
@@ -65,7 +65,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 
 	currentAnimation = &walkingAnimation;
 	animatedSprite = AnimatedSprite(sf::seconds(animSpeed), true, false);
-	animatedSprite.setOrigin(sizex1/2, sizey/2);
+	animatedSprite.setOrigin(sizex1 / 2, sizey / 2);
 }
 
 Zombie::~Zombie()
@@ -77,13 +77,13 @@ void Zombie::Action(b2Vec2 player_position)  //deprecated
 {
 	;
 }
-void Zombie::TakeDamage( float32 damage )
+void Zombie::TakeDamage(float32 damage)
 {
 	hitpoints -= damage;
-	if ( hitpoints <= 0 )
+	if (hitpoints <= 0)
 	{
 		active = 0;
-		notify( this );
+		notify(this);
 	}
 }
 void Zombie::SetTarget(const Entity* new_target)
@@ -95,15 +95,15 @@ void Zombie::SetAI(AI_enum new_type)
 	AIType* AI_old = AI;
 	switch (new_type) {
 	case Aggrssive: AI = new AIAggressive(world);
-				if(AI_old) delete AI_old;
-				break;
+		if (AI_old) delete AI_old;
+		break;
 	case Chaotic: AI = new AIChaotic(world);
 		if (AI_old) delete AI_old;
-				break;
+		break;
 	case Idle: AI = new AIIdle(world);
 		if (AI_old) delete AI_old;
-			break;
-	default: 
+		break;
+	default:
 		break;
 	}
 }
@@ -112,27 +112,28 @@ void Zombie::SetAI(AIType * new_type)
 	if (AI) delete (AI);
 	AI = new_type;
 }
-void Zombie::Attack( Entity * entity )
+void Zombie::Attack(Entity * entity)
 {
-	if ( attack_cooldown < attack_timer )
+	if (attack_cooldown < attack_timer)
 	{
-		entity->TakeDamage( damage );
-		attack_timer = sf::milliseconds( 0 );
+		entity->TakeDamage(damage);
+		attack_timer = sf::milliseconds(0);
 	}
 }
-void Zombie::StartContact(Entity* entity) 
+void Zombie::StartContact(Entity* entity)
 {
-	if ( entity->GroupID() == 1 )
-		attack_timer = sf::microseconds( 0 );
+	if (entity->GroupID() == 1)
+		attack_timer = sf::microseconds(0);
 }
 void Zombie::EndContact(Entity*)
 {
 	;
 }
-void Zombie::Presolve( Entity * entity )
+void Zombie::Presolve(Entity * entity)
 {
-	if ( entity->GroupID() == 1 || entity->GroupID() == 6)
-		Attack( entity );
+	int id = entity->GroupID();
+	if (id == 1 || id == 6 || id == 9)
+		Attack(entity);
 }
 void Zombie::Render(sf::RenderWindow* window)
 {
@@ -145,8 +146,8 @@ void Zombie::Render(sf::RenderWindow* window)
 
 	hitpointsBarRed.setSize(sf::Vector2f(int(70 * hitpoints / maxhitpoints), 5));
 	hitpointsBarBlack.setSize(sf::Vector2f(int(72 * hitpoints / maxhitpoints), 7));
-	hitpointsBarRed.setPosition(SCALE * this->body->GetPosition().x - int(35*hitpoints/maxhitpoints), SCALE * this->body->GetPosition().y - 25);
-	hitpointsBarBlack.setPosition(SCALE * this->body->GetPosition().x - int(36*hitpoints/maxhitpoints), SCALE * this->body->GetPosition().y - 26);
+	hitpointsBarRed.setPosition(SCALE * this->body->GetPosition().x - int(35 * hitpoints / maxhitpoints), SCALE * this->body->GetPosition().y - 25);
+	hitpointsBarBlack.setPosition(SCALE * this->body->GetPosition().x - int(36 * hitpoints / maxhitpoints), SCALE * this->body->GetPosition().y - 26);
 
 	frameTime = frameClock.restart();
 	animatedSprite.play(*currentAnimation);
@@ -160,15 +161,15 @@ void Zombie::Render(sf::RenderWindow* window)
 	window->draw(hitpointsBarRed);
 }
 
-void Zombie::RenderInactive( sf::RenderWindow * window )
+void Zombie::RenderInactive(sf::RenderWindow * window)
 {
-	sprite.setTexture( textureDead );
-	sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
-	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
+	sprite.setTexture(textureDead);
+	sprite.setPosition(SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y);
+	sprite.setRotation(180 / b2_pi * this->body->GetAngle());
 	float scaleX = static_cast<float>(sizey) / textureDead.getSize().x;
 	float scaleY = static_cast<float>(sizey) / textureDead.getSize().y;
 	sprite.setScale(scaleX, scaleY);
-	window->draw( sprite );
+	window->draw(sprite);
 }
 
 void Zombie::Update(sf::Time difference_time)
@@ -180,14 +181,14 @@ void Zombie::Update(sf::Time difference_time)
 		//doRayCast(callbackInfo);
 		b2Vec2 player_position = target->GetPosition();
 		/*b2Vec2 dir = AIType->Move(body->GetPosition(), player_position, callbackInfo.obstacleList);*/
-		b2Vec2 dir = AI->Move(body->GetPosition(), player_position,body->GetAngle());
+		b2Vec2 dir = AI->Move(body->GetPosition(), player_position, body->GetAngle());
 		float32 new_angle = atan2(dir.y, dir.x);
 		body->SetTransform(body->GetPosition(), new_angle);
 		body->SetLinearVelocity(b2Vec2(dir.x*speed, dir.y*speed));
 	}
 	else {
 		//stoi w miejscu
-		body->SetLinearVelocity(b2Vec2(0,0));
+		body->SetLinearVelocity(b2Vec2(0, 0));
 		body->SetAngularVelocity(0.f);
 	}
 }
@@ -198,11 +199,11 @@ void Zombie::doRayCast(RayCastCallback & callback)
 	float DEGTORAD = 0.017453292519;
 	int RayNum = 8;
 	//in Step() function
-	for (int i=0;i< RayNum;i++)
+	for (int i = 0; i < RayNum; i++)
 	{
 		currentRayAngle += 360 / RayNum * DEGTORAD;
 		//calculate points of ray
-		b2Vec2 p1=body->GetPosition();
+		b2Vec2 p1 = body->GetPosition();
 		b2Vec2 p2 = p1 + rayLength * b2Vec2(sinf(currentRayAngle), cosf(currentRayAngle));
 		world->RayCast(&callback, p1, p2);
 	}
