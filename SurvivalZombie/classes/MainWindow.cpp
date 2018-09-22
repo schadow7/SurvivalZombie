@@ -15,12 +15,10 @@ MainWindow::MainWindow()
 	selectedButton = 0;
 	clicked = false;
 	loadTextures();
-
 	//Stworzenie gry
-	game = new Game;
-	game->initializeGame();
-	saveGame( SaveSlot::SLOT_1 );
-	loadGame( SaveSlot::SLOT_1 );
+	newGame();
+
+
 }
 
 MainWindow::~MainWindow()
@@ -39,6 +37,11 @@ void MainWindow::run(  )
 			// Close window: exit
 			if ( event.type == sf::Event::Closed )
 				window->close();
+			if ( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::P )
+			{
+				saveGame( SaveSlot::SLOT_2 );
+				loadGame( SaveSlot::SLOT_2 );
+			}
 		}
 		if ( gameState == 0 )
 		{
@@ -63,7 +66,7 @@ void MainWindow::run(  )
 
 void MainWindow::newGame()
 {
-
+	game = new Game;
 }
 
 void MainWindow::loadGame( SaveSlot slot )
@@ -111,11 +114,11 @@ void MainWindow::loadGame( SaveSlot slot )
 
 void MainWindow::saveGame( SaveSlot slot )
 {
-	level_state lvlState = { 2, 2000, 3 };
-	player_state playerState = { 100, 10, 3.0 };
-	std::vector<weapon_features> weapons;	
-	weapon_features weaponState = { WeaponType::PISTOL, 10, 6, 120, sf::milliseconds( 400 ), sf::milliseconds( 1000 ), 20.0, 10.0 };	weapons.push_back( weaponState );
-	weaponState = { WeaponType::RIFLE, 30, 16, 150, sf::milliseconds( 300 ), sf::milliseconds( 1000 ), 40.0, 15.0 };					weapons.push_back( weaponState );
+	level_state lvlState = game->GetLevelState();
+	player_state playerState = game->GetPlayerState();
+	std::vector<weapon_features> weapons = game->GetWeaponState();
+	//weapon_features weaponState = { WeaponType::PISTOL, 10, 6, 120, sf::milliseconds( 400 ), sf::milliseconds( 1000 ), 20.0, 10.0 };	weapons.push_back( weaponState );
+	//weaponState = { WeaponType::RIFLE, 30, 16, 150, sf::milliseconds( 300 ), sf::milliseconds( 1000 ), 40.0, 15.0 };					weapons.push_back( weaponState );
 	
 	std::string filename = "savegames\\saveslot" + std::to_string( static_cast< int >( slot ) ) + ".bin";
 

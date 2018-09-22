@@ -36,7 +36,9 @@ public:
 	void									runGame(sf::RenderWindow * window);
 	void									update(Entity*) override;
 	void									RestartClock() { clock.restart(); }
-
+	level_state								GetLevelState();
+	player_state							GetPlayerState();
+	std::vector<weapon_features>			GetWeaponState();
 private:
 	void									Render( sf::RenderWindow * window );
 	void									loadTextures();
@@ -54,7 +56,10 @@ private:
 	int										undeadCount;
 	void									spawnHorde(int next_level);
 	int										currentLevel;
+	long int								points = 0;
+	short int								level_base = 1;
 	sf::Clock								clock;
+	sf::Time								delay;
 	float32									previous_angle;
 	std::default_random_engine				engine;
 	std::uniform_int_distribution<int>		angleDistribution{ 1, 360 };

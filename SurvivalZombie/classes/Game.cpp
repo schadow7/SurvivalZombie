@@ -16,6 +16,7 @@ Game::Game()
 	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
+	initializeGame();
 }
 
 Game::~Game()
@@ -126,8 +127,6 @@ void Game::Controls(sf::RenderWindow * window)
 	//konkretne klawisze
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Zombie* zombieTester = new Zombie(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
@@ -135,8 +134,6 @@ void Game::Controls(sf::RenderWindow * window)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Zombie* zombieTester = new ZombieTank(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
@@ -144,8 +141,6 @@ void Game::Controls(sf::RenderWindow * window)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Zombie* zombieTester = new ZombieSprinter(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
@@ -153,14 +148,10 @@ void Game::Controls(sf::RenderWindow * window)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		spawnHorde(0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Entity* ob = new BasicEntanglements(world, positionPixToWorld(cordPos));
 		entity_manager->AddEntity(ob);
 	}
@@ -194,6 +185,22 @@ void Game::Controls(sf::RenderWindow * window)
 void Game::update(Entity * ptr)
 {
 	if (ptr->GetID() == 2) undeadCount--;
+}
+
+level_state Game::GetLevelState()
+{
+	level_state tmp = { currentLevel, points,level_base };
+	return tmp;
+}
+
+player_state Game::GetPlayerState()
+{
+	return player->GetPlayerState();
+}
+
+std::vector<weapon_features> Game::GetWeaponState()
+{
+	return player->GetWeaponList();
 }
 
 void Game::Render(sf::RenderWindow * window)
