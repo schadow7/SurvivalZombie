@@ -5,6 +5,7 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 	//base stats
 	animSpeed = 0.05;
 	hitpoints = 100;
+	armor = 0;
 	maxhitpoints = hitpoints;
 	speed = 3.f;
 	groupID = 1;
@@ -38,6 +39,47 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 	animatedSprite.setOrigin(size1 / 2.f, size1 / 2.f);
 	animatedSpriteFeet.setOrigin(size1 / 2.f, size1 / 2.f);
 	animatedSprite.play(*currentAnimation);
+}
+
+Player::Player( b2World * world, b2Vec2 position, player_state playerState ) : DynamicBody( world, position )
+{
+	//base stats
+	animSpeed = 0.05;
+	maxhitpoints = playerState.max_hitpoints;
+	armor = playerState.armor;
+	hitpoints = hitpoints;
+	speed = playerState.speed;
+	groupID = 1;
+	//fixture
+	b2CircleShape Shape;
+	Shape.m_radius = 24 / SCALE;
+	b2FixtureDef FixtureDef;
+	FixtureDef.shape = &Shape;
+	FixtureDef.density = 1;
+	body->CreateFixture( &FixtureDef );
+
+	size1 = 100;
+	size2 = 133;
+
+	direction1 = b2Vec2_zero;
+	direction2 = b2Vec2_zero;
+
+	setSpriteSheets();
+
+	addFramesToAnimations();
+
+	walkingAnimation = &walkingAnimationHandgun;
+	idleAnimation = &idleAnimationHandgun;
+	attackingAnimation = &attackingAnimationHandgun;
+	reloadingAnimation = &reloadingAnimationHandgun;
+
+	currentAnimationFeet = &idleAnimationFeet;
+	currentAnimation = idleAnimation;
+	animatedSprite = AnimatedSprite( sf::milliseconds( animSpeed * 2000.f ), true, false );
+	animatedSpriteFeet = AnimatedSprite( sf::milliseconds( animSpeed * 1000.f ), true, false );
+	animatedSprite.setOrigin( size1 / 2.f, size1 / 2.f );
+	animatedSpriteFeet.setOrigin( size1 / 2.f, size1 / 2.f );
+	animatedSprite.play( *currentAnimation );
 }
 
 Player::~Player()
@@ -145,6 +187,24 @@ void Player::Shoot( b2Vec2 direction, sf::Time difference_time )
 		currentAnimation = &attackingAnimationHandgun;
 		animatedSprite.play(*currentAnimation);
 	}
+}
+
+void Player::TakeDamage( float32 damage )
+{
+	int tmp = (int)damage - armor;
+	if ( tmp <= 0 )
+		tmp = 1;
+	hitpoints -= tmp;
+	if ( hitpoints <= 0 && active == 1 )
+	{
+		active = 0;
+	}
+}
+
+player_state Player::GetPlayerState() const
+{
+	player_state myState = { maxhitpoints, armor, speed };
+	return myState;
 }
 
 std::vector<long int> Player::GetHitpoints()

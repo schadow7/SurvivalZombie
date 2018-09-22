@@ -25,9 +25,10 @@ public:
 	int						Active() const;
 	int						GroupID() const;
 	virtual void			TakeDamage( float32 damage );
-	b2Vec2					GetPosition()const;
+	b2Vec2					GetPosition() const;
 	int						GetID();
 	void					SetBodyInactive() { body->SetActive( false ); }
+	void					SetMaxHitpoints( unsigned long int max_hitpoints ) { this->maxhitpoints = max_hitpoints; }
 	~Entity();
 
 protected:
