@@ -67,7 +67,7 @@ void Game::initializeGame()
 	background.setTextureRect(sf::IntRect(0, 0, mapsizex, mapsizey));
 
 	engine.seed(time(0));
-	arrangeObstacles(100);
+	arrangeObstacles(25);
 	makeBase();
 	//Player
 	player = new Player(world, positionPixToWorld(sf::Vector2f(mapsizex / 2.0f, mapsizey / 2.0f + 96)));
@@ -235,7 +235,7 @@ void Game::Render(sf::RenderWindow * window)
 
 void Game::spawnHorde(int next_level)
 {
-	float spawnRadius = 3500 / SCALE;
+	float spawnRadius = (mapsizex/2-500) / SCALE;
 	float angle = 0;
 	b2Vec2 spawnPoint = b2Vec2_zero;
 	int type = 0;
@@ -247,9 +247,10 @@ void Game::spawnHorde(int next_level)
 		type++;
 		for (int i = 0; i < it; i++)
 		{
+			float radius = spawnRadius + angleDistribution(engine)/ SCALE;
 			angle = angleDistribution(engine)*DEGTORAD;
-			spawnPoint.x = mapCenter.x + spawnRadius * cos(angle);
-			spawnPoint.y = mapCenter.y + spawnRadius * sin(angle);
+			spawnPoint.x = mapCenter.x + radius * cos(angle);
+			spawnPoint.y = mapCenter.y + radius * sin(angle);
 			if (type == 2) zombieTmp = new ZombieTank(world, spawnPoint);
 			else if (type == 3) zombieTmp = new ZombieSprinter(world, spawnPoint);
 			else zombieTmp = new Zombie(world, spawnPoint);
@@ -285,7 +286,7 @@ void Game::arrangeObstacles(int quantity)
 		b2Vec2 spawnPoint = b2Vec2_zero;
 		int spawnRadius;
 		Obstacle* temp;
-		std::uniform_int_distribution<int>	obstacleRadiusDistribution{ 500, 4000 };
+		std::uniform_int_distribution<int>	obstacleRadiusDistribution{ 500, mapsizex/2 };
 		for (int i = 0; i < quantity; i++)
 		{
 			angle = angleDistribution(engine)*DEGTORAD;
