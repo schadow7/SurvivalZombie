@@ -57,4 +57,6 @@ private:
 	std::uniform_int_distribution<int>		zombieDistribution{ -1, 1 };
 	sf::Time								shoot_timer;
 	void									arrangeObstacles(int quantity);
+	void									makeBase();
+	std::vector<BasicEntanglements*>		base;
 };

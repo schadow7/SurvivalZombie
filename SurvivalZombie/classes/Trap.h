@@ -14,11 +14,13 @@ public:
 	void Update(sf::Time);
 	void TakeDamage(float32 damage) override;
 	virtual void Attack(Entity * entity);
+	void SetDamage(float32);
+	void SetAngle(float32);
+	b2Vec2 GetPxSize();
 
 protected:
 	int sizey; //rozmiar Obstacle w pikselach
-	int sizex1;
-	int sizex2;
+	int sizex;
 	sf::Sprite sprite;
 	sf::RectangleShape hitpointsBarRed;
 	sf::RectangleShape hitpointsBarBlack;

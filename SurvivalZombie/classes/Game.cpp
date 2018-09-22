@@ -41,6 +41,7 @@ void Game::initializeGame()
 
 	engine.seed(time(0));
 	arrangeObstacles(100);
+	makeBase();
 	//Player
 	player = new Player(world, positionPixToWorld(sf::Vector2f(4000, 4000)));
 	entity_manager->AddEntity(player);
@@ -138,6 +139,15 @@ void Game::Controls(sf::RenderWindow * window)
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		Entity* ob = new BasicEntanglements(world, positionPixToWorld(cordPos));
 		entity_manager->AddEntity(ob);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
+		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(cordPos));
+		entity_manager->AddEntity(ob);
+		ob->SetAngle(90);
+	
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) entity_manager->KillEverybody();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) player->Reload();
@@ -237,5 +247,43 @@ void Game::arrangeObstacles(int quantity)
 			temp = new Obstacle(world, spawnPoint);
 			entity_manager->AddEntity(temp);
 		}
+	}
+}
+
+void Game::makeBase()
+{
+	int sizex = 50;
+	sf::Vector2f position(4000 - 5 * sizex, 4000 - 5 * sizex);
+	for (int i = 0; i < 10; i++)
+	{
+		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(position));
+		entity_manager->AddEntity(ob);
+		ob->SetAngle(90);
+		position.x += sizex;
+	}
+	position.x -= sizex/4;
+	position.y += sizex / 4;
+	for (int i = 0; i < 10; i++)
+	{
+		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(position));
+		entity_manager->AddEntity(ob);
+		position.y += sizex;
+	}
+	position.y -= sizex / 4;
+	position.x -= sizex / 4;
+	for (int i = 0; i < 10; i++)
+	{
+		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(position));
+		entity_manager->AddEntity(ob);
+		ob->SetAngle(90);
+		position.x -= sizex;
+	}
+	position.x += sizex / 4;
+	position.y -= sizex / 4;
+	for (int i = 0; i < 10; i++)
+	{
+		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(position));
+		entity_manager->AddEntity(ob);
+		position.y -= sizex;
 	}
 }
