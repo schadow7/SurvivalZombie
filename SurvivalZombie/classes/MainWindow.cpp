@@ -1,5 +1,5 @@
 #include "MainWindow.h"
-
+#include <iostream>
 MainWindow::MainWindow()
 {
 	//Przygotowanie okna
@@ -19,6 +19,8 @@ MainWindow::MainWindow()
 	//Stworzenie gry
 	game = new Game;
 	game->initializeGame();
+	saveGame( SaveSlot::SLOT_1 );
+	loadGame( SaveSlot::SLOT_1 );
 }
 
 MainWindow::~MainWindow()
@@ -66,6 +68,45 @@ void MainWindow::newGame()
 
 void MainWindow::loadGame( SaveSlot slot )
 {
+	level_state lvlState;
+	player_state playerState;
+	std::vector<weapon_features> weapons;
+	weapon_features tmp;
+	std::string filename = "savegames\\saveslot" + std::to_string( static_cast< int >( slot ) ) + ".bin";
+
+	std::ifstream file( filename.c_str(), std::ios::binary );
+
+	file.read( (  char * )& lvlState, sizeof level_state );
+	file.read( (  char * )& playerState, sizeof player_state );
+
+	while ( !file.eof() )
+	{
+		file.read( ( char * )& tmp, sizeof weapon_features );
+		if ( file.eof() )
+			break;
+		weapons.push_back( tmp );
+	}
+
+	file.close();
+
+	std::cout << "Level: " << lvlState.level << std::endl;
+	std::cout << "Points: " << lvlState.points << std::endl;
+	std::cout << "Base level: " << lvlState.base_level << std::endl;
+	std::cout << "Maxhitpoints: " << playerState.max_hitpoints << std::endl;
+	std::cout << "Armor: " << playerState.armor << std::endl;
+	std::cout << "Speed: " << playerState.speed << std::endl;
+
+	for ( auto & it : weapons )
+	{
+		std::cout << "Type: " <<				static_cast<int>(it.type)	<< std::endl;
+		std::cout << "MaxMagazineAmmo: " <<		it.maxMagazineAmmo			<< std::endl;
+		std::cout << "MagazineAmmo: " <<		it.magazineAmmo				<< std::endl;
+		std::cout << "CarriedAmmo: " <<			it.carriedAmmo				<< std::endl;
+		std::cout << "RecoilTime " <<			it.cooldown.asMilliseconds()	<< std::endl;
+		std::cout << "ReloadTime: " <<			it.reload_cooldown.asMilliseconds()	<< std::endl;
+		std::cout << "Damage " <<				it.damage					<< std::endl;
+		std::cout << "BulletSpeed: " <<			it.bullet_speed				<< std::endl;
+	}
 }
 
 void MainWindow::saveGame( SaveSlot slot )
@@ -76,10 +117,18 @@ void MainWindow::saveGame( SaveSlot slot )
 	weapon_features weaponState = { WeaponType::PISTOL, 10, 6, 120, sf::milliseconds( 400 ), sf::milliseconds( 1000 ), 20.0, 10.0 };	weapons.push_back( weaponState );
 	weaponState = { WeaponType::RIFLE, 30, 16, 150, sf::milliseconds( 300 ), sf::milliseconds( 1000 ), 40.0, 15.0 };					weapons.push_back( weaponState );
 	
-	std::string filename = "\\savegames\\saveslot" + std::to_string( static_cast< int >( slot ) ) + ".save";
+	std::string filename = "savegames\\saveslot" + std::to_string( static_cast< int >( slot ) ) + ".bin";
 
-	//std::ofstream ofs( filename.c_str(), std::ios::binary );
-	
+	std::ofstream file( filename.c_str(), std::ios::binary );
+
+	file.write( ( const char * )& lvlState, sizeof level_state );
+	file.write( ( const char * )& playerState, sizeof player_state );
+	for ( auto & it : weapons )
+	{
+		file.write( ( const char * )& it, sizeof weapon_features );
+	}
+
+	file.close();
 }
 
 
