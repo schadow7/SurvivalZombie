@@ -55,18 +55,19 @@ void Game::initializeGame()
 	undeadCount = 0;
 	currentLevel = 0;
 	baseLevel = 0;
-	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
+	int mapsizex = 3840, mapsizey = 3840;
+	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
 	//T³o
-	background.setTexture(*AssetManager::GetTexture("background"));
-	background.setTextureRect(sf::IntRect(0, 0, 8000, 8000));
+	background.setTexture(*AssetManager::GetTexture("map"));
+	background.setTextureRect(sf::IntRect(0, 0, mapsizex, mapsizey));
 
 	engine.seed(time(0));
 	arrangeObstacles(100);
 	makeBase();
 	//Player
-	player = new Player(world, positionPixToWorld(sf::Vector2f(4000+55, 4000+55)));
+	player = new Player(world, positionPixToWorld(sf::Vector2f(mapsizex / 2.0f, mapsizey / 2.0f + 96)));
 	entity_manager->AddEntity(player);
 	//Bazowa broñ
 	Weapon * pistol = new Pistol(entity_manager, AssetManager::GetTexture("bullet9mm"));
