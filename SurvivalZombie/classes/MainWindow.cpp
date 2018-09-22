@@ -216,11 +216,7 @@ void MainWindow::loadTextures()
 
 	//£adowanie tekstur Asset Managerem
 	//Podstawowe
-	sf::Texture * tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\background.png");
-	tmp->setRepeated(true);
-	tmp->setSmooth(true);
-	AssetManager::AddTexture("background", tmp);
+	AssetManager::AddTexture("map", ".\\graphics\\map.png");
 	AssetManager::AddTexture("grad2", ".\\graphics\\grad2.png");
 
 	//Hud
