@@ -203,7 +203,7 @@ void Game::update(Entity * ptr)
 
 level_state Game::GetLevelState()
 {
-	level_state tmp = { currentLevel, points,level_base };
+	level_state tmp = { currentLevel, points, baseLevel };
 	return tmp;
 }
 

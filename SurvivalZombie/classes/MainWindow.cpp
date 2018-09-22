@@ -37,7 +37,7 @@ void MainWindow::run(  )
 			// Close window: exit
 			if ( event.type == sf::Event::Closed )
 				window->close();
-			if ( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::P )
+			if ( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::K )
 			{
 				saveGame( SaveSlot::SLOT_2 );
 				loadGame( SaveSlot::SLOT_2 );

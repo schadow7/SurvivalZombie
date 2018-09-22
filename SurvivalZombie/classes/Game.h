@@ -59,7 +59,6 @@ private:
 	int										currentLevel;
 	int										baseLevel;
 	long int								points = 0;
-	short int								level_base = 1;
 	sf::Clock								clock;
 	sf::Time								delay;
 	float32									previous_angle;
