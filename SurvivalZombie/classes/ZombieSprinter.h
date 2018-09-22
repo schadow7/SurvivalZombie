@@ -13,5 +13,6 @@ private:
 	Animation				walkingAnimation;
 	Animation				attackingAnimation;
 	Animation				idleAnimation;
+	Animation				deadAnimation;
 };
 

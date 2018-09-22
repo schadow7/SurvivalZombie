@@ -44,16 +44,17 @@ protected:
 	bool					isAttacking();
 	bool					isIdle();
 	b2Vec2					direction;
-	Animation				walkingAnimation;
-	Animation				attackingAnimation;
-	Animation				idleAnimation;
 	AIType* AI;
 	const Entity* target;
 	b2World* world;
 private:
 	void					setSpriteSheets();
-	void					addFramesToAnimations(); //do raycast. shared pointer?
-	//////
+	void					addFramesToAnimations();
+	Animation				walkingAnimation;
+	Animation				attackingAnimation;
+	Animation				idleAnimation;
+	Animation				deadAnimation;
+	////// //do raycast. shared pointer?
 
 	class RayCastCallback :public b2RayCastCallback
 	{

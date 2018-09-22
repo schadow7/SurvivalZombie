@@ -22,6 +22,10 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	
 	AI = new AIIdle(world);
 
+	sizex1 = 46;
+	sizex2 = 54;
+	sizey = 50;
+
 	//fixture
 	b2CircleShape zombieShape;
 	zombieShape.m_radius = sizey/2/SCALE;
@@ -34,13 +38,10 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
 	hitpointsBarBlack.setFillColor(sf::Color(0, 0, 0));
 
-	sizex1 = 46;
-	sizex2 = 54;
-	sizey = 50;
 
-	setSpriteSheets();
+	this->setSpriteSheets();
 
-	addFramesToAnimations();
+	this->addFramesToAnimations();
 
 	currentAnimation = &idleAnimation;
 	animatedSprite = AnimatedSprite(sf::seconds(animSpeed), true, false);
@@ -104,6 +105,7 @@ void Zombie::Attack( Entity * entity )
 		entity->TakeDamage( damage );
 		attack_timer = sf::milliseconds( 0 );
 		currentAnimation = &attackingAnimation;
+		animatedSprite.setFrameTime(sf::seconds(animSpeed*3));
 		animatedSprite.play(*currentAnimation);
 	}
 }
@@ -127,9 +129,20 @@ void Zombie::Presolve( Entity * entity )
 
 void Zombie::Render(sf::RenderWindow* window)
 {
-	setupHealthbar();
+	this->setupHealthbar();
 
-	isMoving();
+	if (isMoving())
+	{
+		currentAnimation = &walkingAnimation;
+		animatedSprite.setFrameTime(sf::seconds(animSpeed));
+		animatedSprite.play(*currentAnimation);
+	}
+	else if (isIdle())
+	{
+		currentAnimation = &idleAnimation;
+		animatedSprite.setFrameTime(sf::seconds(animSpeed));
+		animatedSprite.play(*currentAnimation);
+	}
 
 	frameTime = frameClock.restart();
 
@@ -140,6 +153,8 @@ void Zombie::Render(sf::RenderWindow* window)
 	if ((currentAnimation == &walkingAnimation) && animatedSprite.isPlaying()) animatedSprite.setOrigin(sizex1 / 2.f, sizey / 2.f);
 	else animatedSprite.setOrigin(sizex2 / 2.f, sizey / 2.f);
 
+
+	animatedSprite.setScale(float(sizey)/50.0f, float(sizey)/50.0f);
 	window->draw(animatedSprite);
 	window->draw(hitpointsBarBlack);
 	window->draw(hitpointsBarRed);
@@ -147,21 +162,18 @@ void Zombie::Render(sf::RenderWindow* window)
 
 void Zombie::RenderInactive( sf::RenderWindow * window )
 {
-	sprite.setTexture( textureDead );
-	sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
-	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
-	window->draw( sprite );
+	currentAnimation = &deadAnimation;
+	animatedSprite.setOrigin(sizex1 / 2.f, sizey / 2.f);
+	animatedSprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
+	animatedSprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
+	animatedSprite.play(*currentAnimation);
+	window->draw(animatedSprite);
 }
 
 bool Zombie::isMoving()
 {
 	direction = body->GetLinearVelocity();
-	if (sqrt(direction.x*direction.x + direction.y*direction.y) > speed / 10.0f && !this->isAttacking())
-	{
-		currentAnimation = &walkingAnimation;
-		animatedSprite.play(*currentAnimation);
-		return true;
-	}
+	if (sqrt(direction.x*direction.x + direction.y*direction.y) > speed / 10.0f && !isAttacking()) return true;
 	else return false;
 }
 
@@ -198,9 +210,9 @@ void Zombie::Update(sf::Time difference_time)
 void Zombie::setSpriteSheets()
 {
 	walkingAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50WalkingAnimation"));
-	idleAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50AttackingAnimation"));
-	attackingAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50IdleAnimation"));
-	textureDead = *AssetManager::GetTexture("zombie50Dead");
+	idleAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50IdleAnimation"));
+	attackingAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50AttackingAnimation"));
+	deadAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50Dead"));
 }
 
 void Zombie::addFramesToAnimations()
@@ -208,6 +220,7 @@ void Zombie::addFramesToAnimations()
 	for (int i = 0; i < 17; i++) walkingAnimation.addFrame(sf::IntRect(i * sizex1, 0, sizex1, sizey));
 	for (int i = 0; i < 17; i++) idleAnimation.addFrame(sf::IntRect(i * sizex2, 0, sizex2, sizey));
 	for (int i = 0; i < 9; i++) attackingAnimation.addFrame(sf::IntRect(i * sizex2, 0, sizex2, sizey));
+	for (int i = 0; i < 1; i++) deadAnimation.addFrame(sf::IntRect(0, 0, sizex1, sizey));
 }
 
 void Zombie::doRayCast(RayCastCallback & callback)
