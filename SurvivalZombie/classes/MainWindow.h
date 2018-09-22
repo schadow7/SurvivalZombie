@@ -44,4 +44,5 @@ private:
 	sf::Cursor *							cursor;
 	MenuType								menuType;
 	GameState								gameState;
+	sf::Font								fontType;
 };

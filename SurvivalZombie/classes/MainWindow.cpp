@@ -17,6 +17,7 @@ MainWindow::MainWindow()
 	mouseY = 0;
 	shadow = 0;
 	clicked = false;
+	fontType.loadFromFile("cambria.ttc");
 	menuType = MenuType::DEFAULT;
 	loadTextures();
 	//Stworzenie gry
