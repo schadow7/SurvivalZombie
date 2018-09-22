@@ -23,7 +23,7 @@ void EntityManager::RemoveEntity( Entity * entity )
 void EntityManager::Update(sf::Time difference_time)
 {
 	//Symulacja œwiata
-	world->Step( 1 / 60.f, 8, 3 );
+	world->Step( 1 / 60.f, 3, 1 );
 	//Aktualizacja statusu obiektu (tu siê wykonuje logika gry)
 	for ( auto & it : entities )
 	{

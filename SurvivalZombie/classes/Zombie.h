@@ -42,6 +42,7 @@ protected:
 	void					setupHealthbar();
 	bool					isMoving();
 	bool					isAttacking();
+	bool					attack = false;
 	bool					isIdle();
 	b2Vec2					direction;
 	AIType* AI;

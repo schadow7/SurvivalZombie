@@ -3,6 +3,10 @@ Game::Game()
 {
 	loadTextures();
 	world = new b2World(b2Vec2(0.f, 0.f));
+	world->SetAllowSleeping( true );
+	world->SetAutoClearForces( true );
+	world->SetWarmStarting( true );
+
 	entity_manager = new EntityManager(world);
 
 	view = new sf::View(sf::FloatRect(0, 0, 1280, 720));

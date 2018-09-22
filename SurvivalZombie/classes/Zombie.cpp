@@ -113,12 +113,19 @@ void Zombie::Attack( Entity * entity )
 void Zombie::StartContact(Entity* entity) 
 {
 	if ( entity->GroupID() == 1 )
+	{
 		attack_timer = sf::microseconds( 0 );
+		attack = true;
+	}
 }
 
-void Zombie::EndContact(Entity*)
+void Zombie::EndContact(Entity* entity)
 {
-	;
+	if ( entity->GroupID() == 1 )
+	{
+		attack_timer = sf::microseconds( 0 );
+		attack = false;
+	}
 }
 
 void Zombie::Presolve( Entity * entity )
@@ -198,7 +205,13 @@ void Zombie::Update(sf::Time difference_time)
 		b2Vec2 dir = AI->Move(body->GetPosition(), player_position,body->GetAngle());
 		float32 new_angle = atan2(dir.y, dir.x);
 		body->SetTransform(body->GetPosition(), new_angle);
-		body->SetLinearVelocity(b2Vec2(dir.x*speed, dir.y*speed));
+		if ( !attack )
+			body->SetLinearVelocity(b2Vec2(dir.x*speed, dir.y*speed));
+		else
+		{
+			body->SetLinearVelocity( b2Vec2( 0, 0 ) );
+			body->SetAngularVelocity( 0.f );
+		}
 	}
 	else {
 		//stoi w miejscu
