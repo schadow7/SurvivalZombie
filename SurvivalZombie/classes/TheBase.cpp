@@ -7,7 +7,7 @@ TheBase::TheBase(b2World * world, b2Vec2 position, sf::Texture * ntexture) :
 {
 	//base stats 
 	groupID = 10;
-	damage = -1;
+	damage = 0;
 	hitpoints = 100;
 	maxhitpoints = 100;
 	attack_cooldown = sf::milliseconds(2000);
@@ -99,7 +99,7 @@ void TheBase::SetMaxHP(int nMax)
 
 void TheBase::SetDamage(int ndmg)
 {
-	damage = -ndmg;
+	damage = ndmg;
 }
 
 void TheBase::MakeActive()
@@ -126,9 +126,11 @@ void TheBase::EndContact(Entity*)
 }
 void TheBase::Presolve(Entity * entity)
 {
-
+	if (damage)
+	{
 		if (entity->GroupID() == 1)
 			Attack(entity);
+	}
 }
 void TheBase::Render(sf::RenderWindow* window)
 {
