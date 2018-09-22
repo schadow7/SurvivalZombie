@@ -116,6 +116,9 @@ void Player::Render( sf::RenderWindow * window )
 	
 	frameTime = frameClock.restart();
 	
+	if (currentAnimation == walkingAnimation || currentAnimation == idleAnimation)
+		animatedSprite.setFrameTime(sf::milliseconds(animSpeed * 2000.f));
+
 	animatedSprite.update(frameTime);
 	animatedSprite.setPosition(this->GetPosition());
 
@@ -178,6 +181,11 @@ void Player::Reload()
 	{
 		current_weapon->Reload();
 		currentAnimation = reloadingAnimation;
+		reloadTime = current_weapon->ReloadTime();
+		if ((current_weapon->GetWeaponFeatures()).type == WeaponType::PISTOL) currentWeaponReloadingFrames = handgunReloadingFrames;
+		else if ((current_weapon->GetWeaponFeatures()).type == WeaponType::RIFLE) currentWeaponReloadingFrames = rifleReloadingFrames;
+		else if ((current_weapon->GetWeaponFeatures()).type == WeaponType::SHOTGUN) currentWeaponReloadingFrames = shotgunReloadingFrames;
+		animatedSprite.setFrameTime(reloadTime / sf::Int64(currentWeaponReloadingFrames));
 		animatedSprite.play(*currentAnimation);
 	}
 }
@@ -188,6 +196,11 @@ void Player::Shoot( b2Vec2 direction, sf::Time difference_time )
 	{
 		current_weapon->Shoot(body->GetPosition(), body->GetAngle(), direction, difference_time);
 		currentAnimation = attackingAnimation;
+		recoilTime = current_weapon->RecoilTime();
+		if ((current_weapon->GetWeaponFeatures()).type == WeaponType::PISTOL) currentWeaponAttackingFrames = handgunAttackingFrames;
+		else if ((current_weapon->GetWeaponFeatures()).type == WeaponType::RIFLE) currentWeaponAttackingFrames = rifleAttackingFrames;
+		else if ((current_weapon->GetWeaponFeatures()).type == WeaponType::SHOTGUN) currentWeaponAttackingFrames = shotgunAttackingFrames;
+		animatedSprite.setFrameTime(recoilTime / sf::Int64(currentWeaponAttackingFrames));
 		animatedSprite.play(*currentAnimation);
 	}
 }
@@ -267,17 +280,23 @@ void Player::addFramesToAnimations()
 	for (int i = 0; i < 20; i++) walkingAnimationHandgun.addFrame(sf::IntRect(i * size1, 0, size1, size1));
 	for (int i = 0; i < 20; i++) idleAnimationHandgun.addFrame(sf::IntRect(i * size1, 0, size1, size1));
 	for (int i = 0; i < 4; i++) attackingAnimationHandgun.addFrame(sf::IntRect(i * size1, 0, size1, size1));
+	handgunAttackingFrames = 4;
 	for (int i = 0; i < 16; i++) reloadingAnimationHandgun.addFrame(sf::IntRect(i * size1, 0, size1, size1));
+	handgunReloadingFrames = 16;
 
 	for (int i = 0; i < 20; i++) walkingAnimationRifle.addFrame(sf::IntRect(i * size1, 0, size1, size1));
 	for (int i = 0; i < 20; i++) idleAnimationRifle.addFrame(sf::IntRect(i * size1, 0, size1, size1));
 	for (int i = 0; i < 4; i++) attackingAnimationRifle.addFrame(sf::IntRect(i * size2, 0, size2, size2));
+	rifleAttackingFrames = 4;
 	for (int i = 0; i < 21; i++) reloadingAnimationRifle.addFrame(sf::IntRect(i * size1, 0, size1, size1));
+	rifleReloadingFrames = 21;
 
 	for (int i = 0; i < 20; i++) walkingAnimationShotgun.addFrame(sf::IntRect(i * size1, 0, size1, size1));
 	for (int i = 0; i < 20; i++) idleAnimationShotgun.addFrame(sf::IntRect(i * size1, 0, size1, size1));
 	for (int i = 0; i < 4; i++) attackingAnimationShotgun.addFrame(sf::IntRect(i * size2, 0, size2, size2));
+	shotgunAttackingFrames = 4;
 	for (int i = 0; i < 21; i++) reloadingAnimationShotgun.addFrame(sf::IntRect(i * size1, 0, size1, size1));
+	shotgunReloadingFrames = 21;
 }
 
 bool Player::isMoving()
