@@ -28,10 +28,11 @@ public:
 	b2Vec2					GetPosition()const;
 	int						GetID();
 	void					SetBodyInactive() { body->SetActive( false ); }
+	void					SetBodyActive() { body->SetActive(true); }
 	~Entity();
 
 protected:
-	int						groupID;  //1-PLayer 2-Zombie 3-Projectile
+	int						groupID;  //1-PLayer 2-Zombie 3-Projectile 6-BasicEntanglements 9-Door
 	int						active;	  //-1 - do usunięcia; 0 - nieaktywny, ale wyświetlany; 1 - aktywny (brany pod uwagę przy symulacji, kolizjach...)	
 	b2Body *				body;
 	std::string				name;

@@ -17,6 +17,10 @@ public:
 	void SetDamage(float32);
 	void SetAngle(float32);
 	b2Vec2 GetPxSize();
+	void Repair(int);
+	void SetMaxHP(int);
+	void SetDamage(int);
+	void MakeActive();
 
 protected:
 	int sizey; //rozmiar Obstacle w pikselach

@@ -47,6 +47,7 @@ private:
 	int										undeadCount;
 	void									spawnHorde(int next_level);
 	int										currentLevel;
+	int										baseLevel;
 	sf::Clock								clock;
 	float32									previous_angle;
 	std::default_random_engine				engine;
@@ -60,5 +61,6 @@ private:
 	void									makeBase();
 	std::vector<BasicEntanglements*>		base;
 	BasicEntanglements*						spawnWall(int i, int boxSize, sf::Vector2f& position);
+	void									setBaseLevel(int level);
 };
 

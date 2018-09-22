@@ -9,6 +9,7 @@ Game::Game()
 	hud = new Hud;
 	undeadCount = 0;
 	currentLevel = 0;
+	baseLevel = 0;
 	mapCenter = b2Vec2(4000 / SCALE, 4000 / SCALE);
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds(1);
@@ -149,6 +150,10 @@ void Game::Controls(sf::RenderWindow * window)
 		ob->SetAngle(90);
 
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		setBaseLevel(++baseLevel);
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) entity_manager->KillEverybody();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) player->Reload();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) velocity += b2Vec2(0, -1);
@@ -252,7 +257,6 @@ void Game::arrangeObstacles(int quantity)
 
 void Game::makeBase()
 {
-
 	int sizex = 50;
 	int boxSize = 10;
 	sf::Vector2f position(4000 - 5 * sizex, 4000 - 5 * sizex);
@@ -268,7 +272,7 @@ void Game::makeBase()
 	position.y += sizex / 4;
 	for (int i = 0; i < boxSize; i++)
 	{
-		ob=spawnWall(i, boxSize, position);
+		ob = spawnWall(i, boxSize, position);
 		entity_manager->AddEntity(ob);
 		position.y += sizex;
 	}
@@ -276,7 +280,7 @@ void Game::makeBase()
 	position.x -= sizex / 4;
 	for (int i = 0; i < boxSize; i++)
 	{
-		ob=spawnWall(i, boxSize, position);
+		ob = spawnWall(i, boxSize, position);
 		entity_manager->AddEntity(ob);
 		ob->SetAngle(90);
 		position.x -= sizex;
@@ -285,7 +289,7 @@ void Game::makeBase()
 	position.y -= sizex / 4;
 	for (int i = 0; i < boxSize; i++)
 	{
-		ob=spawnWall(i, boxSize, position);
+		ob = spawnWall(i, boxSize, position);
 		entity_manager->AddEntity(ob);
 		position.y -= sizex;
 	}
@@ -293,8 +297,22 @@ void Game::makeBase()
 
 BasicEntanglements* Game::spawnWall(int i, int boxSize, sf::Vector2f& position)
 {
+	BasicEntanglements* ob;
 	if (i != floor(boxSize / 2))
-		return new Door(world, positionPixToWorld(position));
+		ob = new BasicEntanglements(world, positionPixToWorld(position));
 	else
-		return new Door(world, positionPixToWorld(position));
+		ob = new Door(world, positionPixToWorld(position));
+	base.push_back(ob);
+	return ob;
+}
+
+void Game::setBaseLevel(int level)
+{
+	for (auto & it : base)
+	{
+		it->SetDamage(level);
+		it->SetMaxHP(50 * level);
+		it->Repair(50 * level);
+		it->MakeActive();
+	}
 }

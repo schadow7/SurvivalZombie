@@ -15,7 +15,7 @@ BasicEntanglements::BasicEntanglements(b2World* world, b2Vec2 position, sf::Text
 
 	//fixture
 	b2PolygonShape obstacleShape;
-	obstacleShape.SetAsBox(sizex/SCALE/2, sizey/SCALE/2);
+	obstacleShape.SetAsBox(sizex / SCALE / 2, sizey / SCALE / 2);
 	b2FixtureDef obstacleFixtureDef;
 	obstacleFixtureDef.shape = &obstacleShape;
 	obstacleFixtureDef.density = 1;
@@ -81,6 +81,42 @@ b2Vec2 BasicEntanglements::GetPxSize()
 	return b2Vec2(sizex, sizey);
 }
 
+void BasicEntanglements::Repair(int nHP)
+{
+	if (nHP)
+	{
+		hitpoints += nHP;
+		if (hitpoints > maxhitpoints) hitpoints = maxhitpoints;
+	}
+}
+
+void BasicEntanglements::SetMaxHP(int nMax)
+{
+	if (nMax)
+	{
+		if (hitpoints < nMax)  hitpoints = nMax;
+		maxhitpoints = nMax;
+	}
+}
+
+void BasicEntanglements::SetDamage(int ndmg)
+{
+	damage = ndmg;
+}
+
+void BasicEntanglements::MakeActive()
+{
+	sprite.setTexture(*texture);
+	sprite.setPosition(SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y);
+	sprite.setRotation(180 / b2_pi * this->body->GetAngle());
+	float scaleX = static_cast<float>(sizex) / textureDead->getSize().x;
+	float scaleY = static_cast<float>(sizey) / textureDead->getSize().y;
+	sprite.setScale(scaleX, scaleY);
+	sprite.setColor(sf::Color::Red);
+	active = 1;
+	SetBodyActive();
+}
+
 void BasicEntanglements::StartContact(Entity* entity)
 {
 	if (entity->GroupID() != 1)
@@ -120,8 +156,8 @@ void BasicEntanglements::Update(sf::Time difference_time)
 	attack_timer += difference_time;
 }
 
-Door::Door(b2World * world, b2Vec2 position, sf::Texture * ntexture):
-	BasicEntanglements(world,position,ntexture)
+Door::Door(b2World * world, b2Vec2 position, sf::Texture * ntexture) :
+	BasicEntanglements(world, position, ntexture)
 {
 	sprite.setColor(sf::Color::Yellow);
 	damage = 1;
