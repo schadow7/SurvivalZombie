@@ -1,5 +1,7 @@
 #include "Game.h"
-Game::Game()
+Game::Game() :
+	mapsizex(1),
+	mapsizey(1)
 {
 	world = new b2World(b2Vec2(0.f, 0.f));
 	world->SetAllowSleeping( true );
@@ -55,18 +57,20 @@ void Game::initializeGame()
 	undeadCount = 0;
 	currentLevel = 0;
 	baseLevel = 0;
-	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
+	mapsizex = 3840;
+	mapsizey = 3840;
+	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
 	//T³o
-	background.setTexture(*AssetManager::GetTexture("background"));
-	background.setTextureRect(sf::IntRect(0, 0, 8000, 8000));
+	background.setTexture(*AssetManager::GetTexture("map"));
+	background.setTextureRect(sf::IntRect(0, 0, mapsizex, mapsizey));
 
 	engine.seed(time(0));
-	arrangeObstacles(100);
+	arrangeObstacles(25);
 	makeBase();
 	//Player
-	player = new Player(world, positionPixToWorld(sf::Vector2f(4000+55, 4000+55)));
+	player = new Player(world, positionPixToWorld(sf::Vector2f(mapsizex / 2.0f, mapsizey / 2.0f + 96)));
 	entity_manager->AddEntity(player);
 	//Bazowa broñ
 	Weapon * pistol = new Pistol(entity_manager, AssetManager::GetTexture("bullet9mm"));
@@ -140,12 +144,13 @@ void Game::Controls(sf::RenderWindow * window)
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
 		entity_manager->AddEntity(zombieTester);
+		undeadCount++;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
 		Zombie* zombieTester = new ZombieTank(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
-		zombieTester->SetAI(Zombie::Chaotic);
+		zombieTester->SetAI(Zombie::Idle);
 		entity_manager->AddEntity(zombieTester);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
@@ -230,7 +235,7 @@ void Game::Render(sf::RenderWindow * window)
 
 void Game::spawnHorde(int next_level)
 {
-	float spawnRadius = 3500 / SCALE;
+	float spawnRadius = (mapsizex/2-500) / SCALE;
 	float angle = 0;
 	b2Vec2 spawnPoint = b2Vec2_zero;
 	int type = 0;
@@ -242,9 +247,10 @@ void Game::spawnHorde(int next_level)
 		type++;
 		for (int i = 0; i < it; i++)
 		{
+			float radius = spawnRadius + angleDistribution(engine)/ SCALE;
 			angle = angleDistribution(engine)*DEGTORAD;
-			spawnPoint.x = mapCenter.x + spawnRadius * cos(angle);
-			spawnPoint.y = mapCenter.y + spawnRadius * sin(angle);
+			spawnPoint.x = mapCenter.x + radius * cos(angle);
+			spawnPoint.y = mapCenter.y + radius * sin(angle);
 			if (type == 2) zombieTmp = new ZombieTank(world, spawnPoint);
 			else if (type == 3) zombieTmp = new ZombieSprinter(world, spawnPoint);
 			else zombieTmp = new Zombie(world, spawnPoint);
@@ -280,7 +286,7 @@ void Game::arrangeObstacles(int quantity)
 		b2Vec2 spawnPoint = b2Vec2_zero;
 		int spawnRadius;
 		Obstacle* temp;
-		std::uniform_int_distribution<int>	obstacleRadiusDistribution{ 500, 4000 };
+		std::uniform_int_distribution<int>	obstacleRadiusDistribution{ 500, mapsizex/2 };
 		for (int i = 0; i < quantity; i++)
 		{
 			angle = angleDistribution(engine)*DEGTORAD;
@@ -297,7 +303,7 @@ void Game::makeBase()
 {
 	int sizex = 50;
 	int boxSize = 10;
-	sf::Vector2f position(4000 - 5 * sizex, 4000 - 5 * sizex);
+	sf::Vector2f position(mapsizex/2 - 5 * sizex, mapsizey/2 - 5 * sizex);
 	BasicEntanglements* ob;
 	TheBase* Base = new TheBase(world, mapCenter);
 	entity_manager->AddEntity(Base);

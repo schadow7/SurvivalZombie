@@ -25,7 +25,6 @@ b2Vec2 AIIdle::Move(b2Vec2 position, b2Vec2 player_position, float32 current_ang
 		float angle = dis(*engine) * DEGTORAD;
 		direction.x += turn_gain * cos(angle);
 		direction.y += turn_gain * sin(angle);
-		printf("%f\n", angle);
 	}
 
 	direction.Normalize();

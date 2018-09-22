@@ -48,6 +48,8 @@ private:
 
 	int									size1;
 	int									size2;
+	int									handgunAttackingFrames, handgunReloadingFrames, rifleAttackingFrames, rifleReloadingFrames, shotgunAttackingFrames, shotgunReloadingFrames;
+	int									currentWeaponAttackingFrames, currentWeaponReloadingFrames;
 	double								speed;
 	short int							armor;
 	double								animSpeed;
@@ -60,7 +62,7 @@ private:
 	sf::Vector2i						mousePos;
 	sf::Vector2f						cordPos;
 	sf::Clock							frameClock;
-	sf::Time							frameTime;
+	sf::Time							frameTime, recoilTime, reloadTime;
 	AnimatedSprite						animatedSprite;
 	AnimatedSprite						animatedSpriteFeet;
 	Animation*							currentAnimation;

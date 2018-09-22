@@ -51,7 +51,7 @@ void EntityManager::Update(sf::Time difference_time)
 			it = entities.erase( it );
 
 		}
-		else if ( ( *it )->Active() == 0 )
+		else if ( ( *it )->Active() == 0 && (*it)->GroupID()!=6)
 		{
 			( *it )->SetBodyInactive();
 			inactive_entities.push_back( ( *it ) );
@@ -62,6 +62,7 @@ void EntityManager::Update(sf::Time difference_time)
 			it++;
 		}
 	}
+
 }
 
 void EntityManager::Render( sf::RenderWindow * window )
