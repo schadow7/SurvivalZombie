@@ -30,7 +30,6 @@ protected:
 	int sizex2;
 	sf::Sprite sprite;
 	sf::RectangleShape hitpointsBarRed;
-	sf::RectangleShape hitpointsBarBlack;
 	AnimatedSprite			animatedSprite;
 	Animation*				currentAnimation;
 	sf::Texture				textureDead;

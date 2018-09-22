@@ -36,7 +36,8 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	b2Fixture* fixture = body->CreateFixture(&zombieFixtureDef);
 
 	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
-	hitpointsBarBlack.setFillColor(sf::Color(0, 0, 0));
+	hitpointsBarRed.setOutlineThickness( 1 );
+	hitpointsBarRed.setOutlineColor( sf::Color( 0, 0, 0 ) );
 
 
 	this->setSpriteSheets();
@@ -164,7 +165,6 @@ void Zombie::Render(sf::RenderWindow* window)
 
 	animatedSprite.setScale(float(sizey)/50.0f, float(sizey)/50.0f);
 	window->draw(animatedSprite);
-	window->draw(hitpointsBarBlack);
 	window->draw(hitpointsBarRed);
 }
 
@@ -263,7 +263,5 @@ float32 Zombie::RayCastCallback::ReportFixture(b2Fixture * fixture, const b2Vec2
 void Zombie::setupHealthbar()
 {
 	hitpointsBarRed.setSize(sf::Vector2f(int(70 * hitpoints / maxhitpoints), 5));
-	hitpointsBarBlack.setSize(sf::Vector2f(int(72 * hitpoints / maxhitpoints), 7));
 	hitpointsBarRed.setPosition(SCALE * this->body->GetPosition().x - int(35 * hitpoints / maxhitpoints), SCALE * this->body->GetPosition().y - 25);
-	hitpointsBarBlack.setPosition(SCALE * this->body->GetPosition().x - int(36 * hitpoints / maxhitpoints), SCALE * this->body->GetPosition().y - 26);
 }
