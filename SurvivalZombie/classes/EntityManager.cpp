@@ -10,6 +10,17 @@ EntityManager::EntityManager(b2World * world)
 
 EntityManager::~EntityManager()
 {
+	
+	for ( auto & it : entities )
+	{
+		delete it;
+	}
+	for ( auto & it : inactive_entities )
+	{
+		delete it;
+	}
+	delete world;
+	delete listener;
 }
 
 void EntityManager::AddEntity( Entity * entity )

@@ -1,27 +1,38 @@
 #include "Game.h"
 Game::Game()
 {
-	loadTextures();
 	world = new b2World(b2Vec2(0.f, 0.f));
 	world->SetAllowSleeping( true );
 	world->SetAutoClearForces( true );
 	world->SetWarmStarting( true );
 
 	entity_manager = new EntityManager(world);
-
 	view = new sf::View(sf::FloatRect(0, 0, 1280, 720));
 	hud = new Hud;
-	undeadCount = 0;
-	currentLevel = 0;
-	baseLevel = 0;
-	mapCenter = b2Vec2(4000 / SCALE, 4000 / SCALE);
-	previous_angle = 0.f;
-	shoot_timer = sf::seconds( 1 );
 	initializeGame();
+}
+
+Game::Game( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
+{
+	world = new b2World( b2Vec2( 0.f, 0.f ) );
+	world->SetAllowSleeping( true );
+	world->SetAutoClearForces( true );
+	world->SetWarmStarting( true );
+
+	entity_manager = new EntityManager( world );
+
+	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
+	hud = new Hud;
+
+	initializeGame( lvlState, playerState, weaponState );
 }
 
 Game::~Game()
 {
+	delete entity_manager;
+	delete hud;
+	delete view;
+
 }
 
 void Game::runGame(sf::RenderWindow * window)
@@ -41,6 +52,12 @@ void Game::runGame(sf::RenderWindow * window)
 
 void Game::initializeGame()
 {
+	undeadCount = 0;
+	currentLevel = 0;
+	baseLevel = 0;
+	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
+	previous_angle = 0.f;
+	shoot_timer = sf::seconds( 1 );
 	//T³o
 	background.setTexture(*AssetManager::GetTexture("background"));
 	background.setTextureRect(sf::IntRect(0, 0, 8000, 8000));
@@ -56,62 +73,52 @@ void Game::initializeGame()
 	player->AddWeapon(pistol);
 }
 
+void Game::initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
+{
+	undeadCount = 0;
+	currentLevel = lvlState.level;
+	baseLevel = lvlState.base_level;
+	points = lvlState.points;
+	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
+	previous_angle = 0.f;
+	shoot_timer = sf::seconds( 1 );
+	//T³o
+	background.setTexture( *AssetManager::GetTexture( "background" ) );
+	background.setTextureRect( sf::IntRect( 0, 0, 8000, 8000 ) );
+
+	engine.seed( time( 0 ) );
+	arrangeObstacles( 100 );
+	makeBase();
+	//Player
+	player = new Player( world, positionPixToWorld( sf::Vector2f( 4000 + 55, 4000 + 55 ) ), playerState );
+	entity_manager->AddEntity( player );
+	//Dodawanie broni
+	Weapon * tmp;
+	for ( auto & it : weaponState )
+	{
+		if ( it.type == WeaponType::PISTOL )
+		{
+			tmp = new Pistol( entity_manager, AssetManager::GetTexture( "bullet9mm" ), it );
+			player->AddWeapon( tmp );
+		}
+		if ( it.type == WeaponType::RIFLE )
+		{
+			//tmp = new Pistol( entity_manager, AssetManager::GetTexture( "bullet9mm" ), it );
+			//player->AddWeapon( tmp );
+		}
+		if ( it.type == WeaponType::SHOTGUN )
+		{
+			//tmp = new Pistol( entity_manager, AssetManager::GetTexture( "bullet9mm" ), it );
+			//player->AddWeapon( tmp );
+		}
+
+	}
+
+}
+
 void Game::loadTextures()
 {
-	//£adowanie tekstur Asset Managerem
-	//Podstawowe
-	sf::Texture * tmp = new sf::Texture;
-	tmp->loadFromFile(".\\graphics\\background.png");
-	tmp->setRepeated(true);
-	tmp->setSmooth(true);
-	AssetManager::AddTexture("background", tmp);
-	AssetManager::AddTexture("grad2", ".\\graphics\\grad2.png");
-
-	//Hud
-	AssetManager::AddTexture("handgun", ".\\graphics\\hud\\handgun.png");
-	AssetManager::AddTexture("rifle", ".\\graphics\\hud\\rifle.png");
-	AssetManager::AddTexture("shotgun", ".\\graphics\\hud\\shotgun.png");
-	AssetManager::AddTexture("9mm", ".\\graphics\\hud\\9mm.png");
-	AssetManager::AddTexture("7.62mm", ".\\graphics\\hud\\7.62mm.png");
-	AssetManager::AddTexture("12gauge", ".\\graphics\\hud\\12gauge.png");
-
-	//Animacje gracza
-	AssetManager::AddTexture("bullet9mm", ".\\graphics\\animations\\bullet9mm.png");
-
-	AssetManager::AddTexture("playerFeetWalkingAnimation", ".\\graphics\\animations\\player\\playerFeetWalkingAnimation.png");
-	AssetManager::AddTexture("playerFeetIdleAnimation", ".\\graphics\\animations\\player\\playerFeetIdleAnimation.png");
 	
-	AssetManager::AddTexture("playerHandgunWalkingAnimation", ".\\graphics\\animations\\player\\playerHandgunWalkingAnimation.png");
-	AssetManager::AddTexture("playerHandgunIdleAnimation", ".\\graphics\\animations\\player\\playerHandgunIdleAnimation.png");
-	AssetManager::AddTexture("playerHandgunAttackingAnimation", ".\\graphics\\animations\\player\\playerHandgunAttackingAnimation.png");
-	AssetManager::AddTexture("playerHandgunReloadingAnimation", ".\\graphics\\animations\\player\\playerHandgunReloadingAnimation.png");
-	
-	AssetManager::AddTexture("playerRifleWalkingAnimation", ".\\graphics\\animations\\player\\playerRifleWalkingAnimation.png");
-	AssetManager::AddTexture("playerRifleIdleAnimation", ".\\graphics\\animations\\player\\playerRifleIdleAnimation.png");
-	AssetManager::AddTexture("playerRifleAttackingAnimation", ".\\graphics\\animations\\player\\playerRifleAttackingAnimation.png");
-	AssetManager::AddTexture("playerRifleReloadingAnimation", ".\\graphics\\animations\\player\\playerRifleReloadingAnimation.png");
-	
-	AssetManager::AddTexture("playerShotgunWalkingAnimation", ".\\graphics\\animations\\player\\playerShotgunWalkingAnimation.png");
-	AssetManager::AddTexture("playerShotgunIdleAnimation", ".\\graphics\\animations\\player\\playerShotgunIdleAnimation.png");
-	AssetManager::AddTexture("playerShotgunAttackingAnimation", ".\\graphics\\animations\\player\\playerShotgunAttackingAnimation.png");
-	AssetManager::AddTexture("playerShotgunReloadingAnimation", ".\\graphics\\animations\\player\\playerShotgunReloadingAnimation.png");
-	
-	//Animacje zombie
-	AssetManager::AddTexture("zombie40WalkingAnimation", ".\\graphics\\animations\\zombie40\\zombie40WalkingAnimation.png");
-	AssetManager::AddTexture("zombie40AttackingAnimation", ".\\graphics\\animations\\zombie40\\zombie40AttackingAnimation.png");
-	AssetManager::AddTexture("zombie40IdleAnimation", ".\\graphics\\animations\\zombie40\\zombie40IdleAnimation.png");
-	AssetManager::AddTexture("zombie40Dead", ".\\graphics\\animations\\zombie40\\zombie40Dead.png");
-
-
-	AssetManager::AddTexture("zombie50WalkingAnimation", ".\\graphics\\animations\\zombie50\\zombie50WalkingAnimation.png");
-	AssetManager::AddTexture("zombie50AttackingAnimation", ".\\graphics\\animations\\zombie50\\zombie50AttackingAnimation.png");
-	AssetManager::AddTexture("zombie50IdleAnimation", ".\\graphics\\animations\\zombie50\\zombie50IdleAnimation.png");
-	AssetManager::AddTexture("zombie50Dead", ".\\graphics\\animations\\zombie50\\zombie50Dead.png");
-
-	AssetManager::AddTexture("zombie60WalkingAnimation", ".\\graphics\\animations\\zombie60\\zombie60WalkingAnimation.png");
-	AssetManager::AddTexture("zombie60AttackingAnimation", ".\\graphics\\animations\\zombie60\\zombie60AttackingAnimation.png");
-	AssetManager::AddTexture("zombie60IdleAnimation", ".\\graphics\\animations\\zombie60\\zombie60IdleAnimation.png");
-	AssetManager::AddTexture("zombie60Dead", ".\\graphics\\animations\\zombie60\\zombie60Dead.png");
 }
 
 void Game::Controls(sf::RenderWindow * window)

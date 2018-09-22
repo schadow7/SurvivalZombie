@@ -42,8 +42,12 @@ int Entity::GetID()
 
 Entity::~Entity()
 {
-	this->body->SetUserData( nullptr );
-	this->body->GetWorld()->DestroyBody( body );
+	if ( body )
+	{
+		this->body->SetUserData( nullptr );
+		this->body->GetWorld()->DestroyBody( body );
+	}
+
 	for ( auto & it : effects )
 	{
 		delete it;

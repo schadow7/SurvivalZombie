@@ -47,7 +47,7 @@ Player::Player( b2World * world, b2Vec2 position, player_state playerState ) : D
 	animSpeed = 0.05;
 	maxhitpoints = playerState.max_hitpoints;
 	armor = playerState.armor;
-	hitpoints = hitpoints;
+	hitpoints = maxhitpoints;
 	speed = playerState.speed;
 	groupID = 1;
 	//fixture
