@@ -72,8 +72,10 @@ void MainWindow::saveGame( SaveSlot slot )
 {
 	level_state lvlState = { 2, 2000, 3 };
 	player_state playerState = { 100, 10, 3.0 };
-	weapon_features weaponState = { WeaponType::PISTOL, 10, 6, 120, sf::milliseconds( 400 ), sf::milliseconds( 1000 ), 20.0, 10.0 };
-	weapon_features weaponState = { WeaponType::RIFLE, 30, 16, 150, sf::milliseconds( 300 ), sf::milliseconds( 1000 ), 40.0, 15.0 };
+	std::vector<weapon_features> weapons;	
+	weapon_features weaponState = { WeaponType::PISTOL, 10, 6, 120, sf::milliseconds( 400 ), sf::milliseconds( 1000 ), 20.0, 10.0 };	weapons.push_back( weaponState );
+	weaponState = { WeaponType::RIFLE, 30, 16, 150, sf::milliseconds( 300 ), sf::milliseconds( 1000 ), 40.0, 15.0 };					weapons.push_back( weaponState );
+	
 	std::string filename = "\\savegames\\saveslot" + std::to_string( static_cast< int >( slot ) ) + ".save";
 
 	//std::ofstream ofs( filename.c_str(), std::ios::binary );
