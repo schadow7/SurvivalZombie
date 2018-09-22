@@ -1,5 +1,7 @@
 #include "Game.h"
-Game::Game()
+Game::Game() :
+	mapsizex(1),
+	mapsizey(1)
 {
 	world = new b2World(b2Vec2(0.f, 0.f));
 	world->SetAllowSleeping( true );
@@ -55,7 +57,8 @@ void Game::initializeGame()
 	undeadCount = 0;
 	currentLevel = 0;
 	baseLevel = 0;
-	int mapsizex = 3840, mapsizey = 3840;
+	mapsizex = 3840;
+	mapsizey = 3840;
 	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -299,7 +302,7 @@ void Game::makeBase()
 {
 	int sizex = 50;
 	int boxSize = 10;
-	sf::Vector2f position(4000 - 5 * sizex, 4000 - 5 * sizex);
+	sf::Vector2f position(mapsizex/2 - 5 * sizex, mapsizey/2 - 5 * sizex);
 	BasicEntanglements* ob;
 	TheBase* Base = new TheBase(world, mapCenter);
 	entity_manager->AddEntity(Base);
