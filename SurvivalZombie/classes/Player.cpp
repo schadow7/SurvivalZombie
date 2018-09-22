@@ -106,9 +106,7 @@ void Player::Render( sf::RenderWindow * window )
 	direction1.Normalize();
 
 	setAnimationsForCurrentWeapontype();
-	if (currentAnimation == &attackingAnimationRifle || currentAnimation == &attackingAnimationShotgun) animatedSprite.setOrigin(size2 / 2.f, size2 / 2.f);
-	else animatedSprite.setOrigin(size1 / 2.f, size1 / 2.f);
-
+	
 	frameTime = frameClock.restart();
 	
 	animatedSprite.update(frameTime);
@@ -131,6 +129,9 @@ void Player::Render( sf::RenderWindow * window )
 		currentAnimation = idleAnimation;
 		animatedSprite.play(*currentAnimation);
 	}
+
+	if ((currentAnimation == &attackingAnimationRifle || currentAnimation == &attackingAnimationShotgun) && animatedSprite.isPlaying()) animatedSprite.setOrigin(size2 / 2.f, size2 / 2.f);
+	else animatedSprite.setOrigin(size1 / 2.f, size1 / 2.f);
 
 	window->draw(animatedSpriteFeet);
 	window->draw(animatedSprite);
@@ -174,7 +175,7 @@ void Player::Reload()
 	if ( current_weapon && this->canReload() )
 	{
 		current_weapon->Reload();
-		currentAnimation = &reloadingAnimationHandgun;
+		currentAnimation = reloadingAnimation;
 		animatedSprite.play(*currentAnimation);
 	}
 }
@@ -184,7 +185,7 @@ void Player::Shoot( b2Vec2 direction, sf::Time difference_time )
 	if ( current_weapon && this->canShoot() )
 	{
 		current_weapon->Shoot(body->GetPosition(), body->GetAngle(), direction, difference_time);
-		currentAnimation = &attackingAnimationHandgun;
+		currentAnimation = attackingAnimation;
 		animatedSprite.play(*currentAnimation);
 	}
 }
