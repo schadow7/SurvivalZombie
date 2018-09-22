@@ -33,7 +33,9 @@ private:
 	GameState								runDefaultMenuClicked();
 	GameState								runNewGameMenuClicked();
 	GameState								runLoadGameMenuClicked();
-
+	bool									checkSlot( SaveSlot slot );
+	void									formatText( sf::Text & text );
+	void									setTextSlot();
 	sf::RenderWindow *						window;
 	Game *									game;
 	sf::Sprite								backgroundMenu, button[MAX_NUMBER_OF_ITEMS * 2];
@@ -45,4 +47,8 @@ private:
 	MenuType								menuType;
 	GameState								gameState;
 	sf::Font								fontType;
+	level_state								bufor;
+	sf::Text								textSlot[3];
+	sf::View *								view;
+	SaveSlot								currentSlot;
 };

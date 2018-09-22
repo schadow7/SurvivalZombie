@@ -20,10 +20,14 @@ MainWindow::MainWindow()
 	fontType.loadFromFile("cambria.ttc");
 	menuType = MenuType::DEFAULT;
 	loadTextures();
-	//Stworzenie gry
-	newGame();
-
-
+	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
+	window->setView( *view );
+	int popX = 100;
+	int popY = -20;
+	currentSlot = SaveSlot::SLOT_1;
+	formatText( textSlot[0] );	textSlot[0].setPosition( sf::Vector2f( posX + popX, posY + popY ) );
+	formatText( textSlot[1] );	textSlot[1].setPosition( sf::Vector2f( posX + popX, posY + popY + spacing * dspacing ) );
+	formatText( textSlot[2] );	textSlot[2].setPosition( sf::Vector2f( posX + popX, posY + popY + spacing * dspacing * 2 ) );
 }
 
 MainWindow::~MainWindow()
@@ -41,11 +45,19 @@ void MainWindow::run(  )
 		{
 			// Close window: exit
 			if ( event.type == sf::Event::Closed )
-				window->close();
-			if ( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::K )
 			{
-				saveGame( SaveSlot::SLOT_2 );
-				loadGame( SaveSlot::SLOT_2 );
+				if ( game )
+					saveGame( currentSlot );
+				window->close();
+			}
+			if ( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape )
+			{
+				if ( game )
+					saveGame( currentSlot );
+				gameState = GameState::MENU;
+				menuType = MenuType::DEFAULT;
+				window->setView( *view );
+				draw();
 			}
 		}
 		if ( gameState == GameState::MENU)
@@ -69,6 +81,7 @@ void MainWindow::run(  )
 
 void MainWindow::newGame()
 {
+	delete game;
 	game = new Game;
 }
 
@@ -123,8 +136,6 @@ void MainWindow::saveGame( SaveSlot slot )
 	level_state lvlState = game->GetLevelState();
 	player_state playerState = game->GetPlayerState();
 	std::vector<weapon_features> weapons = game->GetWeaponState();
-	//weapon_features weaponState = { WeaponType::PISTOL, 10, 6, 120, sf::milliseconds( 400 ), sf::milliseconds( 1000 ), 20.0, 10.0 };	weapons.push_back( weaponState );
-	//weaponState = { WeaponType::RIFLE, 30, 16, 150, sf::milliseconds( 300 ), sf::milliseconds( 1000 ), 40.0, 15.0 };					weapons.push_back( weaponState );
 	
 	std::string filename = "savegames\\saveslot" + std::to_string( static_cast< int >( slot ) ) + ".bin";
 
@@ -308,8 +319,12 @@ void MainWindow::runDefaultMenu()
 	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
 	{
-		selectedButton = 1;
-		clicked = true;
+		if ( game )
+		{
+			selectedButton = 1;
+			clicked = true;
+		}
+
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + spacing && mouseY <= shadow + posY + spacing + height1))
@@ -333,23 +348,33 @@ void MainWindow::runDefaultMenu()
 
 void MainWindow::runNewGameMenu()
 {
+
 	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY && mouseY <= shadow + posY + dposY + height2))
 	{
 		selectedButton = 9;
 		clicked = true;
+		newGame();
+		currentSlot = SaveSlot::SLOT_1;
+		saveGame( SaveSlot::SLOT_1 );
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing && mouseY <= shadow + posY + dposY + spacing * dspacing + height2))
 	{
 		selectedButton = 11;
 		clicked = true;
+		newGame();
+		currentSlot = SaveSlot::SLOT_2;
+		saveGame( SaveSlot::SLOT_2 );
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing * 2 && mouseY <= shadow + posY + dposY + spacing * dspacing * 2 + height2))
 	{
 		selectedButton = 13;
 		clicked = true;
+		newGame();
+		currentSlot = SaveSlot::SLOT_3;
+		saveGame( SaveSlot::SLOT_3 );
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing * 3 && mouseY <= shadow + posY + dposY + spacing * dspacing * 3 + height1))
@@ -364,20 +389,36 @@ void MainWindow::runLoadGameMenu()
 	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY && mouseY <= shadow + posY + dposY + height2))
 	{
-		selectedButton = 9;
-		clicked = true;
+		if ( checkSlot( SaveSlot::SLOT_1 ) )
+		{
+			selectedButton = 9;
+			clicked = true;
+			currentSlot = SaveSlot::SLOT_1;
+			loadGame( SaveSlot::SLOT_1 );
+		}
+
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing && mouseY <= shadow + posY + dposY + spacing * dspacing + height2))
 	{
-		selectedButton = 11;
-		clicked = true;
+		if ( checkSlot( SaveSlot::SLOT_2 ) )
+		{
+			selectedButton = 11;
+			clicked = true;
+			currentSlot = SaveSlot::SLOT_2;
+			loadGame( SaveSlot::SLOT_2 );
+		}
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing * 2 && mouseY <= shadow + posY + dposY + spacing * dspacing * 2 + height2))
 	{
-		selectedButton = 13;
-		clicked = true;
+		if ( checkSlot( SaveSlot::SLOT_3 ) )
+		{
+			selectedButton = 13;
+			clicked = true;
+			currentSlot = SaveSlot::SLOT_3;
+			loadGame( SaveSlot::SLOT_3 );
+		}
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing * 3 && mouseY <= shadow + posY + dposY + spacing * dspacing * 3 + height1))
@@ -392,7 +433,10 @@ GameState MainWindow::runDefaultMenuClicked()
 	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
 	{
-		return GameState::RUNNING;
+		if( game )
+			return GameState::RUNNING;
+		else
+			return GameState::MENU;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + spacing && mouseY <= shadow + posY + spacing + height1))
@@ -465,25 +509,118 @@ GameState MainWindow::runLoadGameMenuClicked()
 	return GameState::MENU;
 }
 
+
+
+
+
 void MainWindow::draw()
 {
+	window->clear();
 	window->draw( backgroundMenu );
 
-	if (menuType == MenuType::DEFAULT)
-		for (int i = 0; i < 4; i++)
-		{
-			window->draw(button[i * 2]);
-		}
-	else if (menuType == MenuType::NEWGAME)
-		for (int i = 4; i < 8; i++)
-		{
-			window->draw(button[i * 2]);
-		}
-	else if (menuType == MenuType::LOADGAME)
-		for (int i = 4; i < 8; i++)
-		{
-			window->draw(button[i * 2]);
-		}
 
-	if ( clicked ) window->draw( button[selectedButton] );
+	if ( menuType == MenuType::DEFAULT )
+	{
+		if ( !game )
+			button[0].setColor( sf::Color( 40, 40, 40 ) );
+		else
+			button[0].setColor( sf::Color( 255, 255, 255 ) );
+		for ( int i = 0; i < 4; i++ )
+		{
+			window->draw( button[i * 2] );
+		}
+	}
+	else if ( menuType == MenuType::NEWGAME  )
+	{
+		for ( int i = 4; i < 8; i++ )
+		{
+			button[i * 2].setColor( sf::Color( 255, 255, 255 ) );
+			window->draw( button[i * 2] );
+		}
+	}
+	else if ( menuType == MenuType::LOADGAME )
+	{
+		if ( !checkSlot( SaveSlot::SLOT_1 ) )
+			button[8].setColor( sf::Color( 40, 40, 40 ) );
+		else
+			button[8].setColor( sf::Color( 255, 255, 255 ) );
+		if ( !checkSlot( SaveSlot::SLOT_2 ) )
+			button[10].setColor( sf::Color( 40, 40, 40 ) );
+		else
+			button[10].setColor( sf::Color( 255, 255, 255 ) );
+		if ( !checkSlot( SaveSlot::SLOT_3 ) )
+			button[12].setColor( sf::Color( 40, 40, 40 ) );
+		else
+			button[12].setColor( sf::Color( 255, 255, 255 ) );
+
+		for ( int i = 4; i < 8; i++ )
+		{
+			window->draw( button[i * 2] );
+		}
+	}
+	 if ( clicked )
+		window->draw( button[selectedButton] );
+
+	 if ( menuType == MenuType::LOADGAME || menuType == MenuType::NEWGAME )
+	 {
+		 setTextSlot();
+		 window->draw( textSlot[0] );
+		 window->draw( textSlot[1] );
+		 window->draw( textSlot[2] );
+	 }
+}
+
+bool MainWindow::checkSlot( SaveSlot slot )
+{
+	level_state lvlState;
+	std::string filename = "savegames\\saveslot" + std::to_string( static_cast< int >( slot ) ) + ".bin";
+
+	std::ifstream file( filename.c_str(), std::ios::binary );
+	if ( file.good() )
+	{
+		file.read( ( char * )& lvlState, sizeof level_state );
+		bufor = lvlState;
+		file.close();
+		return true;
+	}
+	else
+		return false;
+}
+
+void MainWindow::formatText( sf::Text & text )
+{
+	text.setFont( fontType );
+	text.setCharacterSize( 30 );
+	text.setFillColor( sf::Color::White );
+	//text.setStyle( sf::Text::Bold );
+	text.setOutlineColor( sf::Color::Black );
+	text.setOutlineThickness( 1 );
+}
+
+void MainWindow::setTextSlot()
+{
+	if ( checkSlot( SaveSlot::SLOT_1 ) )
+	{
+		std::string tmp = "Level: " + std::to_string( bufor.level );
+		textSlot[0].setString( sf::String( tmp ) );
+	}
+	else
+		textSlot[0].setString( " Empty" );
+
+	if ( checkSlot( SaveSlot::SLOT_2 ) )
+	{
+		std::string tmp = "Level: " + std::to_string( bufor.level );
+		textSlot[1].setString( sf::String( tmp ) );
+	}
+	else
+		textSlot[1].setString( " Empty" );
+
+	if ( checkSlot( SaveSlot::SLOT_3 ) )
+	{
+		std::string tmp = "Level: " + std::to_string( bufor.level );
+		textSlot[2].setString( sf::String( tmp ) );
+	}
+	else
+		textSlot[2].setString( " Empty" );
+
 }
