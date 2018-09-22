@@ -5,6 +5,7 @@ EntityManager::EntityManager(b2World * world)
 {
 	this->world = world;
 	listener = new ContactListener( world );
+	new ContactFilter(world);
 }
 
 EntityManager::~EntityManager()

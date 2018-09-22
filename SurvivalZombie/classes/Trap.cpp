@@ -119,3 +119,15 @@ void BasicEntanglements::Update(sf::Time difference_time)
 {
 	attack_timer += difference_time;
 }
+
+Door::Door(b2World * world, b2Vec2 position, sf::Texture * ntexture):
+	BasicEntanglements(world,position,ntexture)
+{
+	sprite.setColor(sf::Color::Yellow);
+	damage = 0;
+	groupID = 9;
+}
+
+Door::~Door()
+{
+}

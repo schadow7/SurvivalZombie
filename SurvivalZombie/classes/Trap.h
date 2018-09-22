@@ -30,3 +30,12 @@ protected:
 private:
 	sf::Texture* textureDead;
 };
+
+class Door :
+	public BasicEntanglements
+{
+public:
+	Door(b2World* world, b2Vec2 position, sf::Texture* ntexture = AssetManager::GetTexture("grad2"));
+	~Door();
+};
+

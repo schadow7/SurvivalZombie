@@ -9,9 +9,9 @@ Game::Game()
 	hud = new Hud;
 	undeadCount = 0;
 	currentLevel = 0;
-	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
+	mapCenter = b2Vec2(4000 / SCALE, 4000 / SCALE);
 	previous_angle = 0.f;
-	shoot_timer = sf::seconds( 1 );
+	shoot_timer = sf::seconds(1);
 }
 
 Game::~Game()
@@ -27,17 +27,17 @@ void Game::runGame(sf::RenderWindow * window)
 	//Sterowanie graczem i nie tylko
 	Controls(window);
 
-	window->draw( background );
-	entity_manager->Update( clock.restart() );
-	entity_manager->Render( window );
-	hud->Render( window, view, player );
+	window->draw(background);
+	entity_manager->Update(clock.restart());
+	entity_manager->Render(window);
+	hud->Render(window, view, player);
 }
 
 void Game::initializeGame()
 {
 	//T³o
-	background.setTexture( *AssetManager::GetTexture( "background" ) );
-	background.setTextureRect( sf::IntRect( 0, 0, 8000, 8000 ) );
+	background.setTexture(*AssetManager::GetTexture("background"));
+	background.setTextureRect(sf::IntRect(0, 0, 8000, 8000));
 
 	engine.seed(time(0));
 	arrangeObstacles(100);
@@ -46,7 +46,7 @@ void Game::initializeGame()
 	player = new Player(world, positionPixToWorld(sf::Vector2f(4000, 4000)));
 	entity_manager->AddEntity(player);
 	//Bazowa broñ
-	Weapon * pistol = new Pistol( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
+	Weapon * pistol = new Pistol(entity_manager, AssetManager::GetTexture("bullet9mm"));
 	player->AddWeapon(pistol);
 }
 
@@ -55,19 +55,19 @@ void Game::loadTextures()
 	//£adowanie tekstur Asset Managerem
 	//Podstawowe
 	sf::Texture * tmp = new sf::Texture;
-	tmp->loadFromFile( ".\\graphics\\background.png" );
-	tmp->setRepeated( true );
-	tmp->setSmooth( true );
-	AssetManager::AddTexture( "background", tmp );
-	AssetManager::AddTexture( "grad2", ".\\graphics\\grad2.png" );
-	
+	tmp->loadFromFile(".\\graphics\\background.png");
+	tmp->setRepeated(true);
+	tmp->setSmooth(true);
+	AssetManager::AddTexture("background", tmp);
+	AssetManager::AddTexture("grad2", ".\\graphics\\grad2.png");
+
 	//Hud
-	AssetManager::AddTexture( "handgun", ".\\graphics\\hud\\handgun.png" );
-	AssetManager::AddTexture( "rifle", ".\\graphics\\hud\\rifle.png" );
-	AssetManager::AddTexture( "shotgun", ".\\graphics\\hud\\shotgun.png" );
-	AssetManager::AddTexture( "9mm", ".\\graphics\\hud\\9mm.png" );
-	AssetManager::AddTexture( "7.62mm", ".\\graphics\\hud\\7.62mm.png" );
-	AssetManager::AddTexture( "12gauge", ".\\graphics\\hud\\12gauge.png"  );
+	AssetManager::AddTexture("handgun", ".\\graphics\\hud\\handgun.png");
+	AssetManager::AddTexture("rifle", ".\\graphics\\hud\\rifle.png");
+	AssetManager::AddTexture("shotgun", ".\\graphics\\hud\\shotgun.png");
+	AssetManager::AddTexture("9mm", ".\\graphics\\hud\\9mm.png");
+	AssetManager::AddTexture("7.62mm", ".\\graphics\\hud\\7.62mm.png");
+	AssetManager::AddTexture("12gauge", ".\\graphics\\hud\\12gauge.png");
 
 	//Animacje
 	AssetManager::AddTexture("bullet9mm", ".\\graphics\\animations\\bullet9mm.png");
@@ -147,7 +147,7 @@ void Game::Controls(sf::RenderWindow * window)
 		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(cordPos));
 		entity_manager->AddEntity(ob);
 		ob->SetAngle(90);
-	
+
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) entity_manager->KillEverybody();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) player->Reload();
@@ -156,24 +156,24 @@ void Game::Controls(sf::RenderWindow * window)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocity += b2Vec2(-1, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocity += b2Vec2(1, 0);
 
-	if (undeadCount <= 0)
-	{
-		currentLevel++;
-		spawnHorde(currentLevel);
-		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
-	}
+	//if (undeadCount <= 0)
+	//{
+	//	currentLevel++;
+	//	spawnHorde(currentLevel);
+	//	printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
+	//}
 
 	shoot_timer += clock.getElapsedTime();
-	if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		player->Shoot( normalize_direction, shoot_timer );
-		shoot_timer = sf::seconds( 0 );
+		player->Shoot(normalize_direction, shoot_timer);
+		shoot_timer = sf::seconds(0);
 	}
 
 
-	player->SetVelocity( velocity );
-	if ( 100.f * b2Distance( positionPixToWorld( cordPos ), positionPixToWorld( player->GetPosition() ) ) > 50.f )
-		previous_angle = atan2f( normalize_direction.y, normalize_direction.x ); player->SetAngle( previous_angle );
+	player->SetVelocity(velocity);
+	if (100.f * b2Distance(positionPixToWorld(cordPos), positionPixToWorld(player->GetPosition())) > 50.f)
+		previous_angle = atan2f(normalize_direction.y, normalize_direction.x); player->SetAngle(previous_angle);
 }
 
 void Game::update(Entity * ptr)
@@ -253,36 +253,50 @@ void Game::arrangeObstacles(int quantity)
 void Game::makeBase()
 {
 	int sizex = 50;
+	int boxSize = 10;
 	sf::Vector2f position(4000 - 5 * sizex, 4000 - 5 * sizex);
-	for (int i = 0; i < 10; i++)
+	BasicEntanglements* ob;
+	for (int i = 0; i < boxSize; i++)
 	{
-		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(position));
+		if (i != floor(boxSize/2))
+			ob = new BasicEntanglements(world, positionPixToWorld(position));
+		else
+			ob = new Door(world, positionPixToWorld(position));
 		entity_manager->AddEntity(ob);
 		ob->SetAngle(90);
 		position.x += sizex;
 	}
-	position.x -= sizex/4;
+	position.x -= sizex / 4;
 	position.y += sizex / 4;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < boxSize; i++)
 	{
-		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(position));
+		if (i != floor(boxSize / 2))
+			ob = new BasicEntanglements(world, positionPixToWorld(position));
+		else
+			ob = new Door(world, positionPixToWorld(position));
 		entity_manager->AddEntity(ob);
 		position.y += sizex;
 	}
 	position.y -= sizex / 4;
 	position.x -= sizex / 4;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < boxSize; i++)
 	{
-		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(position));
+		if (i != floor(boxSize / 2))
+			ob = new BasicEntanglements(world, positionPixToWorld(position));
+		else
+			ob = new Door(world, positionPixToWorld(position));
 		entity_manager->AddEntity(ob);
 		ob->SetAngle(90);
 		position.x -= sizex;
 	}
 	position.x += sizex / 4;
 	position.y -= sizex / 4;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < boxSize; i++)
 	{
-		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(position));
+		if (i != floor(boxSize / 2))
+			ob = new BasicEntanglements(world, positionPixToWorld(position));
+		else
+			ob = new Door(world, positionPixToWorld(position));
 		entity_manager->AddEntity(ob);
 		position.y -= sizex;
 	}

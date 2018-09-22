@@ -60,3 +60,4 @@ private:
 	void									makeBase();
 	std::vector<BasicEntanglements*>		base;
 };
+
