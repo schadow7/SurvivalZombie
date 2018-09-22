@@ -62,6 +62,18 @@ void EntityManager::Update(sf::Time difference_time)
 			it++;
 		}
 	}
+	//przerzucanie obiektów z listy nieaktywnych do aktywnych
+	for (std::list<Entity*>::iterator it = inactive_entities.begin(); it != inactive_entities.end(); )
+	{
+		if ((*it)->Active() == 1)
+		{
+			entities.push_back(*it);
+			it = inactive_entities.erase(it);
+		}
+		else
+		it++;
+
+	}
 }
 
 void EntityManager::Render( sf::RenderWindow * window )
