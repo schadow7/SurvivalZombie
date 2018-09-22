@@ -7,7 +7,7 @@ BasicEntanglements::BasicEntanglements(b2World* world, b2Vec2 position, sf::Text
 {
 	//base stats 
 	groupID = 6;
-	damage = 5;
+	damage = 0;
 	hitpoints = 100;
 	maxhitpoints = 100;
 	attack_cooldown = sf::milliseconds(500);
@@ -160,7 +160,7 @@ Door::Door(b2World * world, b2Vec2 position, sf::Texture * ntexture) :
 	BasicEntanglements(world, position, ntexture)
 {
 	sprite.setColor(sf::Color::Yellow);
-	damage = 1;
+	damage = 0;
 	groupID = 9;
 }
 

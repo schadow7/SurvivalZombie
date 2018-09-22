@@ -44,7 +44,7 @@ void Game::initializeGame()
 	arrangeObstacles(100);
 	makeBase();
 	//Player
-	player = new Player(world, positionPixToWorld(sf::Vector2f(4000, 4000)));
+	player = new Player(world, positionPixToWorld(sf::Vector2f(4000+55, 4000+55)));
 	entity_manager->AddEntity(player);
 	//Bazowa broñ
 	Weapon * pistol = new Pistol(entity_manager, AssetManager::GetTexture("bullet9mm"));
@@ -136,19 +136,16 @@ void Game::Controls(sf::RenderWindow * window)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
-		Entity* ob = new BasicEntanglements(world, positionPixToWorld(cordPos));
-		entity_manager->AddEntity(ob);
+			currentLevel++;
+			spawnHorde(currentLevel);
+			printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
-		BasicEntanglements* ob = new BasicEntanglements(world, positionPixToWorld(cordPos));
+		StaticBody* ob = new TheBase(world, positionPixToWorld(cordPos));
 		entity_manager->AddEntity(ob);
-		ob->SetAngle(90);
-
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
@@ -261,6 +258,8 @@ void Game::makeBase()
 	int boxSize = 10;
 	sf::Vector2f position(4000 - 5 * sizex, 4000 - 5 * sizex);
 	BasicEntanglements* ob;
+	TheBase* Base = new TheBase(world, mapCenter);
+	entity_manager->AddEntity(Base);
 	for (int i = 0; i < boxSize; i++)
 	{
 		ob=spawnWall(i, boxSize, position);

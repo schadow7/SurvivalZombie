@@ -26,6 +26,8 @@ void Entity::TakeDamage( float32 damage )
 	{
 		active = 0;
 	}
+	if (hitpoints > maxhitpoints)
+		hitpoints = maxhitpoints;
 }
 
 b2Vec2 Entity::GetPosition() const

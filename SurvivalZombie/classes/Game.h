@@ -16,6 +16,7 @@
 #include <random>
 #include "Obstacle.h"
 #include "Trap.h"
+#include "TheBase.h"
 
 
 class Game:

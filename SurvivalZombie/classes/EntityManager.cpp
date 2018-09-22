@@ -72,6 +72,7 @@ void EntityManager::KillEverybody()
 {
 	for (auto & it : entities)
 	{
+		if (it->GetID()!=1)
 		it->TakeDamage(1000);
 	}
 }
