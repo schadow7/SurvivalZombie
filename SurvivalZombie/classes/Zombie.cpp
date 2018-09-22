@@ -5,10 +5,10 @@
 #include "AIChaotic.h"
 #include "AIAggressive.h"
 #include "AIIdle.h"
+
 Zombie::Zombie(b2World *world, b2Vec2 position) :
 	DynamicBody(world, position),
 	speed(1),
-	sizey(50),
 	world(world),
 	animSpeed(0.03)
 {
@@ -19,9 +19,9 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	damage = 5;
 	attack_cooldown = sf::milliseconds( 500 );
 	attack_timer = sf::milliseconds( 520 );
-	//AI = new AIAggressive(world);
-	//AIType = new AIChaotic(world);
+	
 	AI = new AIIdle(world);
+
 	//fixture
 	b2CircleShape zombieShape;
 	zombieShape.m_radius = sizey/2/SCALE;
@@ -34,38 +34,18 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
 	hitpointsBarBlack.setFillColor(sf::Color(0, 0, 0));
 
-	int sizex1 = 46;
-	int sizex2 = 54;
-	int sizey = 50;
+	sizex1 = 46;
+	sizex2 = 54;
+	sizey = 50;
 
-	textureWalkingAnimation.loadFromFile(".\\graphics\\animations\\zombie50\\zombie50WalkingAnimation.png");
-	textureWalkingAnimation.setSmooth(1);
-	textureAttackingAnimation.loadFromFile(".\\graphics\\animations\\zombie50\\zombie50AttackingAnimation.png");
-	textureAttackingAnimation.setSmooth(1);
-	textureIdleAnimation.loadFromFile(".\\graphics\\animations\\zombie50\\zombie50IdleAnimation.png");
-	textureIdleAnimation.setSmooth(1);
-	textureDead.loadFromFile( ".\\graphics\\dead.png" );
-	textureDead.setSmooth(1);
+	setSpriteSheets();
 
-	walkingAnimation.setSpriteSheet(textureWalkingAnimation);
-	attackingAnimation.setSpriteSheet(textureAttackingAnimation);
-	idleAnimation.setSpriteSheet(textureIdleAnimation);
-	for (int i = 0; i <= 16; i++)
-	{
-		walkingAnimation.addFrame(sf::IntRect(i * sizex1, 0, sizex1, sizey));
-	}
-	for (int i = 0; i <= 8; i++)
-	{
-		attackingAnimation.addFrame(sf::IntRect(i * sizex2, 0, sizex2, sizey));
-	}
-	for (int i = 0; i <= 16; i++)
-	{
-		idleAnimation.addFrame(sf::IntRect(i * sizex2, 0, sizex2, sizey));
-	}
+	addFramesToAnimations();
 
-	currentAnimation = &walkingAnimation;
+	currentAnimation = &idleAnimation;
 	animatedSprite = AnimatedSprite(sf::seconds(animSpeed), true, false);
-	animatedSprite.setOrigin(sizex1/2, sizey/2);
+	animatedSprite.setOrigin(sizex2/2.0f, sizey/2.0f);
+	animatedSprite.play(*currentAnimation);
 }
 
 Zombie::~Zombie()
@@ -77,6 +57,7 @@ void Zombie::Action(b2Vec2 player_position)  //deprecated
 {
 	;
 }
+
 void Zombie::TakeDamage( float32 damage )
 {
 	hitpoints -= damage;
@@ -86,10 +67,12 @@ void Zombie::TakeDamage( float32 damage )
 		notify( this );
 	}
 }
+
 void Zombie::SetTarget(const Entity* new_target)
 {
 	target = new_target;
 }
+
 void Zombie::SetAI(AI_enum new_type)
 {
 	AIType* AI_old = AI;
@@ -107,53 +90,55 @@ void Zombie::SetAI(AI_enum new_type)
 		break;
 	}
 }
+
 void Zombie::SetAI(AIType * new_type)
 {
 	if (AI) delete (AI);
 	AI = new_type;
 }
+
 void Zombie::Attack( Entity * entity )
 {
 	if ( attack_cooldown < attack_timer )
 	{
 		entity->TakeDamage( damage );
 		attack_timer = sf::milliseconds( 0 );
+		currentAnimation = &attackingAnimation;
+		animatedSprite.play(*currentAnimation);
 	}
 }
+
 void Zombie::StartContact(Entity* entity) 
 {
 	if ( entity->GroupID() == 1 )
 		attack_timer = sf::microseconds( 0 );
 }
+
 void Zombie::EndContact(Entity*)
 {
 	;
 }
+
 void Zombie::Presolve( Entity * entity )
 {
 	if ( entity->GroupID() == 1 || entity->GroupID() == 6)
 		Attack( entity );
 }
+
 void Zombie::Render(sf::RenderWindow* window)
 {
-	//std::cout << "BoX: " << this->body->GetPosition().x << " " << this->body->GetPosition().x << " SFML: " << shape.getPosition().x << " " << shape.getPosition().y << std::endl;
-	//sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
-	//shape.setPosition(SCALE * 2, SCALE * 2);
-	//sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
+	setupHealthbar();
 
-
-
-	hitpointsBarRed.setSize(sf::Vector2f(int(70 * hitpoints / maxhitpoints), 5));
-	hitpointsBarBlack.setSize(sf::Vector2f(int(72 * hitpoints / maxhitpoints), 7));
-	hitpointsBarRed.setPosition(SCALE * this->body->GetPosition().x - int(35*hitpoints/maxhitpoints), SCALE * this->body->GetPosition().y - 25);
-	hitpointsBarBlack.setPosition(SCALE * this->body->GetPosition().x - int(36*hitpoints/maxhitpoints), SCALE * this->body->GetPosition().y - 26);
+	isMoving();
 
 	frameTime = frameClock.restart();
-	animatedSprite.play(*currentAnimation);
+
 	animatedSprite.update(frameTime);
 	animatedSprite.setPosition(SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y);
 	animatedSprite.setRotation(180 / b2_pi * this->body->GetAngle());
 
+	if ((currentAnimation == &walkingAnimation) && animatedSprite.isPlaying()) animatedSprite.setOrigin(sizex1 / 2.f, sizey / 2.f);
+	else animatedSprite.setOrigin(sizex2 / 2.f, sizey / 2.f);
 
 	window->draw(animatedSprite);
 	window->draw(hitpointsBarBlack);
@@ -165,10 +150,31 @@ void Zombie::RenderInactive( sf::RenderWindow * window )
 	sprite.setTexture( textureDead );
 	sprite.setPosition( SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y );
 	sprite.setRotation( 180 / b2_pi * this->body->GetAngle() );
-	float scaleX = static_cast<float>(sizey) / textureDead.getSize().x;
-	float scaleY = static_cast<float>(sizey) / textureDead.getSize().y;
-	sprite.setScale(scaleX, scaleY);
 	window->draw( sprite );
+}
+
+bool Zombie::isMoving()
+{
+	direction = body->GetLinearVelocity();
+	if (sqrt(direction.x*direction.x + direction.y*direction.y) > speed / 10.0f && !this->isAttacking())
+	{
+		currentAnimation = &walkingAnimation;
+		animatedSprite.play(*currentAnimation);
+		return true;
+	}
+	else return false;
+}
+
+bool Zombie::isAttacking()
+{
+	if (currentAnimation == &attackingAnimation && animatedSprite.isPlaying()) return true;
+	else return false;
+}
+
+bool Zombie::isIdle()
+{
+	if (currentAnimation == &idleAnimation || !animatedSprite.isPlaying()) return true;
+	else return false;
 }
 
 void Zombie::Update(sf::Time difference_time)
@@ -176,10 +182,7 @@ void Zombie::Update(sf::Time difference_time)
 	if (target && active)
 	{
 		attack_timer += difference_time;
-		//RayCastCallback callbackInfo;
-		//doRayCast(callbackInfo);
 		b2Vec2 player_position = target->GetPosition();
-		/*b2Vec2 dir = AIType->Move(body->GetPosition(), player_position, callbackInfo.obstacleList);*/
 		b2Vec2 dir = AI->Move(body->GetPosition(), player_position,body->GetAngle());
 		float32 new_angle = atan2(dir.y, dir.x);
 		body->SetTransform(body->GetPosition(), new_angle);
@@ -191,6 +194,22 @@ void Zombie::Update(sf::Time difference_time)
 		body->SetAngularVelocity(0.f);
 	}
 }
+
+void Zombie::setSpriteSheets()
+{
+	walkingAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50WalkingAnimation"));
+	idleAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50AttackingAnimation"));
+	attackingAnimation.setSpriteSheet(*AssetManager::GetTexture("zombie50IdleAnimation"));
+	textureDead = *AssetManager::GetTexture("zombie50Dead");
+}
+
+void Zombie::addFramesToAnimations()
+{
+	for (int i = 0; i < 17; i++) walkingAnimation.addFrame(sf::IntRect(i * sizex1, 0, sizex1, sizey));
+	for (int i = 0; i < 17; i++) idleAnimation.addFrame(sf::IntRect(i * sizex2, 0, sizex2, sizey));
+	for (int i = 0; i < 9; i++) attackingAnimation.addFrame(sf::IntRect(i * sizex2, 0, sizex2, sizey));
+}
+
 void Zombie::doRayCast(RayCastCallback & callback)
 {
 	float currentRayAngle = 0;
@@ -212,4 +231,12 @@ float32 Zombie::RayCastCallback::ReportFixture(b2Fixture * fixture, const b2Vec2
 {
 	obstacleList.push_back(point);
 	return float32(1);
+}
+
+void Zombie::setupHealthbar()
+{
+	hitpointsBarRed.setSize(sf::Vector2f(int(70 * hitpoints / maxhitpoints), 5));
+	hitpointsBarBlack.setSize(sf::Vector2f(int(72 * hitpoints / maxhitpoints), 7));
+	hitpointsBarRed.setPosition(SCALE * this->body->GetPosition().x - int(35 * hitpoints / maxhitpoints), SCALE * this->body->GetPosition().y - 25);
+	hitpointsBarBlack.setPosition(SCALE * this->body->GetPosition().x - int(36 * hitpoints / maxhitpoints), SCALE * this->body->GetPosition().y - 26);
 }

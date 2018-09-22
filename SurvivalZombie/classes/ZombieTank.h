@@ -8,6 +8,8 @@ public:
 	~ZombieTank();
 
 private:
+	void					setSpriteSheets();
+	void					addFramesToAnimations();
 	Animation				walkingAnimation;
 	Animation				attackingAnimation;
 	Animation				idleAnimation;

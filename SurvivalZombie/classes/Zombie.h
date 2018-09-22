@@ -33,23 +33,28 @@ protected:
 	sf::RectangleShape hitpointsBarBlack;
 	AnimatedSprite			animatedSprite;
 	Animation*				currentAnimation;
-	sf::Texture				textureWalkingAnimation;
-	sf::Texture				textureAttackingAnimation;
-	sf::Texture				textureIdleAnimation;
 	sf::Texture				textureDead;
 	sf::Clock				frameClock;
 	sf::Time				frameTime;
 	sf::Time				attack_timer;
 	sf::Time				attack_cooldown;
 	float32					damage;
-private:
+	void					setupHealthbar();
+	bool					isMoving();
+	bool					isAttacking();
+	bool					isIdle();
+	b2Vec2					direction;
 	Animation				walkingAnimation;
 	Animation				attackingAnimation;
 	Animation				idleAnimation;
 	AIType* AI;
 	const Entity* target;
-	b2World* world;  //do raycast. shared pointer?
+	b2World* world;
+private:
+	void					setSpriteSheets();
+	void					addFramesToAnimations(); //do raycast. shared pointer?
 	//////
+
 	class RayCastCallback :public b2RayCastCallback
 	{
 	public:

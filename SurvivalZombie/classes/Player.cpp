@@ -64,6 +64,13 @@ void Player::Render( sf::RenderWindow * window )
 	direction1.Normalize();
 
 	setAnimationsForCurrentWeapontype();
+
+	if (isMoving()) animatedSpriteFeet.setRotation(atan2(direction1.y, direction1.x) * 180 / b2_pi);
+	else if (isIdle())
+	{
+		currentAnimation = idleAnimation;
+		animatedSprite.play(*currentAnimation);
+	}
 	
 	frameTime = frameClock.restart();
 	
@@ -81,12 +88,7 @@ void Player::Render( sf::RenderWindow * window )
 	direction2.Normalize();
 	animatedSprite.setRotation(atan2(direction2.y, direction2.x) * 180 / b2_pi);
 
-	if ( isMoving() ) animatedSpriteFeet.setRotation(atan2(direction1.y, direction1.x) * 180 / b2_pi);
-	else if ( isIdle() )
-	{
-		currentAnimation = idleAnimation;
-		animatedSprite.play(*currentAnimation);
-	}
+
 
 	if ((currentAnimation == &attackingAnimationRifle || currentAnimation == &attackingAnimationShotgun) && animatedSprite.isPlaying()) animatedSprite.setOrigin(size2 / 2.f, size2 / 2.f);
 	else animatedSprite.setOrigin(size1 / 2.f, size1 / 2.f);

@@ -68,22 +68,43 @@ void Game::loadTextures()
 	AssetManager::AddTexture( "7.62mm", ".\\graphics\\hud\\7.62mm.png" );
 	AssetManager::AddTexture( "12gauge", ".\\graphics\\hud\\12gauge.png"  );
 
-	//Animacje
+	//Animacje gracza
 	AssetManager::AddTexture("bullet9mm", ".\\graphics\\animations\\bullet9mm.png");
+
 	AssetManager::AddTexture("playerFeetWalkingAnimation", ".\\graphics\\animations\\player\\playerFeetWalkingAnimation.png");
 	AssetManager::AddTexture("playerFeetIdleAnimation", ".\\graphics\\animations\\player\\playerFeetIdleAnimation.png");
+	
 	AssetManager::AddTexture("playerHandgunWalkingAnimation", ".\\graphics\\animations\\player\\playerHandgunWalkingAnimation.png");
 	AssetManager::AddTexture("playerHandgunIdleAnimation", ".\\graphics\\animations\\player\\playerHandgunIdleAnimation.png");
 	AssetManager::AddTexture("playerHandgunAttackingAnimation", ".\\graphics\\animations\\player\\playerHandgunAttackingAnimation.png");
 	AssetManager::AddTexture("playerHandgunReloadingAnimation", ".\\graphics\\animations\\player\\playerHandgunReloadingAnimation.png");
+	
 	AssetManager::AddTexture("playerRifleWalkingAnimation", ".\\graphics\\animations\\player\\playerRifleWalkingAnimation.png");
 	AssetManager::AddTexture("playerRifleIdleAnimation", ".\\graphics\\animations\\player\\playerRifleIdleAnimation.png");
 	AssetManager::AddTexture("playerRifleAttackingAnimation", ".\\graphics\\animations\\player\\playerRifleAttackingAnimation.png");
 	AssetManager::AddTexture("playerRifleReloadingAnimation", ".\\graphics\\animations\\player\\playerRifleReloadingAnimation.png");
+	
 	AssetManager::AddTexture("playerShotgunWalkingAnimation", ".\\graphics\\animations\\player\\playerShotgunWalkingAnimation.png");
 	AssetManager::AddTexture("playerShotgunIdleAnimation", ".\\graphics\\animations\\player\\playerShotgunIdleAnimation.png");
 	AssetManager::AddTexture("playerShotgunAttackingAnimation", ".\\graphics\\animations\\player\\playerShotgunAttackingAnimation.png");
 	AssetManager::AddTexture("playerShotgunReloadingAnimation", ".\\graphics\\animations\\player\\playerShotgunReloadingAnimation.png");
+	
+	//Animacje zombie
+	AssetManager::AddTexture("zombie40WalkingAnimation", ".\\graphics\\animations\\zombie40\\zombie40WalkingAnimation.png");
+	AssetManager::AddTexture("zombie40AttackingAnimation", ".\\graphics\\animations\\zombie40\\zombie40AttackingAnimation.png");
+	AssetManager::AddTexture("zombie40IdleAnimation", ".\\graphics\\animations\\zombie40\\zombie40IdleAnimation.png");
+	AssetManager::AddTexture("zombie40Dead", ".\\graphics\\animations\\zombie40\\zombie40Dead.png");
+
+
+	AssetManager::AddTexture("zombie50WalkingAnimation", ".\\graphics\\animations\\zombie50\\zombie50WalkingAnimation.png");
+	AssetManager::AddTexture("zombie50AttackingAnimation", ".\\graphics\\animations\\zombie50\\zombie50AttackingAnimation.png");
+	AssetManager::AddTexture("zombie50IdleAnimation", ".\\graphics\\animations\\zombie50\\zombie50IdleAnimation.png");
+	AssetManager::AddTexture("zombie50Dead", ".\\graphics\\animations\\zombie50\\zombie50Dead.png");
+
+	AssetManager::AddTexture("zombie60WalkingAnimation", ".\\graphics\\animations\\zombie60\\zombie60WalkingAnimation.png");
+	AssetManager::AddTexture("zombie60AttackingAnimation", ".\\graphics\\animations\\zombie60\\zombie60AttackingAnimation.png");
+	AssetManager::AddTexture("zombie60IdleAnimation", ".\\graphics\\animations\\zombie60\\zombie60IdleAnimation.png");
+	AssetManager::AddTexture("zombie60Dead", ".\\graphics\\animations\\zombie60\\zombie60Dead.png");
 }
 
 void Game::Controls(sf::RenderWindow * window)
