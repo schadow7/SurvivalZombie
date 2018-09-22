@@ -3,8 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 #include <string>
+#include <fstream>
 
 #define MAX_NUMBER_OF_ITEMS 3
+
+enum class SaveSlot { SLOT_1 = 1, SLOT_2 = 2, SLOT_3 = 3 };
 
 class MainWindow
 {
@@ -14,8 +17,8 @@ public:
 
 	void									run();
 	void									newGame();
-	void									loadGame( std::string filename );
-	void									saveGame( std::string filename );
+	void									loadGame( SaveSlot slot );
+	void									saveGame( SaveSlot slot );
 	void									draw();
 	int										runMenu(sf::Event event);
 

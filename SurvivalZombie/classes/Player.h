@@ -3,11 +3,20 @@
 #include "Weapon.h"
 #include "AnimatedSprite.h"
 #include <SFML/Graphics.hpp>
+
+struct player_state 
+{
+	long int max_hitpoints;
+	short int armor;
+	double speed;
+};
+
 class Player :
 	public DynamicBody
 {
 public:
 	Player( b2World* world, b2Vec2 position );
+	Player( b2World* world, b2Vec2 position, player_state playerState );
 	~Player();
 	void								StartContact( Entity* );
 	void								EndContact( Entity* );
@@ -19,6 +28,8 @@ public:
 	void								AddWeapon( Weapon * weapon );
 	void								Reload();
 	void								Shoot( b2Vec2 direction, sf::Time difference_time );
+	void								TakeDamage( float32 damage );
+	player_state						GetPlayerState() const;
 
 	std::vector<long int>				GetHitpoints();
 	std::vector<weapon_features>		GetWeaponList();
@@ -38,6 +49,7 @@ private:
 	int									size1;
 	int									size2;
 	double								speed;
+	short int							armor;
 	double								animSpeed;
 	sf::CircleShape						shape;
 	std::list<Weapon *>					weapons;

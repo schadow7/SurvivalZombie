@@ -17,6 +17,13 @@
 #include "Obstacle.h"
 #include "Trap.h"
 
+struct level_state
+{
+	int level;
+	long int points;
+	short int base_level;
+};
+
 
 class Game:
 	public Observer
