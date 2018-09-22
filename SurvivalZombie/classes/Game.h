@@ -31,9 +31,10 @@ class Game:
 {
 public:
 	Game();
+	Game( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState );
 	~Game();
 
-	void									initializeGame();
+	
 	void									runGame(sf::RenderWindow * window);
 	void									update(Entity*) override;
 	void									RestartClock() { clock.restart(); }
@@ -44,7 +45,8 @@ private:
 	void									Render( sf::RenderWindow * window );
 	void									loadTextures();
 	void									Controls(sf::RenderWindow * window);
-
+	void									initializeGame();
+	void									initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState );
 	const float								SCALE = 100.f;
 	EntityManager *							entity_manager;
 	sf::View *								view;
