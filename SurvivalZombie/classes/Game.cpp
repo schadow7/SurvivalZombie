@@ -141,12 +141,13 @@ void Game::Controls(sf::RenderWindow * window)
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
 		entity_manager->AddEntity(zombieTester);
+		undeadCount++;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
 		Zombie* zombieTester = new ZombieTank(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
-		zombieTester->SetAI(Zombie::Chaotic);
+		zombieTester->SetAI(Zombie::Idle);
 		entity_manager->AddEntity(zombieTester);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))

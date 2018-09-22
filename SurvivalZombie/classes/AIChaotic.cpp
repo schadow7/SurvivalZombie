@@ -24,7 +24,7 @@ b2Vec2 AIChaotic::Move(b2Vec2 position, b2Vec2 player_position, float32 current_
 	float32 angleLeft = current_angle;
 	float turn_gain = .20f;
 	b2Vec2 direction = old_dir;
-	if (callbackRight.obstacleList.empty())
+	if (!callbackRight.obstructed)
 	{
 		if (obstructed == 0)
 			direction += .08f*(player_position - position);
@@ -35,10 +35,10 @@ b2Vec2 AIChaotic::Move(b2Vec2 position, b2Vec2 player_position, float32 current_
 	{
 		while (angleRight <= current_angle + b2_pi)
 		{
-			callbackLeft.obstacleList.clear();
+			callbackLeft.obstructed = 0;
 			angleLeft -= 25 * DEGTORAD;
 			doRayCast(callbackLeft, position, angleLeft);
-			if (callbackLeft.obstacleList.empty())
+			if (!callbackLeft.obstructed)
 			{
 				direction.x += turn_gain * cos(dis(engine)*angleLeft);
 				direction.y += turn_gain * sin(dis(engine)*angleLeft);
@@ -47,10 +47,10 @@ b2Vec2 AIChaotic::Move(b2Vec2 position, b2Vec2 player_position, float32 current_
 				break;
 			}
 			
-			callbackRight.obstacleList.clear();
+			callbackRight.obstructed = 0;
 			angleRight += 25 * DEGTORAD;
 			doRayCast(callbackRight, position, angleRight);
-			if (callbackRight.obstacleList.empty())
+			if (!callbackRight.obstructed)
 			{
 				direction.x += turn_gain * cos(dis(engine)*angleRight);
 				direction.y += turn_gain * sin(dis(engine)*angleRight);
