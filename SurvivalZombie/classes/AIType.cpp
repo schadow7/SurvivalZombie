@@ -12,7 +12,7 @@ AIType::~AIType()
 void AIType::doRayCast(RayCastCallback & callback, b2Vec2 ray_orgin, float currentRayAngle)
 {
 	float rayLength = 0.5f;
-	int RayNum = 5;
+	int RayNum = 1;
 	float cone_opening_angle = 25 * DEGTORAD;
 	float angle = currentRayAngle - (RayNum-1)/2 * cone_opening_angle / RayNum;
 	for (int i = 0; i < RayNum; i++)
@@ -31,7 +31,7 @@ float32 AIType::RayCastCallback::ReportFixture(b2Fixture * fixture, const b2Vec2
 	//if (id != 1 && id != 2)
 	if (id != 1)
 	{
-		obstacleList.push_back(point);
+		obstructed = 1;
 	}
 	return float32(1);
 }

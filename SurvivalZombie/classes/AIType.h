@@ -12,7 +12,8 @@ protected:
 	class RayCastCallback :public b2RayCastCallback
 	{
 	public:
-		std::vector<b2Vec2> obstacleList;
+		RayCastCallback() :obstructed(0) {};
+		bool obstructed;
 		float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction) override;
 	};
 	virtual void doRayCast(RayCastCallback& callback, b2Vec2 ray_orgin, float currentRayAngle = 0);
