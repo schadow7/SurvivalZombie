@@ -16,6 +16,7 @@
 #include <random>
 #include "Obstacle.h"
 #include "Trap.h"
+#include "TheBase.h"
 
 struct level_state
 {
@@ -54,6 +55,7 @@ private:
 	int										undeadCount;
 	void									spawnHorde(int next_level);
 	int										currentLevel;
+	int										baseLevel;
 	sf::Clock								clock;
 	float32									previous_angle;
 	std::default_random_engine				engine;
@@ -64,4 +66,9 @@ private:
 	std::uniform_int_distribution<int>		zombieDistribution{ -1, 1 };
 	sf::Time								shoot_timer;
 	void									arrangeObstacles(int quantity);
+	void									makeBase();
+	std::vector<BasicEntanglements*>		base;
+	BasicEntanglements*						spawnWall(int i, int boxSize, sf::Vector2f& position);
+	void									setBaseLevel(int level);
 };
+

@@ -13,6 +13,8 @@ public:
 
 protected:
 	b2Vec2				velocity;
+	const float			DEGTORAD = b2_pi / 180;
+
 
 
 };

@@ -5,6 +5,7 @@ EntityManager::EntityManager(b2World * world)
 {
 	this->world = world;
 	listener = new ContactListener( world );
+	new ContactFilter(world);
 }
 
 EntityManager::~EntityManager()
@@ -71,6 +72,7 @@ void EntityManager::KillEverybody()
 {
 	for (auto & it : entities)
 	{
+		if (it->GetID()!=1)
 		it->TakeDamage(1000);
 	}
 }

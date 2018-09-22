@@ -14,11 +14,17 @@ public:
 	void Update(sf::Time);
 	void TakeDamage(float32 damage) override;
 	virtual void Attack(Entity * entity);
+	void SetDamage(float32);
+	void SetAngle(float32);
+	b2Vec2 GetPxSize();
+	void Repair(int);
+	void SetMaxHP(int);
+	void SetDamage(int);
+	void MakeActive();
 
 protected:
 	int sizey; //rozmiar Obstacle w pikselach
-	int sizex1;
-	int sizex2;
+	int sizex;
 	sf::Sprite sprite;
 	sf::RectangleShape hitpointsBarRed;
 	sf::RectangleShape hitpointsBarBlack;
@@ -28,3 +34,13 @@ protected:
 private:
 	sf::Texture* textureDead;
 };
+
+class Door :
+	public BasicEntanglements
+{
+public:
+	Door(b2World* world, b2Vec2 position, sf::Texture* ntexture = AssetManager::GetTexture("grad2"));
+	~Door();
+};
+
+
