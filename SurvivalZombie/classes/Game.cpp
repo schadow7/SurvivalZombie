@@ -83,18 +83,20 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 	currentLevel = lvlState.level;
 	baseLevel = lvlState.base_level;
 	points = lvlState.points;
-	mapCenter = b2Vec2( 4000 / SCALE, 4000 / SCALE );
+	mapsizex = 3840;
+	mapsizey = 3840;
+	mapCenter = b2Vec2( mapsizex / 2.0f / SCALE, mapsizey / 2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
 	//T³o
-	background.setTexture( *AssetManager::GetTexture( "background" ) );
-	background.setTextureRect( sf::IntRect( 0, 0, 8000, 8000 ) );
+	background.setTexture( *AssetManager::GetTexture( "map" ) );
+	background.setTextureRect( sf::IntRect( 0, 0, mapsizex, mapsizey ) );
 
 	engine.seed( time( 0 ) );
-	arrangeObstacles( 100 );
+	arrangeObstacles( 25 );
 	makeBase();
 	//Player
-	player = new Player( world, positionPixToWorld( sf::Vector2f( 4000 + 55, 4000 + 55 ) ), playerState );
+	player = new Player( world, positionPixToWorld( sf::Vector2f( mapsizex / 2.0f, mapsizey / 2.0f + 96 ) ) , playerState );
 	entity_manager->AddEntity( player );
 	//Dodawanie broni
 	Weapon * tmp;
