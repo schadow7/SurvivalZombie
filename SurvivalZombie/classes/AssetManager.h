@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <unordered_map>
 #include <string>
 //#include<memory>
@@ -11,6 +12,7 @@ class AssetManager
 {
 private:
 	static std::unordered_map<std::string, sf::Texture*> textureCatche;
+	static std::unordered_map<std::string, sf::SoundBuffer*> soundsCatche;
 
 
 public:
@@ -45,7 +47,28 @@ public:
 			return nullptr;
 	}
 
+	static bool AddSound( const std::string &name, const std::string &filename )
+	{
 
+		sf::SoundBuffer * newSound = new sf::SoundBuffer();
+		if ( !newSound->loadFromFile( filename ) )
+			return false;
+		else
+		{
+			soundsCatche.insert( std::pair<std::string, sf::SoundBuffer*>( name, newSound ) );
+		}
+		return true;
+
+	}
+
+	static sf::SoundBuffer* GetSound( std::string name )
+	{
+		const auto i = soundsCatche.find( name );
+		if ( i != soundsCatche.end() )
+			return i->second;
+		else
+			return nullptr;
+	}
 	/*!
 	 * Sprawdza czy tekstura jest ju¿ w pamiêci.Jeœli nie, wczytuje do mapy.
 	 * 

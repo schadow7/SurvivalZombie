@@ -275,6 +275,12 @@ void MainWindow::loadTextures()
 	AssetManager::AddTexture("zombie60AttackingAnimation", ".\\graphics\\animations\\zombie60\\zombie60AttackingAnimation.png");
 	AssetManager::AddTexture("zombie60IdleAnimation", ".\\graphics\\animations\\zombie60\\zombie60IdleAnimation.png");
 	AssetManager::AddTexture("zombie60Dead", ".\\graphics\\animations\\zombie60\\zombie60Dead.png");
+
+	//£adowani dŸwiêków
+	AssetManager::AddSound( "pistol_shot", ".\\music\\pistol_shot.wav" );
+	AssetManager::AddSound( "pistol_click1", ".\\music\\pistol_click1.wav" );
+	AssetManager::AddSound( "pistol_click2", ".\\music\\pistol_click2.wav" );
+	AssetManager::AddSound( "pistol_reload", ".\\music\\pistol_reload.wav" );
 }
 
 

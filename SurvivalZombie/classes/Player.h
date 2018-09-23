@@ -87,4 +87,7 @@ private:
 	Animation*							idleAnimation;
 	Animation*							attackingAnimation;
 	Animation*							reloadingAnimation;
+	sf::Sound							soundShoot;
+	sf::Sound							soundReload;
+	sf::Sound							soundClick;
 };

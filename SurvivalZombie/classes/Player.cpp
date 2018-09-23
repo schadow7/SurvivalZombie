@@ -40,6 +40,9 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 	animatedSprite.setOrigin(size1 / 2.f, size1 / 2.f);
 	animatedSpriteFeet.setOrigin(size1 / 2.f, size1 / 2.f);
 	animatedSprite.play(*currentAnimation);
+	soundShoot.setBuffer( *AssetManager::GetSound( "pistol_shot" ) );
+	soundClick.setBuffer( *AssetManager::GetSound( "pistol_click1" ) );
+	soundReload.setBuffer( *AssetManager::GetSound( "pistol_reload" ) );
 }
 
 Player::Player( b2World * world, b2Vec2 position, player_state playerState ) : DynamicBody( world, position )
@@ -82,6 +85,10 @@ Player::Player( b2World * world, b2Vec2 position, player_state playerState ) : D
 	animatedSprite.setOrigin( size1 / 2.f, size1 / 2.f );
 	animatedSpriteFeet.setOrigin( size1 / 2.f, size1 / 2.f );
 	animatedSprite.play( *currentAnimation );
+
+	soundShoot.setBuffer( *AssetManager::GetSound( "pistol_shoot" ) );
+	soundClick.setBuffer( *AssetManager::GetSound( "pistol_click1" ) );
+	soundReload.setBuffer( *AssetManager::GetSound( "pistol_reload" ) );
 }
 
 Player::~Player()
@@ -197,6 +204,9 @@ void Player::Reload()
 		else if ((current_weapon->GetWeaponFeatures()).type == WeaponType::SHOTGUN) currentWeaponReloadingFrames = shotgunReloadingFrames;
 		animatedSprite.setFrameTime(reloadTime / sf::Int64(currentWeaponReloadingFrames));
 		animatedSprite.play(*currentAnimation);
+		soundReload.setPlayingOffset( sf::milliseconds( 1000 ) );
+		soundReload.setVolume( 40 );
+		soundReload.play();
 	}
 }
 
@@ -212,6 +222,12 @@ void Player::Shoot( b2Vec2 direction, sf::Time difference_time )
 		else if ((current_weapon->GetWeaponFeatures()).type == WeaponType::SHOTGUN) currentWeaponAttackingFrames = shotgunAttackingFrames;
 		animatedSprite.setFrameTime(recoilTime / sf::Int64(currentWeaponAttackingFrames));
 		animatedSprite.play(*currentAnimation);
+		soundShoot.setVolume( 40 );
+		soundShoot.play();
+	}
+	if ( current_weapon->MagazineAmmo() == 0 )
+	{
+		soundClick.play();
 	}
 }
 
