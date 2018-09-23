@@ -51,7 +51,7 @@ void EntityManager::Update(sf::Time difference_time)
 			it = entities.erase( it );
 
 		}
-		else if ( ( *it )->Active() == 0 && (*it)->GroupID()!=6)
+		else if ( ( *it )->Active() == 0 )
 		{
 			( *it )->SetBodyInactive();
 			inactive_entities.push_back( ( *it ) );
@@ -60,6 +60,18 @@ void EntityManager::Update(sf::Time difference_time)
 		else
 		{
 			it++;
+		}
+		//przerzucanie obiektów z listy nieaktywnych do aktywnych
+		for (std::list<Entity*>::iterator it = inactive_entities.begin(); it != inactive_entities.end(); )
+		{
+			if ((*it)->Active() == 1)
+			{
+				entities.push_back(*it);
+				it = inactive_entities.erase(it);
+			}
+			else
+				it++;
+
 		}
 	}
 

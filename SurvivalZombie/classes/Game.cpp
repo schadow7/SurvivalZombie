@@ -158,7 +158,7 @@ void Game::Controls(sf::RenderWindow * window)
 	{
 		Zombie* zombieTester = new ZombieTank(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
-		zombieTester->SetAI(Zombie::Idle);
+		zombieTester->SetAI(Zombie::Chaotic);
 		entity_manager->AddEntity(zombieTester);
 		delay = sf::milliseconds( 500 );
 	}
