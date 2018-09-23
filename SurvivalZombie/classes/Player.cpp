@@ -266,7 +266,7 @@ void Player::ChangeWeaponRight()
 			}
 		}
 		setAnimationsForCurrentWeapontype();
-	
+		currentAnimation = idleAnimation;
 	}
 }
 
@@ -393,6 +393,6 @@ bool Player::isReloading()
 
 bool Player::isIdle()
 {
-	if ( currentAnimation == idleAnimation || !animatedSprite.isPlaying() ) return true;
+	if (currentAnimation == &idleAnimationHandgun || currentAnimation == &idleAnimationRifle || currentAnimation == &idleAnimationShotgun || !animatedSprite.isPlaying()) return true;
 	else return false;
 }
