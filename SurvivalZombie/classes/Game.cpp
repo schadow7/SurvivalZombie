@@ -57,8 +57,8 @@ void Game::initializeGame()
 	undeadCount = 0;
 	currentLevel = 0;
 	baseLevel = 0;
-	mapsizex = 3840;
-	mapsizey = 3840;
+	mapsizex = (*AssetManager::GetTexture("map")).getSize().x;
+	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
 	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
@@ -86,8 +86,8 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 	currentLevel = lvlState.level;
 	baseLevel = lvlState.base_level;
 	points = lvlState.points;
-	mapsizex = 3840;
-	mapsizey = 3840;
+	mapsizex = (*AssetManager::GetTexture("map")).getSize().x;
+	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
 	mapCenter = b2Vec2( mapsizex / 2.0f / SCALE, mapsizey / 2.0f / SCALE );
 	previous_angle = 0.f;
