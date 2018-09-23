@@ -78,6 +78,8 @@ void Game::initializeGame()
 	player->AddWeapon(pistol);
 	Weapon * rifle = new Rifle( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
 	player->AddWeapon( rifle );
+	Weapon * shotgun = new Shotgun( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
+	player->AddWeapon( shotgun );
 }
 
 void Game::initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
@@ -118,8 +120,8 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 		}
 		if ( it.type == WeaponType::SHOTGUN )
 		{
-			//tmp = new Pistol( entity_manager, AssetManager::GetTexture( "bullet9mm" ), it );
-			//player->AddWeapon( tmp );
+			tmp = new Shotgun( entity_manager, AssetManager::GetTexture( "bullet9mm" ), it );
+			player->AddWeapon( tmp );
 		}
 
 	}

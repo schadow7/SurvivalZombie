@@ -148,7 +148,7 @@ public:
 		carriedAmmo = wpnFeat.carriedAmmo;
 		reload_timer = sf::microseconds( 0 );
 		magazineAmmo = wpnFeat.magazineAmmo;
-		type = wpnFeat.type;
+		type = WeaponType::PISTOL;
 	}
 	void	Reload() { magazineAmmo = maxMagazineAmmo; reload_timer = reload_cooldown; }
 
@@ -175,7 +175,7 @@ public:
 		b2BodyDef myBodyDef;
 		myBodyDef.type = b2_dynamicBody;
 		myBodyDef.position = positionProjectile;
-		myBodyDef.angle = playerAngle;
+		myBodyDef.angle = atan2( direction.y, direction.x );
 		myBodyDef.bullet = 1;
 		//Stworzenie definicj fikstury
 		b2PolygonShape polyShape;
@@ -203,7 +203,7 @@ class Rifle : public Weapon
 public:
 	Rifle( EntityManager * EntMng, sf::Texture * TxtrProjectile ) : Weapon( EntMng, TxtrProjectile )
 	{
-		position = positionPixToWorld( sf::Vector2f( 30, 14 ) );
+		position = positionPixToWorld( sf::Vector2f( 40, 18 ) );
 		cooldown = sf::milliseconds( 150 );		reload_cooldown = sf::milliseconds( 1500 );
 		timer = sf::milliseconds( 0 );
 		damage = 50;	bullet_speed = 15;
@@ -216,7 +216,7 @@ public:
 
 	Rifle( EntityManager * EntMng, sf::Texture * TxtrProjectile, weapon_features wpnFeat ) : Weapon( EntMng, TxtrProjectile )
 	{
-		position = positionPixToWorld( sf::Vector2f( 30, 14 ) );
+		position = positionPixToWorld( sf::Vector2f( 40, 18 ) );
 		cooldown = wpnFeat.cooldown;		reload_cooldown = wpnFeat.reload_cooldown;
 		timer = sf::milliseconds( 0 );
 		damage = wpnFeat.damage;	bullet_speed = wpnFeat.bullet_speed;
@@ -224,7 +224,7 @@ public:
 		carriedAmmo = wpnFeat.carriedAmmo;
 		reload_timer = sf::microseconds( 0 );
 		magazineAmmo = wpnFeat.magazineAmmo;
-		type = wpnFeat.type;
+		type = WeaponType::RIFLE;
 	}
 
 	void	Shoot( b2Vec2 playerPositon, float32 playerAngle, b2Vec2 direction, sf::Time difference_time )
@@ -250,7 +250,82 @@ public:
 		b2BodyDef myBodyDef;
 		myBodyDef.type = b2_dynamicBody;
 		myBodyDef.position = positionProjectile;
-		myBodyDef.angle = playerAngle;
+		myBodyDef.angle = atan2( direction.y, direction.x );
+		myBodyDef.bullet = 1;
+		//Stworzenie definicj fikstury
+		b2PolygonShape polyShape;
+		polyShape.SetAsBox( 7 / SCALE, 3 / SCALE );
+		b2FixtureDef FixtureDef;
+		FixtureDef.shape = &polyShape;
+		FixtureDef.density = 1;
+		//Stworzenie kszta³tu do renderowania (SFML)
+		sf::RectangleShape * shape = new sf::RectangleShape;
+		shape->setSize( sf::Vector2f( 8, 4 ) );
+		textureProjectile->setSmooth( 1 );
+		shape->setTexture( textureProjectile );
+		shape->setOrigin( -5.0f, 4.0f );
+		//Stworzenie pocisku i dodanie go do menad¿era obiektów
+		Projectile * bullet = new Projectile( entityManager->World(), shape, myBodyDef, FixtureDef, projFeat );
+		entityManager->AddEntity( bullet );
+
+	}
+
+
+};
+
+class Shotgun : public Weapon
+{
+public:
+	Shotgun( EntityManager * EntMng, sf::Texture * TxtrProjectile ) : Weapon( EntMng, TxtrProjectile )
+	{
+		position = positionPixToWorld( sf::Vector2f( 40, 18 ) );
+		cooldown = sf::milliseconds( 150 );		reload_cooldown = sf::milliseconds( 1500 );
+		timer = sf::milliseconds( 0 );
+		damage = 50;	bullet_speed = 15;
+		maxMagazineAmmo = 30;
+		carriedAmmo = 100;
+		reload_timer = sf::microseconds( 0 );
+		magazineAmmo = maxMagazineAmmo;
+		type = WeaponType::SHOTGUN;
+	}
+
+	Shotgun( EntityManager * EntMng, sf::Texture * TxtrProjectile, weapon_features wpnFeat ) : Weapon( EntMng, TxtrProjectile )
+	{
+		position = positionPixToWorld( sf::Vector2f( 40, 18 ) );
+		cooldown = wpnFeat.cooldown;		reload_cooldown = wpnFeat.reload_cooldown;
+		timer = sf::milliseconds( 0 );
+		damage = wpnFeat.damage;	bullet_speed = wpnFeat.bullet_speed;
+		maxMagazineAmmo = wpnFeat.maxMagazineAmmo;
+		carriedAmmo = wpnFeat.carriedAmmo;
+		reload_timer = sf::microseconds( 0 );
+		magazineAmmo = wpnFeat.magazineAmmo;
+		type = WeaponType::SHOTGUN;
+	}
+
+	void	Shoot( b2Vec2 playerPositon, float32 playerAngle, b2Vec2 direction, sf::Time difference_time )
+	{
+		timer += difference_time;
+		reload_timer -= difference_time; //cooldown < timer &&  reload_timer < sf::milliseconds(0) &&
+		if ( magazineAmmo > 0 )
+		{
+			timer = sf::milliseconds( 0 );
+			--magazineAmmo;
+			CreateBullet( playerPositon, playerAngle, direction );
+		}
+	}
+
+	void CreateBullet( b2Vec2 playerPositon, float32 playerAngle, b2Vec2 direction )
+	{
+		//Wyznaczenie pozycji w œwiecie, w której ma siê pojawiæ pocisk
+		b2Vec2 rotatedPosition = rotateVector( position, playerAngle );
+		b2Vec2 positionProjectile = playerPositon + rotatedPosition;
+		//Wype³nienie struktury z w³aœciwoœciami obiektu (tj. szybkoœæ, zadawane obra¿enia, czas po którym pocisk znika
+		projectile_features projFeat = { bullet_speed, damage, sf::seconds( 2 ), direction };
+		//Stworzenie definicji cia³a
+		b2BodyDef myBodyDef;
+		myBodyDef.type = b2_dynamicBody;
+		myBodyDef.position = positionProjectile;
+		myBodyDef.angle = atan2( direction.y, direction.x );
 		myBodyDef.bullet = 1;
 		//Stworzenie definicj fikstury
 		b2PolygonShape polyShape;
