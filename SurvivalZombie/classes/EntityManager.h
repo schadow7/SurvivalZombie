@@ -47,6 +47,10 @@ public:
 		// przelatywanie pocisków nad drzwiami
 		else if ((id1 == 3 && id2 == 9) || (id1 == 9 && id2 == 3))
 			return false;
+		else if ( ( id1 == 3 && id2 == 3 ) || ( id1 == 3 && id2 == 3 ) )
+			return false;
+		else if ( ( id1 == 3 && id2 == 1 ) || ( id1 == 1 && id2 == 3 ) )
+			return false;
 		//wlatywanie pocisków w zombie
 		//else if ((id1 = 3 && id2 == 2) || (id1 = 2 && id2 == 3))
 		//	return true;

@@ -279,11 +279,11 @@ public:
 	Shotgun( EntityManager * EntMng, sf::Texture * TxtrProjectile ) : Weapon( EntMng, TxtrProjectile )
 	{
 		position = positionPixToWorld( sf::Vector2f( 40, 18 ) );
-		cooldown = sf::milliseconds( 150 );		reload_cooldown = sf::milliseconds( 1500 );
+		cooldown = sf::milliseconds( 500 );		reload_cooldown = sf::milliseconds( 1500 );
 		timer = sf::milliseconds( 0 );
-		damage = 50;	bullet_speed = 15;
-		maxMagazineAmmo = 30;
-		carriedAmmo = 100;
+		damage = 30;	bullet_speed = 8;
+		maxMagazineAmmo = 6;
+		carriedAmmo = 32;
 		reload_timer = sf::microseconds( 0 );
 		magazineAmmo = maxMagazineAmmo;
 		type = WeaponType::SHOTGUN;
@@ -311,6 +311,11 @@ public:
 			timer = sf::milliseconds( 0 );
 			--magazineAmmo;
 			CreateBullet( playerPositon, playerAngle, direction );
+			CreateBullet( playerPositon, playerAngle, rotateVector( direction, (  b2_pi / 32 ) ) ); //rotateVectorAroundPoint( playerPositon, direction, ( 30 / 180 * b2_pi ) ) );
+			CreateBullet( playerPositon, playerAngle, rotateVector( direction, (  -b2_pi / 32 ) ) );//rotateVectorAroundPoint( playerPositon, direction, ( -30 / 180 * b2_pi ) ) );
+			CreateBullet( playerPositon, playerAngle, rotateVector( direction, ( -b2_pi / 32 ) ) );
+			CreateBullet( playerPositon + b2Vec2( direction.x / 5.f, direction.y / 5.f ), playerAngle + ( b2_pi / 32 ), rotateVector( direction, ( b2_pi / 64 ) ) );
+			CreateBullet( playerPositon + b2Vec2( direction.x / 5.f, direction.y / 5.f ), playerAngle + ( -b2_pi / 32 ), rotateVector( direction, ( -b2_pi / 64 ) ) );
 		}
 	}
 

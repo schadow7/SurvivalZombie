@@ -75,6 +75,11 @@ inline sf::Vector2f rotateVector( sf::Vector2f vector, float32 angle )
 	return b2Vec2( ( vector.x*cosf( angle ) - vector.y*sinf( angle ) ), ( vector.x*sinf( angle ) + vector.y*cosf( angle ) ) );
 }
 
+ inline b2Vec2 rotateVectorAroundPoint( b2Vec2 point, b2Vec2 vector, float32 angle )
+ {
+	 return b2Vec2( ( (vector.x - point.x)*cosf( angle ) - (vector.y - point.y)*sinf( angle ) ) + point.x, ( (vector.x - point.x)*sinf( angle ) + (vector.y - point.y)*cosf( angle ) ) + point.y );
+ }
+
 class Effect
 {
 public:

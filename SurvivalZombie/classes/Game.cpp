@@ -225,7 +225,7 @@ void Game::Controls(sf::RenderWindow * window)
 
 
 	player->SetVelocity(velocity);
-	if (100.f * b2Distance(positionPixToWorld(cordPos), positionPixToWorld(player->GetPosition())) > 50.f)
+	if (100.f * b2Distance(positionPixToWorld(cordPos), positionPixToWorld(player->GetPosition())) > 70.f)
 		previous_angle = atan2f(normalize_direction.y, normalize_direction.x); player->SetAngle(previous_angle);
 }
 
