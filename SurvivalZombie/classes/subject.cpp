@@ -30,6 +30,6 @@ void Subject::notify(Entity * ptr) const
 {
 	std::list<Observer *>::const_iterator it = m_observers.begin();
 	for (; it != m_observers.end(); ++it) {
-		(*it)->update(ptr);
+		(*it)->updateObserver(ptr);
 	}
 }

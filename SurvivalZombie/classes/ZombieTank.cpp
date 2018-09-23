@@ -10,6 +10,7 @@ ZombieTank::ZombieTank(b2World* world, b2Vec2 position):
 	maxhitpoints = hitpoints;
 	speed -= spec_factor * speed;
 	animSpeed += spec_factor * animSpeed;
+	score += spec_factor * score;
 
 	sizex1 = 56;
 	sizex2 = 65;

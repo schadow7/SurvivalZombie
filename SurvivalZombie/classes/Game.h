@@ -36,7 +36,7 @@ public:
 
 	
 	void									runGame(sf::RenderWindow * window);
-	void									update(Entity*) override;
+	void									updateObserver(Entity*) override;
 	void									RestartClock() { clock.restart(); }
 	level_state								GetLevelState();
 	player_state							GetPlayerState();

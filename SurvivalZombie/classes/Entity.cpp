@@ -6,6 +6,7 @@ Entity::Entity()
 {
 	this->groupID = 0;
 	this->active = 1;
+	score = 0;
 }
 
 
@@ -38,6 +39,16 @@ b2Vec2 Entity::GetPosition() const
 int Entity::GetID()
 {
 	return groupID;
+}
+
+void Entity::updateObserver(Entity *)
+{
+	;
+}
+
+int Entity::getScore()
+{
+	return score;
 }
 
 Entity::~Entity()

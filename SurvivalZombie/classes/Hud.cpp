@@ -68,6 +68,8 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	window->draw(hitpointsBarBlack);
 	window->draw(hitpointsBarRed);
 	window->draw(hitpointsText);
+	//do wyœwietlania na ekranie
+	printf("score: %d\n", player->getScore());
 }
 
 void Hud::positioningHudElements(sf::View* view, Player* player, weapon_features current_weapon)

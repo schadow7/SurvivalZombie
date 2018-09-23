@@ -19,6 +19,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	damage = 5;
 	attack_cooldown = sf::milliseconds( 500 );
 	attack_timer = sf::milliseconds( 520 );
+	score = 100;
 	
 	AI = new AIIdle(world);
 

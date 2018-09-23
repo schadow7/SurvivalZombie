@@ -6,12 +6,14 @@
 #include <list>
 #include "AssetManager.h"
 #include "subject.h"
+#include "observer.h"
 //Zdefiniowana poni¿ej
 class Effect;
 
 
 class Entity:
-	public Subject
+	public Subject,
+	public Observer
 {
 public:
 	const float SCALE = 100.f;  //	MetersToPixelsFactor 
@@ -30,6 +32,8 @@ public:
 	void					SetBodyInactive() { body->SetActive( false ); }
 	void					SetMaxHitpoints( unsigned long int max_hitpoints ) { this->maxhitpoints = max_hitpoints; }
 	void					SetBodyActive() { body->SetActive(true); }
+	void					updateObserver(Entity*) override;
+	int						getScore();
 	~Entity();
 
 protected:
@@ -42,6 +46,7 @@ protected:
 	long int				maxhitpoints;
 	std::list<Effect *>		effects;
 	sf::Texture* texture;
+	int						score;
 };
 
 

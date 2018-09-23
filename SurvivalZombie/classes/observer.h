@@ -11,7 +11,7 @@ public:
     /**
      * @brief Aktualizuje obserwowane wartości
      */
-	virtual void update(Entity*) = 0;
+	virtual void updateObserver(Entity*) = 0;
 };
 
 #endif

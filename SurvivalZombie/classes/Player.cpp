@@ -9,6 +9,7 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 	maxhitpoints = hitpoints;
 	speed = 3.f;
 	groupID = 1;
+	score = 0;
 	//fixture
 	b2CircleShape Shape;
 	Shape.m_radius = 24 / SCALE;
@@ -50,6 +51,7 @@ Player::Player( b2World * world, b2Vec2 position, player_state playerState ) : D
 	hitpoints = maxhitpoints;
 	speed = playerState.speed;
 	groupID = 1;
+	score = 0;
 	//fixture
 	b2CircleShape Shape;
 	Shape.m_radius = 24 / SCALE;
@@ -377,6 +379,12 @@ void Player::setAnimationsForCurrentWeapontype()
 		attackingAnimation = &attackingAnimationShotgun;
 		reloadingAnimation = &reloadingAnimationShotgun;
 	}
+}
+
+void Player::updateObserver(Entity * ptr)
+{
+	if (ptr->GetID() == 2)
+		score += ptr->getScore();
 }
 
 bool Player::isShooting()

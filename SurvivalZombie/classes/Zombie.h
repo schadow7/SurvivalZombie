@@ -22,6 +22,7 @@ public:
 	void SetAI(AI_enum);
 	void SetAI(AIType*);
 	virtual void Attack(Entity * entity);
+
 protected:
 	float32 speed;
 	double animSpeed;
@@ -44,9 +45,9 @@ protected:
 	bool					attack = false;
 	bool					isIdle();
 	b2Vec2					direction;
-	AIType* AI;
-	const Entity* target;
-	b2World* world;
+	AIType*					AI;
+	const Entity*			target;
+	b2World*				world;	
 private:
 	void					setSpriteSheets();
 	void					addFramesToAnimations();

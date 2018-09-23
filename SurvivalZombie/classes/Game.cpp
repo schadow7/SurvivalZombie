@@ -145,7 +145,7 @@ void Game::Controls(sf::RenderWindow * window)
 	normalize_direction.Normalize();
 
 	//konkretne klawisze
-	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Num1 ) && delay <= sf::milliseconds( 0 ) )
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Num5 ) && delay <= sf::milliseconds( 0 ) )
 	{
 		Zombie* zombieTester = new Zombie(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
@@ -154,7 +154,7 @@ void Game::Controls(sf::RenderWindow * window)
 		undeadCount++;
 		delay = sf::milliseconds( 500 );
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && delay <= sf::milliseconds( 0 ) )
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6) && delay <= sf::milliseconds( 0 ) )
 	{
 		Zombie* zombieTester = new ZombieTank(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
@@ -162,7 +162,7 @@ void Game::Controls(sf::RenderWindow * window)
 		entity_manager->AddEntity(zombieTester);
 		delay = sf::milliseconds( 500 );
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && delay <= sf::milliseconds( 0 ) )
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7) && delay <= sf::milliseconds( 0 ) )
 	{
 		Zombie* zombieTester = new ZombieSprinter(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
@@ -172,7 +172,7 @@ void Game::Controls(sf::RenderWindow * window)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) && delay <= sf::milliseconds( 0 ) )
 	{
-		spawnHorde(0);
+		spawnHorde(1);
 		delay = sf::milliseconds( 500 );
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && delay <= sf::milliseconds( 0 ) )
@@ -227,7 +227,7 @@ void Game::Controls(sf::RenderWindow * window)
 		previous_angle = atan2f(normalize_direction.y, normalize_direction.x); player->SetAngle(previous_angle);
 }
 
-void Game::update(Entity * ptr)
+void Game::updateObserver(Entity * ptr)
 {
 	if (ptr->GetID() == 2) undeadCount--;
 }
@@ -277,6 +277,7 @@ void Game::spawnHorde(int next_level)
 			zombieTmp->SetAI(Zombie::Chaotic);
 			entity_manager->AddEntity(zombieTmp);
 			zombieTmp->registerObserver(this);
+			zombieTmp->registerObserver(player);
 			undeadCount++;
 		}
 	}

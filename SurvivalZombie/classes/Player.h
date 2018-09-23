@@ -4,6 +4,7 @@
 #include "AnimatedSprite.h"
 #include <SFML/Graphics.hpp>
 
+
 struct player_state 
 {
 	long int max_hitpoints;
@@ -45,6 +46,7 @@ private:
 	bool								canShoot();
 	bool								canReload();
 	void								setAnimationsForCurrentWeapontype();
+	void								updateObserver(Entity*) override;
 
 	int									size1;
 	int									size2;
