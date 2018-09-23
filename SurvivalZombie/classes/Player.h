@@ -34,7 +34,7 @@ public:
 	std::vector<long int>				GetHitpoints();
 	std::vector<weapon_features>		GetWeaponList();
 	weapon_features						GetCurrentWeapon();
-
+	void								ChangeWeaponRight();
 private:
 	void								setSpriteSheets();
 	void								addFramesToAnimations();

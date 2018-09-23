@@ -59,6 +59,7 @@ void Game::initializeGame()
 	baseLevel = 0;
 	mapsizex = 3840;
 	mapsizey = 3840;
+	delay = sf::milliseconds( 0 );
 	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -75,6 +76,8 @@ void Game::initializeGame()
 	//Bazowa broñ
 	Weapon * pistol = new Pistol(entity_manager, AssetManager::GetTexture("bullet9mm"));
 	player->AddWeapon(pistol);
+	Weapon * rifle = new Rifle( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
+	player->AddWeapon( rifle );
 }
 
 void Game::initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
@@ -85,6 +88,7 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 	points = lvlState.points;
 	mapsizex = 3840;
 	mapsizey = 3840;
+	delay = sf::milliseconds( 0 );
 	mapCenter = b2Vec2( mapsizex / 2.0f / SCALE, mapsizey / 2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -109,8 +113,8 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 		}
 		if ( it.type == WeaponType::RIFLE )
 		{
-			//tmp = new Pistol( entity_manager, AssetManager::GetTexture( "bullet9mm" ), it );
-			//player->AddWeapon( tmp );
+			tmp = new Rifle( entity_manager, AssetManager::GetTexture( "bullet9mm" ), it );
+			player->AddWeapon( tmp );
 		}
 		if ( it.type == WeaponType::SHOTGUN )
 		{
@@ -129,6 +133,7 @@ void Game::loadTextures()
 
 void Game::Controls(sf::RenderWindow * window)
 {
+	delay -= clock.getElapsedTime();
 	//Przygotowanie wektorów
 	b2Vec2 velocity = b2Vec2_zero;
 	b2Vec2 normalize_direction = b2Vec2_zero;
@@ -140,48 +145,60 @@ void Game::Controls(sf::RenderWindow * window)
 	normalize_direction.Normalize();
 
 	//konkretne klawisze
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Num1 ) && delay <= sf::milliseconds( 0 ) )
 	{
 		Zombie* zombieTester = new Zombie(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
 		entity_manager->AddEntity(zombieTester);
 		undeadCount++;
+		delay = sf::milliseconds( 500 );
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && delay <= sf::milliseconds( 0 ) )
 	{
 		Zombie* zombieTester = new ZombieTank(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Idle);
 		entity_manager->AddEntity(zombieTester);
+		delay = sf::milliseconds( 500 );
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && delay <= sf::milliseconds( 0 ) )
 	{
 		Zombie* zombieTester = new ZombieSprinter(world, positionPixToWorld(cordPos));
 		zombieTester->SetTarget(player);
 		zombieTester->SetAI(Zombie::Chaotic);
 		entity_manager->AddEntity(zombieTester);
+		delay = sf::milliseconds( 500 );
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) && delay <= sf::milliseconds( 0 ) )
 	{
 		spawnHorde(0);
+		delay = sf::milliseconds( 500 );
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && delay <= sf::milliseconds( 0 ) )
 	{
 			currentLevel++;
 			spawnHorde(currentLevel);
 			printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
+			delay = sf::milliseconds( 500 );
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && delay <= sf::milliseconds( 0 ) )
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		StaticBody* ob = new TheBase(world, positionPixToWorld(cordPos));
 		entity_manager->AddEntity(ob);
+		delay = sf::milliseconds( 500 );
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && delay <= sf::milliseconds( 0 ) )
 	{
 		setBaseLevel(++baseLevel);
+		delay = sf::milliseconds( 500 );
+	}
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::E ) && delay <= sf::milliseconds( 0 ) )
+	{
+		player->ChangeWeaponRight();
+		delay = sf::milliseconds( 500 );
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) entity_manager->KillEverybody();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) player->Reload();

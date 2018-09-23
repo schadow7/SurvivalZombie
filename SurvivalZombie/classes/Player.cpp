@@ -251,6 +251,25 @@ weapon_features Player::GetCurrentWeapon()
 		return weapon_features();
 }
 
+void Player::ChangeWeaponRight()
+{
+	if ( weapons.size() > 1 )
+	{
+		for ( std::list<Weapon*>::iterator it = weapons.begin() ; it != weapons.end() ; ++it )
+		{
+			if ( (*it) == current_weapon )
+			{
+				if ( it == --weapons.end() )
+					current_weapon = *weapons.begin();
+				else
+					current_weapon = *( ++it );
+			}
+		}
+		setAnimationsForCurrentWeapontype();
+	
+	}
+}
+
 void Player::setSpriteSheets()
 {
 	walkingAnimationFeet.setSpriteSheet( *AssetManager::GetTexture("playerFeetWalkingAnimation") );
