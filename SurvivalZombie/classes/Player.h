@@ -58,7 +58,7 @@ private:
 	sf::CircleShape						shape;
 	std::list<Weapon *>					weapons;
 	Weapon *							current_weapon = nullptr;
-
+	sf::Vector2f						previousMousePos = sf::Vector2f( 0, 0 );
 	b2Vec2								direction1;
 	b2Vec2								direction2;
 	sf::Vector2i						mousePos;

@@ -129,8 +129,16 @@ void Player::Render( sf::RenderWindow * window )
 	animatedSpriteFeet.setPosition(this->GetPosition());
 
 	//Wyznaczenie znormalizowanego wektora wyznaczaj¹cego kierunek od gracza do pozycycji myszki
-	mousePos = sf::Mouse::getPosition(*window);
-	cordPos = window->mapPixelToCoords(mousePos);
+	mousePos = sf::Mouse::getPosition( *window );
+	cordPos = window->mapPixelToCoords( mousePos );
+	if ( 100.f * b2Distance( positionPixToWorld( GetPosition() ), positionPixToWorld( cordPos ) ) < 85.f )
+	{
+		sf::Mouse::setPosition( window->mapCoordsToPixel( previousMousePos ), *window );
+		cordPos = previousMousePos;
+	}
+	else
+		previousMousePos = cordPos;
+
 	direction2 = positionPixToWorld(cordPos) - positionPixToWorld(this->GetWeaponPosition());
 	direction2.Normalize();
 	animatedSprite.setRotation(atan2(direction2.y, direction2.x) * 180 / b2_pi);

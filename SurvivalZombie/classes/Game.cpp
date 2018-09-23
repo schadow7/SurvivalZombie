@@ -66,7 +66,7 @@ void Game::initializeGame()
 	//T³o
 	background.setTexture(*AssetManager::GetTexture("map"));
 	background.setTextureRect(sf::IntRect(0, 0, mapsizex, mapsizey));
-
+	previousMousePos = sf::Vector2f( 0, 0 );
 	engine.seed(time(0));
 	arrangeObstacles(25);
 	makeBase();
@@ -97,7 +97,7 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 	//T³o
 	background.setTexture( *AssetManager::GetTexture( "map" ) );
 	background.setTextureRect( sf::IntRect( 0, 0, mapsizex, mapsizey ) );
-
+	previousMousePos = sf::Vector2f( 0, 0 );
 	engine.seed( time( 0 ) );
 	arrangeObstacles( 25 );
 	makeBase();
@@ -142,6 +142,14 @@ void Game::Controls(sf::RenderWindow * window)
 	//Odczytanie pozycji kursora
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 	sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
+	if ( 100.f * b2Distance( positionPixToWorld( player->GetPosition() ) , positionPixToWorld( cordPos ) ) < 85.f )
+	{
+		sf::Mouse::setPosition( window->mapCoordsToPixel( previousMousePos ), *window );
+		cordPos = previousMousePos;
+	}
+	else
+		previousMousePos = cordPos;
+
 	//Wyznaczenie znormalizowanego wektora wyznaczaj¹cego kierunek od gracza do pozycycji myszki
 	normalize_direction = positionPixToWorld(cordPos) - positionPixToWorld(player->GetWeaponPosition());
 	normalize_direction.Normalize();
@@ -186,8 +194,6 @@ void Game::Controls(sf::RenderWindow * window)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && delay <= sf::milliseconds( 0 ) )
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-		sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
 		StaticBody* ob = new TheBase(world, positionPixToWorld(cordPos));
 		entity_manager->AddEntity(ob);
 		delay = sf::milliseconds( 500 );
@@ -225,8 +231,7 @@ void Game::Controls(sf::RenderWindow * window)
 
 
 	player->SetVelocity(velocity);
-	if (100.f * b2Distance(positionPixToWorld(cordPos), positionPixToWorld(player->GetPosition())) > 70.f)
-		previous_angle = atan2f(normalize_direction.y, normalize_direction.x); player->SetAngle(previous_angle);
+	previous_angle = atan2f(normalize_direction.y, normalize_direction.x); player->SetAngle(previous_angle);
 }
 
 void Game::updateObserver(Entity * ptr)
