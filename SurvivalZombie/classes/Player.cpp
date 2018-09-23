@@ -135,7 +135,7 @@ void Player::Render( sf::RenderWindow * window )
 
 
 
-	if ((currentAnimation == &attackingAnimationRifle || currentAnimation == &attackingAnimationShotgun) && animatedSprite.isPlaying()) animatedSprite.setOrigin(size2 / 2.f, size2 / 2.f);
+	if ((currentAnimation == &attackingAnimationRifle || currentAnimation == &attackingAnimationShotgun)) animatedSprite.setOrigin(size2 / 2.f, size2 / 2.f);
 	else animatedSprite.setOrigin(size1 / 2.f, size1 / 2.f);
 
 	window->draw(animatedSpriteFeet);
