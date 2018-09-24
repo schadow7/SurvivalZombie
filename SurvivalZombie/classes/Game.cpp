@@ -3,6 +3,7 @@ Game::Game() :
 	mapsizex(1),
 	mapsizey(1)
 {
+	gamePhase = GamePhase::GAME;
 	world = new b2World(b2Vec2(0.f, 0.f));
 	world->SetAllowSleeping( true );
 	world->SetAutoClearForces( true );
@@ -16,6 +17,7 @@ Game::Game() :
 
 Game::Game( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
 {
+	gamePhase = GamePhase::GAME;
 	world = new b2World( b2Vec2( 0.f, 0.f ) );
 	world->SetAllowSleeping( true );
 	world->SetAutoClearForces( true );
@@ -40,16 +42,26 @@ Game::~Game()
 void Game::runGame(sf::RenderWindow * window)
 {
 	window->clear();
-	view->setCenter(player->GetPosition());
-	window->setView(*view);
 
-	//Sterowanie graczem i nie tylko
-	Controls(window);
 
-	window->draw(background);
-	entity_manager->Update(clock.restart());
-	entity_manager->Render(window);
-	hud->Render(window, view, player);
+	if (gamePhase == GamePhase::GAME)
+	{
+		view->setCenter(player->GetPosition());
+		window->setView(*view);
+
+		//Sterowanie graczem i nie tylko
+		Controls(window);
+
+		window->draw(background);
+		entity_manager->Update(clock.restart());
+		entity_manager->Render(window);
+		hud->Render(window, view, player);
+	}
+
+	else if (gamePhase == GamePhase::SHOP)
+	{
+		;
+	}
 }
 
 void Game::initializeGame()
