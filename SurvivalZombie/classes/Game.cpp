@@ -142,13 +142,16 @@ void Game::Controls(sf::RenderWindow * window)
 	//Odczytanie pozycji kursora
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
 	sf::Vector2f cordPos = window->mapPixelToCoords(mousePos);
-	if ( 100.f * b2Distance( positionPixToWorld( player->GetPosition() ) , positionPixToWorld( cordPos ) ) < 85.f )
+	normalize_direction = positionPixToWorld( cordPos ) - positionPixToWorld( player->GetWeaponPosition() );
+	normalize_direction.Normalize();
+	if ( 100.f * b2Distance( positionPixToWorld( player->GetPosition() ), positionPixToWorld( cordPos ) ) < 85.f )
 	{
+		normalize_direction = positionPixToWorld( cordPos ) - positionPixToWorld( player->GetWeaponPosition() );
+		normalize_direction.Normalize();
+		previousMousePos = player->GetPosition() + positionWorldToPix( 0.95f * normalize_direction );
 		sf::Mouse::setPosition( window->mapCoordsToPixel( previousMousePos ), *window );
 		cordPos = previousMousePos;
 	}
-	else
-		previousMousePos = cordPos;
 
 	//Wyznaczenie znormalizowanego wektora wyznaczaj¹cego kierunek od gracza do pozycycji myszki
 	normalize_direction = positionPixToWorld(cordPos) - positionPixToWorld(player->GetWeaponPosition());
