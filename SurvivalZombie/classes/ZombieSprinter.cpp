@@ -29,7 +29,7 @@ ZombieSprinter::ZombieSprinter(b2World* world, b2Vec2 position) :
 	sprite.setColor(sf::Color::Yellow);
 	animatedSprite.play(*currentAnimation);
 
-	hitSound.setBuffer(*AssetManager::GetSound("zombie1"));
+	hitSound->setBuffer(*AssetManager::GetSound("zombie1"));
 }
 
 

@@ -306,6 +306,8 @@ void MainWindow::loadTextures()
 	AssetManager::AddSound("fort3", ".\\music\\qubodupImpactStone.ogg");
 	AssetManager::AddSound("fort4", ".\\music\\qubodupImpactWood.ogg");
 
+	AssetManager::AddSound("brains", ".\\music\\brains2.wav");
+
 }
 
 

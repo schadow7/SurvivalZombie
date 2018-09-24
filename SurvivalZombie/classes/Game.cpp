@@ -92,6 +92,7 @@ void Game::initializeGame()
 	player->AddWeapon( rifle );
 	Weapon * shotgun = new Shotgun( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
 	player->AddWeapon( shotgun );
+	startLevelSound.setBuffer(*AssetManager::GetSound("brains"));
 }
 
 void Game::initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
@@ -230,12 +231,13 @@ void Game::Controls(sf::RenderWindow * window)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocity += b2Vec2(-1, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocity += b2Vec2(1, 0);
 
-	//if (undeadCount <= 0)
-	//{
-	//	currentLevel++;
-	//	spawnHorde(currentLevel);
-	//	printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
-	//}
+	if (undeadCount <= 0)
+	{
+		currentLevel++;
+		startLevelSound.play();
+		spawnHorde(currentLevel);
+		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
+	}
 
 	shoot_timer += clock.getElapsedTime();
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))

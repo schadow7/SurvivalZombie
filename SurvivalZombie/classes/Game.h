@@ -83,6 +83,7 @@ private:
 	int										mapsizex, mapsizey;
 	sf::Vector2f							previousMousePos;
 	sf::Music								music;
+	sf::Sound								startLevelSound;
 	GamePhase								gamePhase;
 };
 
