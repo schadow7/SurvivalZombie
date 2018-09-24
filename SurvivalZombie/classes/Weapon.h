@@ -23,13 +23,13 @@ struct weapon_features {
 class Weapon
 {
 public:
-	Weapon( EntityManager * EntMng,  sf::Texture * TxtrProjectile ) : entityManager( EntMng ),  textureProjectile( TxtrProjectile ) { ; }
+	Weapon( EntityManager * EntMng, sf::Texture * TxtrProjectile ) : entityManager( EntMng ), textureProjectile( TxtrProjectile ) { ; }
 	~Weapon() { }
 	b2Vec2					GetPosition() const { return position; }
 	int						MaxAmmo() const { return maxMagazineAmmo; }
 	int						CarriedtAmmo() const { return carriedAmmo; }
 	int						MagazineAmmo() const { return magazineAmmo; }
-	virtual void			Reload() 
+	virtual void			Reload()
 	{
 		int tmp = maxMagazineAmmo - magazineAmmo;
 		if ( carriedAmmo > maxMagazineAmmo )
@@ -38,7 +38,7 @@ public:
 		}
 		else
 		{
-			
+
 			if ( tmp >= carriedAmmo )
 			{
 				magazineAmmo += carriedAmmo; carriedAmmo = 0;
@@ -48,7 +48,15 @@ public:
 				magazineAmmo = maxMagazineAmmo; carriedAmmo -= tmp;
 			}
 		}
-		reload_timer = reload_cooldown; 
+		reload_timer = reload_cooldown;
+	}
+	virtual void			AddMagazine() { carriedAmmo += maxMagazineAmmo; }
+	virtual void			SetWeaponFeatures( weapon_features weaponFeat ) 
+	{ 
+		magazineAmmo = weaponFeat.magazineAmmo;		maxMagazineAmmo = weaponFeat.maxMagazineAmmo;
+		carriedAmmo = weaponFeat.carriedAmmo;		damage = weaponFeat.damage;
+		cooldown = weaponFeat.cooldown;				reload_cooldown = weaponFeat.reload_cooldown;
+		type = weaponFeat.type;						bullet_speed = weaponFeat.bullet_speed;
 	}
 	virtual void			Shoot( b2Vec2 playerPosition, float32 playerAngle, b2Vec2 direction, sf::Time difference_time ) = 0;
 	weapon_features			GetWeaponFeatures() { weapon_features feat = { type, maxMagazineAmmo, magazineAmmo, carriedAmmo, cooldown, reload_cooldown, damage, bullet_speed }; return feat; }

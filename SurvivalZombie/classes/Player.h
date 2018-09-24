@@ -36,6 +36,8 @@ public:
 	std::vector<weapon_features>		GetWeaponList();
 	weapon_features						GetCurrentWeapon();
 	void								ChangeWeaponRight();
+	void								HealUp();
+	void								SetPlayerState( player_state playerState );
 private:
 	void								setSpriteSheets();
 	void								addFramesToAnimations();
