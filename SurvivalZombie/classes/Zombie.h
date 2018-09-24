@@ -49,7 +49,6 @@ protected:
 	AIType*					AI;
 	const Entity*			target;
 	b2World*				world;
-	sf::Sound*				hitSound;
 
 private:
 	void					setSpriteSheets();

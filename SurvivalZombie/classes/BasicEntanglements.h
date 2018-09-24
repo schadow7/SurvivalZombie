@@ -33,7 +33,7 @@ protected:
 	sf::Texture*			textureDead;
 	std::vector<sf::Sound>	hitSounds;
 	std::default_random_engine				engine;
-	std::uniform_int_distribution<int>		soundDistribution{ 0, 15 };
+	std::uniform_int_distribution<int>		soundDistribution{ 0, 10 };
 	int soundsCount;
 private:
 	
