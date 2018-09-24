@@ -194,7 +194,7 @@ void Game::Controls(sf::RenderWindow * window)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && delay <= sf::milliseconds( 0 ) )
 	{
-		StaticBody* ob = new TheBase(world, positionPixToWorld(cordPos));
+		StaticBody* ob = new TheBase(world, positionPixToWorld(cordPos), sf::Vector2i(10, 5) );
 		entity_manager->AddEntity(ob);
 		delay = sf::milliseconds( 500 );
 	}

@@ -1,15 +1,14 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(b2World* world, b2Vec2 position, sf::Texture* ntexture) :
-	StaticBody(world, position),
-	sizey(50)
+Obstacle::Obstacle(b2World* world, b2Vec2 position,sf::Vector2i nsize, sf::Texture* ntexture) :
+	StaticBody(world, position)
 {
 	//base stats 
 	groupID = 5;
-
+	size = nsize;
 	//fixture
 	b2CircleShape obstacleShape;
-	obstacleShape.m_radius = sizey / 2 / SCALE;
+	obstacleShape.m_radius = size.y / 2 / SCALE;
 	b2FixtureDef obstacleFixtureDef;
 	obstacleFixtureDef.shape = &obstacleShape;
 	obstacleFixtureDef.density = 1;
@@ -19,8 +18,8 @@ Obstacle::Obstacle(b2World* world, b2Vec2 position, sf::Texture* ntexture) :
 	texture = ntexture;
 	sprite.setTexture(*texture);
 	sprite.setOrigin(texture->getSize().x / 2.f, texture->getSize().y / 2.f);
-	float scaleX = static_cast<float>(sizey) / texture->getSize().x;
-	float scaleY = static_cast<float>(sizey) / texture->getSize().y;
+	float scaleX = static_cast<float>(size.y) / texture->getSize().x;
+	float scaleY = static_cast<float>(size.y) / texture->getSize().y;
 	sprite.setScale(scaleX, scaleY);
 
 	sprite.setPosition(SCALE * position.x, SCALE * position.y);

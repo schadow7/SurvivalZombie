@@ -144,7 +144,7 @@
     <ClCompile Include="classes\Player.cpp" />
     <ClCompile Include="classes\StaticBody.cpp" />
     <ClCompile Include="classes\TheBase.cpp" />
-    <ClCompile Include="classes\Trap.cpp" />
+    <ClCompile Include="classes\BasicEntanglements.cpp" />
     <ClCompile Include="classes\Weapon.cpp" />
     <ClCompile Include="classes\subject.cpp" />
     <ClCompile Include="classes\Zombie.cpp" />
@@ -174,13 +174,17 @@
     <ClInclude Include="classes\Player.h" />
     <ClInclude Include="classes\StaticBody.h" />
     <ClInclude Include="classes\TheBase.h" />
-    <ClInclude Include="classes\Trap.h" />
+    <ClInclude Include="classes\BasicEntanglements.h" />
     <ClInclude Include="classes\Weapon.h" />
     <ClInclude Include="classes\subject.h" />
     <ClInclude Include="classes\Zombie.h" />
     <ClInclude Include="classes\ZombieManager.h" />
     <ClInclude Include="classes\ZombieSprinter.h" />
     <ClInclude Include="classes\ZombieTank.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram11.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,7 +4,7 @@ class Obstacle :
 	public StaticBody
 {
 public:
-	Obstacle(b2World* world, b2Vec2 position, sf::Texture * ntexture = AssetManager::GetTexture("grad2"));
+	Obstacle(b2World* world, b2Vec2 position,sf::Vector2i size = sf::Vector2i(50,50), sf::Texture * ntexture = AssetManager::GetTexture("grad2"));
 	~Obstacle();
 	void StartContact(Entity*);
 	void EndContact(Entity*);
@@ -15,9 +15,6 @@ public:
 	void TakeDamage(float32 damage) override;
 
 protected:
-	int sizey; //rozmiar Obstacle w pikselach
-	int sizex1;
-	int sizex2;
 	sf::Sprite sprite;
 	sf::RectangleShape hitpointsBarRed;
 	sf::RectangleShape hitpointsBarBlack;

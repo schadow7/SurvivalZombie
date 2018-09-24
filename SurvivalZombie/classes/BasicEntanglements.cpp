@@ -1,14 +1,14 @@
-#include "TheBase.h"
+#include "BasicEntanglements.h"
 
-TheBase::TheBase(b2World * world, b2Vec2 position, sf::Vector2i nsize, sf::Texture * ntexture) :
+BasicEntanglements::BasicEntanglements(b2World* world, b2Vec2 position, sf::Vector2i nsize, sf::Texture* ntexture) :
 	StaticBody(world, position)
 {
 	//base stats 
-	groupID = 10;
+	groupID = 6;
 	damage = 0;
 	hitpoints = 100;
 	maxhitpoints = 100;
-	attack_cooldown = sf::milliseconds(2000);
+	attack_cooldown = sf::milliseconds(500);
 	attack_timer = sf::milliseconds(520);
 	size = nsize;
 
@@ -19,6 +19,7 @@ TheBase::TheBase(b2World * world, b2Vec2 position, sf::Vector2i nsize, sf::Textu
 	obstacleFixtureDef.shape = &obstacleShape;
 	obstacleFixtureDef.density = 1;
 	obstacleFixtureDef.restitution = (0.f);
+	//obstacleFixtureDef.filter.maskBits = 0x0000;
 	b2Fixture* fixture = body->CreateFixture(&obstacleFixtureDef);
 
 	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
@@ -30,7 +31,7 @@ TheBase::TheBase(b2World * world, b2Vec2 position, sf::Vector2i nsize, sf::Textu
 	float scaleX = static_cast<float>(size.x) / texture->getSize().x;
 	float scaleY = static_cast<float>(size.y) / texture->getSize().y;
 	sprite.setScale(scaleX, scaleY);
-	sprite.setColor(sf::Color::White);
+	sprite.setColor(sf::Color::Red);
 
 	textureDead = AssetManager::GetTexture("grad2");
 	textureDead->setSmooth(1);
@@ -39,11 +40,12 @@ TheBase::TheBase(b2World * world, b2Vec2 position, sf::Vector2i nsize, sf::Textu
 	sprite.setRotation(180 / b2_pi * this->body->GetAngle());
 }
 
-TheBase::~TheBase()
+BasicEntanglements::~BasicEntanglements()
 {
 }
 
-void TheBase::TakeDamage(float32 damage)
+
+void BasicEntanglements::TakeDamage(float32 damage)
 {
 	hitpoints -= damage;
 	if (hitpoints <= 0)
@@ -53,7 +55,7 @@ void TheBase::TakeDamage(float32 damage)
 	}
 }
 
-void TheBase::Attack(Entity * entity)
+void BasicEntanglements::Attack(Entity * entity)
 {
 	if (attack_cooldown < attack_timer)
 	{
@@ -62,23 +64,23 @@ void TheBase::Attack(Entity * entity)
 	}
 }
 
-void TheBase::SetDamage(float32 ndamage)
+void BasicEntanglements::SetDamage(float32 ndamage)
 {
 	if (damage)damage = ndamage;
 }
 
-void TheBase::SetAngle(float32 angle)
+void BasicEntanglements::SetAngle(float32 angle)
 {
 	body->SetTransform(body->GetPosition(), angle* DEGTORAD);
 	sprite.setRotation(angle);
 }
 
-b2Vec2 TheBase::GetPxSize()
+b2Vec2 BasicEntanglements::GetPxSize()
 {
 	return b2Vec2(size.x, size.y);
 }
 
-void TheBase::Repair(int nHP)
+void BasicEntanglements::Repair(int nHP)
 {
 	if (nHP)
 	{
@@ -87,7 +89,7 @@ void TheBase::Repair(int nHP)
 	}
 }
 
-void TheBase::SetMaxHP(int nMax)
+void BasicEntanglements::SetMaxHP(int nMax)
 {
 	if (nMax)
 	{
@@ -96,12 +98,12 @@ void TheBase::SetMaxHP(int nMax)
 	}
 }
 
-void TheBase::SetDamage(int ndmg)
+void BasicEntanglements::SetDamage(int ndmg)
 {
 	damage = ndmg;
 }
 
-void TheBase::MakeActive()
+void BasicEntanglements::MakeActive()
 {
 	sprite.setTexture(*texture);
 	sprite.setPosition(SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y);
@@ -114,29 +116,29 @@ void TheBase::MakeActive()
 	SetBodyActive();
 }
 
-void TheBase::StartContact(Entity* entity)
+void BasicEntanglements::StartContact(Entity* entity)
 {
 	if (entity->GroupID() != 1)
 		attack_timer = sf::microseconds(0);
 }
-void TheBase::EndContact(Entity*)
+void BasicEntanglements::EndContact(Entity*)
 {
 	;
 }
-void TheBase::Presolve(Entity * entity)
+void BasicEntanglements::Presolve(Entity * entity)
 {
 	if (damage)
 	{
-		if (entity->GroupID() == 1)
+		if (entity->GroupID() != 1)
 			Attack(entity);
 	}
 }
-void TheBase::Render(sf::RenderWindow* window)
+void BasicEntanglements::Render(sf::RenderWindow* window)
 {
 	window->draw(sprite);
 }
 
-void TheBase::RenderInactive(sf::RenderWindow * window)
+void BasicEntanglements::RenderInactive(sf::RenderWindow * window)
 {
 	sprite.setTexture(*textureDead);
 	sprite.setPosition(SCALE * this->body->GetPosition().x, SCALE * this->body->GetPosition().y);
@@ -148,7 +150,19 @@ void TheBase::RenderInactive(sf::RenderWindow * window)
 	window->draw(sprite);
 }
 
-void TheBase::Update(sf::Time difference_time)
+void BasicEntanglements::Update(sf::Time difference_time)
 {
 	attack_timer += difference_time;
+}
+
+Door::Door(b2World * world, b2Vec2 position, sf::Vector2i size, sf::Texture * ntexture) :
+	BasicEntanglements(world, position,size, ntexture)
+{
+	sprite.setColor(sf::Color::Yellow);
+	damage = 0;
+	groupID = 9;
+}
+
+Door::~Door()
+{
 }

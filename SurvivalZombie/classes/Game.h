@@ -15,7 +15,7 @@
 #include "Hud.h"
 #include <random>
 #include "Obstacle.h"
-#include "Trap.h"
+#include "BasicEntanglements.h"
 #include "TheBase.h"
 
 struct level_state

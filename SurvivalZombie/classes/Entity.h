@@ -45,8 +45,9 @@ protected:
 	long int				hitpoints;
 	long int				maxhitpoints;
 	std::list<Effect *>		effects;
-	sf::Texture* texture;
+	sf::Texture*			texture;
 	int						score;
+	sf::Vector2i			size;
 };
 
 

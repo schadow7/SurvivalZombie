@@ -90,10 +90,10 @@
     <ClCompile Include="classes\Obstacle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="classes\Trap.cpp">
+    <ClCompile Include="classes\TheBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="classes\TheBase.cpp">
+    <ClCompile Include="classes\BasicEntanglements.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -173,11 +173,15 @@
     <ClInclude Include="classes\Obstacle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="classes\Trap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="classes\TheBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="classes\BasicEntanglements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram11.cd" />
   </ItemGroup>
 </Project>

@@ -1,12 +1,11 @@
-#pragma once
 #include "StaticBody.h"
 
-class TheBase :
+class BasicEntanglements :
 	public StaticBody
 {
 public:
-	TheBase(b2World* world, b2Vec2 position,sf::Vector2i nsize = sf::Vector2i(50,50), sf::Texture* ntexture = AssetManager::GetTexture("grad2"));
-	~TheBase();
+	BasicEntanglements(b2World* world, b2Vec2 position, sf::Vector2i size = sf::Vector2i(25,50), sf::Texture* ntexture = AssetManager::GetTexture("grad2"));
+	~BasicEntanglements();
 	void StartContact(Entity*);
 	void EndContact(Entity*);
 	void Presolve(Entity*);
@@ -22,6 +21,7 @@ public:
 	void SetMaxHP(int);
 	void SetDamage(int);
 	void MakeActive();
+
 protected:
 	sf::Sprite sprite;
 	sf::RectangleShape hitpointsBarRed;
@@ -32,3 +32,13 @@ protected:
 private:
 	sf::Texture* textureDead;
 };
+
+class Door :
+	public BasicEntanglements
+{
+public:
+	Door(b2World* world, b2Vec2 position, sf::Vector2i size = sf::Vector2i(25, 50), sf::Texture* ntexture = AssetManager::GetTexture("grad2"));
+	~Door();
+};
+
+
