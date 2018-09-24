@@ -3,6 +3,7 @@
 #include "DynamicBody.h"
 #include "AIType.h"
 #include "AnimatedSprite.h"
+#include <random>
 class Zombie :
 	public DynamicBody
 {
@@ -50,6 +51,9 @@ protected:
 	b2World*				world;	
 	sf::Sound				hitSound;
 	sf::Sound				deadSound;
+	//std::vector<sf::Sound>	attackSounds;
+	//std::default_random_engine				engine;
+	//std::uniform_int_distribution<int>		soundDistribution{ 0, 30 };
 private:
 	void					setSpriteSheets();
 	void					addFramesToAnimations();

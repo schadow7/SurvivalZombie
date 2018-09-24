@@ -54,6 +54,13 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	hitSound.setVolume(40);
 	deadSound.setBuffer(*AssetManager::GetSound("zombie4"));
 	deadSound.setVolume(40);
+	//for (int i = 1; i < 5; i++)
+	//{
+		//sf::Sound temp;
+		//temp.setBuffer(*AssetManager::GetSound("zombieattack" + std::to_string(i)));
+		//temp.setVolume(40);
+		//attackSounds.push_back(temp);
+	//}
 }
 
 Zombie::~Zombie()
@@ -119,6 +126,9 @@ void Zombie::Attack( Entity * entity )
 		currentAnimation = &attackingAnimation;
 		animatedSprite.setFrameTime(sf::seconds(animSpeed*3));
 		animatedSprite.play(*currentAnimation);
+//		int i = soundDistribution(engine);
+		//if (i <= 6 && i >= 0)
+			//attackSounds[i].play();
 	}
 }
 

@@ -1,4 +1,5 @@
 #include "StaticBody.h"
+#include <random>
 
 class BasicEntanglements :
 	public StaticBody
@@ -29,7 +30,10 @@ protected:
 	float32					damage;
 	sf::Time				attack_timer;
 	sf::Time				attack_cooldown;
-	sf::Texture* textureDead;
+	sf::Texture*			textureDead;
+	std::vector<sf::Sound>	hitSounds;
+	std::default_random_engine				engine;
+	std::uniform_int_distribution<int>		soundDistribution{ 0, 15 };
 private:
 	
 };
