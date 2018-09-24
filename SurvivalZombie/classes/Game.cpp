@@ -666,6 +666,10 @@ void Game::Controls(sf::RenderWindow * window)
 		player->ChangeWeaponRight();
 		delay = sf::milliseconds( 500 );
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && delay <= sf::milliseconds(0))
+	{
+		entity_manager->CleanBodies();
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) entity_manager->KillEverybody();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) player->Reload();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) velocity += b2Vec2(0, -1);
@@ -677,6 +681,7 @@ void Game::Controls(sf::RenderWindow * window)
 	{
 		currentLevel++;
 		startLevelSound.play();
+		entity_manager->CleanBodies();
 		spawnHorde(currentLevel);
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
 	}
