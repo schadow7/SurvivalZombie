@@ -72,6 +72,7 @@ void Game::initializeGame()
 	mapsizex = (*AssetManager::GetTexture("map")).getSize().x;
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
+	delay2 = sf::milliseconds(0);
 	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -111,6 +112,7 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 	mapsizex = (*AssetManager::GetTexture("map")).getSize().x;
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
+	delay2 = sf::milliseconds(0);
 	mapCenter = b2Vec2( mapsizex / 2.0f / SCALE, mapsizey / 2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -163,6 +165,7 @@ void Game::loadTextures()
 void Game::Controls(sf::RenderWindow * window)
 {
 	delay -= clock.getElapsedTime();
+	delay2 -= clock.getElapsedTime();
 	//Przygotowanie wektorów
 	b2Vec2 velocity = b2Vec2_zero;
 	b2Vec2 normalize_direction = b2Vec2_zero;
