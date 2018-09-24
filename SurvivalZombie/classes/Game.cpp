@@ -341,6 +341,9 @@ void Game::arrangeObstacles(int quantity)
 {
 	if (quantity)
 	{
+		struct obstacleInfo { b2Vec2 spawnPoint; sf::Vector2i size; sf::Texture * tex; };
+		//Obstacle* temp;
+		
 		float angle = 0;
 		b2Vec2 spawnPoint = b2Vec2_zero;
 		int spawnRadius;
@@ -353,8 +356,10 @@ void Game::arrangeObstacles(int quantity)
 			spawnPoint.x = mapCenter.x + spawnRadius * cos(angle);
 			spawnPoint.y = mapCenter.y + spawnRadius * sin(angle);
 			temp = new Obstacle(world, spawnPoint);
-			entity_manager->AddEntity(temp);
+			entity_manager->AddEntity( temp );
 		}
+
+	
 	}
 }
 
