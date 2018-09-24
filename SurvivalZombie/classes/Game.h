@@ -19,7 +19,9 @@
 #include "TheBase.h"
 
 #define N_OF_BUTTONS 8
-
+enum class SaveSlot { SLOT_1 = 1, SLOT_2 = 2, SLOT_3 = 3 };
+enum class GameState { MENU, RUNNING, SHOP };
+enum class MenuType { DEFAULT, NEWGAME, LOADGAME };
 
 struct level_state
 {
@@ -40,7 +42,7 @@ public:
 	~Game();
 
 	
-	void									runGame(sf::RenderWindow * window, sf::Event event);
+	void									runGame(sf::RenderWindow * window);
 	void									updateObserver(Entity*) override;
 	void									RestartClock() { clock.restart(); }
 	level_state								GetLevelState();
@@ -48,6 +50,10 @@ public:
 	std::vector<weapon_features>			GetWeaponState();
 	void									PlayMusic();
 	void									StopMusic();
+	GameState								runShop( sf::Window * window );
+	GameState								runShopClicked( sf::Window * window);
+	void									setText();
+	void									drawShop( sf::RenderWindow * window );
 private:
 	bool									isWave();
 	void									Render( sf::RenderWindow * window );
@@ -55,11 +61,11 @@ private:
 	void									Controls(sf::RenderWindow * window);
 	void									initializeGame();
 	void									initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState );
-	GamePhase								runShop();
-	GamePhase								runShopClicked();
-	void									drawShop(sf::RenderWindow * window);
+	
+	
+	
 	void									formatText(sf::Text & text, int size);
-	void									setText();
+	
 	bool									pistolOwned();
 	bool									rifleOwned();
 	bool									shotgunOwned();

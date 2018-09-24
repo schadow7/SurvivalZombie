@@ -79,20 +79,53 @@ void MainWindow::run(  )
 				window->setView( *view );
 				draw();
 			}
+			if ( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::B )
+			{
+				if ( game )
+				{
+					saveGame( currentSlot );
+					game->StopMusic();
+				}
+				gameState = GameState::SHOP;
+				cursor->loadFromSystem( sf::Cursor::Arrow );
+				window->setMouseCursor( *cursor );
+				window->setView( *view );
+			}
 		}
-		if ( gameState == GameState::MENU )
+		if ( gameState == GameState::RUNNING )
+		{
+			game->PlayMusic();
+			cursor->loadFromSystem( sf::Cursor::Cross );
+			window->setMouseCursor( *cursor );
+			game->runGame( window );
+		}
+		else if ( gameState == GameState::MENU )
 		{
 			cursor->loadFromSystem( sf::Cursor::Arrow );
 			window->setMouseCursor( *cursor );
 			gameState = runMenu( event );
 		}
-		else if ( gameState == GameState::RUNNING )
+		else if ( gameState == GameState::SHOP )
 		{
-			game->PlayMusic();
-			cursor->loadFromSystem( sf::Cursor::Cross );
-			window->setMouseCursor( *cursor );
-			game->runGame( window, event );
+			if ( !game )
+				gameState = GameState::MENU;
+			else
+			{
+				if ( !clicked && sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+					game->runShop( window );
+
+				gameState = GameState::SHOP;
+
+				if ( clicked && event.type == sf::Event::MouseButtonReleased )
+				{
+					if ( event.mouseButton.button == sf::Mouse::Left )
+						gameState = game->runShopClicked( window );
+				}
+				game->setText();
+				game->drawShop( window );
+			}
 		}
+
 
 		//Wyœwietlenie obrazu
 		window->display();

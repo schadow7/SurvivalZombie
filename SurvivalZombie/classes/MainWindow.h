@@ -7,9 +7,7 @@
 
 #define MAX_NUMBER_OF_ITEMS 8
 
-enum class SaveSlot { SLOT_1 = 1, SLOT_2 = 2, SLOT_3 = 3 };
-enum class GameState { MENU, RUNNING };
-enum class MenuType { DEFAULT, NEWGAME, LOADGAME };
+
 
 class MainWindow
 {

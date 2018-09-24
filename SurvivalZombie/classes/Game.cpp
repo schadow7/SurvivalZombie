@@ -217,55 +217,28 @@ void Game::formatText(sf::Text & text, int size)
 	text.setOutlineThickness(1);
 }
 
-void Game::runGame(sf::RenderWindow * window, sf::Event event)
+void Game::runGame(sf::RenderWindow * window)
 {
 	window->clear();
 
-	gamePhase = GamePhase::GAME;
+	view->setCenter(player->GetPosition());
+	window->setView(*view);
 
-	if (gamePhase == GamePhase::GAME)
-	{
-		view->setCenter(player->GetPosition());
-		window->setView(*view);
+	//Sterowanie graczem i nie tylko
+	Controls(window);
 
-		//Sterowanie graczem i nie tylko
-		Controls(window);
+	window->draw(background);
+	entity_manager->Update(clock.restart());
+	entity_manager->Render(window);
+	hud->Render(window, view, player);
 
-		window->draw(background);
-		entity_manager->Update(clock.restart());
-		entity_manager->Render(window);
-		hud->Render(window, view, player);
-	}
-
-	else if (gamePhase == GamePhase::SHOP)
-	{
-		if (!clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			mouseX = sf::Mouse::getPosition(*window).x;
-			mouseY = sf::Mouse::getPosition(*window).y;
-
-			runShop();
-		}
-
-		gamePhase = GamePhase::SHOP;
-		if (clicked && event.type == sf::Event::MouseButtonReleased)
-		{
-			if (event.mouseButton.button == sf::Mouse::Left)
-			{
-				mouseX = sf::Mouse::getPosition(*window).x;
-				mouseY = sf::Mouse::getPosition(*window).y;
-				clicked = false;
-
-				gamePhase = runShopClicked();
-			}
-		}
-		setText();
-		drawShop(window);
-	}
 }
 
-GamePhase Game::runShop()
+GameState Game::runShop( sf::Window * window )
 {
+	mouseX = sf::Mouse::getPosition( *window ).x;
+	mouseY = sf::Mouse::getPosition( *window ).y;
+
 	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
 	{	
@@ -291,33 +264,37 @@ GamePhase Game::runShop()
 		clicked = true;
 	}
 
-	return GamePhase::SHOP;
+	return GameState::SHOP;
 }
 
-GamePhase Game::runShopClicked()
+GameState Game::runShopClicked(sf::Window * window)
 {
+	mouseX = sf::Mouse::getPosition( *window ).x;
+	mouseY = sf::Mouse::getPosition( *window ).y;
+	clicked = false;
+
 	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
 	{
-		return GamePhase::GAME;
+		return GameState::RUNNING;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
 	{
-		return GamePhase::GAME;
+		return GameState::RUNNING;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
 	{
-		return GamePhase::SHOP;
+		return GameState::SHOP;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
 	{
-		return GamePhase::SHOP;
+		return GameState::SHOP;
 	}
 
-	return GamePhase::SHOP;
+	return GameState::SHOP;
 }
 
 void Game::setText()
