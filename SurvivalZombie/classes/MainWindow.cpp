@@ -294,7 +294,10 @@ void MainWindow::loadTextures()
 	AssetManager::AddSound( "pistol_click2", ".\\music\\pistol_click2.wav" );
 	AssetManager::AddSound( "pistol_reload", ".\\music\\pistol_reload.wav" );
 	//Zombie noise
-
+	for (int i = 1; i < 25; i++)
+	{
+		AssetManager::AddSound("zombie"+ std::to_string(i), ".\\music\\zombie-"+ std::to_string(i) +".wav");
+	}
 	//Etagelments sound
 	AssetManager::AddSound("fort1", ".\\music\\qubodupImpactMeat01.ogg");
 	AssetManager::AddSound("fort2", ".\\music\\qubodupImpactMetal.ogg");

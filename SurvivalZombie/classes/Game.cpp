@@ -93,6 +93,13 @@ void Game::initializeGame()
 	Weapon * shotgun = new Shotgun( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
 	player->AddWeapon( shotgun );
 	startLevelSound.setBuffer(*AssetManager::GetSound("brains"));
+	for (int i = 1; i < 25; i++)
+	{
+		sf::Sound temp;
+		temp.setBuffer(*AssetManager::GetSound("zombie" + std::to_string(i)));
+		temp.setVolume(20);
+		zombieNoises.push_back(temp);
+	}
 }
 
 void Game::initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
@@ -237,6 +244,12 @@ void Game::Controls(sf::RenderWindow * window)
 		startLevelSound.play();
 		spawnHorde(currentLevel);
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
+	}
+	if (undeadCount > 0 && delay <= sf::milliseconds(0))
+	{
+		zombieNoises[noiseDistribution(engine)].play();
+		delay = sf::milliseconds(30 * angleDistribution(engine));
+
 	}
 
 	shoot_timer += clock.getElapsedTime();
