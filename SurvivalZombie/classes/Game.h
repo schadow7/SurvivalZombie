@@ -25,6 +25,7 @@ struct level_state
 	short int base_level;
 };
 
+enum class GamePhase {GAME, SHOP};
 
 class Game:
 	public Observer
@@ -82,5 +83,6 @@ private:
 	int										mapsizex, mapsizey;
 	sf::Vector2f							previousMousePos;
 	sf::Music								music;
+	GamePhase								gamePhase;
 };
 

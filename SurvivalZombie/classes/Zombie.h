@@ -48,6 +48,8 @@ protected:
 	AIType*					AI;
 	const Entity*			target;
 	b2World*				world;	
+	sf::Sound				hitSound;
+	sf::Sound				deadSound;
 private:
 	void					setSpriteSheets();
 	void					addFramesToAnimations();

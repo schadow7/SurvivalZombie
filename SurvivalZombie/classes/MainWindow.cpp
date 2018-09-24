@@ -293,6 +293,13 @@ void MainWindow::loadTextures()
 	AssetManager::AddSound( "pistol_click1", ".\\music\\pistol_click1.wav" );
 	AssetManager::AddSound( "pistol_click2", ".\\music\\pistol_click2.wav" );
 	AssetManager::AddSound( "pistol_reload", ".\\music\\pistol_reload.wav" );
+	//Zombie noise
+	AssetManager::AddSound("zombie1", ".\\music\\zombie-10.wav");
+	AssetManager::AddSound("zombie2", ".\\music\\zombie-11.wav");
+	AssetManager::AddSound("zombie3", ".\\music\\zombie-12.wav");
+	AssetManager::AddSound("zombie4", ".\\music\\zombie-13.wav");
+	AssetManager::AddSound("zombie5", ".\\music\\zombie-14.wav");
+	AssetManager::AddSound("zombie6", ".\\music\\zombie-15.wav");
 }
 
 
@@ -368,27 +375,18 @@ void MainWindow::runNewGameMenu()
 	{
 		selectedButton = 9;
 		clicked = true;
-		newGame();
-		currentSlot = SaveSlot::SLOT_1;
-		saveGame( SaveSlot::SLOT_1 );
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing && mouseY <= shadow + posY + dposY + spacing * dspacing + height2))
 	{
 		selectedButton = 11;
 		clicked = true;
-		newGame();
-		currentSlot = SaveSlot::SLOT_2;
-		saveGame( SaveSlot::SLOT_2 );
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing * 2 && mouseY <= shadow + posY + dposY + spacing * dspacing * 2 + height2))
 	{
 		selectedButton = 13;
 		clicked = true;
-		newGame();
-		currentSlot = SaveSlot::SLOT_3;
-		saveGame( SaveSlot::SLOT_3 );
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing * 3 && mouseY <= shadow + posY + dposY + spacing * dspacing * 3 + height1))
@@ -407,8 +405,6 @@ void MainWindow::runLoadGameMenu()
 		{
 			selectedButton = 9;
 			clicked = true;
-			currentSlot = SaveSlot::SLOT_1;
-			loadGame( SaveSlot::SLOT_1 );
 		}
 
 	}
@@ -419,8 +415,6 @@ void MainWindow::runLoadGameMenu()
 		{
 			selectedButton = 11;
 			clicked = true;
-			currentSlot = SaveSlot::SLOT_2;
-			loadGame( SaveSlot::SLOT_2 );
 		}
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
@@ -430,8 +424,6 @@ void MainWindow::runLoadGameMenu()
 		{
 			selectedButton = 13;
 			clicked = true;
-			currentSlot = SaveSlot::SLOT_3;
-			loadGame( SaveSlot::SLOT_3 );
 		}
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
@@ -476,11 +468,17 @@ GameState MainWindow::runNewGameMenuClicked()
 	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY && mouseY <= shadow + posY + dposY + height2))
 	{
+		newGame();
+		currentSlot = SaveSlot::SLOT_1;
+		saveGame(SaveSlot::SLOT_1);
 		return GameState::RUNNING;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing && mouseY <= shadow + posY + dposY + spacing * dspacing + height2))
 	{
+		newGame();
+		currentSlot = SaveSlot::SLOT_2;
+		saveGame(SaveSlot::SLOT_2);
 		return GameState::RUNNING;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
@@ -491,6 +489,9 @@ GameState MainWindow::runNewGameMenuClicked()
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing * 3 && mouseY <= shadow + posY + dposY + spacing * dspacing * 3 + height1))
 	{
+		newGame();
+		currentSlot = SaveSlot::SLOT_3;
+		saveGame(SaveSlot::SLOT_3);
 		menuType = MenuType::DEFAULT;
 	}
 
@@ -502,16 +503,22 @@ GameState MainWindow::runLoadGameMenuClicked()
 	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY && mouseY <= shadow + posY + dposY + height2))
 	{
+		currentSlot = SaveSlot::SLOT_1;
+		loadGame(SaveSlot::SLOT_1);
 		return GameState::RUNNING;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing && mouseY <= shadow + posY + dposY + spacing * dspacing + height2))
 	{
+		currentSlot = SaveSlot::SLOT_2;
+		loadGame(SaveSlot::SLOT_2);
 		return GameState::RUNNING;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 		(mouseY >= shadow + posY + dposY + spacing * dspacing * 2 && mouseY <= shadow + posY + dposY + spacing * dspacing * 2 + height2))
 	{
+		currentSlot = SaveSlot::SLOT_3;
+		loadGame(SaveSlot::SLOT_3);
 		return GameState::RUNNING;
 	}
 	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
