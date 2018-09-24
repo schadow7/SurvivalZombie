@@ -235,6 +235,12 @@ void MainWindow::loadTextures()
 	AssetManager::AddTexture("grad2", ".\\graphics\\grad2.png");
 	AssetManager::AddTexture("wall_broken", ".\\graphics\\objects\\wall_broken.png");
 	AssetManager::AddTexture( "wall", ".\\graphics\\objects\\wall.png" );
+	AssetManager::AddTexture( "box22", ".\\graphics\\objects\\box_2x2.png" );
+	AssetManager::AddTexture( "barrel", ".\\graphics\\objects\\barrel_top.png" );
+	AssetManager::AddTexture( "tree7", ".\\graphics\\objects\\tree7.png" );
+	AssetManager::AddTexture( "stone4", ".\\graphics\\objects\\stone4.png" );
+	AssetManager::AddTexture( "stone2", ".\\graphics\\objects\\stone2.png" );
+	AssetManager::AddTexture( "tree3", ".\\graphics\\objects\\tree3.png" );
 
 	//Hud
 	AssetManager::AddTexture("handgun", ".\\graphics\\hud\\handgun.png");

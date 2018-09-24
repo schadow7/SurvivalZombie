@@ -342,8 +342,31 @@ void Game::arrangeObstacles(int quantity)
 	if (quantity)
 	{
 		struct obstacleInfo { b2Vec2 spawnPoint; sf::Vector2i size; sf::Texture * tex; };
-		//Obstacle* temp;
-		
+		Obstacle* temp;
+		quantity = 14;
+		obstacleInfo obstacle[14];
+
+		obstacle[0] = { mapCenter + b2Vec2( -5, 1 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone4" ) };
+		obstacle[1] = { mapCenter + b2Vec2( -3, 5 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone2" ) };
+		obstacle[2] = { mapCenter + b2Vec2( -8, 3 ),	 sf::Vector2i( 125, 149 ),  AssetManager::GetTexture( "tree7" ) };
+		obstacle[3] = { mapCenter + b2Vec2( -10, -8 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone4" ) };
+		obstacle[4] = { mapCenter + b2Vec2( -3, -4 ),  	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone4" ) };
+		obstacle[5] = { mapCenter + b2Vec2( 10, 3 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone2" ) };
+		obstacle[6] = { mapCenter + b2Vec2( 8, 2 ),		 sf::Vector2i( 125, 149 ),  AssetManager::GetTexture( "tree7" ) };
+		obstacle[7] = { mapCenter + b2Vec2( 4, -8 ),		 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone4" ) };
+		obstacle[8] = { mapCenter + b2Vec2( 6, 5 ),		 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone2" ) };
+		obstacle[9] = { mapCenter + b2Vec2( 1, 11 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone4" ) };
+		obstacle[10] = { mapCenter + b2Vec2( 0.5f, -6 ),	 sf::Vector2i( 125, 149 ),	AssetManager::GetTexture( "tree7" ) };
+		obstacle[11] = { mapCenter + b2Vec2( 4, -8 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone4" ) };
+		obstacle[12] = { mapCenter + b2Vec2( 2, -4 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone2" ) };
+		obstacle[13] = { mapCenter + b2Vec2( 4, 4 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone2" ) };
+
+		for ( int i = 0; i < quantity; i++ )
+		{
+			temp = new Obstacle( world, obstacle[i].spawnPoint, obstacle[i].size, obstacle[i].tex );
+			entity_manager->AddEntity( temp );
+		}
+		/*
 		float angle = 0;
 		b2Vec2 spawnPoint = b2Vec2_zero;
 		int spawnRadius;
@@ -359,7 +382,7 @@ void Game::arrangeObstacles(int quantity)
 			entity_manager->AddEntity( temp );
 		}
 
-	
+		*/
 	}
 }
 
@@ -369,7 +392,7 @@ void Game::makeBase()
 	int boxSize = 10;
 	sf::Vector2f position(mapsizex/2 - 5 * sizex, mapsizey/2 - 5 * sizex);
 	BasicEntanglements* ob;
-	TheBase* Base = new TheBase(world, mapCenter);
+	TheBase* Base = new TheBase( world, mapCenter, sf::Vector2i( 80, 82 ), AssetManager::GetTexture( "box22" ) );
 	entity_manager->AddEntity(Base);
 	for (int i = 0; i < boxSize; i++)
 	{
