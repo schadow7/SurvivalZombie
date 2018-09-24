@@ -18,7 +18,7 @@ public:
 	void						Render( sf::RenderWindow * window );
 	b2World *					World() { return world; }
 	void						KillEverybody();
-	void						CleanBodies();
+
 
 private:
 	b2World *					world;

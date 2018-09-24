@@ -100,17 +100,3 @@ void EntityManager::KillEverybody()
 		it->TakeDamage(1000);
 	}
 }
-void EntityManager::CleanBodies()
-{
-	for (std::list<Entity*>::iterator it = inactive_entities.begin(); it != inactive_entities.end(); )
-	{
-		if ((*it)->GetID() == 2)
-		{
-			delete (*it);
-			it = inactive_entities.erase(it);
-		}
-		else
-			it++;
-
-	}
-}
