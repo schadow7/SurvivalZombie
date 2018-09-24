@@ -86,7 +86,7 @@ Player::Player( b2World * world, b2Vec2 position, player_state playerState ) : D
 	animatedSpriteFeet.setOrigin( size1 / 2.f, size1 / 2.f );
 	animatedSprite.play( *currentAnimation );
 
-	soundShoot.setBuffer( *AssetManager::GetSound( "pistol_shoot" ) );
+	soundShoot.setBuffer( *AssetManager::GetSound( "pistol_shot" ) );
 	soundClick.setBuffer( *AssetManager::GetSound( "pistol_click1" ) );
 	soundReload.setBuffer( *AssetManager::GetSound( "pistol_reload" ) );
 }

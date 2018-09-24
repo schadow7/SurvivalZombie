@@ -31,10 +31,9 @@ BasicEntanglements::BasicEntanglements(b2World* world, b2Vec2 position, sf::Vect
 	float scaleX = static_cast<float>(size.x) / texture->getSize().x;
 	float scaleY = static_cast<float>(size.y) / texture->getSize().y;
 	sprite.setScale(scaleX, scaleY);
-	sprite.setColor(sf::Color::Red);
+	//sprite.setColor(sf::Color::Red);
 
-	textureDead = AssetManager::GetTexture("grad2");
-	textureDead->setSmooth(1);
+	textureDead = AssetManager::GetTexture("wall_broken");
 
 	sprite.setPosition(SCALE * position.x, SCALE * position.y);
 	sprite.setRotation(180 / b2_pi * this->body->GetAngle());
@@ -111,7 +110,7 @@ void BasicEntanglements::MakeActive()
 	float scaleX = static_cast<float>(size.x) / textureDead->getSize().x;
 	float scaleY = static_cast<float>(size.y) / textureDead->getSize().y;
 	sprite.setScale(scaleX, scaleY);
-	sprite.setColor(sf::Color::Red);
+	//sprite.setColor(sf::Color::Red);
 	active = 1;
 	SetBodyActive();
 }
@@ -146,7 +145,7 @@ void BasicEntanglements::RenderInactive(sf::RenderWindow * window)
 	float scaleX = static_cast<float>(size.x) / textureDead->getSize().x;
 	float scaleY = static_cast<float>(size.y) / textureDead->getSize().y;
 	sprite.setScale(scaleX, scaleY);
-	sprite.setColor(sf::Color::Green);
+	//sprite.setColor(sf::Color::Green);
 	window->draw(sprite);
 }
 
@@ -161,6 +160,7 @@ Door::Door(b2World * world, b2Vec2 position, sf::Vector2i size, sf::Texture * nt
 	sprite.setColor(sf::Color::Yellow);
 	damage = 0;
 	groupID = 9;
+	textureDead = AssetManager::GetTexture( "wall_broken" );
 }
 
 Door::~Door()
