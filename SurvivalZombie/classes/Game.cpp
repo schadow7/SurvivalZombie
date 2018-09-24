@@ -12,6 +12,7 @@ Game::Game() :
 	entity_manager = new EntityManager(world);
 	view = new sf::View(sf::FloatRect(0, 0, 1280, 720));
 	hud = new Hud;
+	loadTextures();
 	initializeGame();
 }
 
@@ -27,7 +28,7 @@ Game::Game( level_state lvlState, player_state playerState, std::vector<weapon_f
 
 	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 	hud = new Hud;
-
+	loadTextures();
 	initializeGame( lvlState, playerState, weaponState );
 }
 
@@ -39,10 +40,188 @@ Game::~Game()
 
 }
 
+void Game::loadTextures()
+{
+	posX = 80;
+	posY = 80;
+	spacing = 100;
+	spacingy = 88;
+	width = 304;
+	height1 = 84;
+	shadow = 3;
+	int up = 70;
+
+	backgroundShop.setTexture(*AssetManager::GetTexture("backgroundMenu"));
+	backgroundShop.setPosition(sf::Vector2f(0, 0));
+
+	fontType.loadFromFile("cambria.ttc");
+
+	//SHOP
+	formatText(text[0], 75);
+	text[0].setPosition(sf::Vector2f(545, -13));
+	text[0].setString("SHOP");
+
+	//MONEY
+	formatText(text[1], 30);
+	text[1].setFillColor(sf::Color::Green);
+	text[1].setPosition(sf::Vector2f(950, 40));
+
+	//BASE
+	button[0].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[0].setPosition(sf::Vector2f(posX, posY));
+	formatText(text[2], 30);
+	text[2].setPosition(sf::Vector2f(posX + 25, posY + 7));
+	formatText(text[3], 30);
+	text[3].setPosition(sf::Vector2f(posX + 25, posY + 42));
+	///////////////////////////////////////////////////////////////////////
+	//PISTOL
+	button[1].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[1].setPosition(sf::Vector2f(posX, posY + spacingy));
+	weapon[0].setTexture(*AssetManager::GetTexture("handgun"));
+	weapon[0].setPosition(sf::Vector2f(posX + 100, posY + spacingy));
+
+	//RIFLE
+	button[2].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[2].setPosition(sf::Vector2f(posX, posY + spacingy * 2));
+	weapon[1].setTexture(*AssetManager::GetTexture("rifle"));
+	weapon[1].setPosition(sf::Vector2f(posX + 50, posY + spacingy * 2 - 60));
+
+	//SHOTGUN
+	button[3].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[3].setPosition(sf::Vector2f(posX, posY + spacingy * 3));
+	weapon[2].setTexture(*AssetManager::GetTexture("shotgun"));
+	weapon[2].setPosition(sf::Vector2f(posX + 50, posY + spacingy * 3 - 50));
+	///////////////////////////////////////////////////////////////////////
+	//UPGRADE BASE
+	button[4].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[4].setPosition(sf::Vector2f(posX + spacing * 4, posY));
+	formatText(text[4], 30);
+	text[4].setPosition(sf::Vector2f(posX + spacing * 4 + 27, posY + 7));
+	formatText(text[5], 25);
+	text[5].setFillColor(sf::Color::Green);
+	text[5].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + 45));
+	///////////////////////////////////////////////////////////////////////
+	//BUY/SELECT PISTOL
+	button[5].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[5].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy));
+	formatText(text[6], 30);
+	text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 30, posY + spacingy + 7));
+	formatText(text[7], 25);
+	text[7].setFillColor(sf::Color::Green);
+	text[7].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + spacingy + 45));
+
+	//BUY/SELECT RIFLE
+	button[6].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[6].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 2));
+	formatText(text[8], 30);
+	text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 30, posY + spacingy * 2 + 7));
+	formatText(text[9], 25);
+	text[9].setFillColor(sf::Color::Green);
+	text[9].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + spacingy * 2 + 45));
+
+	//BUY/SELECT SHOTGUN
+	button[7].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[7].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 3));
+	formatText(text[10], 30);
+	text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 30, posY + spacingy * 3 + 7));
+	formatText(text[11], 25);
+	text[11].setFillColor(sf::Color::Green);
+	text[11].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + spacingy * 3 + 45));
+	///////////////////////////////////////////////////////////////////////
+	//BUY PISTOL AMMO
+	button[8].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[8].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy));
+	formatText(text[12], 30);
+	text[12].setPosition(sf::Vector2f(posX + spacing * 8 + 25, posY + spacingy + 7));
+	formatText(text[13], 25);
+	text[13].setFillColor(sf::Color::Green);
+	text[13].setPosition(sf::Vector2f(posX + spacing * 8 + 90, posY + spacingy + 45));
+
+	//BUY RIFLE AMMO
+	button[9].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[9].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 2));
+	formatText(text[14], 30);
+	text[14].setPosition(sf::Vector2f(posX + spacing * 8 + 30, posY + spacingy * 2 + 7));
+	formatText(text[15], 25);
+	text[15].setFillColor(sf::Color::Green);
+	text[15].setPosition(sf::Vector2f(posX + spacing * 8 + 90, posY + spacingy * 2 + 45));
+
+	//BUY SHOTGUN AMMO
+	button[10].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[10].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 3));
+	formatText(text[16], 30);
+	text[16].setPosition(sf::Vector2f(posX + spacing * 8 + 7, posY + spacingy * 3 + 7));
+	formatText(text[17], 25);
+	text[17].setFillColor(sf::Color::Green);
+	text[17].setPosition(sf::Vector2f(posX + spacing * 8 + 90, posY + spacingy * 3 + 45));
+	///////////////////////////////////////////////////////////////////////
+	//UPGRADE DMG
+	button[11].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[11].setPosition(sf::Vector2f(posX, posY + spacingy * 4 + up));
+	formatText(text[18], 30);
+	text[18].setPosition(sf::Vector2f(posX + 60, posY + spacingy * 4 + 7 + up));
+	formatText(text[19], 25);
+	text[19].setFillColor(sf::Color::Green);
+	text[19].setPosition(sf::Vector2f(posX + 90, posY + spacingy * 4 + 45 + up));
+
+	//UPGRADE RECOIL TIME
+	button[12].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[12].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 4 + up));
+	formatText(text[20], 30);
+	text[20].setPosition(sf::Vector2f(posX + spacing * 4 + 25, posY + spacingy * 4 + 7 + up));
+	formatText(text[21], 25);
+	text[21].setFillColor(sf::Color::Green);
+	text[21].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + spacingy * 4 + 45 + up));
+
+	//UPGRADE RELOAD TIME
+	button[13].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[13].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 4 + up));
+	formatText(text[22], 30);
+	text[22].setPosition(sf::Vector2f(posX + spacing * 8 + 20, posY + spacingy * 4 + 7 + up));
+	formatText(text[23], 25);
+	text[23].setFillColor(sf::Color::Green);
+	text[23].setPosition(sf::Vector2f(posX + spacing * 8 + 90, posY + spacingy * 4 + 45 + up));
+
+	//UPGRADE MAG. CAP.
+	button[14].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[14].setPosition(sf::Vector2f(posX, posY + spacingy * 5 + up));
+	formatText(text[24], 30);
+	text[24].setPosition(sf::Vector2f(posX + 35, posY + spacingy * 5 + 7 + up));
+	formatText(text[25], 25);
+	text[25].setFillColor(sf::Color::Green);
+	text[25].setPosition(sf::Vector2f(posX + 90, posY + spacingy * 5 + 45 + up));
+
+	//UPGRADE AMMO CAP.
+	button[15].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[15].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 5 + up));
+	formatText(text[26], 30);
+	text[26].setPosition(sf::Vector2f(posX + spacing * 4 + 27, posY + spacingy * 5 + 7 + up));
+	formatText(text[27], 25);
+	text[27].setFillColor(sf::Color::Green);
+	text[27].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + spacingy * 5 + 45 + up));
+
+	//CLOSE SHOP
+	button[16].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[16].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 5 + up));
+	formatText(text[28], 50);
+	text[28].setPosition(sf::Vector2f(posX + spacing * 8 + 17, posY + spacingy * 5 + 13 + up));
+}
+
+void Game::formatText(sf::Text & text, int size)
+{
+	text.setFont(fontType);
+	text.setCharacterSize(size);
+	text.setFillColor(sf::Color::White);
+	//text.setStyle( sf::Text::Bold );
+	text.setOutlineColor(sf::Color::Black);
+	text.setOutlineThickness(1);
+}
+
 void Game::runGame(sf::RenderWindow * window)
 {
 	window->clear();
 
+	gamePhase = GamePhase::SHOP;
 
 	if (gamePhase == GamePhase::GAME)
 	{
@@ -60,7 +239,259 @@ void Game::runGame(sf::RenderWindow * window)
 
 	else if (gamePhase == GamePhase::SHOP)
 	{
-		;
+		sf::Event event;
+		window->pollEvent(event);
+
+		if (!clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			mouseX = sf::Mouse::getPosition(*window).x;
+			mouseY = sf::Mouse::getPosition(*window).y;
+
+			runShop();
+		}
+
+		gamePhase = GamePhase::SHOP;
+		if (clicked && event.type == sf::Event::MouseButtonReleased)
+		{
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				mouseX = sf::Mouse::getPosition(*window).x;
+				mouseY = sf::Mouse::getPosition(*window).y;
+				clicked = false;
+
+				gamePhase = runShopClicked();
+			}
+		}
+		setText();
+		drawShop(window);
+	}
+}
+
+GamePhase Game::runShop()
+{
+	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
+	{	
+		selectedButton = 1;
+		clicked = true;
+	}
+	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
+	{
+		selectedButton = 3;
+		clicked = true;
+	}
+	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
+	{
+		selectedButton = 5;
+		clicked = true;
+	}
+	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
+	{
+		selectedButton = 7;
+		clicked = true;
+	}
+
+	return GamePhase::SHOP;
+}
+
+GamePhase Game::runShopClicked()
+{
+	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
+	{
+		return GamePhase::GAME;
+	}
+	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
+	{
+		return GamePhase::GAME;
+	}
+	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
+	{
+		return GamePhase::SHOP;
+	}
+	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
+	{
+		return GamePhase::SHOP;
+	}
+
+	return GamePhase::SHOP;
+}
+
+void Game::setText()
+{
+	int PLACEHOLDER = 1;
+	selectedWeapon = SelectedWeapon::PISTOL;
+
+	text[1].setString("Money: " + std::to_string(GetLevelState().points) + "$");
+
+	text[2].setString("Base level: " + std::to_string(PLACEHOLDER));
+	text[3].setString("Wall Hitpoints: " + std::to_string(PLACEHOLDER));
+	text[4].setString("Upgrade base level");
+	text[5].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+
+	text[12].setString("Buy Pistol Magazine");
+	text[13].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[14].setString("Buy Rifle Magazine");
+	text[15].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[16].setString("Buy Shotgun Magazine");
+	text[17].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+
+	text[18].setString("Upgrade DMG");
+	text[19].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[20].setString("Upgrade recoil time");
+	text[21].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[22].setString("Upgrade reload time");
+	text[23].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[24].setString("Upgrade mag. cap.");
+	text[25].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[26].setString("Upgrade ammo cap.");
+	text[27].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+
+	text[28].setString("CLOSE SHOP");
+
+	if (!isWeaponSelected())
+	{
+		for (int i = 9; i < 14; i++)
+		{
+			text[i * 2].setFillColor(sf::Color(50, 50, 50));
+			text[i * 2 + 1].setFillColor(sf::Color(25, 50, 25));
+			button[i + 2].setColor(sf::Color(50, 50, 50));
+		}
+	}
+	else
+	{
+		for (int i = 9; i < 14; i++)
+		{
+			text[i * 2].setFillColor(sf::Color::White);
+			text[i * 2 + 1].setFillColor(sf::Color::Green);
+			button[i + 2].setColor(sf::Color(255, 255, 255));
+		}
+	}
+
+	if (!pistolOwned())
+	{
+		button[1].setColor(sf::Color(50, 50, 50));
+		text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 80, posY + spacingy + 7));
+		text[6].setString("Buy Pistol");
+		text[7].setFillColor(sf::Color::Green);
+		text[7].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+		text[12].setFillColor(sf::Color(50, 50, 50));
+		text[13].setFillColor(sf::Color(25, 50, 25));
+		button[8].setColor(sf::Color(50, 50, 50));
+	}
+	else
+	{
+		button[1].setColor(sf::Color(255, 255, 255));
+		text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 70, posY + spacingy + 7));
+		text[6].setString("Select Pistol");
+		text[7].setFillColor(sf::Color::White);
+		text[7].setString("Ammo: " + std::to_string(PLACEHOLDER));
+		text[12].setFillColor(sf::Color::White);
+		text[13].setFillColor(sf::Color::Green);
+		button[8].setColor(sf::Color(255, 255, 255));
+	}
+
+
+	if (!rifleOwned())
+	{
+		button[2].setColor(sf::Color(50, 50, 50));
+		text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + spacingy * 2 + 7));
+		text[8].setString("Buy Rifle");
+		text[9].setFillColor(sf::Color::Green);
+		text[9].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+		text[14].setFillColor(sf::Color(50, 50, 50));
+		text[15].setFillColor(sf::Color(25, 50, 25));
+		button[9].setColor(sf::Color(50, 50, 50));
+	}
+	else
+	{
+		button[2].setColor(sf::Color(255, 255, 255));
+		text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 77, posY + spacingy * 2 + 7));
+		text[8].setString("Select Rifle");
+		text[9].setFillColor(sf::Color::White);
+		text[9].setString("Ammo: " + std::to_string(PLACEHOLDER));
+		text[14].setFillColor(sf::Color::White);
+		text[15].setFillColor(sf::Color::Green);
+		button[9].setColor(sf::Color(255, 255, 255));
+	}
+
+
+	if (!shotgunOwned())
+	{
+		button[3].setColor(sf::Color(50, 50, 50));
+		text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 70, posY + spacingy * 3 + 7));
+		text[10].setString("Buy Shotgun");
+		text[11].setFillColor(sf::Color::Green);
+		text[11].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+		text[16].setFillColor(sf::Color(50, 50, 50));
+		text[17].setFillColor(sf::Color(25, 50, 25));
+		button[10].setColor(sf::Color(50, 50, 50));
+	}
+	else
+	{
+		button[3].setColor(sf::Color(255, 255, 255));
+		text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 57, posY + spacingy * 3 + 7));
+		text[10].setString("Select Shotgun");
+		text[11].setFillColor(sf::Color::White);
+		text[11].setString("Ammo: " + std::to_string(PLACEHOLDER));
+		text[16].setFillColor(sf::Color::White);
+		text[17].setFillColor(sf::Color::Green);
+		button[10].setColor(sf::Color(255, 255, 255));
+	}
+}
+
+bool Game::pistolOwned()
+{
+	return false;
+}
+
+bool Game::rifleOwned()
+{
+	return true;
+}
+
+bool Game::shotgunOwned()
+{
+	return true;
+}
+
+bool Game::isWeaponSelected()
+{
+	return false;
+}
+
+void Game::drawShop(sf::RenderWindow * window)
+{
+	window->draw(backgroundShop);
+	
+	/*if (!game)
+		button[0].setColor(sf::Color(40, 40, 40));
+	else
+		button[0].setColor(sf::Color(255, 255, 255));
+		*/
+
+	window->draw(button[0]);
+
+	for (int i = 1; i < 4; i++)
+	{
+		window->draw(button[i]);
+		window->draw(weapon[i-1]);
+	}
+
+	for (int i = 4; i < 17; i++)
+	{
+		window->draw(button[i]);
+	}
+
+	for (int i = 0; i < 50; i++)
+	{
+		window->draw(text[i]);
 	}
 }
 
@@ -72,6 +503,7 @@ void Game::initializeGame()
 	mapsizex = (*AssetManager::GetTexture("map")).getSize().x;
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
+	loadTextures();
 	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -100,6 +532,7 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 	currentLevel = lvlState.level;
 	baseLevel = lvlState.base_level;
 	points = lvlState.points;
+	loadTextures();
 	mapsizex = (*AssetManager::GetTexture("map")).getSize().x;
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
@@ -138,11 +571,6 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 
 	}
 
-}
-
-void Game::loadTextures()
-{
-	
 }
 
 void Game::Controls(sf::RenderWindow * window)

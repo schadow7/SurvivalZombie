@@ -18,6 +18,9 @@
 #include "BasicEntanglements.h"
 #include "TheBase.h"
 
+#define N_OF_BUTTONS 8
+
+
 struct level_state
 {
 	int level;
@@ -25,7 +28,8 @@ struct level_state
 	short int base_level;
 };
 
-enum class GamePhase {GAME, SHOP};
+enum class GamePhase { GAME, SHOP };
+enum class SelectedWeapon { PISTOL, RIFLE, SHOTGUN };
 
 class Game:
 	public Observer
@@ -51,6 +55,15 @@ private:
 	void									Controls(sf::RenderWindow * window);
 	void									initializeGame();
 	void									initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState );
+	GamePhase								runShop();
+	GamePhase								runShopClicked();
+	void									drawShop(sf::RenderWindow * window);
+	void									formatText(sf::Text & text, int size);
+	void									setText();
+	bool									pistolOwned();
+	bool									rifleOwned();
+	bool									shotgunOwned();
+	bool									isWeaponSelected();
 	const float								SCALE = 100.f;
 	EntityManager *							entity_manager;
 	sf::View *								view;
@@ -84,5 +97,12 @@ private:
 	sf::Vector2f							previousMousePos;
 	sf::Music								music;
 	GamePhase								gamePhase;
+	bool									clicked;
+	int										shadow, posX, posY, spacing, spacingy, dposY, width, height1, height2, mouseX, mouseY, selectedButton;
+	sf::Sprite								backgroundShop, button[17], weapon[3];
+	sf::Text								text[50];
+	sf::Font								fontType;
+	SelectedWeapon							selectedWeapon;
+
 };
 

@@ -63,13 +63,13 @@ void MainWindow::run(  )
 				draw();
 			}
 		}
-		if ( gameState == GameState::MENU)
+		if ( gameState == GameState::MENU )
 		{
 			cursor->loadFromSystem( sf::Cursor::Arrow );
 			window->setMouseCursor( *cursor );
 			gameState = runMenu( event );
 		}
-		else if ( gameState == GameState::RUNNING)
+		else if ( gameState == GameState::RUNNING )
 		{
 			game->PlayMusic();
 			cursor->loadFromSystem( sf::Cursor::Cross );
@@ -249,6 +249,12 @@ void MainWindow::loadTextures()
 	AssetManager::AddTexture("9mm", ".\\graphics\\hud\\9mm.png");
 	AssetManager::AddTexture("7.62mm", ".\\graphics\\hud\\7.62mm.png");
 	AssetManager::AddTexture("12gauge", ".\\graphics\\hud\\12gauge.png");
+
+	//Sklep
+	AssetManager::AddTexture("buttonSmallOff", ".\\graphics\\shop\\buttonSmallOff.png");
+	AssetManager::AddTexture("buttonSmallOn", ".\\graphics\\shop\\buttonSmallOn.png");
+	AssetManager::AddTexture("buttonBigOff", ".\\graphics\\shop\\buttonBigOff.png");
+	AssetManager::AddTexture("buttonBigOn", ".\\graphics\\shop\\buttonBigOn.png");
 
 	//Animacje gracza
 	AssetManager::AddTexture("bullet9mm", ".\\graphics\\animations\\bullet9mm.png");
