@@ -51,7 +51,7 @@ public:
 	void									PlayMusic();
 	void									StopMusic();
 	GameState								runShop( sf::Window * window );
-	GameState								runShopClicked( sf::Window * window);
+	GameState								runShopClicked( sf::Window * window );
 	void									setText();
 	void									drawShop( sf::RenderWindow * window );
 private:

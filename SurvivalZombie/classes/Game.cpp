@@ -66,32 +66,32 @@ void Game::loadTextures()
 	text[1].setFillColor(sf::Color::Green);
 	text[1].setPosition(sf::Vector2f(950, 40));
 
-	//BASE
-	button[0].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
-	button[0].setPosition(sf::Vector2f(posX, posY));
-	formatText(text[2], 30);
-	text[2].setPosition(sf::Vector2f(posX + 25, posY + 7));
-	formatText(text[3], 30);
-	text[3].setPosition(sf::Vector2f(posX + 25, posY + 42));
 	///////////////////////////////////////////////////////////////////////
 	//PISTOL
-	button[1].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
-	button[1].setPosition(sf::Vector2f(posX, posY + spacingy));
+	button[0].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[0].setPosition(sf::Vector2f(posX, posY + spacingy));
 	weapon[0].setTexture(*AssetManager::GetTexture("handgun"));
 	weapon[0].setPosition(sf::Vector2f(posX + 100, posY + spacingy));
 
 	//RIFLE
-	button[2].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
-	button[2].setPosition(sf::Vector2f(posX, posY + spacingy * 2));
+	button[1].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[1].setPosition(sf::Vector2f(posX, posY + spacingy * 2));
 	weapon[1].setTexture(*AssetManager::GetTexture("rifle"));
 	weapon[1].setPosition(sf::Vector2f(posX + 50, posY + spacingy * 2 - 60));
 
 	//SHOTGUN
-	button[3].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
-	button[3].setPosition(sf::Vector2f(posX, posY + spacingy * 3));
+	button[2].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[2].setPosition(sf::Vector2f(posX, posY + spacingy * 3));
 	weapon[2].setTexture(*AssetManager::GetTexture("shotgun"));
 	weapon[2].setPosition(sf::Vector2f(posX + 50, posY + spacingy * 3 - 50));
 	///////////////////////////////////////////////////////////////////////
+	//BASE
+	button[3].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[3].setPosition(sf::Vector2f(posX, posY));
+	formatText(text[2], 30);
+	text[2].setPosition(sf::Vector2f(posX + 25, posY + 7));
+	formatText(text[3], 30);
+	text[3].setPosition(sf::Vector2f(posX + 25, posY + 42));
 	//UPGRADE BASE
 	button[4].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[4].setPosition(sf::Vector2f(posX + spacing * 4, posY));
@@ -350,7 +350,7 @@ void Game::setText()
 
 	if (!pistolOwned())
 	{
-		button[1].setColor(sf::Color(50, 50, 50));
+		button[0].setColor(sf::Color(50, 50, 50));
 		text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 80, posY + spacingy + 7));
 		text[6].setString("Buy Pistol");
 		text[7].setFillColor(sf::Color::Green);
@@ -361,7 +361,7 @@ void Game::setText()
 	}
 	else
 	{
-		button[1].setColor(sf::Color(255, 255, 255));
+		button[0].setColor(sf::Color(255, 255, 255));
 		text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 70, posY + spacingy + 7));
 		text[6].setString("Select Pistol");
 		text[7].setFillColor(sf::Color::White);
@@ -374,7 +374,7 @@ void Game::setText()
 
 	if (!rifleOwned())
 	{
-		button[2].setColor(sf::Color(50, 50, 50));
+		button[1].setColor(sf::Color(50, 50, 50));
 		text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + spacingy * 2 + 7));
 		text[8].setString("Buy Rifle");
 		text[9].setFillColor(sf::Color::Green);
@@ -385,7 +385,7 @@ void Game::setText()
 	}
 	else
 	{
-		button[2].setColor(sf::Color(255, 255, 255));
+		button[1].setColor(sf::Color(255, 255, 255));
 		text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 77, posY + spacingy * 2 + 7));
 		text[8].setString("Select Rifle");
 		text[9].setFillColor(sf::Color::White);
@@ -398,7 +398,7 @@ void Game::setText()
 
 	if (!shotgunOwned())
 	{
-		button[3].setColor(sf::Color(50, 50, 50));
+		button[2].setColor(sf::Color(50, 50, 50));
 		text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 70, posY + spacingy * 3 + 7));
 		text[10].setString("Buy Shotgun");
 		text[11].setFillColor(sf::Color::Green);
@@ -409,7 +409,7 @@ void Game::setText()
 	}
 	else
 	{
-		button[3].setColor(sf::Color(255, 255, 255));
+		button[2].setColor(sf::Color(255, 255, 255));
 		text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 57, posY + spacingy * 3 + 7));
 		text[10].setString("Select Shotgun");
 		text[11].setFillColor(sf::Color::White);
@@ -444,21 +444,13 @@ void Game::drawShop(sf::RenderWindow * window)
 {
 	window->draw(backgroundShop);
 	
-	/*if (!game)
-		button[0].setColor(sf::Color(40, 40, 40));
-	else
-		button[0].setColor(sf::Color(255, 255, 255));
-		*/
-
-	window->draw(button[0]);
-
-	for (int i = 1; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		window->draw(button[i]);
-		window->draw(weapon[i-1]);
+		window->draw(weapon[i]);
 	}
 
-	for (int i = 4; i < 17; i++)
+	for (int i = 3; i < 17; i++)
 	{
 		window->draw(button[i]);
 	}
