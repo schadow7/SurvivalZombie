@@ -41,7 +41,10 @@ public:
 	level_state								GetLevelState();
 	player_state							GetPlayerState();
 	std::vector<weapon_features>			GetWeaponState();
+	void									PlayMusic();
+	void									StopMusic();
 private:
+	bool									isWave();
 	void									Render( sf::RenderWindow * window );
 	void									loadTextures();
 	void									Controls(sf::RenderWindow * window);
@@ -78,5 +81,6 @@ private:
 	void									setBaseLevel(int level);
 	int										mapsizex, mapsizey;
 	sf::Vector2f							previousMousePos;
+	sf::Music								music;
 };
 

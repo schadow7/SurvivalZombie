@@ -255,6 +255,35 @@ std::vector<weapon_features> Game::GetWeaponState()
 	return player->GetWeaponList();
 }
 
+void Game::PlayMusic()
+{
+	if ( isWave() && ( music.getStatus() == sf::SoundSource::Status::Paused || music.getStatus() == sf::SoundSource::Status::Stopped ) )
+	{
+		music.openFromFile( ".\\music\\theme2.ogg" );
+		music.setVolume( 2 );
+		music.setLoop( true );
+	}
+	else if ( !isWave() && ( music.getStatus() == sf::SoundSource::Status::Paused || music.getStatus() == sf::SoundSource::Status::Stopped ) )
+	{
+		music.openFromFile( ".\\music\\theme2.ogg" );
+		music.setVolume( 2 );
+		music.setPlayingOffset( sf::seconds( 40 ) );
+		music.setLoop( true );
+	}
+	if(   music.getStatus() == sf::SoundSource::Status::Paused || music.getStatus() == sf::SoundSource::Status::Stopped  )
+		music.play();
+}
+
+void Game::StopMusic()
+{
+	music.pause();
+}
+
+bool Game::isWave()
+{
+	return false;
+}
+
 void Game::Render(sf::RenderWindow * window)
 {
 }

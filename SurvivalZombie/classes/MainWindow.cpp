@@ -53,7 +53,10 @@ void MainWindow::run(  )
 			if ( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape )
 			{
 				if ( game )
+				{
 					saveGame( currentSlot );
+					game->StopMusic();
+				}
 				gameState = GameState::MENU;
 				menuType = MenuType::DEFAULT;
 				window->setView( *view );
@@ -68,6 +71,7 @@ void MainWindow::run(  )
 		}
 		else if ( gameState == GameState::RUNNING)
 		{
+			game->PlayMusic();
 			cursor->loadFromSystem( sf::Cursor::Cross );
 			window->setMouseCursor( *cursor );
 			game->runGame( window );
