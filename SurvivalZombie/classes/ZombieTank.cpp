@@ -27,6 +27,9 @@ ZombieTank::ZombieTank(b2World* world, b2Vec2 position):
 	animatedSprite.setColor(sf::Color::Red);
 	sprite.setColor(sf::Color::Red);
 	animatedSprite.play(*currentAnimation);
+
+	hitSound.setBuffer(*AssetManager::GetSound("zombie3"));
+	deadSound.setBuffer(*AssetManager::GetSound("zombie6"));
 }
 
 

@@ -49,6 +49,11 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	animatedSprite = AnimatedSprite(sf::seconds(animSpeed), true, false);
 	animatedSprite.setOrigin(sizex2/2.0f, sizey/2.0f);
 	animatedSprite.play(*currentAnimation);
+	//dzwiêki
+	hitSound.setBuffer(*AssetManager::GetSound("zombie2"));
+	hitSound.setVolume(40);
+	deadSound.setBuffer(*AssetManager::GetSound("zombie4"));
+	deadSound.setVolume(40);
 }
 
 Zombie::~Zombie()
@@ -66,8 +71,13 @@ void Zombie::TakeDamage( float32 damage )
 	hitpoints -= damage;
 	if (hitpoints <= 0)
 	{
+		deadSound.play();
 		active = 0;
 		notify(this);
+	}
+	else if (hitSound.getStatus()!=sf::Sound::Playing)
+	{
+		hitSound.play();
 	}
 }
 
