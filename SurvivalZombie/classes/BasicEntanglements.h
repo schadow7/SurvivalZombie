@@ -34,6 +34,7 @@ protected:
 	std::vector<sf::Sound>	hitSounds;
 	std::default_random_engine				engine;
 	std::uniform_int_distribution<int>		soundDistribution{ 0, 15 };
+	int soundsCount;
 private:
 	
 };

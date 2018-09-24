@@ -38,7 +38,8 @@ BasicEntanglements::BasicEntanglements(b2World* world, b2Vec2 position, sf::Vect
 	sprite.setPosition(SCALE * position.x, SCALE * position.y);
 	sprite.setRotation(180 / b2_pi * this->body->GetAngle());
 	//sounds
-	for (int i = 1; i < 6; i++)
+	soundsCount = 4;
+	for (int i = 1; i <= soundsCount; i++)
 	{
 		sf::Sound temp;
 		temp.setBuffer(*AssetManager::GetSound("fort"+std::to_string(i)));
@@ -56,7 +57,7 @@ void BasicEntanglements::TakeDamage(float32 damage)
 {
 	hitpoints -= damage;
 	int i = soundDistribution(engine);
-	if( i<=4 && i >=0)
+	if( i<= (soundsCount-1) && i >=0)
 	hitSounds[i].play();
 	if (hitpoints <= 0)
 	{

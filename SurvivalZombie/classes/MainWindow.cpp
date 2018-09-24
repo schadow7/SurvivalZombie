@@ -302,13 +302,10 @@ void MainWindow::loadTextures()
 	AssetManager::AddSound("zombie6", ".\\music\\zombie-15.wav");
 	//Etagelments sound
 	AssetManager::AddSound("fort1", ".\\music\\qubodupImpactMeat01.ogg");
-	AssetManager::AddSound("fort2", ".\\music\\qubodupImpactMeat02.ogg");
-	AssetManager::AddSound("fort3", ".\\music\\qubodupImpactMetal.ogg");
-	AssetManager::AddSound("fort4", ".\\music\\qubodupImpactStone.ogg");
-	AssetManager::AddSound("fort5", ".\\music\\qubodupImpactWood.ogg");
+	AssetManager::AddSound("fort2", ".\\music\\qubodupImpactMetal.ogg");
+	AssetManager::AddSound("fort3", ".\\music\\qubodupImpactStone.ogg");
+	AssetManager::AddSound("fort4", ".\\music\\qubodupImpactWood.ogg");
 
-	//for (int i=22; i<29; i++)
-	//AssetManager::AddSound("zombieattack"+std::to_string(i-21), ".\\music\\zombie-"+std::to_string(i)+".wav");
 }
 
 
