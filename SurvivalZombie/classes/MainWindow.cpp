@@ -91,7 +91,7 @@ void MainWindow::run(  )
 			game->PlayMusic();
 			cursor->loadFromSystem( sf::Cursor::Cross );
 			window->setMouseCursor( *cursor );
-			game->runGame( window );
+			game->runGame( window, event );
 		}
 
 		//Wyœwietlenie obrazu

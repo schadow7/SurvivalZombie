@@ -217,7 +217,7 @@ void Game::formatText(sf::Text & text, int size)
 	text.setOutlineThickness(1);
 }
 
-void Game::runGame(sf::RenderWindow * window)
+void Game::runGame(sf::RenderWindow * window, sf::Event event)
 {
 	window->clear();
 
@@ -239,9 +239,6 @@ void Game::runGame(sf::RenderWindow * window)
 
 	else if (gamePhase == GamePhase::SHOP)
 	{
-		sf::Event event;
-		window->pollEvent(event);
-
 		if (!clicked && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			mouseX = sf::Mouse::getPosition(*window).x;

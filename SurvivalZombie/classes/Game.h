@@ -40,7 +40,7 @@ public:
 	~Game();
 
 	
-	void									runGame(sf::RenderWindow * window);
+	void									runGame(sf::RenderWindow * window, sf::Event event);
 	void									updateObserver(Entity*) override;
 	void									RestartClock() { clock.restart(); }
 	level_state								GetLevelState();
