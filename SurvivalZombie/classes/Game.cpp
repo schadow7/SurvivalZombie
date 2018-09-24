@@ -389,8 +389,8 @@ void Game::arrangeObstacles(int quantity)
 void Game::makeBase()
 {
 	int sizex = 50;
-	int boxSize = 10;
-	sf::Vector2f position(mapsizex/2 - 5 * sizex, mapsizey/2 - 5 * sizex);
+	int boxSize = 8;
+	sf::Vector2f position(mapsizex/2 - boxSize/2 * sizex, mapsizey/2 - boxSize / 2 * sizex);
 	BasicEntanglements* ob;
 	TheBase* Base = new TheBase( world, mapCenter, sf::Vector2i( 80, 82 ), AssetManager::GetTexture( "box22" ) );
 	entity_manager->AddEntity(Base);
