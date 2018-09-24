@@ -79,7 +79,7 @@ private:
 	int										baseLevel;
 	long int								points = 0;
 	sf::Clock								clock;
-	sf::Time								delay;
+	sf::Time								delay,delay2;
 	float32									previous_angle;
 	std::default_random_engine				engine;
 	std::uniform_int_distribution<int>		angleDistribution{ 1, 360 };
@@ -87,6 +87,7 @@ private:
 	b2Vec2									mapCenter;
 	std::vector<int>						newLevel(int levelNr, std::vector<int>& zombieQuantity);
 	std::uniform_int_distribution<int>		zombieDistribution{ -1, 1 };
+	std::uniform_int_distribution<int>		noiseDistribution{ 0,23 };
 	sf::Time								shoot_timer;
 	void									arrangeObstacles(int quantity);
 	void									makeBase();
@@ -96,6 +97,8 @@ private:
 	int										mapsizex, mapsizey;
 	sf::Vector2f							previousMousePos;
 	sf::Music								music;
+	sf::Sound								startLevelSound;
+	std::vector<sf::Sound>					zombieNoises;
 	GamePhase								gamePhase;
 	bool									clicked;
 	int										shadow, posX, posY, spacing, spacingy, dposY, width, height1, height2, mouseX, mouseY, selectedButton;

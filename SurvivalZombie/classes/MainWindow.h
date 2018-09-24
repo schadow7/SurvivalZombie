@@ -52,4 +52,5 @@ private:
 	sf::View *								view;
 	SaveSlot								currentSlot;
 	sf::Sound								sound;
+	sf::Text								loadText;
 };

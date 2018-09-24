@@ -3,6 +3,7 @@
 #include "DynamicBody.h"
 #include "AIType.h"
 #include "AnimatedSprite.h"
+#include <random>
 class Zombie :
 	public DynamicBody
 {
@@ -47,9 +48,8 @@ protected:
 	b2Vec2					direction;
 	AIType*					AI;
 	const Entity*			target;
-	b2World*				world;	
-	sf::Sound				hitSound;
-	sf::Sound				deadSound;
+	b2World*				world;
+
 private:
 	void					setSpriteSheets();
 	void					addFramesToAnimations();
@@ -57,14 +57,6 @@ private:
 	Animation				attackingAnimation;
 	Animation				idleAnimation;
 	Animation				deadAnimation;
-	////// //do raycast. shared pointer?
 
-	class RayCastCallback :public b2RayCastCallback
-	{
-	public:
-		std::vector<b2Vec2> obstacleList;
-		float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction) override;
-	};
-	void doRayCast(RayCastCallback& callback);
+
 };
-

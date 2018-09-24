@@ -2,8 +2,8 @@
 
 
 
-ZombieTank::ZombieTank(b2World* world, b2Vec2 position):
-	Zombie(world,position)
+ZombieTank::ZombieTank(b2World* world, b2Vec2 position) :
+	Zombie(world, position)
 {
 	float spec_factor = .2f;
 	hitpoints += spec_factor * hitpoints;
@@ -23,13 +23,10 @@ ZombieTank::ZombieTank(b2World* world, b2Vec2 position):
 
 	currentAnimation = &idleAnimation;
 	animatedSprite = AnimatedSprite(sf::seconds(animSpeed), true, false);
-	animatedSprite.setOrigin(sizex1/2, sizey/2);
+	animatedSprite.setOrigin(sizex1 / 2, sizey / 2);
 	animatedSprite.setColor(sf::Color::Red);
 	sprite.setColor(sf::Color::Red);
 	animatedSprite.play(*currentAnimation);
-
-	hitSound.setBuffer(*AssetManager::GetSound("zombie3"));
-	deadSound.setBuffer(*AssetManager::GetSound("zombie6"));
 }
 
 

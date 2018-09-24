@@ -49,11 +49,6 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	animatedSprite = AnimatedSprite(sf::seconds(animSpeed), true, false);
 	animatedSprite.setOrigin(sizex2/2.0f, sizey/2.0f);
 	animatedSprite.play(*currentAnimation);
-	//dzwiêki
-	hitSound.setBuffer(*AssetManager::GetSound("zombie2"));
-	hitSound.setVolume(40);
-	deadSound.setBuffer(*AssetManager::GetSound("zombie4"));
-	deadSound.setVolume(40);
 }
 
 Zombie::~Zombie()
@@ -71,13 +66,8 @@ void Zombie::TakeDamage( float32 damage )
 	hitpoints -= damage;
 	if (hitpoints <= 0)
 	{
-		deadSound.play();
-		active = 0;
+		active = -1;
 		notify(this);
-	}
-	else if (hitSound.getStatus()!=sf::Sound::Playing)
-	{
-		hitSound.play();
 	}
 }
 
@@ -119,6 +109,9 @@ void Zombie::Attack( Entity * entity )
 		currentAnimation = &attackingAnimation;
 		animatedSprite.setFrameTime(sf::seconds(animSpeed*3));
 		animatedSprite.play(*currentAnimation);
+//		int i = soundDistribution(engine);
+		//if (i <= 6 && i >= 0)
+			//attackSounds[i].play();
 	}
 }
 
@@ -248,28 +241,6 @@ void Zombie::addFramesToAnimations()
 	for (int i = 0; i < 1; i++) deadAnimation.addFrame(sf::IntRect(0, 0, sizex1, sizey));
 }
 
-void Zombie::doRayCast(RayCastCallback & callback)
-{
-	float currentRayAngle = 0;
-	float rayLength = .33f;
-	float DEGTORAD = 0.017453292519;
-	int RayNum = 8;
-	//in Step() function
-	for (int i = 0; i < RayNum; i++)
-	{
-		currentRayAngle += 360 / RayNum * DEGTORAD;
-		//calculate points of ray
-		b2Vec2 p1 = body->GetPosition();
-		b2Vec2 p2 = p1 + rayLength * b2Vec2(sinf(currentRayAngle), cosf(currentRayAngle));
-		world->RayCast(&callback, p1, p2);
-	}
-}
-
-float32 Zombie::RayCastCallback::ReportFixture(b2Fixture * fixture, const b2Vec2 & point, const b2Vec2 & normal, float32 fraction)
-{
-	obstacleList.push_back(point);
-	return float32(1);
-}
 
 void Zombie::setupHealthbar()
 {

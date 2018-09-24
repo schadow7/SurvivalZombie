@@ -503,6 +503,7 @@ void Game::initializeGame()
 	mapsizex = (*AssetManager::GetTexture("map")).getSize().x;
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
+	delay2 = sf::milliseconds(0);
 	loadTextures();
 	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
@@ -524,6 +525,14 @@ void Game::initializeGame()
 	player->AddWeapon( rifle );
 	Weapon * shotgun = new Shotgun( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
 	player->AddWeapon( shotgun );
+	startLevelSound.setBuffer(*AssetManager::GetSound("brains"));
+	for (int i = 1; i < 25; i++)
+	{
+		sf::Sound temp;
+		temp.setBuffer(*AssetManager::GetSound("zombie" + std::to_string(i)));
+		temp.setVolume(20);
+		zombieNoises.push_back(temp);
+	}
 }
 
 void Game::initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
@@ -536,6 +545,7 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 	mapsizex = (*AssetManager::GetTexture("map")).getSize().x;
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
+	delay2 = sf::milliseconds(0);
 	mapCenter = b2Vec2( mapsizex / 2.0f / SCALE, mapsizey / 2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -570,12 +580,22 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 		}
 
 	}
+	startLevelSound.setBuffer(*AssetManager::GetSound("brains"));
+	for (int i = 1; i < 25; i++)
+	{
+		sf::Sound temp;
+		temp.setBuffer(*AssetManager::GetSound("zombie" + std::to_string(i)));
+		temp.setVolume(20);
+		zombieNoises.push_back(temp);
+	}
+}
 
 }
 
 void Game::Controls(sf::RenderWindow * window)
 {
 	delay -= clock.getElapsedTime();
+	delay2 -= clock.getElapsedTime();
 	//Przygotowanie wektorów
 	b2Vec2 velocity = b2Vec2_zero;
 	b2Vec2 normalize_direction = b2Vec2_zero;
@@ -658,12 +678,19 @@ void Game::Controls(sf::RenderWindow * window)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocity += b2Vec2(-1, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocity += b2Vec2(1, 0);
 
-	//if (undeadCount <= 0)
-	//{
-	//	currentLevel++;
-	//	spawnHorde(currentLevel);
-	//	printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
-	//}
+	if (undeadCount <= 0)
+	{
+		currentLevel++;
+		startLevelSound.play();
+		spawnHorde(currentLevel);
+		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
+	}
+	if (undeadCount > 0 && delay2 <= sf::milliseconds(0))
+	{
+		zombieNoises[noiseDistribution(engine)].play();
+		delay2 = sf::milliseconds(30 * angleDistribution(engine));
+
+	}
 
 	shoot_timer += clock.getElapsedTime();
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))

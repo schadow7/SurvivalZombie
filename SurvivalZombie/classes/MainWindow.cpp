@@ -11,23 +11,40 @@ MainWindow::MainWindow()
 	cursor = new sf::Cursor;
 	gameState = GameState::MENU;
 
+	//Loading screen
+	AssetManager::AddTexture( "backgroundMenu", ".\\graphics\\menu\\backgroundMenu.png" );
+	backgroundMenu.setTexture( *AssetManager::GetTexture( "backgroundMenu" ) );
+	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
+	window->setView( *view );
+	fontType.loadFromFile( "cambria.ttc" );
+	formatText( loadText );
+	loadText.setCharacterSize( 28 );
+	loadText.setPosition( sf::Vector2f( 10, 680 ) );
+	loadText.setString( "Loading, please wait" );
+
+	window->draw( backgroundMenu );
+	window->draw( loadText );
+	window->display();
+
 	//Przygotowanie menu
 	selectedButton = 0;
 	mouseX = 0;
 	mouseY = 0;
 	shadow = 0;
 	clicked = false;
-	fontType.loadFromFile("cambria.ttc");
+
+	
 	menuType = MenuType::DEFAULT;
 	loadTextures();
-	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
-	window->setView( *view );
+	
+	
 	int popX = 100;
 	int popY = -20;
 	currentSlot = SaveSlot::SLOT_1;
 	formatText( textSlot[0] );	textSlot[0].setPosition( sf::Vector2f( posX + popX, posY + popY ) );
 	formatText( textSlot[1] );	textSlot[1].setPosition( sf::Vector2f( posX + popX, posY + popY + spacing * dspacing ) );
 	formatText( textSlot[2] );	textSlot[2].setPosition( sf::Vector2f( posX + popX, posY + popY + spacing * dspacing * 2 ) );
+
 }
 
 MainWindow::~MainWindow()
@@ -167,8 +184,7 @@ void MainWindow::loadTextures()
 
 
 	//////MENU
-	AssetManager::AddTexture( "backgroundMenu", ".\\graphics\\menu\\backgroundMenu.png" );
-	backgroundMenu.setTexture( *AssetManager::GetTexture( "backgroundMenu" ) );
+
 
 	AssetManager::AddTexture( "button[0]", ".\\graphics\\menu\\buttonContinueOff.png" );
 	button[0].setTexture( *AssetManager::GetTexture( "button[0]" ) );
@@ -300,12 +316,18 @@ void MainWindow::loadTextures()
 	AssetManager::AddSound( "pistol_click2", ".\\music\\pistol_click2.wav" );
 	AssetManager::AddSound( "pistol_reload", ".\\music\\pistol_reload.wav" );
 	//Zombie noise
-	AssetManager::AddSound("zombie1", ".\\music\\zombie-10.wav");
-	AssetManager::AddSound("zombie2", ".\\music\\zombie-11.wav");
-	AssetManager::AddSound("zombie3", ".\\music\\zombie-12.wav");
-	AssetManager::AddSound("zombie4", ".\\music\\zombie-13.wav");
-	AssetManager::AddSound("zombie5", ".\\music\\zombie-14.wav");
-	AssetManager::AddSound("zombie6", ".\\music\\zombie-15.wav");
+	for (int i = 1; i < 25; i++)
+	{
+		AssetManager::AddSound("zombie"+ std::to_string(i), ".\\music\\zombie-"+ std::to_string(i) +".wav");
+	}
+	//Etagelments sound
+	AssetManager::AddSound("fort1", ".\\music\\qubodupImpactMeat01.ogg");
+	AssetManager::AddSound("fort2", ".\\music\\qubodupImpactMetal.ogg");
+	AssetManager::AddSound("fort3", ".\\music\\qubodupImpactStone.ogg");
+	AssetManager::AddSound("fort4", ".\\music\\qubodupImpactWood.ogg");
+
+	AssetManager::AddSound("brains", ".\\music\\brains2.wav");
+
 }
 
 
