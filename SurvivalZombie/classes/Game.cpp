@@ -266,26 +266,26 @@ void Game::runGame(sf::RenderWindow * window, sf::Event event)
 
 GamePhase Game::runShop()
 {
-	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
-		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
+	if ((mouseX >= shadow + posX + spacing * 4	&& mouseX <= shadow + posX + spacing * 4 + width) &&
+		(mouseY >= shadow + posY				&& mouseY <= shadow + posY + height1))
 	{	
-		selectedButton = 1;
+		selectedButton = 4;
 		clicked = true;
 	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
-		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
-	{
-		selectedButton = 3;
-		clicked = true;
-	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
-		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
+	else if ((mouseX >= shadow + posX				&& mouseX <= shadow + posX + width) &&
+			 (mouseY >= shadow + posY + spacingy	&& mouseY <= shadow + posY + spacingy + height1))
 	{
 		selectedButton = 5;
 		clicked = true;
 	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
-		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
+	else if ((mouseX >= shadow + posX					&& mouseX <= shadow + posX + width) &&
+			 (mouseY >= shadow + posY + spacingy * 2	&& mouseY <= shadow + posY + spacingy * 2 + height1))
+	{
+		selectedButton = 6;
+		clicked = true;
+	}
+	else if ((mouseX >= shadow + posX					&& mouseX <= shadow + posX + width) &&
+			 (mouseY >= shadow + posY + spacingy * 3	&& mouseY <= shadow + posY + spacingy * 3 + height1))
 	{
 		selectedButton = 7;
 		clicked = true;
