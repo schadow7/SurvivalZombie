@@ -289,6 +289,19 @@ void Player::ChangeWeaponRight()
 	}
 }
 
+void Player::HealUp()
+{
+	hitpoints = maxhitpoints;
+}
+
+void Player::SetPlayerState( player_state playerState )
+{
+	hitpoints = playerState.max_hitpoints;
+	speed = playerState.speed;
+	armor = playerState.armor;
+	HealUp();
+}
+
 void Player::setSpriteSheets()
 {
 	walkingAnimationFeet.setSpriteSheet( *AssetManager::GetTexture("playerFeetWalkingAnimation") );
