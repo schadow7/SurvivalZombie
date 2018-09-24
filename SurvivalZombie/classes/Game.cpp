@@ -221,7 +221,7 @@ void Game::runGame(sf::RenderWindow * window)
 {
 	window->clear();
 
-	gamePhase = GamePhase::SHOP;
+	gamePhase = GamePhase::GAME;
 
 	if (gamePhase == GamePhase::GAME)
 	{
@@ -588,8 +588,6 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 		temp.setVolume(20);
 		zombieNoises.push_back(temp);
 	}
-}
-
 }
 
 void Game::Controls(sf::RenderWindow * window)
