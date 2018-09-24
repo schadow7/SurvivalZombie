@@ -403,10 +403,10 @@ void Game::makeBase()
 BasicEntanglements* Game::spawnWall(int i, int boxSize, sf::Vector2f& position)
 {
 	BasicEntanglements* ob;
-	if (i != floor(boxSize / 2))
-		ob = new BasicEntanglements(world, positionPixToWorld(position));
+	if ( i != floor( boxSize / 2 ) )
+		ob = new BasicEntanglements( world, positionPixToWorld( position ), sf::Vector2i( 25, 50 ), AssetManager::GetTexture( "wall" ) );
 	else
-		ob = new Door(world, positionPixToWorld(position));
+		ob = new Door(world, positionPixToWorld(position), sf::Vector2i( 25, 50 ), AssetManager::GetTexture( "wall" ) );
 	base.push_back(ob);
 	return ob;
 }

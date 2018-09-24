@@ -233,6 +233,8 @@ void MainWindow::loadTextures()
 	//Podstawowe
 	AssetManager::AddTexture("map", ".\\graphics\\map.png");
 	AssetManager::AddTexture("grad2", ".\\graphics\\grad2.png");
+	AssetManager::AddTexture("wall_broken", ".\\graphics\\objects\\wall_broken.png");
+	AssetManager::AddTexture( "wall", ".\\graphics\\objects\\wall.png" );
 
 	//Hud
 	AssetManager::AddTexture("handgun", ".\\graphics\\hud\\handgun.png");

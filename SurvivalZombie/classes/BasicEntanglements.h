@@ -29,8 +29,9 @@ protected:
 	float32					damage;
 	sf::Time				attack_timer;
 	sf::Time				attack_cooldown;
-private:
 	sf::Texture* textureDead;
+private:
+	
 };
 
 class Door :
