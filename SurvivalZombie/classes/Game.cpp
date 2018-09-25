@@ -285,7 +285,7 @@ void Game::runGame(sf::RenderWindow * window)
 	window->draw(background);
 	entity_manager->Update(clock.restart());
 	entity_manager->Render(window);
-	hud->Render(window, view, player);
+	hud->Render(window, view, player, GetLevelState().points);
 
 }
 

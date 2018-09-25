@@ -1,10 +1,11 @@
-#include "Hud.h"
+﻿#include "Hud.h"
 
 Hud::Hud()
 {
 	hitpointsBarRed.setFillColor(sf::Color(255, 0, 0));
 	hitpointsBarBlack.setFillColor(sf::Color(0, 0, 0));
 	hitpointsFont.loadFromFile("arial.ttf");
+	fontType.loadFromFile("cambria.ttc");
 	FormatText( hitpointsText );
 	hitpointsText.setFillColor(sf::Color::White);
 	hitpointsText.setOutlineThickness(2);
@@ -31,7 +32,7 @@ Hud::~Hud()
 {
 }
 
-void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
+void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player, long points)
 {
 	//sprawdzamy jaka bron jest obecnie uzywana
 	weapon_features current_weapon = player->GetCurrentWeapon();
@@ -42,9 +43,10 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	//rysujemy odpowiednia ikone broni
 	specifyAndRenderWeapon(window, current_weapon);
 
-	//TODO
+	scoreText.setString("Money: " + std::to_string(points) + "$");
+
+
 	std::vector<weapon_features> weapon_list = player->GetWeaponList();
-	handgunAmmoText.setString( "   -" );
 	rifleAmmoText.setString( "   -" );
 	shotgunAmmoText.setString( "   -" );
 	for ( auto & it : weapon_list )
@@ -68,7 +70,8 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	window->draw(hitpointsBarBlack);
 	window->draw(hitpointsBarRed);
 	window->draw(hitpointsText);
-	//do wy�wietlania na ekranie
+	window->draw(scoreText);
+	//do wyœwietlania na ekranie
 	//printf("score: %d\n", player->getScore());
 }
 
@@ -101,6 +104,13 @@ void Hud::positioningHudElements(sf::View* view, Player* player, weapon_features
 	currentAmmoText.setPosition(view->getCenter().x + 450, view->getCenter().y + 288);
 	ammoHudString = std::to_string(current_weapon.magazineAmmo) + " / " + std::to_string(current_weapon.maxMagazineAmmo);
 	currentAmmoText.setString(ammoHudString);
+	//wynik
+	scoreText.setFont(fontType);
+	scoreText.setCharacterSize(30);
+	scoreText.setFillColor(sf::Color::Green);
+	scoreText.setOutlineColor(sf::Color::Black);
+	scoreText.setOutlineThickness(1);
+	scoreText.setPosition(sf::Vector2f(view->getCenter().x + 310, view->getCenter().y - 320));
 }
 
 void Hud::specifyAndRenderWeapon(sf::RenderWindow* window, weapon_features current_weapon)
