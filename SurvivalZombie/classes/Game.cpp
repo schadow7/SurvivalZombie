@@ -499,9 +499,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if (int(floor(points)) >= priceDMG * factor )
+				if (int(floor(points)) >= priceDMG )
 				{
-					points -= priceDMG * factor;
+					points -= priceDMG;
 					tmp.damage += 5;
 					player->SetWeaponFeatures( tmp );
 				}
@@ -509,9 +509,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if (int(floor(points)) >= priceDMG * factorRifle )
+				if (int(floor(points)) >= priceDMG * priceRifleFactor )
 				{
-					points -= priceDMG * factorRifle;
+					points -= priceDMG * priceRifleFactor;
 					tmp.damage += 10;
 					player->SetWeaponFeatures( tmp );
 				}
@@ -519,9 +519,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if (int(floor(points)) >= priceDMG * factorShotgun )
+				if (int(floor(points)) >= priceDMG * priceShotgunFactor)
 				{
-					points -= priceDMG * factorShotgun;
+					points -= priceDMG * priceShotgunFactor;
 					tmp.damage += 5;
 					player->SetWeaponFeatures( tmp );
 				}
@@ -536,9 +536,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if (int(floor(points)) >= priceRecoil * factor )
+				if (int(floor(points)) >= priceRecoil )
 				{
-					points -= priceRecoil * factor;
+					points -= priceRecoil;
 					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
 					player->SetWeaponFeatures( tmp );
 				}
@@ -546,9 +546,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if (int(floor(points)) >= priceRecoil * factorRifle )
+				if (int(floor(points)) >= priceRecoil * priceRifleFactor)
 				{
-					points -= priceRecoil * factorRifle;
+					points -= priceRecoil * priceRifleFactor;
 					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
 					player->SetWeaponFeatures( tmp );
 				}
@@ -556,9 +556,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if (int(floor(points)) >= priceRecoil * factorShotgun )
+				if (int(floor(points)) >= priceRecoil * priceShotgunFactor)
 				{
-					points -= priceRecoil * factorShotgun;
+					points -= priceRecoil * priceShotgunFactor;
 					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
 					player->SetWeaponFeatures( tmp );
 				}
@@ -572,9 +572,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if (int(floor(points)) >= priceReload * factor )
+				if (int(floor(points)) >= priceReload )
 				{
-					points -= priceReload * factor;
+					points -= priceReload;
 					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
 					player->SetWeaponFeatures( tmp );
 				}
@@ -582,9 +582,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if (int(floor(points)) >= priceReload * factorRifle )
+				if (int(floor(points)) >= priceReload * priceRifleFactor)
 				{
-					points -= priceReload * factorRifle;
+					points -= priceReload * priceRifleFactor;
 					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
 					player->SetWeaponFeatures( tmp );
 				}
@@ -592,9 +592,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if (int(floor(points)) >= priceReload * factorShotgun )
+				if (int(floor(points)) >= priceReload * priceShotgunFactor)
 				{
-					points -= priceReload * factorShotgun;
+					points -= priceReload * priceShotgunFactor;
 					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
 					player->SetWeaponFeatures( tmp );
 				}
@@ -608,9 +608,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if (int(floor(points)) >= priceMagCap * factor )
+				if (int(floor(points)) >= priceMagCap )
 				{
-					points -= priceMagCap * factor;
+					points -= priceMagCap;
 					tmp.maxMagazineAmmo += 2;
 					player->SetWeaponFeatures( tmp );
 				}
@@ -618,9 +618,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if (int(floor(points)) >= priceMagCap * factorRifle )
+				if (int(floor(points)) >= priceMagCap * priceRifleFactor)
 				{
-					points -= priceMagCap * factorRifle;
+					points -= priceMagCap * priceRifleFactor;
 					tmp.maxMagazineAmmo += 5;
 					player->SetWeaponFeatures( tmp );
 				}
@@ -628,9 +628,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if (int(floor(points)) >= priceMagCap * factorShotgun )
+				if (int(floor(points)) >= priceMagCap * priceShotgunFactor)
 				{
-					points -= priceMagCap * factorShotgun;
+					points -= priceMagCap * priceShotgunFactor;
 					tmp.maxMagazineAmmo += 2;
 					player->SetWeaponFeatures( tmp );
 				}
@@ -644,9 +644,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if (int(floor(points)) >= priceMagCap * factor )
+				if (int(floor(points)) >= priceMagCap )
 				{
-					points -= priceMagCap * factor;
+					points -= priceMagCap;
 					tmp.maxMagazineAmmo += 2;
 					player->SetWeaponFeatures( tmp );
 				}
@@ -654,9 +654,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if (int(floor(points)) >= priceMagCap * factorRifle )
+				if (int(floor(points)) >= priceMagCap * priceRifleFactor)
 				{
-					points -= priceMagCap * factorRifle;
+					points -= priceMagCap * priceRifleFactor;
 					tmp.maxMagazineAmmo += 5;
 					player->SetWeaponFeatures( tmp );
 				}
@@ -664,9 +664,9 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if (int(floor(points)) >= priceMagCap * factorShotgun )
+				if (int(floor(points)) >= priceMagCap * priceShotgunFactor )
 				{
-					points -= priceMagCap * factorShotgun;
+					points -= priceMagCap * priceShotgunFactor;
 					tmp.maxMagazineAmmo += 2;
 					player->SetWeaponFeatures( tmp );
 				}
