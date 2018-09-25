@@ -5,7 +5,7 @@ Player::Player( b2World * world, b2Vec2 position ) : DynamicBody(world, position
 	//base stats
 	animSpeed = 0.05;
 	hitpoints = 100;
-	armor = 10;
+	armor = 0;
 	maxhitpoints = hitpoints;
 	speed = 3.f;
 	groupID = 1;
@@ -246,6 +246,8 @@ float32 Player::GetSpeed()
 {
 	return DynamicBody::speed;
 }
+
+
 
 std::vector<long int> Player::GetHitpoints()
 {

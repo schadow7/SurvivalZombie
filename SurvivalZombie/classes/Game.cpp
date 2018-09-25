@@ -917,6 +917,11 @@ void Game::drawShop(sf::RenderWindow * window)
 	text[1].setCharacterSize(30);
 }
 
+bool Game::isGameOver()
+{
+	return !player->Active();
+}
+
 void Game::initializeGame()
 {
 	undeadCount = 0;
@@ -1116,7 +1121,7 @@ void Game::Controls(sf::RenderWindow * window)
 		next_level = 0;
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
 	}
-	if (undeadCount >= 0 )
+	if (undeadCount >= 0 && delay2 <= sf::milliseconds(0))
 	{
 		zombieNoises[noiseDistribution(engine)].play();
 		delay2 = sf::milliseconds(30 * angleDistribution(engine));
@@ -1143,7 +1148,7 @@ void Game::updateObserver(Entity * ptr)
 
 level_state Game::GetLevelState()
 {
-	level_state tmp = { currentLevel, points, baseLevel };
+	level_state tmp = { currentLevel, player->getScore(), baseLevel };
 	return tmp;
 }
 
@@ -1264,23 +1269,16 @@ void Game::arrangeObstacles(int quantity)
 			temp = new Obstacle( world, obstacle[i].spawnPoint, obstacle[i].size, obstacle[i].tex );
 			entity_manager->AddEntity( temp );
 		}
-		/*
-		float angle = 0;
-		b2Vec2 spawnPoint = b2Vec2_zero;
-		int spawnRadius;
-		Obstacle* temp;
-		std::uniform_int_distribution<int>	obstacleRadiusDistribution{ 500, mapsizex/2 };
-		for (int i = 0; i < quantity; i++)
-		{
-			angle = angleDistribution(engine)*DEGTORAD;
-			spawnRadius = obstacleRadiusDistribution(engine) / SCALE;
-			spawnPoint.x = mapCenter.x + spawnRadius * cos(angle);
-			spawnPoint.y = mapCenter.y + spawnRadius * sin(angle);
-			temp = new Obstacle(world, spawnPoint);
-			entity_manager->AddEntity( temp );
-		}
+		BasicEntanglements * ob;
+		ob = new Bounds( world, mapCenter + b2Vec2( 0, -16.4f ), sf::Vector2i( 5000, 20 ) );
+		entity_manager->AddEntity( ob );
+		ob = new Bounds( world, mapCenter + b2Vec2( 0, 16.4f ), sf::Vector2i( 5000, 20 ) );
+		entity_manager->AddEntity( ob );
+		ob = new Bounds( world, mapCenter + b2Vec2( -13.6f, 0 ), sf::Vector2i( 20, 5000 ) );
+		entity_manager->AddEntity( ob );
+		ob = new Bounds( world, mapCenter + b2Vec2( 13.6f, 0 ), sf::Vector2i( 20, 5000 ) );
+		entity_manager->AddEntity( ob );
 
-		*/
 	}
 }
 
@@ -1325,14 +1323,7 @@ void Game::makeBase()
 		position.y -= sizex;
 	}
 
-	ob = new Bounds( world, mapCenter + b2Vec2( 0, -9.2f ), sf::Vector2i( 3000, 20 ) );
-	entity_manager->AddEntity( ob );
-	ob = new Bounds( world, mapCenter + b2Vec2( 0, 9.2f ), sf::Vector2i( 3000, 20 ) );
-	entity_manager->AddEntity( ob );
-	ob = new Bounds( world, mapCenter + b2Vec2( -6.4f, 0 ), sf::Vector2i( 20, 3000 ) );
-	entity_manager->AddEntity( ob );
-	ob = new Bounds( world, mapCenter + b2Vec2( 6.4f, 0 ), sf::Vector2i( 20, 3000 ) );
-	entity_manager->AddEntity( ob );
+
 
 }
 
