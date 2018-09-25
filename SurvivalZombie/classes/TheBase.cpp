@@ -43,6 +43,11 @@ TheBase::~TheBase()
 {
 }
 
+int TheBase::GetMaxHP()
+{
+	return maxhitpoints;
+}
+
 void TheBase::TakeDamage(float32 damage)
 {
 	hitpoints -= damage;

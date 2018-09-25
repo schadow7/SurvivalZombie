@@ -13,7 +13,6 @@ Game::Game() :
 	entity_manager = new EntityManager(world);
 	view = new sf::View(sf::FloatRect(0, 0, 1280, 720));
 	hud = new Hud;
-	loadTextures();
 	initializeGame();
 }
 
@@ -29,7 +28,6 @@ Game::Game( level_state lvlState, player_state playerState, std::vector<weapon_f
 
 	view = new sf::View( sf::FloatRect( 0, 0, 1280, 720 ) );
 	hud = new Hud;
-	loadTextures();
 	initializeGame( lvlState, playerState, weaponState );
 }
 
@@ -237,6 +235,30 @@ void Game::loadTextures()
 	text[28].setPosition(sf::Vector2f(posX + spacing * 8 + 17, posY + spacingy * 5 + 13 + up));
 }
 
+void Game::setPrices()
+{
+	priceBaseUpgrade = 1000;
+
+	pricePistol = 100;
+	priceRifle = 5000;
+	priceShotgun = 10000;
+
+	pricePistolAmmo = 50;
+	priceRifleAmmo = 200;
+	priceShotgunAmmo = 300;
+
+	priceRifleFactor = 2;
+	priceShotgunFactor = 3;
+
+	priceDMG = 111;
+	priceRecoil = 222;
+	priceReload = 333;
+	priceMagCap = 444;
+	priceAmmoCap = 555;
+
+	points = 100000;//////////////////////////////////////////////////////////TODO
+}
+
 void Game::formatText(sf::Text & text, int size)
 {
 	text.setFont(fontType);
@@ -366,7 +388,12 @@ GameState Game::runShopClicked(sf::Window * window)
 	if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
 	{
-
+		if (points >= priceBaseUpgrade)
+		{
+			points -= priceBaseUpgrade;
+			//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+		}
+		else insufficientFunds();
 	}//BUY/SELECT PISTOL
 	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
@@ -378,7 +405,13 @@ GameState Game::runShopClicked(sf::Window * window)
 		}
 		else
 		{
-
+			if (points >= pricePistol)
+			{
+				points -= pricePistol;
+				Weapon * pistol = new Pistol(entity_manager, AssetManager::GetTexture("bullet9mm"));
+				player->AddWeapon(pistol);
+			}
+			else insufficientFunds();
 		}
 	}//BUY/SELECT RIFLE
 	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
@@ -391,7 +424,13 @@ GameState Game::runShopClicked(sf::Window * window)
 		}
 		else
 		{
-
+			if (points >= priceRifle)
+			{
+				points -= priceRifle;
+				Weapon * rifle = new Rifle(entity_manager, AssetManager::GetTexture("bullet9mm"));
+				player->AddWeapon(rifle);
+			}
+			else insufficientFunds();
 		}
 	}//BUY/SELECT SHOTGUN
 	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
@@ -404,23 +443,47 @@ GameState Game::runShopClicked(sf::Window * window)
 		}
 		else
 		{
-
+			if (points >= priceShotgun)
+			{
+				points -= priceShotgun;
+				Weapon * shotgun = new Shotgun(entity_manager, AssetManager::GetTexture("bullet9mm"));
+				player->AddWeapon(shotgun);
+			}
+			else insufficientFunds();
 		}
 	}//BUY PISTOL AMMO
 	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
 		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1) && pistolOwned())
 	{
-		
+		if(pistolOwned())
+			if (points >= pricePistolAmmo)
+			{
+				points -= pricePistolAmmo;
+				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			}
+			else insufficientFunds();
 	}//BUY RIFLE AMMO
 	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
 		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1) && rifleOwned())
 	{
-		
+		if (rifleOwned())
+			if (points >= priceRifleAmmo)
+			{
+				points -= priceRifleAmmo;
+				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			}
+			else insufficientFunds();
 	}//BUY SHOTGUN AMMO
 	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
 		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1) && shotgunOwned())
 	{
-		
+		if (shotgunOwned())
+			if (points >= priceShotgunAmmo)
+			{
+				points -= priceShotgunAmmo;
+				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			}
+			else insufficientFunds();
 	}
 	if (isWeaponSelected)
 	{
@@ -428,27 +491,56 @@ GameState Game::runShopClicked(sf::Window * window)
 		if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 			(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
 		{
-
+			if (points >= priceDMG * factor)
+			{
+				points -= priceDMG * factor;
+				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			}
+			else insufficientFunds();
 		}//UPGRADE RECOIL TIME
 		else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 			(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
 		{
 
+			if (points >= priceRecoil * factor)
+			{
+				points -= priceRecoil * factor;
+				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			}
+			else insufficientFunds();
 		}//UPGRADE RELOAD TIME
 		else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
 			(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
 		{
 
+			if (points >= priceReload * factor)
+			{
+				points -= priceReload * factor;
+				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			}
+			else insufficientFunds();
 		}//UPGRADE MAG. CAP.
 		else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 			(mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
 		{
 
+			if (points >= priceMagCap * factor)
+			{
+				points -= priceMagCap * factor;
+				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			}
+			else insufficientFunds();
 		}//UPGRADE AMMO CAP.
 		else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 			(mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
 		{
 
+			if (points >= priceAmmoCap * factor)
+			{
+				points -= priceAmmoCap * factor;
+				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			}
+			else insufficientFunds();
 		}
 	}//CLOSE SHOP
 	if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
@@ -457,39 +549,57 @@ GameState Game::runShopClicked(sf::Window * window)
 		return GameState::RUNNING;
 	}
 	
-	
-
 	return GameState::SHOP;
+}
+
+void Game::insufficientFunds()
+{
+	text[1].setFillColor(sf::Color::Red);
+	text[1].setCharacterSize(50);
 }
 
 void Game::setText()
 {
-	int PLACEHOLDER = 1;
+	int PLACEHOLDER = 35505;
 
 	text[1].setString("Money: " + std::to_string(GetLevelState().points) + "$");
 
-	text[2].setString("Base level: " + std::to_string(PLACEHOLDER));
-	text[3].setString("Wall Hitpoints: " + std::to_string(PLACEHOLDER));
+	text[2].setString("Base level: " + std::to_string(baseLevel));//////////////////////////////////////////////////////////TODO
+	text[3].setString("Wall Hitpoints: " + std::to_string(PLACEHOLDER));//////////////////////////////////////////////////////////TODO
 	text[4].setString("Upgrade base level");
-	text[5].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[5].setString("Price: " + std::to_string(priceBaseUpgrade) + "$");
 
 	text[12].setString("Buy Pistol Magazine");
-	text[13].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[13].setString("Price: " + std::to_string(pricePistolAmmo) + "$");
 	text[14].setString("Buy Rifle Magazine");
-	text[15].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[15].setString("Price: " + std::to_string(priceRifleAmmo) + "$");
 	text[16].setString("Buy Shotgun Magazine");
-	text[17].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[17].setString("Price: " + std::to_string(priceShotgunAmmo) + "$");
+
+	switch (selectedWeapon)
+	{
+	case SelectedWeapon::RIFLE:
+		factor = priceRifleFactor;
+		break;
+	case SelectedWeapon::SHOTGUN:
+		factor = priceShotgunFactor;
+		break;
+	default:
+		factor = 1;
+		break;
+	}
+
 
 	text[18].setString("Upgrade DMG");
-	text[19].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[19].setString("Price: " + std::to_string(priceDMG*factor) + "$");
 	text[20].setString("Upgrade recoil time");
-	text[21].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[21].setString("Price: " + std::to_string(priceRecoil*factor) + "$");
 	text[22].setString("Upgrade reload time");
-	text[23].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[23].setString("Price: " + std::to_string(priceReload*factor) + "$");
 	text[24].setString("Upgrade mag. cap.");
-	text[25].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[25].setString("Price: " + std::to_string(priceMagCap*factor) + "$");
 	text[26].setString("Upgrade ammo cap.");
-	text[27].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+	text[27].setString("Price: " + std::to_string(priceAmmoCap*factor) + "$");
 
 	text[28].setString("CLOSE SHOP");
 
@@ -518,7 +628,7 @@ void Game::setText()
 		text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 80, posY + spacingy + 7));
 		text[6].setString("Buy Pistol");
 		text[7].setFillColor(sf::Color::Green);
-		text[7].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+		text[7].setString("Price: " + std::to_string(pricePistol) + "$");
 		text[12].setFillColor(sf::Color(50, 50, 50));
 		text[13].setFillColor(sf::Color(25, 50, 25));
 		button[8].setColor(sf::Color(50, 50, 50));
@@ -529,7 +639,7 @@ void Game::setText()
 		text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 70, posY + spacingy + 7));
 		text[6].setString("Select Pistol");
 		text[7].setFillColor(sf::Color::White);
-		text[7].setString("Ammo: " + std::to_string(PLACEHOLDER));
+		text[7].setString("Ammo: " + std::to_string(pricePistolAmmo));
 		text[12].setFillColor(sf::Color::White);
 		text[13].setFillColor(sf::Color::Green);
 		button[8].setColor(sf::Color(255, 255, 255));
@@ -542,7 +652,7 @@ void Game::setText()
 		text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 90, posY + spacingy * 2 + 7));
 		text[8].setString("Buy Rifle");
 		text[9].setFillColor(sf::Color::Green);
-		text[9].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+		text[9].setString("Price: " + std::to_string(priceRifle) + "$");
 		text[14].setFillColor(sf::Color(50, 50, 50));
 		text[15].setFillColor(sf::Color(25, 50, 25));
 		button[9].setColor(sf::Color(50, 50, 50));
@@ -553,7 +663,7 @@ void Game::setText()
 		text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 77, posY + spacingy * 2 + 7));
 		text[8].setString("Select Rifle");
 		text[9].setFillColor(sf::Color::White);
-		text[9].setString("Ammo: " + std::to_string(PLACEHOLDER));
+		text[9].setString("Ammo: " + std::to_string(priceRifleAmmo));
 		text[14].setFillColor(sf::Color::White);
 		text[15].setFillColor(sf::Color::Green);
 		button[9].setColor(sf::Color(255, 255, 255));
@@ -566,7 +676,7 @@ void Game::setText()
 		text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 70, posY + spacingy * 3 + 7));
 		text[10].setString("Buy Shotgun");
 		text[11].setFillColor(sf::Color::Green);
-		text[11].setString("Price: " + std::to_string(PLACEHOLDER) + "$");
+		text[11].setString("Price: " + std::to_string(priceShotgun) + "$");
 		text[16].setFillColor(sf::Color(50, 50, 50));
 		text[17].setFillColor(sf::Color(25, 50, 25));
 		button[10].setColor(sf::Color(50, 50, 50));
@@ -577,7 +687,7 @@ void Game::setText()
 		text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 57, posY + spacingy * 3 + 7));
 		text[10].setString("Select Shotgun");
 		text[11].setFillColor(sf::Color::White);
-		text[11].setString("Ammo: " + std::to_string(PLACEHOLDER));
+		text[11].setString("Ammo: " + std::to_string(priceShotgunAmmo));
 		text[16].setFillColor(sf::Color::White);
 		text[17].setFillColor(sf::Color::Green);
 		button[10].setColor(sf::Color(255, 255, 255));
@@ -586,17 +696,20 @@ void Game::setText()
 
 bool Game::pistolOwned()
 {
-	return true;
+	for (int i = 0; i < GetWeaponState().size(); i++) if (GetWeaponState().at(i).type == WeaponType::PISTOL) return true;
+	return false;
 }
 
 bool Game::rifleOwned()
 {
-	return true;
+	for (int i = 0; i < GetWeaponState().size(); i++) if (GetWeaponState().at(i).type == WeaponType::RIFLE) return true;
+	return false;
 }
 
 bool Game::shotgunOwned()
 {
-	return true;
+	for (int i = 0; i < GetWeaponState().size(); i++) if (GetWeaponState().at(i).type == WeaponType::SHOTGUN) return true;
+	return false;
 }
 
 void Game::drawShop(sf::RenderWindow * window)
@@ -641,6 +754,11 @@ void Game::drawShop(sf::RenderWindow * window)
 	{
 		window->draw(text[i]);
 	}
+
+	///////////////////////////////////TODO////////////////////////////////////////////////////////////////////////
+	//to jest tekst z naszymi pieniazkami
+	text[1].setFillColor(sf::Color::Green);
+	text[1].setCharacterSize(30);
 }
 
 void Game::initializeGame()
@@ -652,7 +770,6 @@ void Game::initializeGame()
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
 	delay2 = sf::milliseconds(0);
-	loadTextures();
 	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -669,10 +786,6 @@ void Game::initializeGame()
 	//Bazowa broñ
 	Weapon * pistol = new Pistol(entity_manager, AssetManager::GetTexture("bullet9mm"));
 	player->AddWeapon(pistol);
-	Weapon * rifle = new Rifle( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
-	player->AddWeapon( rifle );
-	Weapon * shotgun = new Shotgun( entity_manager, AssetManager::GetTexture( "bullet9mm" ) );
-	player->AddWeapon( shotgun );
 	startLevelSound.setBuffer(*AssetManager::GetSound("brains"));
 	for (int i = 1; i < 25; i++)
 	{
@@ -681,6 +794,9 @@ void Game::initializeGame()
 		temp.setVolume(20);
 		zombieNoises.push_back(temp);
 	}
+
+	setPrices();
+	loadTextures();
 }
 
 void Game::initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState )
@@ -736,6 +852,9 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 		temp.setVolume(20);
 		zombieNoises.push_back(temp);
 	}
+
+	setPrices();
+	loadTextures();
 }
 
 void Game::Controls(sf::RenderWindow * window)

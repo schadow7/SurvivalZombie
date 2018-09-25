@@ -62,8 +62,9 @@ private:
 	void									Controls(sf::RenderWindow * window);
 	void									initializeGame();
 	void									initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState );
-	
-	
+	void									setPrices();
+	void									insufficientFunds();
+
 	void									formatText(sf::Text & text, int size);
 	
 	bool									pistolOwned();
@@ -111,6 +112,10 @@ private:
 	sf::Font								fontType;
 	SelectedWeapon							selectedWeapon;
 	bool									isWeaponSelected;
-
+	int										priceBaseUpgrade, pricePistol, priceRifle, priceShotgun;
+	int										pricePistolAmmo, priceRifleAmmo, priceShotgunAmmo;
+	int										priceRifleFactor, priceShotgunFactor;
+	int										priceDMG, priceRecoil, priceReload, priceMagCap, priceAmmoCap;
+	int										factor;
 };
 

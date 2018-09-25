@@ -20,6 +20,7 @@ public:
 	b2Vec2 GetPxSize();
 	void Repair(int);
 	void SetMaxHP(int);
+	int GetMaxHP();
 	void SetDamage(int);
 	void MakeActive();
 protected:
