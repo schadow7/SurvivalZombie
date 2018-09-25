@@ -1186,9 +1186,6 @@ bool Game::isWave()
 	return false;
 }
 
-void Game::Render(sf::RenderWindow * window)
-{
-}
 
 void Game::spawnHorde(int next_level)
 {

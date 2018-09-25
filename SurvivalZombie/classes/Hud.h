@@ -7,12 +7,33 @@ class Hud
 public:
 	Hud();
 	~Hud();
-
+	
+	/// <summary>
+	/// Renders the specified window.
+	/// </summary>
+	/// <param name="window">The window.</param>
+	/// <param name="view">The view.</param>
+	/// <param name="player">The player.</param>
 	void					Render(sf::RenderWindow* window, sf::View* view, Player* player);
 	
-private:
-	void					FormatText( sf::Text & text );
+private:	
+	/// <summary>
+	/// Formats the text.
+	/// </summary>
+	/// <param name="text">The text.</param>
+	void					FormatText(sf::Text & text);	
+	/// <summary>
+	/// Positions the hud elements.
+	/// </summary>
+	/// <param name="view">The view.</param>
+	/// <param name="player">The player.</param>
+	/// <param name="current_weapon">The current weapon.</param>
 	void					positioningHudElements(sf::View* view, Player* player, weapon_features current_weapon);
+	/// <summary>
+	/// Specifies and renders weapon.
+	/// </summary>
+	/// <param name="window">The window.</param>
+	/// <param name="current_weapon">The current weapon.</param>
 	void					specifyAndRenderWeapon(sf::RenderWindow* window, weapon_features current_weapon);
 
 	sf::RectangleShape		hitpointsBarRed;

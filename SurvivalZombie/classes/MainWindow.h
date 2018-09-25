@@ -23,16 +23,49 @@ public:
 	void									draw();
 	GameState								runMenu(sf::Event event);
 
-private:
-	void									loadTextures();
-	void									runDefaultMenu();
-	void									runNewGameMenu();
-	void									runLoadGameMenu();
-	GameState								runDefaultMenuClicked();
-	GameState								runNewGameMenuClicked();
-	GameState								runLoadGameMenuClicked();
-	bool									checkSlot( SaveSlot slot );
-	void									formatText( sf::Text & text );
+private:	
+	/// <summary>
+	/// Loads the textures.
+	/// </summary>
+	void									loadTextures();	
+	/// <summary>
+	/// Runs the default menu.
+	/// </summary>
+	void									runDefaultMenu();	
+	/// <summary>
+	/// Runs the new game menu.
+	/// </summary>
+	void									runNewGameMenu();	
+	/// <summary>
+	/// Runs the load game menu.
+	/// </summary>
+	void									runLoadGameMenu();	
+	/// <summary>
+	/// Runs the default menu clicked.
+	/// </summary>
+	/// <returns></returns>
+	GameState								runDefaultMenuClicked();	
+	/// <summary>
+	/// Runs the new game menu clicked.
+	/// </summary>
+	/// <returns></returns>
+	GameState								runNewGameMenuClicked();	
+	/// <summary>
+	/// Runs the load game menu clicked.
+	/// </summary>
+	/// <returns></returns>
+	GameState								runLoadGameMenuClicked();	
+	/// <summary>
+	/// Checks the save slot.
+	/// </summary>
+	/// <param name="slot">The save slot.</param>
+	/// <returns></returns>
+	bool									checkSlot(SaveSlot slot);	
+	/// <summary>
+	/// Formats the text.
+	/// </summary>
+	/// <param name="text">The text.</param>
+	void									formatText(sf::Text & text);
 	void									setTextSlot();
 	sf::RenderWindow *						window;
 	Game *									game;
