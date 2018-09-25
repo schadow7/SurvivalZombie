@@ -64,13 +64,11 @@ private:
 	void									initializeGame( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState );
 	
 	
-	
 	void									formatText(sf::Text & text, int size);
 	
 	bool									pistolOwned();
 	bool									rifleOwned();
 	bool									shotgunOwned();
-	bool									isWeaponSelected();
 	const float								SCALE = 100.f;
 	EntityManager *							entity_manager;
 	sf::View *								view;
@@ -112,6 +110,7 @@ private:
 	sf::Text								text[50];
 	sf::Font								fontType;
 	SelectedWeapon							selectedWeapon;
+	bool									isWeaponSelected;
 
 };
 
