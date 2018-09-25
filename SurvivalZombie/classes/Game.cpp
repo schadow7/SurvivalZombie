@@ -402,7 +402,13 @@ GameState Game::runShopClicked(sf::Window * window)
 		if (pistolOwned()) 
 		{
 			selectedWeapon = SelectedWeapon::PISTOL;
+			player->ChangeWeapon( WeaponType::PISTOL );
 			isWeaponSelected = true;
+			text[19].setString( "Price: " + std::to_string( priceDMG*factor ) + "$" );
+			text[21].setString( "Price: " + std::to_string( priceRecoil*factor ) + "$" );
+			text[23].setString( "Price: " + std::to_string( priceReload*factor ) + "$" );
+			text[25].setString( "Price: " + std::to_string( priceMagCap*factor ) + "$" );
+			text[27].setString( "Price: " + std::to_string( priceAmmoCap*factor ) + "$" );
 		}
 		else
 		{
@@ -422,6 +428,12 @@ GameState Game::runShopClicked(sf::Window * window)
 		{
 			selectedWeapon = SelectedWeapon::RIFLE;
 			isWeaponSelected = true;
+			player->ChangeWeapon( WeaponType::RIFLE );
+			text[19].setString( "Price: " + std::to_string( priceDMG*factorRifle ) + "$" );
+			text[21].setString( "Price: " + std::to_string( priceRecoil*factorRifle ) + "$" );
+			text[23].setString( "Price: " + std::to_string( priceReload*factorRifle ) + "$" );
+			text[25].setString( "Price: " + std::to_string( priceMagCap*factorRifle ) + "$" );
+			text[27].setString( "Price: " + std::to_string( priceAmmoCap*factorRifle ) + "$" );
 		}
 		else
 		{
@@ -441,6 +453,12 @@ GameState Game::runShopClicked(sf::Window * window)
 		{
 			selectedWeapon = SelectedWeapon::SHOTGUN;
 			isWeaponSelected = true;
+			player->ChangeWeapon( WeaponType::SHOTGUN );
+			text[19].setString( "Price: " + std::to_string( priceDMG*factorShotgun ) + "$" );
+			text[21].setString( "Price: " + std::to_string( priceRecoil*factorShotgun ) + "$" );
+			text[23].setString( "Price: " + std::to_string( priceReload*factorShotgun ) + "$" );
+			text[25].setString( "Price: " + std::to_string( priceMagCap*factorShotgun ) + "$" );
+			text[27].setString( "Price: " + std::to_string( priceAmmoCap*factorShotgun ) + "$" );
 		}
 		else
 		{
