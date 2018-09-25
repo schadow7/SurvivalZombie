@@ -5,8 +5,8 @@
 ZombieSprinter::ZombieSprinter(b2World* world, b2Vec2 position) :
 	Zombie(world, position)
 {
-	float spec_factor = .4f;
-	hitpoints -= spec_factor * hitpoints;
+	float spec_factor = 2.1f;
+	hitpoints -= spec_factor/3 * hitpoints;
 	maxhitpoints = hitpoints;
 	speed += spec_factor * speed;
 	animSpeed -= spec_factor * animSpeed;
