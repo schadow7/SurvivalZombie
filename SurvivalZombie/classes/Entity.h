@@ -112,7 +112,7 @@ public:
 	~Entity();
 
 protected:
-	int						groupID;  //1-PLayer 2-Zombie 3-Projectile 6-BasicEntanglements 9-Door
+	int						groupID;  //1-PLayer 2-Zombie 3-Projectile 6-BasicEntanglements 9-Door 20 - niewidzialne ściany
 	int						active;	  //-1 - do usunięcia; 0 - nieaktywny, ale wyświetlany; 1 - aktywny (brany pod uwagę przy symulacji, kolizjach...)	
 	b2Body *				body;
 	std::string				name;

@@ -293,6 +293,7 @@ void MainWindow::loadTextures()
 	AssetManager::AddTexture( "stone4", ".\\graphics\\objects\\stone4.png" );
 	AssetManager::AddTexture( "stone2", ".\\graphics\\objects\\stone2.png" );
 	AssetManager::AddTexture( "tree3", ".\\graphics\\objects\\tree3.png" );
+	AssetManager::AddTexture( "no_texture", ".\\graphics\\no_texture.png" );
 
 	//Hud
 	AssetManager::AddTexture("handgun", ".\\graphics\\hud\\handgun.png");

@@ -188,3 +188,14 @@ Door::Door(b2World * world, b2Vec2 position, sf::Vector2i size, sf::Texture * nt
 Door::~Door()
 {
 }
+
+Bounds::Bounds( b2World * world, b2Vec2 position, sf::Vector2i size, sf::Texture * ntexture ) :
+	BasicEntanglements( world, position, size, ntexture )
+{
+	damage = 0;
+	groupID = 20;
+}
+
+Bounds::~Bounds()
+{
+}
