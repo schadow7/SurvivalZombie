@@ -275,6 +275,16 @@ weapon_features Player::GetCurrentWeapon()
 		return weapon_features();
 }
 
+weapon_features Player::GetWeapon( WeaponType type )
+{
+	for ( auto & it : weapons )
+	{
+		if ( it->GetWeaponFeatures().type == type )
+			return it->GetWeaponFeatures();
+	}
+	return weapon_features();
+}
+
 void Player::ChangeWeaponRight()
 {
 	if ( weapons.size() > 1 )
@@ -294,6 +304,17 @@ void Player::ChangeWeaponRight()
 	}
 }
 
+bool Player::isWeapon( WeaponType type )
+{
+	for ( auto & it : weapons )
+	{
+		if ( it->GetWeaponFeatures().type == type )
+			return true;
+
+	}
+	return false;
+}
+
 bool Player::ChangeWeapon( WeaponType type )
 {
 	for ( auto & it : weapons )
@@ -308,10 +329,13 @@ bool Player::ChangeWeapon( WeaponType type )
 	return false;
 }
 
-void Player::AddMagazine()
+void Player::AddMagazine(WeaponType type)
 {
-	if ( current_weapon )
-		current_weapon->AddMagazine();
+	for ( auto & it : weapons )
+	{
+		if ( it->GetWeaponFeatures().type == type )
+			it->AddMagazine();
+	}
 }
 
 void Player::SetWeaponFeatures( weapon_features weaponFeat )

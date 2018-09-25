@@ -37,9 +37,11 @@ public:
 	std::vector<long int>				GetHitpoints();
 	std::vector<weapon_features>		GetWeaponList();
 	weapon_features						GetCurrentWeapon();
+	weapon_features						GetWeapon( WeaponType type );
 	void								ChangeWeaponRight();
+	bool								isWeapon( WeaponType type );
 	bool								ChangeWeapon( WeaponType type );
-	void								AddMagazine();
+	void								AddMagazine( WeaponType type );
 	void								SetWeaponFeatures( weapon_features weaponFeat );
 	void								HealUp();
 	void								SetPlayerState( player_state playerState );
