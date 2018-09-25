@@ -238,7 +238,7 @@ void Game::loadTextures()
 
 void Game::setPrices()
 {
-	priceBaseUpgrade = 1000;
+	priceBaseUpgrade = 2000;
 
 	pricePistol = 100;
 	priceRifle = 5000;
