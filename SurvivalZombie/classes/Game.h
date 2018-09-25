@@ -40,6 +40,7 @@ public:
 	Game();
 	Game( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState );
 	~Game();
+	bool isGameOver();
 	
 	/// <summary>
 	/// Główna pętla działającej gry.
