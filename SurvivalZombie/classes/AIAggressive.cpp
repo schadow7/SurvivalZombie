@@ -38,7 +38,6 @@ b2Vec2 AIAggressive::Move(b2Vec2 position, b2Vec2 player_position, float32 curre
 			{
 				direction.x += turn_gain * cos(angleLeft);
 				direction.y += turn_gain * sin(angleLeft);
-				//printf("L %f\n", angleLeft * 180 / b2_pi);
 				obstructed = 15;
 				break;
 			}
@@ -50,7 +49,6 @@ b2Vec2 AIAggressive::Move(b2Vec2 position, b2Vec2 player_position, float32 curre
 			{
 				direction.x += turn_gain * cos(angleRight);
 				direction.y += turn_gain * sin(angleRight);
-				//printf("R %f\n", angleRight*180/b2_pi);
 				obstructed = 15;
 				break;
 			}
