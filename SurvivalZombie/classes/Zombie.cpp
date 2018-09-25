@@ -119,7 +119,7 @@ void Zombie::StartContact(Entity* entity)
 {
 	if ( entity->GroupID() == 1 )
 	{
-		attack_timer = sf::microseconds( 0 );
+		//attack_timer = sf::microseconds( 0 );
 		attack = true;
 	}
 }
@@ -128,7 +128,7 @@ void Zombie::EndContact(Entity* entity)
 {
 	if ( entity->GroupID() == 1 )
 	{
-		attack_timer = sf::microseconds( 0 );
+		//attack_timer = sf::microseconds( 0 );
 		attack = false;
 	}
 }
