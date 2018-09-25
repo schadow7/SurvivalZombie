@@ -8,7 +8,6 @@
 
 Zombie::Zombie(b2World *world, b2Vec2 position) :
 	DynamicBody(world, position),
-	speed(1),
 	world(world),
 	animSpeed(0.03)
 {
@@ -20,6 +19,7 @@ Zombie::Zombie(b2World *world, b2Vec2 position) :
 	attack_cooldown = sf::milliseconds( 500 );
 	attack_timer = sf::milliseconds( 520 );
 	score = 100;
+	speed = 1;
 	
 	AI = new AIIdle(world);
 

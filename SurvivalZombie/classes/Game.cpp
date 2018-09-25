@@ -944,7 +944,7 @@ void Game::Controls(sf::RenderWindow * window)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) velocity += b2Vec2(0, 1);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocity += b2Vec2(-1, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocity += b2Vec2(1, 0);
-
+	velocity.Normalize();
 	if (undeadCount <= 0)
 	{
 		entity_manager->CleanBodies();
@@ -968,6 +968,7 @@ void Game::Controls(sf::RenderWindow * window)
 	}
 
 
+	//player->SetVelocity(b2Vec2(velocity.x*player->GetSpeed(), velocity.y*player->GetSpeed()));
 	player->SetVelocity(velocity);
 	previous_angle = atan2f(normalize_direction.y, normalize_direction.x); player->SetAngle(previous_angle);
 }

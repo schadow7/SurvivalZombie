@@ -2,7 +2,8 @@
 
 
 
-DynamicBody::DynamicBody(b2World* world, b2Vec2 position)
+DynamicBody::DynamicBody(b2World* world, b2Vec2 position):
+	speed(1)
 {
 	b2BodyDef myBodyDef;
 	myBodyDef.type = b2_dynamicBody;
@@ -13,7 +14,8 @@ DynamicBody::DynamicBody(b2World* world, b2Vec2 position)
 	this->body->SetUserData(dynamic_cast<Entity *> (this));
 }
 
-DynamicBody::DynamicBody( b2World * world, b2BodyDef bodyDef, b2FixtureDef fixtureDef )
+DynamicBody::DynamicBody( b2World * world, b2BodyDef bodyDef, b2FixtureDef fixtureDef ):
+	speed(1)
 {
 	body = world->CreateBody( &bodyDef );
 	body->SetLinearVelocity( b2Vec2_zero );

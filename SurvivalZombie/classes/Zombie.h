@@ -25,7 +25,6 @@ public:
 	virtual void Attack(Entity * entity);
 
 protected:
-	float32 speed;
 	double animSpeed;
 	int sizey; //rozmiar zombie w pikselach
 	int sizex1;

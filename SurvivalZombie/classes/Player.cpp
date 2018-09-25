@@ -242,6 +242,11 @@ player_state Player::GetPlayerState() const
 	return myState;
 }
 
+float32 Player::GetSpeed()
+{
+	return DynamicBody::speed;
+}
+
 std::vector<long int> Player::GetHitpoints()
 {
 	std::vector<long int> hp (2);

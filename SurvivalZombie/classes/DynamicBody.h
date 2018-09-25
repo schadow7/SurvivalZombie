@@ -14,6 +14,7 @@ public:
 
 protected:
 	b2Vec2				velocity;
+	float32				speed;
 
 
 };

@@ -31,6 +31,7 @@ public:
 	void								Shoot( b2Vec2 direction, sf::Time difference_time );
 	void								TakeDamage( float32 damage );
 	player_state						GetPlayerState() const;
+	float32								GetSpeed();
 
 	std::vector<long int>				GetHitpoints();
 	std::vector<weapon_features>		GetWeaponList();
