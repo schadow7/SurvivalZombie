@@ -12,13 +12,41 @@ public:
 	/// <param name="size">The size in px.</param>
 	/// <param name="ntexture">The new texture.</param>
 	Obstacle(b2World* world, b2Vec2 position, sf::Vector2i size = sf::Vector2i(50, 50), sf::Texture * ntexture = AssetManager::GetTexture("grad2"));
-	~Obstacle();
-	void StartContact(Entity*);
-	void EndContact(Entity*);
-	void Presolve(Entity*);
-	void Render(sf::RenderWindow* window);
-	void RenderInactive(sf::RenderWindow* window);
-	void Update(sf::Time);
+	~Obstacle();	
+	/// <summary>
+	/// Starts the contact.
+	/// </summary>
+	/// <param name="">The .</param>
+	void StartContact(Entity*);	
+	/// <summary>
+	/// Ends the contact.
+	/// </summary>
+	/// <param name="">The .</param>
+	void EndContact(Entity*);	
+	/// <summary>
+	/// Presolves the specified .
+	/// </summary>
+	/// <param name="">The .</param>
+	void Presolve(Entity*);	
+	/// <summary>
+	/// Renders the specified window.
+	/// </summary>
+	/// <param name="window">The window.</param>
+	void Render(sf::RenderWindow* window);	
+	/// <summary>
+	/// Renders the inactive.
+	/// </summary>
+	/// <param name="window">The window.</param>
+	void RenderInactive(sf::RenderWindow* window);	
+	/// <summary>
+	/// Updates the specified .
+	/// </summary>
+	/// <param name="">The .</param>
+	void Update(sf::Time);	
+	/// <summary>
+	/// Takes the damage.
+	/// </summary>
+	/// <param name="damage">The damage.</param>
 	void TakeDamage(float32 damage) override;
 
 protected:

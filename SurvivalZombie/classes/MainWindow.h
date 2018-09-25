@@ -70,7 +70,10 @@ private:
 	/// Formats the text.
 	/// </summary>
 	/// <param name="text">The text.</param>
-	void									formatText(sf::Text & text);
+	void									formatText(sf::Text & text);	
+	/// <summary>
+	/// Sets the text slot.
+	/// </summary>
 	void									setTextSlot();
 	sf::RenderWindow *						window;
 	Game *									game;

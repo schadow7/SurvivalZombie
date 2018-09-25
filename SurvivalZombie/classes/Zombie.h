@@ -14,13 +14,41 @@ public:
 	/// <param name="world">The b2World.</param>
 	/// <param name="position">The position in px on the map.</param>
 	Zombie(b2World* world, b2Vec2 position);
-	~Zombie();
+	~Zombie();	
+	/// <summary>
+	/// Starts the contact.
+	/// </summary>
+	/// <param name="">The .</param>
 	void StartContact(Entity*);
+	/// <summary>
+	/// Ends the contact.
+	/// </summary>
+	/// <param name="">The .</param>
 	void EndContact(Entity*);
-	void Presolve(Entity*);
+	/// <summary>
+	/// Presolves the specified .
+	/// </summary>
+	/// <param name="">The .</param>
+	void Presolve(Entity*);	
+	/// <summary>
+	/// Renders the specified window.
+	/// </summary>
+	/// <param name="window">The window.</param>
 	void Render(sf::RenderWindow* window);
+	/// <summary>
+	/// Renders the inactive.
+	/// </summary>
+	/// <param name="window">The window.</param>
 	void RenderInactive(sf::RenderWindow* window);
+	/// <summary>
+	/// Updates the specified .
+	/// </summary>
+	/// <param name="">The .</param>
 	void Update(sf::Time);
+	/// <summary>
+	/// Takes the damage.
+	/// </summary>
+	/// <param name="damage">The damage.</param>
 	void TakeDamage(float32 damage) override;
 	/// <summary>
 	/// Ustawia Entity za którym Zombie maj¹ pod¹¿aæ.
@@ -44,7 +72,32 @@ public:
 	/// <param name="entity">The entity.</param>
 	virtual void Attack(Entity * entity);
 
-protected:
+protected:	
+	/// <summary>
+	/// Determines whether this instance is idle.
+	/// </summary>
+	/// <returns>
+	///   <c>true</c> if this instance is idle; otherwise, <c>false</c>.
+	/// </returns>
+	bool					isIdle();	
+	/// <summary>
+	/// Setups the healthbar.
+	/// </summary>
+	void					setupHealthbar();	
+	/// <summary>
+	/// Determines whether this instance is moving.
+	/// </summary>
+	/// <returns>
+	///   <c>true</c> if this instance is moving; otherwise, <c>false</c>.
+	/// </returns>
+	bool					isMoving();	
+	/// <summary>
+	/// Determines whether this instance is attacking.
+	/// </summary>
+	/// <returns>
+	///   <c>true</c> if this instance is attacking; otherwise, <c>false</c>.
+	/// </returns>
+	bool					isAttacking();
 	double animSpeed;
 	int sizey; //rozmiar zombie w pikselach
 	int sizex1;
@@ -59,18 +112,21 @@ protected:
 	sf::Time				attack_timer;
 	sf::Time				attack_cooldown;
 	float32					damage;
-	void					setupHealthbar();
-	bool					isMoving();
-	bool					isAttacking();
 	bool					attack = false;
-	bool					isIdle();
+
 	b2Vec2					direction;
 	AIType*					AI;
 	const Entity*			target;
 	b2World*				world;
 
-private:
-	void					setSpriteSheets();
+private:	
+	/// <summary>
+	/// Sets the sprite sheets.
+	/// </summary>
+	void					setSpriteSheets();	
+	/// <summary>
+	/// Adds the frames to animations.
+	/// </summary>
 	void					addFramesToAnimations();
 	Animation				walkingAnimation;
 	Animation				attackingAnimation;
