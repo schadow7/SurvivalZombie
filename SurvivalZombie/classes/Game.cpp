@@ -1202,7 +1202,8 @@ void Game::spawnHorde(int next_level)
 			else if (type == 3) zombieTmp = new ZombieSprinter(world, spawnPoint);
 			else zombieTmp = new Zombie(world, spawnPoint);
 			zombieTmp->SetTarget(player);
-			zombieTmp->SetAI(Zombie::Chaotic);
+			if(zombieDistribution(engine)==1) zombieTmp->SetAI(Zombie::Chaotic);
+			else zombieTmp->SetAI(Zombie::Aggrssive);
 			entity_manager->AddEntity(zombieTmp);
 			zombieTmp->registerObserver(this);
 			zombieTmp->registerObserver(player);
