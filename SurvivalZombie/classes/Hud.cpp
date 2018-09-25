@@ -92,10 +92,10 @@ void Hud::positioningHudElements(sf::View* view, Player* player, weapon_features
 
 	//ustalanie miejsca healthbara
 	hitpointsBarBlack.setPosition(view->getCenter().x - 620, view->getCenter().y + 300);
-	hitpointsBarRed.setSize(sf::Vector2f(static_cast<int>(320.f * hitpoints / maxhitpoints), 40.f));
+	hitpointsBarRed.setSize(sf::Vector2f(static_cast<int>(320.f * std::max(hitpoints, long(0.0)) / maxhitpoints), 40.f));
 	hitpointsBarRed.setPosition(view->getCenter().x - 619, view->getCenter().y + 301);
 	//ustalanie miejsca tekstu na healthbarze
-	hitpointsText.setString("Health: " + std::to_string(hitpoints));
+	hitpointsText.setString("Health: " + std::to_string(std::max(int(hitpoints), int(0.0f))));
 	hitpointsText.setPosition(view->getCenter().x - 540, view->getCenter().y + 302);
 	//ustalanie miejsca ikon broni
 	handgun.setPosition(view->getCenter().x + 500, view->getCenter().y + 200);

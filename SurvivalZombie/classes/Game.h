@@ -40,8 +40,14 @@ public:
 	Game();
 	Game( level_state lvlState, player_state playerState, std::vector<weapon_features> weaponState );
 	~Game();
-	bool isGameOver();
 	
+	/// <summary>
+	/// Sprawdza, czy nastąpił koniec gry.
+	/// </summary>
+	/// <returns>
+	///   <c>true</c> jeśli nastąpił koniec gry, w przeciwnym wypadku <c>false</c>.
+	/// </returns>
+	bool									isGameOver();
 	/// <summary>
 	/// Główna pętla działającej gry.
 	/// </summary>
