@@ -477,10 +477,10 @@ GameState Game::runShopClicked(sf::Window * window)
 		if(pistolOwned())
 			if (points >= pricePistolAmmo)
 			{
-				if ( player->ChangeWeapon( WeaponType::PISTOL ) )
+				if ( player->isWeapon( WeaponType::PISTOL ) )
 				{
 					points -= pricePistolAmmo;
-					player->AddMagazine();
+					player->AddMagazine( WeaponType::PISTOL );
 				}
 			}
 			else insufficientFunds();
@@ -491,10 +491,10 @@ GameState Game::runShopClicked(sf::Window * window)
 		if (rifleOwned())
 			if ( points >= pricePistolAmmo )
 			{
-				if ( player->ChangeWeapon( WeaponType::RIFLE ) )
+				if ( player->isWeapon( WeaponType::RIFLE ) )
 				{
 					points -= priceRifleAmmo;
-					player->AddMagazine();
+					player->AddMagazine( WeaponType::RIFLE );
 				}
 			}
 			else insufficientFunds();
@@ -505,10 +505,10 @@ GameState Game::runShopClicked(sf::Window * window)
 		if (shotgunOwned())
 			if (points >= priceShotgunAmmo)
 			{
-				if ( player->ChangeWeapon( WeaponType::SHOTGUN ) )
+				if ( player->isWeapon( WeaponType::SHOTGUN ) )
 				{
 					points -= priceShotgunAmmo;
-					player->AddMagazine();
+					player->AddMagazine( WeaponType::SHOTGUN );
 				}
 			}
 			else insufficientFunds();
@@ -794,7 +794,7 @@ void Game::setText()
 		text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 70, posY + spacingy + 7));
 		text[6].setString("Select Pistol");
 		text[7].setFillColor(sf::Color::White);
-		text[7].setString("Ammo: " + std::to_string(pricePistolAmmo));
+		text[7].setString("Ammo: " + std::to_string(player->GetWeapon(WeaponType::PISTOL).carriedAmmo + player->GetWeapon( WeaponType::PISTOL ).magazineAmmo ));
 		text[12].setFillColor(sf::Color::White);
 		text[13].setFillColor(sf::Color::Green);
 		button[8].setColor(sf::Color(255, 255, 255));
@@ -818,7 +818,7 @@ void Game::setText()
 		text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 77, posY + spacingy * 2 + 7));
 		text[8].setString("Select Rifle");
 		text[9].setFillColor(sf::Color::White);
-		text[9].setString("Ammo: " + std::to_string(priceRifleAmmo));
+		text[9].setString("Ammo: " + std::to_string( player->GetWeapon( WeaponType::RIFLE ).carriedAmmo + player->GetWeapon( WeaponType::RIFLE ).magazineAmmo ));
 		text[14].setFillColor(sf::Color::White);
 		text[15].setFillColor(sf::Color::Green);
 		button[9].setColor(sf::Color(255, 255, 255));
@@ -842,7 +842,7 @@ void Game::setText()
 		text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 57, posY + spacingy * 3 + 7));
 		text[10].setString("Select Shotgun");
 		text[11].setFillColor(sf::Color::White);
-		text[11].setString("Ammo: " + std::to_string(priceShotgunAmmo));
+		text[11].setString("Ammo: " + std::to_string( player->GetWeapon( WeaponType::SHOTGUN ).carriedAmmo + player->GetWeapon( WeaponType::SHOTGUN ).magazineAmmo ));
 		text[16].setFillColor(sf::Color::White);
 		text[17].setFillColor(sf::Color::Green);
 		button[10].setColor(sf::Color(255, 255, 255));
