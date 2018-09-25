@@ -11,29 +11,103 @@
 class Effect;
 
 
-class Entity:
+/// <summary>
+/// Klasa abstrakcyjnego obiektu w grze.
+/// </summary>
+/// <seealso cref="Observer" />
+/// <seealso cref="Subject" />
+class Entity :
 	public Subject,
 	public Observer
 {
 public:
-	const float SCALE = 100.f;  //	MetersToPixelsFactor 
+	/// <summary>
+	/// MetersToPixelsFactor 
+	/// </summary>
+	const float SCALE = 100.f;
 	Entity();
-	virtual void			Update(sf::Time ) = 0;
-	virtual void			Render( sf::RenderWindow * window ) = 0;
-	virtual void			RenderInactive( sf::RenderWindow * window ) { ; }
-	virtual void			StartContact( Entity * entity ) = 0;
-	virtual void			EndContact( Entity * entity ) = 0;
-	virtual void			Presolve( Entity * entitity ) = 0;
+	/// <summary>
+	/// Uaktualnia stan obiektu w kroku symulacji 
+	/// </summary>
+	/// <param name="">Bierzący czas</param>
+	virtual void			Update(sf::Time) = 0;
+	/// <summary>
+	/// Rysuje obiekt w oknie gry
+	/// </summary>
+	/// <param name="window">Okno gry.</param>
+	virtual void			Render(sf::RenderWindow * window) = 0;
+	/// <summary>
+	/// Rysuje wersję nieaktywną obiektu (zwłoki) w oknie gry.
+	/// </summary>
+	/// <param name="window">Okno gry.</param>
+	virtual void			RenderInactive(sf::RenderWindow * window) { ; }
+	/// <summary>
+	/// Wywoływania na początku kolicji obiektów
+	/// </summary>
+	/// <param name="entity">Drugi uczestnik kolizji.</param>
+	virtual void			StartContact(Entity * entity) = 0;
+	/// <summary>
+	/// Wywołana prze przerwaniu kolicji.
+	/// </summary>
+	/// <param name="entity">Drugi uczestnik kolizji.</param>
+	virtual void			EndContact(Entity * entity) = 0;
+	/// <summary>
+	/// Wywoływana przed spodziewanym zajściem kolicji. Np. działania zapobiegające kolizji.
+	/// </summary>
+	/// <param name="entitity">Drugi uczestnik kolizji</param>
+	virtual void			Presolve(Entity * entitity) = 0;
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>Zwraca status obiektu</returns>
 	int						Active() const;
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>Zwraca ID obiektu</returns>
 	int						GroupID() const;
-	virtual void			TakeDamage( float32 damage );
+	/// <summary>
+	/// Wywoływanie przez atakujący obiekt w celu zadania obrażeń
+	/// </summary>
+	/// <param name="damage">Ilość obrażeń.</param>
+	virtual void			TakeDamage(float32 damage);
+	/// <summary>
+	/// Gets the position.
+	/// </summary>
+	/// <returns>Pozycja obiektu w b2World</returns>
 	b2Vec2					GetPosition() const;
+	/// <summary>
+	/// Gets the identifier.
+	/// </summary>
+	/// <returns>ID</returns>
 	int						GetID();
-	void					SetBodyInactive() { body->SetActive( false ); }
-	void					SetMaxHitpoints( unsigned long int max_hitpoints ) { this->maxhitpoints = max_hitpoints; }
+	/// <summary>
+	/// Dezaktywuje obiekt.
+	/// </summary>
+	void					SetBodyInactive() { body->SetActive(false); }
+	/// <summary>
+	/// Ustala maksymalny poziom punktów życia.
+	/// </summary>
+	/// <param name="max_hitpoints">The maximum hitpoints.</param>
+	void					SetMaxHitpoints(unsigned long int max_hitpoints) { this->maxhitpoints = max_hitpoints; }
+	/// <summary>
+	/// Aktywuje obiekt.
+	/// </summary>
 	void					SetBodyActive() { body->SetActive(true); }
+	/// <summary>
+	/// Updates the observer.
+	/// </summary>
+	/// <param name="">The .</param>
 	void					updateObserver(Entity*) override;
+	/// <summary>
+	/// Gets the score.
+	/// </summary>
+	/// <returns></returns>
 	long int				getScore();
+	/// <summary>
+	/// Sets the score.
+	/// </summary>
+	/// <param name="">The .</param>
 	void					setScore(long int);
 	~Entity();
 
