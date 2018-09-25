@@ -2,9 +2,9 @@
 
 
 
-AIIdle::AIIdle(b2World* nworld)
+AIIdle::AIIdle(b2World* nworld):
+	AIType(nworld)
 {
-	this->world = nworld;
 	auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	engine = new std::default_random_engine(seed);
 }
