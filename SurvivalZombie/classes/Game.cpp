@@ -257,7 +257,7 @@ void Game::setPrices()
 	priceMagCap = 444;
 	priceAmmoCap = 555;
 
-	player->setScore(10000);
+	player->setScore(100000);
 	points = player->getScore();
 }
 

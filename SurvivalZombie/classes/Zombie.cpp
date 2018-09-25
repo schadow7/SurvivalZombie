@@ -64,7 +64,7 @@ void Zombie::Action(b2Vec2 player_position)  //deprecated
 void Zombie::TakeDamage( float32 damage )
 {
 	hitpoints -= damage;
-	if (hitpoints <= 0)
+	if (hitpoints <= 0 && active)
 	{
 		active = 0;
 		notify(this);
