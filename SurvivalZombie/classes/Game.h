@@ -117,6 +117,6 @@ private:
 	int										pricePistolAmmo, priceRifleAmmo, priceShotgunAmmo;
 	int										priceRifleFactor, priceShotgunFactor;
 	int										priceDMG, priceRecoil, priceReload, priceMagCap, priceAmmoCap;
-	int										factor;
+	int										factor, factorShotgun = 4, factorRifle = 6;
 };
 

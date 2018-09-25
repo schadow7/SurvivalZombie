@@ -294,6 +294,32 @@ void Player::ChangeWeaponRight()
 	}
 }
 
+bool Player::ChangeWeapon( WeaponType type )
+{
+	for ( auto & it : weapons )
+	{
+		if ( it->GetWeaponFeatures().type == type )
+		{
+			current_weapon = it;
+			return true;
+		}
+			
+	}
+	return false;
+}
+
+void Player::AddMagazine()
+{
+	if ( current_weapon )
+		current_weapon->AddMagazine();
+}
+
+void Player::SetWeaponFeatures( weapon_features weaponFeat )
+{
+	if ( current_weapon )
+		current_weapon->SetWeaponFeatures( weaponFeat );
+}
+
 void Player::HealUp()
 {
 	hitpoints = maxhitpoints;

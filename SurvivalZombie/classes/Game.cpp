@@ -251,11 +251,11 @@ void Game::setPrices()
 	priceRifleFactor = 2;
 	priceShotgunFactor = 3;
 
-	priceDMG = 111;
-	priceRecoil = 222;
-	priceReload = 333;
-	priceMagCap = 444;
-	priceAmmoCap = 555;
+	priceDMG = 2000;
+	priceRecoil = 1500;
+	priceReload = 1000;
+	priceMagCap = 4000;
+	priceAmmoCap = 4000;
 
 	player->setScore(100000);
 	points = player->getScore();
@@ -459,8 +459,11 @@ GameState Game::runShopClicked(sf::Window * window)
 		if(pistolOwned())
 			if (points >= pricePistolAmmo)
 			{
-				points -= pricePistolAmmo;
-				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+				if ( player->ChangeWeapon( WeaponType::PISTOL ) )
+				{
+					points -= pricePistolAmmo;
+					player->AddMagazine();
+				}
 			}
 			else insufficientFunds();
 	}//BUY RIFLE AMMO
@@ -468,10 +471,13 @@ GameState Game::runShopClicked(sf::Window * window)
 		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1) && rifleOwned())
 	{
 		if (rifleOwned())
-			if (points >= priceRifleAmmo)
+			if ( points >= pricePistolAmmo )
 			{
-				points -= priceRifleAmmo;
-				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+				if ( player->ChangeWeapon( WeaponType::RIFLE ) )
+				{
+					points -= priceRifleAmmo;
+					player->AddMagazine();
+				}
 			}
 			else insufficientFunds();
 	}//BUY SHOTGUN AMMO
@@ -481,8 +487,11 @@ GameState Game::runShopClicked(sf::Window * window)
 		if (shotgunOwned())
 			if (points >= priceShotgunAmmo)
 			{
-				points -= priceShotgunAmmo;
-				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+				if ( player->ChangeWeapon( WeaponType::SHOTGUN ) )
+				{
+					points -= priceShotgunAmmo;
+					player->AddMagazine();
+				}
 			}
 			else insufficientFunds();
 	}
@@ -492,56 +501,182 @@ GameState Game::runShopClicked(sf::Window * window)
 		if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 			(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
 		{
-			if (points >= priceDMG * factor)
+			weapon_features tmp = player->GetCurrentWeapon();
+			if ( tmp.type == WeaponType::PISTOL )
 			{
-				points -= priceDMG * factor;
-				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+				if ( points >= priceDMG * factor )
+				{
+					points -= priceDMG * factor;
+					tmp.damage += 5;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
 			}
-			else insufficientFunds();
+			else if ( tmp.type == WeaponType::RIFLE )
+			{
+				if ( points >= priceDMG * factorRifle )
+				{
+					points -= priceDMG * factorRifle;
+					tmp.damage += 10;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
+			else if ( tmp.type == WeaponType::SHOTGUN )
+			{
+				if ( points >= priceDMG * factorShotgun )
+				{
+					points -= priceDMG * factorShotgun;
+					tmp.damage += 5;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
+			
 		}//UPGRADE RECOIL TIME
 		else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 			(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
 		{
 
-			if (points >= priceRecoil * factor)
+			weapon_features tmp = player->GetCurrentWeapon();
+			if ( tmp.type == WeaponType::PISTOL )
 			{
-				points -= priceRecoil * factor;
-				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+				if ( points >= priceRecoil * factor )
+				{
+					points -= priceRecoil * factor;
+					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
 			}
-			else insufficientFunds();
+			else if ( tmp.type == WeaponType::RIFLE )
+			{
+				if ( points >= priceRecoil * factorRifle )
+				{
+					points -= priceRecoil * factorRifle;
+					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
+			else if ( tmp.type == WeaponType::SHOTGUN )
+			{
+				if ( points >= priceRecoil * factorShotgun )
+				{
+					points -= priceRecoil * factorShotgun;
+					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
 		}//UPGRADE RELOAD TIME
 		else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
 			(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
 		{
 
-			if (points >= priceReload * factor)
+			weapon_features tmp = player->GetCurrentWeapon();
+			if ( tmp.type == WeaponType::PISTOL )
 			{
-				points -= priceReload * factor;
-				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+				if ( points >= priceReload * factor )
+				{
+					points -= priceReload * factor;
+					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
 			}
-			else insufficientFunds();
+			else if ( tmp.type == WeaponType::RIFLE )
+			{
+				if ( points >= priceReload * factorRifle )
+				{
+					points -= priceReload * factorRifle;
+					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
+			else if ( tmp.type == WeaponType::SHOTGUN )
+			{
+				if ( points >= priceReload * factorShotgun )
+				{
+					points -= priceReload * factorShotgun;
+					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
 		}//UPGRADE MAG. CAP.
 		else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
 			(mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
 		{
 
-			if (points >= priceMagCap * factor)
+			weapon_features tmp = player->GetCurrentWeapon();
+			if ( tmp.type == WeaponType::PISTOL )
 			{
-				points -= priceMagCap * factor;
-				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+				if ( points >= priceMagCap * factor )
+				{
+					points -= priceMagCap * factor;
+					tmp.maxMagazineAmmo += 2;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
 			}
-			else insufficientFunds();
+			else if ( tmp.type == WeaponType::RIFLE )
+			{
+				if ( points >= priceMagCap * factorRifle )
+				{
+					points -= priceMagCap * factorRifle;
+					tmp.maxMagazineAmmo += 5;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
+			else if ( tmp.type == WeaponType::SHOTGUN )
+			{
+				if ( points >= priceMagCap * factorShotgun )
+				{
+					points -= priceMagCap * factorShotgun;
+					tmp.maxMagazineAmmo += 2;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
 		}//UPGRADE AMMO CAP.
 		else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 			(mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
 		{
 
-			if (points >= priceAmmoCap * factor)
+			weapon_features tmp = player->GetCurrentWeapon();
+			if ( tmp.type == WeaponType::PISTOL )
 			{
-				points -= priceAmmoCap * factor;
-				//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+				if ( points >= priceMagCap * factor )
+				{
+					points -= priceMagCap * factor;
+					tmp.maxMagazineAmmo += 2;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
 			}
-			else insufficientFunds();
+			else if ( tmp.type == WeaponType::RIFLE )
+			{
+				if ( points >= priceMagCap * factorRifle )
+				{
+					points -= priceMagCap * factorRifle;
+					tmp.maxMagazineAmmo += 5;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
+			else if ( tmp.type == WeaponType::SHOTGUN )
+			{
+				if ( points >= priceMagCap * factorShotgun )
+				{
+					points -= priceMagCap * factorShotgun;
+					tmp.maxMagazineAmmo += 2;
+					player->SetWeaponFeatures( tmp );
+				}
+				else insufficientFunds();
+			}
 		}
 	}//CLOSE SHOP
 	player->setScore(points);

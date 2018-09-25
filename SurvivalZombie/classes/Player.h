@@ -33,10 +33,14 @@ public:
 	player_state						GetPlayerState() const;
 	float32								GetSpeed();
 
+
 	std::vector<long int>				GetHitpoints();
 	std::vector<weapon_features>		GetWeaponList();
 	weapon_features						GetCurrentWeapon();
 	void								ChangeWeaponRight();
+	bool								ChangeWeapon( WeaponType type );
+	void								AddMagazine();
+	void								SetWeaponFeatures( weapon_features weaponFeat );
 	void								HealUp();
 	void								SetPlayerState( player_state playerState );
 private:
