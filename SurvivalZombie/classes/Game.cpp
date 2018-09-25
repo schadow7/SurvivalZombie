@@ -405,15 +405,10 @@ GameState Game::runShopClicked(sf::Window * window)
 			selectedWeapon = SelectedWeapon::PISTOL;
 			player->ChangeWeapon( WeaponType::PISTOL );
 			isWeaponSelected = true;
-			text[19].setString( "Price: " + std::to_string( priceDMG*factor ) + "$" );
-			text[21].setString( "Price: " + std::to_string( priceRecoil*factor ) + "$" );
-			text[23].setString( "Price: " + std::to_string( priceReload*factor ) + "$" );
-			text[25].setString( "Price: " + std::to_string( priceMagCap*factor ) + "$" );
-			text[27].setString( "Price: " + std::to_string( priceAmmoCap*factor ) + "$" );
 		}
 		else
 		{
-			if (points >= pricePistol)
+			if (int(floor(points)) >= pricePistol)
 			{
 				points -= pricePistol;
 				Weapon * pistol = new Pistol(entity_manager, AssetManager::GetTexture("bullet9mm"));
@@ -430,15 +425,10 @@ GameState Game::runShopClicked(sf::Window * window)
 			selectedWeapon = SelectedWeapon::RIFLE;
 			isWeaponSelected = true;
 			player->ChangeWeapon( WeaponType::RIFLE );
-			text[19].setString( "Price: " + std::to_string( priceDMG*factorRifle ) + "$" );
-			text[21].setString( "Price: " + std::to_string( priceRecoil*factorRifle ) + "$" );
-			text[23].setString( "Price: " + std::to_string( priceReload*factorRifle ) + "$" );
-			text[25].setString( "Price: " + std::to_string( priceMagCap*factorRifle ) + "$" );
-			text[27].setString( "Price: " + std::to_string( priceAmmoCap*factorRifle ) + "$" );
 		}
 		else
 		{
-			if (points >= priceRifle)
+			if (int(floor(points)) >= priceRifle)
 			{
 				points -= priceRifle;
 				Weapon * rifle = new Rifle(entity_manager, AssetManager::GetTexture("bullet9mm"));
@@ -455,15 +445,10 @@ GameState Game::runShopClicked(sf::Window * window)
 			selectedWeapon = SelectedWeapon::SHOTGUN;
 			isWeaponSelected = true;
 			player->ChangeWeapon( WeaponType::SHOTGUN );
-			text[19].setString( "Price: " + std::to_string( priceDMG*factorShotgun ) + "$" );
-			text[21].setString( "Price: " + std::to_string( priceRecoil*factorShotgun ) + "$" );
-			text[23].setString( "Price: " + std::to_string( priceReload*factorShotgun ) + "$" );
-			text[25].setString( "Price: " + std::to_string( priceMagCap*factorShotgun ) + "$" );
-			text[27].setString( "Price: " + std::to_string( priceAmmoCap*factorShotgun ) + "$" );
 		}
 		else
 		{
-			if (points >= priceShotgun)
+			if (int(floor(points)) >= priceShotgun)
 			{
 				points -= priceShotgun;
 				Weapon * shotgun = new Shotgun(entity_manager, AssetManager::GetTexture("bullet9mm"));
@@ -476,13 +461,10 @@ GameState Game::runShopClicked(sf::Window * window)
 		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1) && pistolOwned())
 	{
 		if(pistolOwned())
-			if (points >= pricePistolAmmo)
+			if (int(floor(points)) >= pricePistolAmmo)
 			{
-				if ( player->isWeapon( WeaponType::PISTOL ) )
-				{
-					points -= pricePistolAmmo;
-					player->AddMagazine( WeaponType::PISTOL );
-				}
+				points -= pricePistolAmmo;
+				player->AddMagazine( WeaponType::PISTOL );
 			}
 			else insufficientFunds();
 	}//BUY RIFLE AMMO
@@ -490,13 +472,10 @@ GameState Game::runShopClicked(sf::Window * window)
 		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1) && rifleOwned())
 	{
 		if (rifleOwned())
-			if ( points >= pricePistolAmmo )
+			if (int(floor(points)) >= pricePistolAmmo )
 			{
-				if ( player->isWeapon( WeaponType::RIFLE ) )
-				{
-					points -= priceRifleAmmo;
-					player->AddMagazine( WeaponType::RIFLE );
-				}
+				points -= priceRifleAmmo;
+				player->AddMagazine( WeaponType::RIFLE );
 			}
 			else insufficientFunds();
 	}//BUY SHOTGUN AMMO
@@ -504,13 +483,10 @@ GameState Game::runShopClicked(sf::Window * window)
 		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1) && shotgunOwned())
 	{
 		if (shotgunOwned())
-			if (points >= priceShotgunAmmo)
+			if (int(floor(points)) >= priceShotgunAmmo)
 			{
-				if ( player->isWeapon( WeaponType::SHOTGUN ) )
-				{
-					points -= priceShotgunAmmo;
-					player->AddMagazine( WeaponType::SHOTGUN );
-				}
+				points -= priceShotgunAmmo;
+				player->AddMagazine( WeaponType::SHOTGUN );
 			}
 			else insufficientFunds();
 	}
@@ -523,7 +499,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if ( points >= priceDMG * factor )
+				if (int(floor(points)) >= priceDMG * factor )
 				{
 					points -= priceDMG * factor;
 					tmp.damage += 5;
@@ -533,7 +509,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if ( points >= priceDMG * factorRifle )
+				if (int(floor(points)) >= priceDMG * factorRifle )
 				{
 					points -= priceDMG * factorRifle;
 					tmp.damage += 10;
@@ -543,7 +519,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if ( points >= priceDMG * factorShotgun )
+				if (int(floor(points)) >= priceDMG * factorShotgun )
 				{
 					points -= priceDMG * factorShotgun;
 					tmp.damage += 5;
@@ -560,7 +536,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if ( points >= priceRecoil * factor )
+				if (int(floor(points)) >= priceRecoil * factor )
 				{
 					points -= priceRecoil * factor;
 					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
@@ -570,7 +546,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if ( points >= priceRecoil * factorRifle )
+				if (int(floor(points)) >= priceRecoil * factorRifle )
 				{
 					points -= priceRecoil * factorRifle;
 					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
@@ -580,7 +556,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if ( points >= priceRecoil * factorShotgun )
+				if (int(floor(points)) >= priceRecoil * factorShotgun )
 				{
 					points -= priceRecoil * factorShotgun;
 					tmp.cooldown = sf::milliseconds( 0.9 * tmp.cooldown.asMilliseconds() );
@@ -596,7 +572,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if ( points >= priceReload * factor )
+				if (int(floor(points)) >= priceReload * factor )
 				{
 					points -= priceReload * factor;
 					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
@@ -606,7 +582,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if ( points >= priceReload * factorRifle )
+				if (int(floor(points)) >= priceReload * factorRifle )
 				{
 					points -= priceReload * factorRifle;
 					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
@@ -616,7 +592,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if ( points >= priceReload * factorShotgun )
+				if (int(floor(points)) >= priceReload * factorShotgun )
 				{
 					points -= priceReload * factorShotgun;
 					tmp.reload_cooldown = sf::milliseconds( 0.9 * tmp.reload_cooldown.asMilliseconds() );
@@ -632,7 +608,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if ( points >= priceMagCap * factor )
+				if (int(floor(points)) >= priceMagCap * factor )
 				{
 					points -= priceMagCap * factor;
 					tmp.maxMagazineAmmo += 2;
@@ -642,7 +618,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if ( points >= priceMagCap * factorRifle )
+				if (int(floor(points)) >= priceMagCap * factorRifle )
 				{
 					points -= priceMagCap * factorRifle;
 					tmp.maxMagazineAmmo += 5;
@@ -652,7 +628,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if ( points >= priceMagCap * factorShotgun )
+				if (int(floor(points)) >= priceMagCap * factorShotgun )
 				{
 					points -= priceMagCap * factorShotgun;
 					tmp.maxMagazineAmmo += 2;
@@ -668,7 +644,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			weapon_features tmp = player->GetCurrentWeapon();
 			if ( tmp.type == WeaponType::PISTOL )
 			{
-				if ( points >= priceMagCap * factor )
+				if (int(floor(points)) >= priceMagCap * factor )
 				{
 					points -= priceMagCap * factor;
 					tmp.maxMagazineAmmo += 2;
@@ -678,7 +654,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::RIFLE )
 			{
-				if ( points >= priceMagCap * factorRifle )
+				if (int(floor(points)) >= priceMagCap * factorRifle )
 				{
 					points -= priceMagCap * factorRifle;
 					tmp.maxMagazineAmmo += 5;
@@ -688,7 +664,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			}
 			else if ( tmp.type == WeaponType::SHOTGUN )
 			{
-				if ( points >= priceMagCap * factorShotgun )
+				if (int(floor(points)) >= priceMagCap * factorShotgun )
 				{
 					points -= priceMagCap * factorShotgun;
 					tmp.maxMagazineAmmo += 2;
@@ -716,7 +692,6 @@ void Game::insufficientFunds()
 
 void Game::setText()
 {
-	int PLACEHOLDER = 35505;
 	points = player->getScore();
 	text[1].setString("Money: " + std::to_string(GetLevelState().points) + "$");
 
@@ -1190,7 +1165,6 @@ bool Game::isWave()
 {
 	return false;
 }
-
 
 void Game::spawnHorde(int next_level)
 {
