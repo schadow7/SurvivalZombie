@@ -86,6 +86,7 @@ private:
 	long int								points = 0;
 	sf::Clock								clock;
 	sf::Time								delay,delay2;
+	sf::Time								levelDelay;
 	float32									previous_angle;
 	std::default_random_engine				engine;
 	std::uniform_int_distribution<int>		angleDistribution{ 1, 360 };
@@ -118,5 +119,6 @@ private:
 	int										priceRifleFactor, priceShotgunFactor;
 	int										priceDMG, priceRecoil, priceReload, priceMagCap, priceAmmoCap;
 	int										factor, factorShotgun = 4, factorRifle = 6;
+	bool									next_level;
 };
 
