@@ -1334,8 +1334,8 @@ void Game::setBaseLevel(int level)
 	for (auto & it : base)
 	{
 		it->SetDamage(level);
-		it->SetMaxHP(50 * level);
-		it->Repair(50 * level);
+		it->SetMaxHP(it->getMaxHitpoints() + 50);
+		it->Repair(it->getMaxHitpoints());
 		it->MakeActive();
 	}
 }
