@@ -945,6 +945,7 @@ void Game::Controls(sf::RenderWindow * window)
 
 	if (undeadCount <= 0)
 	{
+		entity_manager->CleanBodies();
 		currentLevel++;
 		startLevelSound.play();
 		spawnHorde(currentLevel);
