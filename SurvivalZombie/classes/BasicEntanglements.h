@@ -22,6 +22,7 @@ public:
 	void SetMaxHP(int);
 	void SetDamage(int);
 	void MakeActive();
+	int getHitpoints();
 
 protected:
 	sf::Sprite sprite;

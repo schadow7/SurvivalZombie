@@ -46,9 +46,15 @@ void Entity::updateObserver(Entity *)
 	;
 }
 
-int Entity::getScore()
+long int Entity::getScore()
 {
 	return score;
+}
+
+void Entity::setScore(long int nscore)
+{
+	if (nscore)
+	score = nscore;
 }
 
 Entity::~Entity()

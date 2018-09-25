@@ -4,6 +4,7 @@ Game::Game() :
 	mapsizex(1),
 	mapsizey(1)
 {
+	
 	gamePhase = GamePhase::GAME;
 	world = new b2World(b2Vec2(0.f, 0.f));
 	world->SetAllowSleeping( true );
@@ -256,7 +257,8 @@ void Game::setPrices()
 	priceMagCap = 444;
 	priceAmmoCap = 555;
 
-	points = 100000;//////////////////////////////////////////////////////////TODO
+	player->setScore(10000);
+	points = player->getScore();
 }
 
 void Game::formatText(sf::Text & text, int size)
@@ -290,7 +292,6 @@ GameState Game::runShop( sf::Window * window )
 {
 	mouseX = sf::Mouse::getPosition( *window ).x;
 	mouseY = sf::Mouse::getPosition( *window ).y;
-	
 	//UPGRADE BASE
 	if		((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width)				&&
 			 (mouseY >= shadow + posY			&& mouseY <= shadow + posY + height1))
@@ -391,7 +392,7 @@ GameState Game::runShopClicked(sf::Window * window)
 		if (points >= priceBaseUpgrade)
 		{
 			points -= priceBaseUpgrade;
-			//////////////////////////////////////////////////////////TODO//////////////////////////////////////////////////////////TODO
+			setBaseLevel(++baseLevel);
 		}
 		else insufficientFunds();
 	}//BUY/SELECT PISTOL
@@ -543,6 +544,7 @@ GameState Game::runShopClicked(sf::Window * window)
 			else insufficientFunds();
 		}
 	}//CLOSE SHOP
+	player->setScore(points);
 	if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
 			(mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
 	{
@@ -561,11 +563,11 @@ void Game::insufficientFunds()
 void Game::setText()
 {
 	int PLACEHOLDER = 35505;
-
+	points = player->getScore();
 	text[1].setString("Money: " + std::to_string(GetLevelState().points) + "$");
 
-	text[2].setString("Base level: " + std::to_string(baseLevel));//////////////////////////////////////////////////////////TODO
-	text[3].setString("Wall Hitpoints: " + std::to_string(PLACEHOLDER));//////////////////////////////////////////////////////////TODO
+	text[2].setString("Base level: " + std::to_string(baseLevel));
+	text[3].setString("Wall Hitpoints: " + std::to_string(getBaseHP()));
 	text[4].setString("Upgrade base level");
 	text[5].setString("Price: " + std::to_string(priceBaseUpgrade) + "$");
 
@@ -1181,4 +1183,14 @@ void Game::setBaseLevel(int level)
 		it->Repair(50 * level);
 		it->MakeActive();
 	}
+}
+
+int Game::getBaseHP()
+{
+	int temp = 0;
+	for (auto & it : base)
+	{
+		temp += it->getHitpoints();
+	}
+	return temp;
 }

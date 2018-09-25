@@ -100,6 +100,7 @@ private:
 	std::vector<BasicEntanglements*>		base;
 	BasicEntanglements*						spawnWall(int i, int boxSize, sf::Vector2f& position);
 	void									setBaseLevel(int level);
+	int										getBaseHP();
 	int										mapsizex, mapsizey;
 	sf::Vector2f							previousMousePos;
 	sf::Music								music;

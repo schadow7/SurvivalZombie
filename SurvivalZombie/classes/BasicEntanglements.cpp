@@ -127,6 +127,11 @@ void BasicEntanglements::MakeActive()
 	SetBodyActive();
 }
 
+int BasicEntanglements::getHitpoints()
+{
+	return hitpoints;
+}
+
 void BasicEntanglements::StartContact(Entity* entity)
 {
 	if (entity->GroupID() != 1)

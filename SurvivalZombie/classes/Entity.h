@@ -33,7 +33,8 @@ public:
 	void					SetMaxHitpoints( unsigned long int max_hitpoints ) { this->maxhitpoints = max_hitpoints; }
 	void					SetBodyActive() { body->SetActive(true); }
 	void					updateObserver(Entity*) override;
-	int						getScore();
+	long int				getScore();
+	void					setScore(long int);
 	~Entity();
 
 protected:
@@ -46,7 +47,7 @@ protected:
 	long int				maxhitpoints;
 	std::list<Effect *>		effects;
 	sf::Texture*			texture;
-	int						score;
+	long int				score;
 	sf::Vector2i			size;
 };
 
