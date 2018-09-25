@@ -32,7 +32,7 @@ Hud::~Hud()
 {
 }
 
-void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player, long points)
+void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 {
 	//sprawdzamy jaka bron jest obecnie uzywana
 	weapon_features current_weapon = player->GetCurrentWeapon();
@@ -43,7 +43,7 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player, long 
 	//rysujemy odpowiednia ikone broni
 	specifyAndRenderWeapon(window, current_weapon);
 
-	scoreText.setString("Money: " + std::to_string(points) + "$");
+	scoreText.setString("Money: " + std::to_string(player->getScore()) + "$");
 
 
 	std::vector<weapon_features> weapon_list = player->GetWeaponList();
@@ -79,6 +79,7 @@ void Hud::positioningHudElements(sf::View* view, Player* player, weapon_features
 {
 	hitpoints = player->GetHitpoints()[0];
 	maxhitpoints = player->GetHitpoints()[1];
+
 
 	//ustalanie miejsca healthbara
 	hitpointsBarBlack.setPosition(view->getCenter().x - 620, view->getCenter().y + 300);

@@ -8,7 +8,7 @@ public:
 	Hud();
 	~Hud();
 
-	void					Render(sf::RenderWindow* window, sf::View* view, Player* player, long points);
+	void					Render(sf::RenderWindow* window, sf::View* view, Player* player);
 	
 private:
 	void					FormatText( sf::Text & text );
