@@ -12,8 +12,14 @@ public:
 	ZombieSprinter(b2World* world, b2Vec2 position);
 	~ZombieSprinter();
 
-private:
-	void					setSpriteSheets();
+private:	
+	/// <summary>
+	/// Sets the sprite sheets.
+	/// </summary>
+	void					setSpriteSheets();	
+	/// <summary>
+	/// Adds the frames to animations.
+	/// </summary>
 	void					addFramesToAnimations();
 	Animation				walkingAnimation;
 	Animation				attackingAnimation;

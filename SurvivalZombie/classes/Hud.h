@@ -15,7 +15,6 @@ public:
 	/// <param name="view">The view.</param>
 	/// <param name="player">The player.</param>
 	void					Render(sf::RenderWindow* window, sf::View* view, Player* player);
-	
 private:	
 	/// <summary>
 	/// Formats the text.
