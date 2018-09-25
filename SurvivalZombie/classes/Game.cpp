@@ -1116,7 +1116,7 @@ void Game::Controls(sf::RenderWindow * window)
 		next_level = 0;
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
 	}
-	if (undeadCount >= 0 )
+	if (undeadCount >= 0 && delay2 <= sf::milliseconds(0))
 	{
 		zombieNoises[noiseDistribution(engine)].play();
 		delay2 = sf::milliseconds(30 * angleDistribution(engine));
