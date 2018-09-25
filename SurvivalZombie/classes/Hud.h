@@ -37,4 +37,6 @@ private:
 	sf::Text				currentAmmoText;
 	std::string             ammoHudString;
 	sf::Text				scoreText;
+	sf::Sprite				gameOverSprite;
+	sf::Text				gameOverText;
 };

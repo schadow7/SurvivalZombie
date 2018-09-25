@@ -55,6 +55,7 @@ public:
 	void									setText();
 	void									drawShop( sf::RenderWindow * window );
 	bool									clicked;
+	bool									isGameOver();
 private:
 	bool									isWave();
 	void									Render( sf::RenderWindow * window );

@@ -71,8 +71,17 @@ void MainWindow::run(  )
 			{
 				if ( game )
 				{
-					saveGame( currentSlot );
-					game->StopMusic();
+					if ( game->isGameOver() )
+					{
+						game->StopMusic();
+						saveGameDefault( currentSlot );
+					}
+					else
+					{
+						saveGame( currentSlot );
+						game->StopMusic();
+					}
+					
 				}
 				gameState = GameState::MENU;
 				menuType = MenuType::DEFAULT;
@@ -94,10 +103,13 @@ void MainWindow::run(  )
 		}
 		if ( gameState == GameState::RUNNING )
 		{
-			game->PlayMusic();
-			cursor->loadFromSystem( sf::Cursor::Cross );
-			window->setMouseCursor( *cursor );
-			game->runGame( window );
+			if ( game )
+			{
+				game->PlayMusic();
+				cursor->loadFromSystem( sf::Cursor::Cross );
+				window->setMouseCursor( *cursor );
+				game->runGame( window );
+			}
 		}
 		else if ( gameState == GameState::MENU )
 		{
@@ -209,6 +221,28 @@ void MainWindow::saveGame( SaveSlot slot )
 	file.close();
 }
 
+void MainWindow::saveGameDefault( SaveSlot slot )
+{
+	level_state lvlState = { 0, 0, 0 };
+	player_state playerState = { 100, 0, 3.f };
+	std::vector<weapon_features> weapons ;
+	weapon_features tmp = { WeaponType::PISTOL, 8,8,100,sf::milliseconds( 300 ),sf::milliseconds( 1000 ),20, 10 };
+	weapons.push_back( tmp );
+
+	std::string filename = "savegames\\saveslot" + std::to_string( static_cast< int >( slot ) ) + ".bin";
+
+	std::ofstream file( filename.c_str(), std::ios::binary );
+
+	file.write( ( const char * )& lvlState, sizeof level_state );
+	file.write( ( const char * )& playerState, sizeof player_state );
+	for ( auto & it : weapons )
+	{
+		file.write( ( const char * )& it, sizeof weapon_features );
+	}
+
+	file.close();
+}
+
 void MainWindow::loadTextures()
 {
 	posX = 100;
@@ -294,6 +328,7 @@ void MainWindow::loadTextures()
 	AssetManager::AddTexture( "stone2", ".\\graphics\\objects\\stone2.png" );
 	AssetManager::AddTexture( "tree3", ".\\graphics\\objects\\tree3.png" );
 	AssetManager::AddTexture( "no_texture", ".\\graphics\\no_texture.png" );
+	AssetManager::AddTexture( "game_over", ".\\graphics\\game_over.png" );
 
 	//Hud
 	AssetManager::AddTexture("handgun", ".\\graphics\\hud\\handgun.png");

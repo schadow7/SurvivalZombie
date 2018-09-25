@@ -7,8 +7,12 @@ Hud::Hud()
 	hitpointsFont.loadFromFile("arial.ttf");
 	fontType.loadFromFile("cambria.ttc");
 	FormatText( hitpointsText );
+	FormatText( gameOverText );
 	hitpointsText.setFillColor(sf::Color::White);
 	hitpointsText.setOutlineThickness(2);
+	gameOverText.setFillColor( sf::Color::White );
+	gameOverText.setOutlineThickness( 2 );
+	gameOverText.setString( "Press ESCAPE to try again." );
 	hitpointsBarBlack.setSize(sf::Vector2f(322, 42));
 
 	//Wczytywanie tekstur
@@ -18,7 +22,7 @@ Hud::Hud()
 	handgunAmmo.setTexture( *AssetManager::GetTexture( "9mm" ) );
 	rifleAmmo.setTexture( *AssetManager::GetTexture( "7.62mm" ) );
 	shotgunAmmo.setTexture( *AssetManager::GetTexture( "12gauge" ) );
-
+	gameOverSprite.setTexture( *AssetManager::GetTexture( "game_over" ) );
 	//Formatowanie tekstu
 	FormatText( currentAmmoText );
 	FormatText( handgunAmmoText );
@@ -71,6 +75,11 @@ void Hud::Render(sf::RenderWindow* window, sf::View* view, Player* player)
 	window->draw(hitpointsBarRed);
 	window->draw(hitpointsText);
 	window->draw(scoreText);
+	if ( !player->Active() )
+	{
+		window->draw( gameOverSprite );
+		window->draw( gameOverText );
+	}
 	//do wyœwietlania na ekranie
 	//printf("score: %d\n", player->getScore());
 }
@@ -112,6 +121,10 @@ void Hud::positioningHudElements(sf::View* view, Player* player, weapon_features
 	scoreText.setOutlineColor(sf::Color::Black);
 	scoreText.setOutlineThickness(1);
 	scoreText.setPosition(sf::Vector2f(view->getCenter().x + 310, view->getCenter().y - 320));
+
+	//GameOver
+	gameOverSprite.setPosition( sf::Vector2f( view->getCenter().x - 256 , view->getCenter().y - 256 ) );
+	gameOverText.setPosition( sf::Vector2f( view->getCenter().x - 180, view->getCenter().y + 240  ) );
 }
 
 void Hud::specifyAndRenderWeapon(sf::RenderWindow* window, weapon_features current_weapon)

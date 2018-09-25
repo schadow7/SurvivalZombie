@@ -17,13 +17,16 @@ public:
 
 
 	void									run();
+
+
+
+private:
 	void									newGame();
 	void									loadGame( SaveSlot slot );
 	void									saveGame( SaveSlot slot );
+	void									saveGameDefault( SaveSlot slot );
 	void									draw();
-	GameState								runMenu(sf::Event event);
-
-private:
+	GameState								runMenu( sf::Event event );
 	void									loadTextures();
 	void									runDefaultMenu();
 	void									runNewGameMenu();
