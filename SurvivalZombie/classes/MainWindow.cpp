@@ -137,8 +137,10 @@ void MainWindow::run(  )
 						gameState = game->runShopClicked(window);
 					}
 				}
+
 				game->setText();
 				game->drawShop( window );
+				if (!sf::Mouse::isButtonPressed(sf::Mouse::Left)) game->clicked = false;
 			}
 		}
 
@@ -430,7 +432,7 @@ GameState MainWindow::runMenu( sf::Event event )
 	}
 
 	this->draw();
-
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left)) clicked = false;
 	return gameState;
 }
 
