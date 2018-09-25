@@ -87,6 +87,10 @@ private:
 	
 };
 
+/// <summary>
+/// Przeszkoda pozwalaj¹ca przejœæ tylko graczowi
+/// </summary>
+/// <seealso cref="BasicEntanglements" />
 class Door :
 	public BasicEntanglements
 {
