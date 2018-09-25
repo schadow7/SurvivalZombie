@@ -8,6 +8,11 @@ class Zombie :
 	public DynamicBody
 {
 public:
+	/// <summary>
+	/// Initializes a new instance of the <see cref="Zombie"/> class.
+	/// </summary>
+	/// <param name="world">The b2World.</param>
+	/// <param name="position">The position in px on the map.</param>
 	Zombie(b2World* world, b2Vec2 position);
 	~Zombie();
 	void StartContact(Entity*);
@@ -16,12 +21,27 @@ public:
 	void Render(sf::RenderWindow* window);
 	void RenderInactive(sf::RenderWindow* window);
 	void Update(sf::Time);
-	virtual void Action(b2Vec2 player_positon);
 	void TakeDamage(float32 damage) override;
+	/// <summary>
+	/// Ustawia Entity za którym Zombie maj¹ pod¹¿aæ.
+	/// </summary>
+	/// <param name="new_target">The new target.</param>
 	void SetTarget(const Entity* new_target);
 	enum AI_enum { Aggrssive, Chaotic, Idle };
+	/// <summary>
+	/// Wybór algorytmu steruj¹cego przeciwnikiem
+	/// </summary>
+	/// <param name="">The .</param>
 	void SetAI(AI_enum);
+	/// <summary>
+	/// Wybór algorytmu steruj¹cego przeciwnikiem
+	/// </summary>
+	/// <param name="">The .</param>
 	void SetAI(AIType*);
+	/// <summary>
+	/// Attacks the specified entity.
+	/// </summary>
+	/// <param name="entity">The entity.</param>
 	virtual void Attack(Entity * entity);
 
 protected:

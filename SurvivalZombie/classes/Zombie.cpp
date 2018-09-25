@@ -56,10 +56,6 @@ Zombie::~Zombie()
 	delete AI;
 }
 
-void Zombie::Action(b2Vec2 player_position)  //deprecated
-{
-	;
-}
 
 void Zombie::TakeDamage( float32 damage )
 {

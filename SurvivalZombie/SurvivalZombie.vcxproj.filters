@@ -39,9 +39,6 @@
     <ClCompile Include="classes\AIType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="classes\ZombieManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="classes\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -64,9 +61,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="classes\observer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="classes\Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="classes\Weapon.cpp">
@@ -122,9 +116,6 @@
     <ClInclude Include="classes\AIType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="classes\ZombieManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="classes\AssetManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -150,9 +141,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="classes\observer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="classes\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="classes\Weapon.h">

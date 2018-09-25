@@ -137,7 +137,6 @@
     <ClCompile Include="classes\EntityManager.cpp" />
     <ClCompile Include="classes\Game.cpp" />
     <ClCompile Include="classes\Hud.cpp" />
-    <ClCompile Include="classes\Level.cpp" />
     <ClCompile Include="classes\MainWindow.cpp" />
     <ClCompile Include="classes\observer.cpp" />
     <ClCompile Include="classes\Obstacle.cpp" />
@@ -148,7 +147,6 @@
     <ClCompile Include="classes\Weapon.cpp" />
     <ClCompile Include="classes\subject.cpp" />
     <ClCompile Include="classes\Zombie.cpp" />
-    <ClCompile Include="classes\ZombieManager.cpp" />
     <ClCompile Include="classes\ZombieSprinter.cpp" />
     <ClCompile Include="classes\ZombieTank.cpp" />
     <ClCompile Include="main.cpp" />
@@ -167,7 +165,6 @@
     <ClInclude Include="classes\EntityManager.h" />
     <ClInclude Include="classes\Game.h" />
     <ClInclude Include="classes\Hud.h" />
-    <ClInclude Include="classes\Level.h" />
     <ClInclude Include="classes\MainWindow.h" />
     <ClInclude Include="classes\observer.h" />
     <ClInclude Include="classes\Obstacle.h" />
@@ -178,7 +175,6 @@
     <ClInclude Include="classes\Weapon.h" />
     <ClInclude Include="classes\subject.h" />
     <ClInclude Include="classes\Zombie.h" />
-    <ClInclude Include="classes\ZombieManager.h" />
     <ClInclude Include="classes\ZombieSprinter.h" />
     <ClInclude Include="classes\ZombieTank.h" />
   </ItemGroup>

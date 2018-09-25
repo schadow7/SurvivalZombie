@@ -2,7 +2,8 @@
 #include <iostream>
 Game::Game() :
 	mapsizex(1),
-	mapsizey(1)
+	mapsizey(1),
+	next_level(1)
 {
 	
 	gamePhase = GamePhase::GAME;
@@ -925,6 +926,7 @@ void Game::initializeGame()
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
 	delay2 = sf::milliseconds(0);
+	levelDelay = sf::seconds(0);
 	mapCenter = b2Vec2(mapsizex/2.0f / SCALE, mapsizey/2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -965,6 +967,7 @@ void Game::initializeGame( level_state lvlState, player_state playerState, std::
 	mapsizey = (*AssetManager::GetTexture("map")).getSize().y;
 	delay = sf::milliseconds( 0 );
 	delay2 = sf::milliseconds(0);
+	levelDelay = sf::seconds(0);
 	mapCenter = b2Vec2( mapsizex / 2.0f / SCALE, mapsizey / 2.0f / SCALE );
 	previous_angle = 0.f;
 	shoot_timer = sf::seconds( 1 );
@@ -1016,6 +1019,7 @@ void Game::Controls(sf::RenderWindow * window)
 {
 	delay -= clock.getElapsedTime();
 	delay2 -= clock.getElapsedTime();
+	levelDelay -= clock.getElapsedTime();
 	//Przygotowanie wektorów
 	b2Vec2 velocity = b2Vec2_zero;
 	b2Vec2 normalize_direction = b2Vec2_zero;
@@ -1098,15 +1102,21 @@ void Game::Controls(sf::RenderWindow * window)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocity += b2Vec2(-1, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocity += b2Vec2(1, 0);
 	velocity.Normalize();
-	if (undeadCount <= 0)
+	if (undeadCount <= 0 && next_level==0)
+	{
+		levelDelay = sf::seconds(10);
+		next_level = 1;
+	}
+	if (next_level==1 && levelDelay<=sf::seconds(0) )
 	{
 		entity_manager->CleanBodies();
 		currentLevel++;
 		startLevelSound.play();
 		spawnHorde(currentLevel);
+		next_level = 0;
 		printf("level:%d undeadCount:%d\n", currentLevel, undeadCount);
 	}
-	if (undeadCount > 0 && delay2 <= sf::milliseconds(0))
+	if (undeadCount >= 0 )
 	{
 		zombieNoises[noiseDistribution(engine)].play();
 		delay2 = sf::milliseconds(30 * angleDistribution(engine));
