@@ -49,4 +49,10 @@ public:
 	~Door();
 };
 
+class Bounds : public BasicEntanglements
+{
+public:
+	Bounds( b2World* world, b2Vec2 position, sf::Vector2i size = sf::Vector2i( 25, 50 ), sf::Texture* ntexture = AssetManager::GetTexture( "no_texture" ) );
+	~Bounds();
 
+};

@@ -52,6 +52,10 @@ public:
 			return false;
 		else if ( ( id1 == 3 && id2 == 1 ) || ( id1 == 1 && id2 == 3 ) )
 			return false;
+		else if ( ( id1 == 3 && id2 == 20 ) || ( id1 == 20 && id2 == 3 ) )
+			return false;
+		else if ( ( id1 == 2 && id2 == 20 ) || ( id1 == 20 && id2 == 2 ) )
+			return false;
 		//wlatywanie pocisków w zombie
 		//else if ((id1 = 3 && id2 == 2) || (id1 = 2 && id2 == 3))
 		//	return true;
