@@ -472,7 +472,7 @@ GameState Game::runShopClicked(sf::Window * window)
 		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1) && rifleOwned())
 	{
 		if (rifleOwned())
-			if (int(floor(points)) >= pricePistolAmmo )
+			if (int(floor(points)) >= priceRifleAmmo )
 			{
 				points -= priceRifleAmmo;
 				player->AddMagazine( WeaponType::RIFLE );
