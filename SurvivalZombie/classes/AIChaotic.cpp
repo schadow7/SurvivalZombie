@@ -2,13 +2,10 @@
 
 
 
-AIChaotic::AIChaotic()
-{
-}
 
-AIChaotic::AIChaotic(b2World* nworld)
+AIChaotic::AIChaotic(b2World* nworld):
+	AIType(nworld)
 {
-	this->world = nworld;
 }
 
 

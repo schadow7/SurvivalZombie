@@ -1250,6 +1250,7 @@ void Game::arrangeObstacles(int quantity)
 		obstacle[11] = { mapCenter + b2Vec2( 4, -8 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone4" ) };
 		obstacle[12] = { mapCenter + b2Vec2( 2, -4 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone2" ) };
 		obstacle[13] = { mapCenter + b2Vec2( 4, 4 ),	 sf::Vector2i( 52, 32 ),	AssetManager::GetTexture( "stone2" ) };
+		
 
 		for ( int i = 0; i < quantity; i++ )
 		{
@@ -1316,6 +1317,16 @@ void Game::makeBase()
 		entity_manager->AddEntity(ob);
 		position.y -= sizex;
 	}
+
+	ob = new Bounds( world, mapCenter + b2Vec2( 0, -9.2f ), sf::Vector2i( 3000, 20 ) );
+	entity_manager->AddEntity( ob );
+	ob = new Bounds( world, mapCenter + b2Vec2( 0, 9.2f ), sf::Vector2i( 3000, 20 ) );
+	entity_manager->AddEntity( ob );
+	ob = new Bounds( world, mapCenter + b2Vec2( -6.4f, 0 ), sf::Vector2i( 20, 3000 ) );
+	entity_manager->AddEntity( ob );
+	ob = new Bounds( world, mapCenter + b2Vec2( 6.4f, 0 ), sf::Vector2i( 20, 3000 ) );
+	entity_manager->AddEntity( ob );
+
 }
 
 BasicEntanglements* Game::spawnWall(int i, int boxSize, sf::Vector2f& position)
