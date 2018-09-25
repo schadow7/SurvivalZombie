@@ -8,7 +8,7 @@ public:
 	Hud();
 	~Hud();
 
-	void					Render(sf::RenderWindow* window, sf::View* view, Player* player);
+	void					Render(sf::RenderWindow* window, sf::View* view, Player* player, long points);
 	
 private:
 	void					FormatText( sf::Text & text );
@@ -17,7 +17,7 @@ private:
 
 	sf::RectangleShape		hitpointsBarRed;
 	sf::RectangleShape		hitpointsBarBlack;
-	sf::Font				hitpointsFont;
+	sf::Font				hitpointsFont, fontType;
 	sf::Text				hitpointsText;
 	long int				hitpoints;
 	long int				maxhitpoints;
@@ -36,4 +36,5 @@ private:
 	sf::Sprite				currentAmmo;
 	sf::Text				currentAmmoText;
 	std::string             ammoHudString;
+	sf::Text				scoreText;
 };

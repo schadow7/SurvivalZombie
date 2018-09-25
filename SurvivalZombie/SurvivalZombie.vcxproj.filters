@@ -51,9 +51,6 @@
     <ClCompile Include="classes\AIAggressive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="classes\AIChaotic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="classes\AIIdle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -94,6 +91,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="classes\BasicEntanglements.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\AIChaotic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
