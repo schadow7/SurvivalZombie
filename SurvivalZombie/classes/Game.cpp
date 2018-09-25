@@ -238,7 +238,7 @@ void Game::loadTextures()
 
 void Game::setPrices()
 {
-	priceBaseUpgrade = 1000;
+	priceBaseUpgrade = 2000;
 
 	pricePistol = 100;
 	priceRifle = 5000;
@@ -1202,7 +1202,8 @@ void Game::spawnHorde(int next_level)
 			else if (type == 3) zombieTmp = new ZombieSprinter(world, spawnPoint);
 			else zombieTmp = new Zombie(world, spawnPoint);
 			zombieTmp->SetTarget(player);
-			zombieTmp->SetAI(Zombie::Chaotic);
+			if(zombieDistribution(engine)==1) zombieTmp->SetAI(Zombie::Chaotic);
+			else zombieTmp->SetAI(Zombie::Aggrssive);
 			entity_manager->AddEntity(zombieTmp);
 			zombieTmp->registerObserver(this);
 			zombieTmp->registerObserver(player);
@@ -1333,8 +1334,8 @@ void Game::setBaseLevel(int level)
 	for (auto & it : base)
 	{
 		it->SetDamage(level);
-		it->SetMaxHP(50 * level);
-		it->Repair(50 * level);
+		it->SetMaxHP(it->getMaxHitpoints() + 50);
+		it->Repair(it->getMaxHitpoints());
 		it->MakeActive();
 	}
 }

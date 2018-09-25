@@ -109,9 +109,6 @@ void Zombie::Attack( Entity * entity )
 		currentAnimation = &attackingAnimation;
 		animatedSprite.setFrameTime(sf::seconds(animSpeed*3));
 		animatedSprite.play(*currentAnimation);
-//		int i = soundDistribution(engine);
-		//if (i <= 6 && i >= 0)
-			//attackSounds[i].play();
 	}
 }
 

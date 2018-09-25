@@ -35,14 +35,14 @@ b2Vec2 AIChaotic::Move(b2Vec2 position, b2Vec2 player_position, float32 current_
 	{
 		while (angleRight <= current_angle + b2_pi)
 		{
+			int roll = dis(engine);
 			callbackLeft.obstructed = 0;
 			angleLeft -= 25 * DEGTORAD;
 			doRayCast(callbackLeft, position, angleLeft);
 			if (!callbackLeft.obstructed)
 			{
-				direction.x += turn_gain * cos(dis(engine)*angleLeft);
-				direction.y += turn_gain * sin(dis(engine)*angleLeft);
-				//printf("L %f\n", angleLeft * 180 / b2_pi);
+				direction.x += turn_gain * cos(roll*angleLeft);
+				direction.y += turn_gain * sin(roll*angleLeft);
 				obstructed = 15;
 				break;
 			}
@@ -52,18 +52,14 @@ b2Vec2 AIChaotic::Move(b2Vec2 position, b2Vec2 player_position, float32 current_
 			doRayCast(callbackRight, position, angleRight);
 			if (!callbackRight.obstructed)
 			{
-				direction.x += turn_gain * cos(dis(engine)*angleRight);
-				direction.y += turn_gain * sin(dis(engine)*angleRight);
-				//printf("R %f\n", angleRight*180/b2_pi);
+				direction.x += turn_gain * cos(roll*angleRight);
+				direction.y += turn_gain * sin(roll*angleRight);
 				obstructed = 15;
 				break;
 			}
 		}
 	}
-
 	direction.Normalize();
 	old_dir = direction;
-	//printf("%d \n", obstructed);
-	//printf("ster:%f \n", atan2(direction.y, direction.x) * 180 / b2_pi);
 	return direction;
 }

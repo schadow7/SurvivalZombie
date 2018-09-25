@@ -132,6 +132,11 @@ int BasicEntanglements::getHitpoints()
 	return hitpoints;
 }
 
+int BasicEntanglements::getMaxHitpoints()
+{
+	return maxhitpoints;
+}
+
 void BasicEntanglements::StartContact(Entity* entity)
 {
 	if (entity->GroupID() != 1)
