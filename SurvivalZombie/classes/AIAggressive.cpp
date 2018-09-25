@@ -2,9 +2,9 @@
 
 
 
-AIAggressive::AIAggressive(b2World* world)
+AIAggressive::AIAggressive(b2World* nworld):
+	AIType(nworld)
 {
-	this->world = world;
 }
 
 
