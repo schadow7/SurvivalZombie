@@ -11,7 +11,7 @@ ZombieTank::ZombieTank(b2World* world, b2Vec2 position) :
 	speed -= spec_factor * speed;
 	animSpeed += spec_factor * animSpeed;
 	score += spec_factor * score;
-
+	damage = 15;
 	sizex1 = 56;
 	sizex2 = 65;
 	sizey = 60;
