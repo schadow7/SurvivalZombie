@@ -1,4 +1,5 @@
 #include "Game.h"
+
 Game::Game() :
 	mapsizex(1),
 	mapsizey(1)
@@ -49,7 +50,7 @@ void Game::loadTextures()
 	width = 304;
 	height1 = 84;
 	shadow = 3;
-	int up = 70;
+	up = 70;
 
 	backgroundShop.setTexture(*AssetManager::GetTexture("backgroundMenu"));
 	backgroundShop.setPosition(sf::Vector2f(0, 0));
@@ -95,6 +96,8 @@ void Game::loadTextures()
 	//UPGRADE BASE
 	button[4].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[4].setPosition(sf::Vector2f(posX + spacing * 4, posY));
+	button[17].setTexture(*AssetManager::GetTexture("buttonSmallOn"));
+	button[17].setPosition(sf::Vector2f(posX + spacing * 4, posY));
 	formatText(text[4], 30);
 	text[4].setPosition(sf::Vector2f(posX + spacing * 4 + 27, posY + 7));
 	formatText(text[5], 25);
@@ -104,6 +107,8 @@ void Game::loadTextures()
 	//BUY/SELECT PISTOL
 	button[5].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[5].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy));
+	button[18].setTexture(*AssetManager::GetTexture("buttonSmallOn"));
+	button[18].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy));
 	formatText(text[6], 30);
 	text[6].setPosition(sf::Vector2f(posX + spacing * 4 + 30, posY + spacingy + 7));
 	formatText(text[7], 25);
@@ -113,6 +118,8 @@ void Game::loadTextures()
 	//BUY/SELECT RIFLE
 	button[6].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[6].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 2));
+	button[19].setTexture(*AssetManager::GetTexture("buttonSmallOn"));
+	button[19].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 2));
 	formatText(text[8], 30);
 	text[8].setPosition(sf::Vector2f(posX + spacing * 4 + 30, posY + spacingy * 2 + 7));
 	formatText(text[9], 25);
@@ -122,6 +129,8 @@ void Game::loadTextures()
 	//BUY/SELECT SHOTGUN
 	button[7].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[7].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 3));
+	button[20].setTexture(*AssetManager::GetTexture("buttonSmallOn"));
+	button[20].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 3));
 	formatText(text[10], 30);
 	text[10].setPosition(sf::Vector2f(posX + spacing * 4 + 30, posY + spacingy * 3 + 7));
 	formatText(text[11], 25);
@@ -131,6 +140,8 @@ void Game::loadTextures()
 	//BUY PISTOL AMMO
 	button[8].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[8].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy));
+	button[21].setTexture(*AssetManager::GetTexture("buttonSmallOn"));
+	button[21].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy));
 	formatText(text[12], 30);
 	text[12].setPosition(sf::Vector2f(posX + spacing * 8 + 25, posY + spacingy + 7));
 	formatText(text[13], 25);
@@ -140,6 +151,8 @@ void Game::loadTextures()
 	//BUY RIFLE AMMO
 	button[9].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[9].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 2));
+	button[22].setTexture(*AssetManager::GetTexture("buttonSmallOn"));
+	button[22].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 2));
 	formatText(text[14], 30);
 	text[14].setPosition(sf::Vector2f(posX + spacing * 8 + 30, posY + spacingy * 2 + 7));
 	formatText(text[15], 25);
@@ -149,6 +162,8 @@ void Game::loadTextures()
 	//BUY SHOTGUN AMMO
 	button[10].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[10].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 3));
+	button[23].setTexture(*AssetManager::GetTexture("buttonSmallOn"));
+	button[23].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 3));
 	formatText(text[16], 30);
 	text[16].setPosition(sf::Vector2f(posX + spacing * 8 + 7, posY + spacingy * 3 + 7));
 	formatText(text[17], 25);
@@ -158,6 +173,8 @@ void Game::loadTextures()
 	//UPGRADE DMG
 	button[11].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[11].setPosition(sf::Vector2f(posX, posY + spacingy * 4 + up));
+	button[24].setTexture(*AssetManager::GetTexture("buttonSmallOn"));
+	button[24].setPosition(sf::Vector2f(posX, posY + spacingy * 4 + up));
 	formatText(text[18], 30);
 	text[18].setPosition(sf::Vector2f(posX + 60, posY + spacingy * 4 + 7 + up));
 	formatText(text[19], 25);
@@ -167,6 +184,8 @@ void Game::loadTextures()
 	//UPGRADE RECOIL TIME
 	button[12].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[12].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 4 + up));
+	button[25].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[25].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 4 + up));
 	formatText(text[20], 30);
 	text[20].setPosition(sf::Vector2f(posX + spacing * 4 + 25, posY + spacingy * 4 + 7 + up));
 	formatText(text[21], 25);
@@ -176,6 +195,8 @@ void Game::loadTextures()
 	//UPGRADE RELOAD TIME
 	button[13].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[13].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 4 + up));
+	button[26].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[26].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 4 + up));
 	formatText(text[22], 30);
 	text[22].setPosition(sf::Vector2f(posX + spacing * 8 + 20, posY + spacingy * 4 + 7 + up));
 	formatText(text[23], 25);
@@ -185,6 +206,8 @@ void Game::loadTextures()
 	//UPGRADE MAG. CAP.
 	button[14].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[14].setPosition(sf::Vector2f(posX, posY + spacingy * 5 + up));
+	button[27].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[27].setPosition(sf::Vector2f(posX, posY + spacingy * 5 + up));
 	formatText(text[24], 30);
 	text[24].setPosition(sf::Vector2f(posX + 35, posY + spacingy * 5 + 7 + up));
 	formatText(text[25], 25);
@@ -194,6 +217,8 @@ void Game::loadTextures()
 	//UPGRADE AMMO CAP.
 	button[15].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[15].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 5 + up));
+	button[28].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[28].setPosition(sf::Vector2f(posX + spacing * 4, posY + spacingy * 5 + up));
 	formatText(text[26], 30);
 	text[26].setPosition(sf::Vector2f(posX + spacing * 4 + 27, posY + spacingy * 5 + 7 + up));
 	formatText(text[27], 25);
@@ -203,6 +228,8 @@ void Game::loadTextures()
 	//CLOSE SHOP
 	button[16].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
 	button[16].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 5 + up));
+	button[29].setTexture(*AssetManager::GetTexture("buttonSmallOff"));
+	button[29].setPosition(sf::Vector2f(posX + spacing * 8, posY + spacingy * 5 + up));
 	formatText(text[28], 50);
 	text[28].setPosition(sf::Vector2f(posX + spacing * 8 + 17, posY + spacingy * 5 + 13 + up));
 }
@@ -238,29 +265,84 @@ GameState Game::runShop( sf::Window * window )
 {
 	mouseX = sf::Mouse::getPosition( *window ).x;
 	mouseY = sf::Mouse::getPosition( *window ).y;
-
-	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
-		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
+	
+	//UPGRADE BASE
+	if		((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width)				&&
+			 (mouseY >= shadow + posY			&& mouseY <= shadow + posY + height1))
 	{	
-		selectedButton = 1;
+		selectedButton = 4;
 		clicked = true;
-	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
-		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
-	{
-		selectedButton = 3;
-		clicked = true;
-	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
-		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
+	}//BUY/SELECT PISTOL
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width)				&&
+			 (mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
 	{
 		selectedButton = 5;
 		clicked = true;
-	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
-		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
+	}//BUY/SELECT RIFLE
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
+	{
+		selectedButton = 6;
+		clicked = true;
+	}//BUY/SELECT SHOTGUN
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
 	{
 		selectedButton = 7;
+		clicked = true;
+	}//BUY PISTOL AMMO
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width)				&&
+			 (mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
+	{
+		selectedButton = 8;
+		clicked = true;
+	}//BUY RIFLE AMMO
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
+	{
+		selectedButton = 9;
+		clicked = true;
+	}//BUY SHOTGUN AMMO
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
+	{
+		selectedButton = 10;
+		clicked = true;
+	}//UPGRADE DMG
+	else if ((mouseX >= shadow + posX			&& mouseX <= shadow + posX + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
+	{
+		selectedButton = 11;
+		clicked = true;
+	}//UPGRADE RECOIL TIME
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
+	{
+		selectedButton = 12;
+		clicked = true;
+	}//UPGRADE RELOAD TIME
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
+	{
+		selectedButton = 13;
+		clicked = true;
+	}//UPGRADE MAG. CAP.
+	else if ((mouseX >= shadow + posX			&& mouseX <= shadow + posX + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
+	{
+		selectedButton = 14;
+		clicked = true;
+	}//UPGRADE AMMO CAP.
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
+	{
+		selectedButton = 15;
+		clicked = true;
+	}//CLOSE SHOP
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width)				&&
+			 (mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
+	{
+		selectedButton = 16;
 		clicked = true;
 	}
 
@@ -273,25 +355,71 @@ GameState Game::runShopClicked(sf::Window * window)
 	mouseY = sf::Mouse::getPosition( *window ).y;
 	clicked = false;
 
-	if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+	//UPGRADE BASE
+	if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 		(mouseY >= shadow + posY && mouseY <= shadow + posY + height1))
 	{
-		return GameState::RUNNING;
-	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+
+	}//BUY/SELECT PISTOL
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
 	{
-		return GameState::RUNNING;
-	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		
+	}//BUY/SELECT RIFLE
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
 	{
-		return GameState::SHOP;
-	}
-	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		
+	}//BUY/SELECT SHOTGUN
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
 		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
 	{
-		return GameState::SHOP;
+		
+	}//BUY PISTOL AMMO
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
+		(mouseY >= shadow + posY + spacingy && mouseY <= shadow + posY + spacingy + height1))
+	{
+		
+	}//BUY RIFLE AMMO
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
+		(mouseY >= shadow + posY + spacingy * 2 && mouseY <= shadow + posY + spacingy * 2 + height1))
+	{
+		
+	}//BUY SHOTGUN AMMO
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
+		(mouseY >= shadow + posY + spacingy * 3 && mouseY <= shadow + posY + spacingy * 3 + height1))
+	{
+		
+	}//UPGRADE DMG
+	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
+	{
+		
+	}//UPGRADE RECOIL TIME
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
+		(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
+	{
+		
+	}//UPGRADE RELOAD TIME
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
+		(mouseY >= shadow + posY + spacingy * 4 + up && mouseY <= shadow + posY + spacingy * 4 + up + height1))
+	{
+		
+	}//UPGRADE MAG. CAP.
+	else if ((mouseX >= shadow + posX && mouseX <= shadow + posX + width) &&
+		(mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
+	{
+		
+	}//UPGRADE AMMO CAP.
+	else if ((mouseX >= shadow + posX + spacing * 4 && mouseX <= shadow + posX + spacing * 4 + width) &&
+		(mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
+	{
+		
+	}//CLOSE SHOP
+	else if ((mouseX >= shadow + posX + spacing * 8 && mouseX <= shadow + posX + spacing * 8 + width) &&
+		(mouseY >= shadow + posY + spacingy * 5 + up && mouseY <= shadow + posY + spacingy * 5 + up + height1))
+	{
+		return GameState::RUNNING;
 	}
 
 	return GameState::SHOP;
@@ -453,6 +581,11 @@ void Game::drawShop(sf::RenderWindow * window)
 	for (int i = 3; i < 17; i++)
 	{
 		window->draw(button[i]);
+	}
+
+	if (clicked)
+	{
+		window->draw(button[selectedButton + 13]);
 	}
 
 	for (int i = 0; i < 50; i++)

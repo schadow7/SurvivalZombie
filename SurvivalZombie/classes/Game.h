@@ -54,6 +54,7 @@ public:
 	GameState								runShopClicked( sf::Window * window );
 	void									setText();
 	void									drawShop( sf::RenderWindow * window );
+	bool									clicked;
 private:
 	bool									isWave();
 	void									Render( sf::RenderWindow * window );
@@ -106,9 +107,8 @@ private:
 	sf::Sound								startLevelSound;
 	std::vector<sf::Sound>					zombieNoises;
 	GamePhase								gamePhase;
-	bool									clicked;
-	int										shadow, posX, posY, spacing, spacingy, dposY, width, height1, height2, mouseX, mouseY, selectedButton;
-	sf::Sprite								backgroundShop, button[17], weapon[3];
+	int										up, shadow, posX, posY, spacing, spacingy, dposY, width, height1, height2, mouseX, mouseY, selectedButton;
+	sf::Sprite								backgroundShop, button[40], weapon[3];
 	sf::Text								text[50];
 	sf::Font								fontType;
 	SelectedWeapon							selectedWeapon;

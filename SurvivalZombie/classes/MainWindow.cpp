@@ -111,15 +111,19 @@ void MainWindow::run(  )
 				gameState = GameState::MENU;
 			else
 			{
-				if ( !clicked && sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+				if ( !game->clicked && sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
 					game->runShop( window );
 
 				gameState = GameState::SHOP;
 
-				if ( clicked && event.type == sf::Event::MouseButtonReleased )
+				if ( game->clicked && event.type == sf::Event::MouseButtonReleased )
 				{
-					if ( event.mouseButton.button == sf::Mouse::Left )
-						gameState = game->runShopClicked( window );
+
+					if (event.mouseButton.button == sf::Mouse::Left)
+					{
+						game->clicked = false;
+						gameState = game->runShopClicked(window);
+					}
 				}
 				game->setText();
 				game->drawShop( window );
@@ -204,7 +208,6 @@ void MainWindow::saveGame( SaveSlot slot )
 
 	file.close();
 }
-
 
 void MainWindow::loadTextures()
 {
@@ -362,7 +365,6 @@ void MainWindow::loadTextures()
 	AssetManager::AddSound("brains", ".\\music\\brains2.wav");
 
 }
-
 
 GameState MainWindow::runMenu( sf::Event event )
 {
@@ -590,10 +592,6 @@ GameState MainWindow::runLoadGameMenuClicked()
 
 	return GameState::MENU;
 }
-
-
-
-
 
 void MainWindow::draw()
 {
