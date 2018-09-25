@@ -74,7 +74,7 @@ public:
 		int id1 = static_cast<Entity*>(fixtureA->GetBody()->GetUserData())->GetID();
 		int id2 = static_cast<Entity*>(fixtureB->GetBody()->GetUserData())->GetID();
 		// przechodzenie Player przez drzwi
-		if (id1 == 9 && id2 == 1)
+		if ((id1 == 9 && id2 == 1) || (id1 == 1 && id2 == 9))
 			return false;
 		// przelatywanie pocisków nad murem
 		else if ((id1 == 3 && id2 == 6) || (id1 == 6 && id2 == 3))
